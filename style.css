@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'sombrero';
+    src: url('fonts/SombreroLight.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('assets/desert_3.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
+}
+
+h1 {
+    font-size: 60px;
+}
+
+canvas {
+    background-color: black;
+}
