@@ -56,11 +56,13 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheRight() {
-        setInterval(() => {
+        let isBottleBroken = false;
+        let intervalID = setInterval(() => {
             if (this.y > 350) {
                 this.y = 350;
-                // this.x += 0;
+                isBottleBroken = true;
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
+                this.stopGame(intervalID, isBottleBroken);
             } else {
                 this.x += 10;
                 this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
@@ -69,16 +71,26 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheLeft() {
-        setInterval(() => {
+        let isBottleBroken = false;
+        let intervalID = setInterval(() => {
             if (this.y >= 350) {
                 this.y = 350;
-                // this.x += 0;
+                isBottleBroken = true;
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
+                this.stopGame(intervalID, isBottleBroken);
             } else {
                 this.x -= 10;
                 this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
             }
         }, 25);
+    }
+
+    stopGame(intervalID, isBottleBroken) {
+        console.log('Interval ID:', intervalID);
+        console.log('Is Bottle broken value:', isBottleBroken);
+        if (isBottleBroken == true) {
+            clearInterval(intervalID);
+        }
     }
 
     pepeIsWatchingRight() {
