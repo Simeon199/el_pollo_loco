@@ -59,6 +59,7 @@ class ThrowableObject extends MovableObject {
         setInterval(() => {
             if (this.y > 350) {
                 this.y = 350;
+                // this.x += 0;
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
             } else {
                 this.x += 10;
@@ -69,8 +70,9 @@ class ThrowableObject extends MovableObject {
 
     throwBottleToTheLeft() {
         setInterval(() => {
-            if (this.y > 350) {
+            if (this.y >= 350) {
                 this.y = 350;
+                // this.x += 0;
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
             } else {
                 this.x -= 10;

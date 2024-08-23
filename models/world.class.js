@@ -25,7 +25,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollisionsWithBottles();
-        }, 100)
+        }, 100);
     }
 
     checkThrowObjects() {
@@ -89,7 +89,7 @@ class World {
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
-        })
+        });
     }
 
     addToMap(mo) {
