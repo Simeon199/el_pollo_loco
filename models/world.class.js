@@ -34,6 +34,13 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
+            console.log("Value returned by the function:", this.checkCollisionBottleWithEnemy(bottle));
+            if (this.checkCollisionBottleWithEnemy(bottle) == true) {
+                console.log("This if-statement is being executed");
+                bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
+            } else {
+                console.log("If-Statement wasn't executed as expected!");
+            }
         }
     }
 
@@ -45,6 +52,16 @@ class World {
                 this.statusbar.setPercentage(this.character.energy);
             }
         });
+    }
+
+    checkCollisionBottleWithEnemy(bottle) {
+        console.log("Show bottle object: ", bottle);
+        this.level.enemies.forEach(enemy => {
+            if (bottle.isColliding(enemy)) {
+                return true;
+            }
+        });
+        return false;
     }
 
     checkCollisionsWithBottles() {
