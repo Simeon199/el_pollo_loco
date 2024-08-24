@@ -29,8 +29,9 @@ class World {
     }
 
     checkThrowObjects() {
-        // console.log("Bottles collected number: ", this.bottlebar.bottlesCollected);
         if (this.keyboard.keyD && this.bottlebar.bottlesCollected > 0) {
+            this.bottlebar.bottlesCollected -= 1;
+            this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
         }

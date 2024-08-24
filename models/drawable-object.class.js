@@ -14,10 +14,9 @@ class DrawableObject {
 
     draw(ctx) {
         try {
-            ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // Fehlerquelle: Eingegebenes "this.img" ist undefined. 
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch (e) {
             console.warn('Error loading image:', e);
-            // console.log('Could not load image:', this.img.src);
             console.log("relevant imageCache:", this.imageCache);
             console.log('relevant currentImage that cant be loaded (index):', this.currentImage);
         }
@@ -38,12 +37,17 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof ThrowableObject) {
+        if (this.proveIfInstanceOfCertainType()) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'yellow';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
+    }
+
+    proveIfInstanceOfCertainType() {
+        let bolean = this instanceof Character || this instanceof Chicken || this instanceof ThrowableObject || this instanceof Endboss;
+        return bolean;
     }
 }

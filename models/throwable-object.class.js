@@ -86,8 +86,6 @@ class ThrowableObject extends MovableObject {
     }
 
     stopGame(intervalID, isBottleBroken) {
-        console.log('Interval ID:', intervalID);
-        console.log('Is Bottle broken value:', isBottleBroken);
         if (isBottleBroken == true) {
             clearInterval(intervalID);
         }
