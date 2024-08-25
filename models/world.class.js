@@ -57,11 +57,13 @@ class World {
     checkCollisionBottleWithEnemy(bottle) {
         console.log("Show bottle object: ", bottle);
         this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy)) {
-                return true;
-            }
-        });
-        return false;
+            console.log(bottle.isColliding(enemy));
+        }); // -> Es wird lediglich der Wert false zurückgegeben. Vermutlich funktioniert die isColliding Methode nicht für den Flaschenwurf wie gewünscht.
+        //     if (bottle.isColliding(enemy)) {
+        //         return true;
+        //     }
+        // });
+        // return false;
     }
 
     checkCollisionsWithBottles() {
