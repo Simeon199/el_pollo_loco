@@ -9,6 +9,8 @@ class World {
     camera_x = 0;
     throwableObjects = [];
 
+    // Mögliche Idee zum Festhalten: Versuche die isCollison()-Methode auf die Chicken Class auszuweiten beziehungsweise dort zu implementieren.
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -55,15 +57,15 @@ class World {
     }
 
     checkCollisionBottleWithEnemy(bottle) {
-        console.log("Show bottle object: ", bottle);
-        this.level.enemies.forEach(enemy => {
-            console.log(bottle.isColliding(enemy));
-        }); // -> Es wird lediglich der Wert false zurückgegeben. Vermutlich funktioniert die isColliding Methode nicht für den Flaschenwurf wie gewünscht.
-        //     if (bottle.isColliding(enemy)) {
-        //         return true;
-        //     }
+        let result_array = [];
+        // this.level.enemies.forEach(enemy => {
+        //     result_array.push(bottle.isCollidingFunctionTwo(enemy, bottle));
         // });
-        // return false;
+        // return result_array;
+        this.level.enemies.forEach(enemy => {
+            result_array.push(bottle.isColliding(enemy));
+        });
+        return result_array;
     }
 
     checkCollisionsWithBottles() {
