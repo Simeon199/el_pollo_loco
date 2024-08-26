@@ -9,8 +9,6 @@ class World {
     camera_x = 0;
     throwableObjects = [];
 
-    // Mögliche Idee zum Festhalten: Versuche die isCollison()-Methode auf die Chicken Class auszuweiten beziehungsweise dort zu implementieren.
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -37,6 +35,7 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
             setInterval(() => {
+                // debugger;
                 this.proveIfBottleIsCollidingWithEnemy(bottle);
             }, 25);
         }
@@ -45,11 +44,10 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
-                // debugger;
                 console.log("This if-statement was finally executed!", enemy);
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
-                // enemy.animate();
+                enemy.animate(); // die enemy (chicken class) wird aus irgendeinem Grund garnicht aufgerufen (Ursprung des Problems!)
             }
         });
     }

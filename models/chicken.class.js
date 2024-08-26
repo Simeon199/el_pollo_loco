@@ -18,6 +18,7 @@ class Chicken extends MovableObject {
     }
 
     animate() {
+        // debugger;
         let intervalMoveLeft;
         let intervalChangeWalkingImages;
         if (this.isDead == false) {
@@ -31,12 +32,17 @@ class Chicken extends MovableObject {
                 this.currentImage++;
             }, 1000 / 10);
         } else {
+            intervalMoveLeft = setInterval(() => {
+                this.moveLeft();
+            }, 1000 / 60);
+            intervalChangeWalkingImages = setInterval(() => {
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }, 1000 / 10);
             clearInterval(intervalMoveLeft);
-            clearInterval(intervalChangeWalkingImages);
+            clearInterval(intervalChangeWalkingImages); // Halte die Funktion animate so, wie sie ganz am Anfang war. Ergänze Klasse um zusätzliche Funktion, welche das Interval stoppt und intervalMoveLeft und intervalChangeWalkingImages als Argumente nimmt. 
         }
     };
-
-    // chickenDies() {
-    //     this.isDead = true;
-    // }
 }
