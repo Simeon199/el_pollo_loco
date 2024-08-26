@@ -45,8 +45,11 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
-                console.log("This if-statement was finally executed!");
+                // debugger;
+                console.log("This if-statement was finally executed!", enemy);
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
+                enemy.isDead = true;
+                // enemy.animate();
             }
         });
     }

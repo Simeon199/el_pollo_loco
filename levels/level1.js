@@ -42,7 +42,7 @@ const level1 = new Level(
 
 function generateRandomBottles() {
     let bottles = [];
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 20; i++) {
         bottles.push(new ThrowableObject(- 1 * 700 + Math.random() * 1000, 300, this.Keyboard));
     }
     return bottles;

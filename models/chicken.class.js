@@ -1,4 +1,5 @@
 class Chicken extends MovableObject {
+    isDead = false;
     y = 340;
     height = 90;
     width = 80;
@@ -17,14 +18,25 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-        setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        }, 1000 / 10);
+        let intervalMoveLeft;
+        let intervalChangeWalkingImages;
+        if (this.isDead == false) {
+            intervalMoveLeft = setInterval(() => {
+                this.moveLeft();
+            }, 1000 / 60);
+            intervalChangeWalkingImages = setInterval(() => {
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }, 1000 / 10);
+        } else {
+            clearInterval(intervalMoveLeft);
+            clearInterval(intervalChangeWalkingImages);
+        }
     };
+
+    // chickenDies() {
+    //     this.isDead = true;
+    // }
 }
