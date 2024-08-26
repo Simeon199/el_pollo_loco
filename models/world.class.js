@@ -36,16 +36,19 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
-            this.level.enemies.forEach(enemy => {
-                debugger;
-                if (this.checkCollisionEnemyWithBottle(bottle, enemy) == true) { // Warum wird in meinem Code diese If-Abfrage nie true --> debugger
-                    console.log("This if-statement was finally executed!");
-                    bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
-                } else {
-                    console.log("Unfortunately the expected if-Statement wasn't executed");
-                }
-            });
+            setInterval(() => {
+                this.proveIfBottleIsCollidingWithEnemy(bottle);
+            }, 25);
         }
+    }
+
+    proveIfBottleIsCollidingWithEnemy(bottle) {
+        this.level.enemies.forEach(enemy => {
+            if (bottle.isColliding(enemy)) {
+                console.log("This if-statement was finally executed!");
+                bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
+            }
+        });
     }
 
     checkCollisions() {
@@ -57,44 +60,6 @@ class World {
             }
         });
     }
-
-    checkCollisionEnemyWithBottle(bottle, enemy) {
-
-        // Bounding Box für das zu werfende Objekt, also für die Flasche
-
-        let bottleLeft = bottle.x;
-        let bottleRight = bottle.x + bottle.width;
-        let bottleTop = bottle.y;
-        let bottleBottom = bottle.y + bottle.height;
-
-        // Bounding Box für den Gegner
-
-        let enemyLeft = enemy.x;
-        let enemyRight = enemy.x + enemy.width;
-        let enemyTop = enemy.y;
-        let enemyBottom = enemy.y + enemy.height;
-
-
-        // Bedingungen, die für eine Kollision zu erfüllen sind:
-
-        if ((bottleRight >= enemyLeft)
-            && (bottleLeft <= enemyRight)
-            && (bottleBottom >= enemyTop)
-            && (bottleTop <= enemyBottom)) {
-            return true;
-        }
-        return false;
-    }
-
-
-
-    // checkCollisionBottleWithEnemy(bottle) {
-    //     let result_array = [];
-    //     this.level.enemies.forEach(enemy => {
-    //         result_array.push(bottle.isColliding(enemy));
-    //     });
-    //     return result_array;
-    // }
 
     checkCollisionsWithBottles() {
         this.level.bottles.forEach(bottle => {
