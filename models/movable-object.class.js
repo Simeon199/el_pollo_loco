@@ -39,10 +39,10 @@ class MovableObject extends DrawableObject {
             this.y < mo.y + mo.height;
     }
 
-    isCollidingFunctionTwo(mo1, mo2) { // enemy, bottle
-        let boleanValue = (mo1.x + mo1.width < mo2.x) && (mo1.y + mo1.height < mo2.y) && (mo1.x < mo2.x) && (mo1.y < mo2.y + mo2.height);
-        return boleanValue;
-    }
+    // isCollidingFunctionTwo(mo1, mo2) { 
+    //     let boleanValue = (mo1.x + mo1.width < mo2.x) && (mo1.y + mo1.height < mo2.y) && (mo1.x < mo2.x) && (mo1.y < mo2.y + mo2.height);
+    //     return boleanValue;
+    // }
 
     hit() {
         this.energy -= 5;
