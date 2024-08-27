@@ -34,33 +34,27 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
-            setInterval(() => {
-                this.proveIfBottleIsCollidingWithEnemy(bottle);
+            let intervalID = setInterval(() => {
+                this.proveIfBottleIsCollidingWithEnemy(bottle, intervalID);
             }, 25);
         }
     }
 
-    proveIfBottleIsCollidingWithEnemy(bottle) {
+    proveIfBottleIsCollidingWithEnemy(bottle, intervalID) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
-                // debugger;
-                let struckEnemyIndex = this.level.enemies.indexOf(enemy);
-                // console.log("The following enemy had been strucked: ", strikedEnemyIndex);
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
-                this.removeStruckEnemyFromEnemyList(struckEnemyIndex, enemy); // -> Hier könnte ein Problem auftauchen, schließlich muss die Bildabfolge ersetzen.
-                // enemy.animate();
+                enemy.intervalIdDeadChicken = intervalID;
+                // this.playDeadEnemy(enemy, intervalID);
             }
         });
     }
 
-    removeStruckEnemyFromEnemyList(index, enemy) {
-        // debugger;
-        let deadEnemy = this.level.enemies[index];
-        console.log(deadEnemy.imageCache);
-        // this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+    playDeadEnemy(enemy, intervalID) {
+        console.log(intervalID);
         enemy.playAnimation(enemy.IMAGE_DEAD_CHICKEN);
-        // this.level.enemies.splice(index, 1);
+        enemy.stopIntervalWhenEnemyDies(intervalID);
     }
 
     checkCollisions() {

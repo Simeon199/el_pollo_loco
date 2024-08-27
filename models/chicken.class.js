@@ -1,5 +1,6 @@
 class Chicken extends MovableObject {
     isDead = false;
+    intervalIdDeadChicken;
     y = 340;
     height = 90;
     width = 80;
@@ -38,7 +39,14 @@ class Chicken extends MovableObject {
             clearInterval(intervalMoveLeft);
             clearInterval(intervalChangeWalkingImages);
             console.log("The value isDead is set on true. Wanna proof. Look: ", this.isDead);
-            this.animate();
+            this.stopIntervalWhenEnemyDies(this.intervalIdDeadChicken);
+            // this.animate();
+        }
+    }
+
+    stopIntervalWhenEnemyDies(intervalID) {
+        if (this.isDead == true) {
+            clearInterval(intervalID);
         }
     }
 
