@@ -43,19 +43,24 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
-                debugger;
+                // debugger;
                 let struckEnemyIndex = this.level.enemies.indexOf(enemy);
                 // console.log("The following enemy had been strucked: ", strikedEnemyIndex);
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
-                this.removeStruckEnemyFromEnemyList(struckEnemyIndex);
+                this.removeStruckEnemyFromEnemyList(struckEnemyIndex, enemy); // -> Hier könnte ein Problem auftauchen, schließlich muss die Bildabfolge ersetzen.
                 // enemy.animate();
             }
         });
     }
 
-    removeStruckEnemyFromEnemyList(index) {
-        this.level.enemies.splice(index, 1);
+    removeStruckEnemyFromEnemyList(index, enemy) {
+        // debugger;
+        let deadEnemy = this.level.enemies[index];
+        console.log(deadEnemy.imageCache);
+        // this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+        enemy.playAnimation(enemy.IMAGE_DEAD_CHICKEN);
+        // this.level.enemies.splice(index, 1);
     }
 
     checkCollisions() {
