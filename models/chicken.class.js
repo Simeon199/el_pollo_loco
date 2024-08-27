@@ -17,32 +17,52 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
-    animate() {
-        // debugger;
-        let intervalMoveLeft;
-        let intervalChangeWalkingImages;
-        if (this.isDead == false) {
-            intervalMoveLeft = setInterval(() => {
-                this.moveLeft();
-            }, 1000 / 60);
-            intervalChangeWalkingImages = setInterval(() => {
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-            }, 1000 / 10);
-        } else {
-            intervalMoveLeft = setInterval(() => {
-                this.moveLeft();
-            }, 1000 / 60);
-            intervalChangeWalkingImages = setInterval(() => {
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-            }, 1000 / 10);
+    // animate() {
+    //     let intervalMoveLeft;
+    //     let intervalChangeWalkingImages;
+    //     if (this.isDead == false) {
+    //         intervalMoveLeft = setInterval(() => {
+    //             this.moveLeft();
+    //         }, 1000 / 60);
+    //         intervalChangeWalkingImages = setInterval(() => {
+    //             let i = this.currentImage % this.IMAGES_WALKING.length;
+    //             let path = this.IMAGES_WALKING[i];
+    //             this.img = this.imageCache[path];
+    //             this.currentImage++;
+    //         }, 1000 / 10);
+    //     } else {
+    //         intervalMoveLeft = setInterval(() => {
+    //             this.moveLeft();
+    //         }, 1000 / 60);
+    //         intervalChangeWalkingImages = setInterval(() => {
+    //             let i = this.currentImage % this.IMAGES_WALKING.length;
+    //             let path = this.IMAGES_WALKING[i];
+    //             this.img = this.imageCache[path];
+    //             this.currentImage++;
+    //         }, 1000 / 10);
+    //         clearInterval(intervalMoveLeft);
+    //         clearInterval(intervalChangeWalkingImages); 
+    //     }
+    // };
+
+    proveIfChickenIsDead(intervalMoveLeft, intervalChangeWalkingImages) {
+        if (this.isDead == true) {
             clearInterval(intervalMoveLeft);
-            clearInterval(intervalChangeWalkingImages); // Halte die Funktion animate so, wie sie ganz am Anfang war. Ergänze Klasse um zusätzliche Funktion, welche das Interval stoppt und intervalMoveLeft und intervalChangeWalkingImages als Argumente nimmt. 
+            clearInterval(intervalChangeWalkingImages);
+            console.log("The value isDead is set on true. Wanna proof. Look: ", this.isDead);
         }
+    }
+
+    animate() {
+        let intervalMoveLeft = setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+        let intervalChangeWalkingImages = setInterval(() => {
+            let i = this.currentImage % this.IMAGES_WALKING.length;
+            let path = this.IMAGES_WALKING[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }, 1000 / 10);
+        this.proveIfChickenIsDead(intervalMoveLeft, intervalChangeWalkingImages);
     };
 }
