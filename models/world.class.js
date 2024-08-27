@@ -35,7 +35,6 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
             setInterval(() => {
-                // debugger;
                 this.proveIfBottleIsCollidingWithEnemy(bottle);
             }, 25);
         }
@@ -44,12 +43,19 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
-                console.log("This if-statement was finally executed!", enemy);
+                debugger;
+                let struckEnemyIndex = this.level.enemies.indexOf(enemy);
+                // console.log("The following enemy had been strucked: ", strikedEnemyIndex);
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
-                enemy.animate(); // die enemy (chicken class) wird aus irgendeinem Grund garnicht aufgerufen (Ursprung des Problems!)
+                this.removeStruckEnemyFromEnemyList(struckEnemyIndex);
+                // enemy.animate();
             }
         });
+    }
+
+    removeStruckEnemyFromEnemyList(index) {
+        this.level.enemies.splice(index, 1);
     }
 
     checkCollisions() {

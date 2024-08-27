@@ -20,7 +20,6 @@ class DrawableObject {
             console.log("relevant imageCache:", this.imageCache);
             console.log('relevant currentImage that cant be loaded (index):', this.currentImage);
         }
-
     }
 
     /**
