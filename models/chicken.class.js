@@ -27,19 +27,11 @@ class Chicken extends MovableObject {
     proveIfChickenIsDead(intervalMoveLeft = -1, intervalChangeWalkingImages = -1) {
         if (this.isDead == true && intervalMoveLeft > -1 && intervalChangeWalkingImages > -1) {
             // debugger;
-            // clearInterval(intervalMoveLeft);
-            // clearInterval(intervalChangeWalkingImages);
-            this.stopIntervalWhenEnemyDies(intervalMoveLeft, intervalChangeWalkingImages);
-            // this.animate();
-        }
-    }
-
-    stopIntervalWhenEnemyDies(intervalMoveLeft, intervalChangeWalkingImages) {
-        if (this.isDead == true) {
-            // console.log("Status von isDead: ", this.isDead, intervalID);
-            this.img.src = this.IMAGE_DEAD_CHICKEN[0];
             clearInterval(intervalMoveLeft);
             clearInterval(intervalChangeWalkingImages);
+            // this.img.src = this.IMAGE_DEAD_CHICKEN[0];
+            // clearInterval(intervalMoveLeft);
+            // clearInterval(intervalChangeWalkingImages);
         }
     }
 
