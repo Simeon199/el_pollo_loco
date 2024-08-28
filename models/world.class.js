@@ -34,27 +34,29 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
-            let intervalID = setInterval(() => {
-                this.proveIfBottleIsCollidingWithEnemy(bottle, intervalID);
+            let intervalId = setInterval(() => {
+                this.proveIfBottleIsCollidingWithEnemy(bottle, intervalId);
             }, 25);
         }
     }
 
-    proveIfBottleIsCollidingWithEnemy(bottle, intervalID) {
+    proveIfBottleIsCollidingWithEnemy(bottle, intervalId) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
+                // let enemyIndex = this.level.enemies.indexOf(enemy);
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
-                enemy.intervalIdDeadChicken = intervalID;
-                // this.playDeadEnemy(enemy, intervalID);
+                // enemy.intervalIdDeadChicken = intervalID;
+                // enemy.animate();
+                this.playDeadEnemy(enemy, intervalId);
             }
         });
     }
 
-    playDeadEnemy(enemy, intervalID) {
-        console.log(intervalID);
+    playDeadEnemy(enemy, intervalId) {
+        // console.log(intervalId);
         enemy.playAnimation(enemy.IMAGE_DEAD_CHICKEN);
-        enemy.stopIntervalWhenEnemyDies(intervalID);
+        enemy.stopIntervalWhenEnemyDies(intervalId);
     }
 
     checkCollisions() {

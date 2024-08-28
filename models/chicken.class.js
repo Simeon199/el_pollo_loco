@@ -1,6 +1,6 @@
 class Chicken extends MovableObject {
+    // intervalID = -1;
     isDead = false;
-    intervalIdDeadChicken;
     y = 340;
     height = 90;
     width = 80;
@@ -17,35 +17,27 @@ class Chicken extends MovableObject {
     constructor() {
         super();
         this.loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        // super().loadImage(this.IMAGE_DEAD_CHICKEN);
-        // super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD_CHICKEN);
-        // this.setDeadChickenImage(this.IMAGE_DEAD_CHICKEN);
         this.x = 200 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
 
-    // setDeadChickenImage(path) {
-    //     let img = new Image();
-    //     img.src = path;
-    //     this.imageCache[path] = img;
-    // }
-
-    proveIfChickenIsDead(intervalMoveLeft, intervalChangeWalkingImages) {
-        if (this.isDead == true) {
+    proveIfChickenIsDead(intervalMoveLeft = -1, intervalChangeWalkingImages = -1) {
+        if (this.isDead == true && intervalMoveLeft > -1 && intervalChangeWalkingImages > -1) {
             // debugger;
             clearInterval(intervalMoveLeft);
             clearInterval(intervalChangeWalkingImages);
-            console.log("The value isDead is set on true. Wanna proof. Look: ", this.isDead);
+            console.log("Wanna proof. Look: ", this.isDead, this.intervalIdDeadChicken);
             this.stopIntervalWhenEnemyDies(this.intervalIdDeadChicken);
-            // this.animate();
+            this.animate();
         }
     }
 
     stopIntervalWhenEnemyDies(intervalID) {
         if (this.isDead == true) {
+            console.log("Schleife geht hier rein, siehe Werte: ", intervalID);
             clearInterval(intervalID);
         }
     }
