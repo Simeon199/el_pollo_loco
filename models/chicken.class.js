@@ -27,31 +27,32 @@ class Chicken extends MovableObject {
     proveIfChickenIsDead(intervalMoveLeft = -1, intervalChangeWalkingImages = -1) {
         if (this.isDead == true && intervalMoveLeft > -1 && intervalChangeWalkingImages > -1) {
             // debugger;
-            clearInterval(intervalMoveLeft);
-            clearInterval(intervalChangeWalkingImages);
-            console.log("Wanna proof. Look: ", this.isDead, this.intervalIdDeadChicken);
-            this.stopIntervalWhenEnemyDies(this.intervalIdDeadChicken);
-            this.animate();
+            // clearInterval(intervalMoveLeft);
+            // clearInterval(intervalChangeWalkingImages);
+            this.stopIntervalWhenEnemyDies(intervalMoveLeft, intervalChangeWalkingImages);
+            // this.animate();
         }
     }
 
-    stopIntervalWhenEnemyDies(intervalID) {
+    stopIntervalWhenEnemyDies(intervalMoveLeft, intervalChangeWalkingImages) {
         if (this.isDead == true) {
-            console.log("Schleife geht hier rein, siehe Werte: ", intervalID);
-            clearInterval(intervalID);
+            // console.log("Status von isDead: ", this.isDead, intervalID);
+            this.img.src = this.IMAGE_DEAD_CHICKEN[0];
+            clearInterval(intervalMoveLeft);
+            clearInterval(intervalChangeWalkingImages);
         }
     }
 
     animate() {
         let intervalMoveLeft = setInterval(() => {
             this.moveLeft();
-        }, 1000 / 60);
+        }, 1000); // Alter Wert: 1000 / 60
         let intervalChangeWalkingImages = setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-        }, 1000 / 10);
+        }, 1000); // Alter Wert 1000 / 100
         this.proveIfChickenIsDead(intervalMoveLeft, intervalChangeWalkingImages);
     };
 }

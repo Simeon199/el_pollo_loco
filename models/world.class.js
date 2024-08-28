@@ -47,17 +47,18 @@ class World {
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
                 // enemy.intervalIdDeadChicken = intervalID;
-                // enemy.animate();
-                this.playDeadEnemy(enemy, intervalId);
+                enemy.animate();
+                // this.playDeadEnemy(enemy, intervalId);
             }
         });
     }
 
-    playDeadEnemy(enemy, intervalId) {
-        // console.log(intervalId);
-        enemy.playAnimation(enemy.IMAGE_DEAD_CHICKEN);
-        enemy.stopIntervalWhenEnemyDies(intervalId);
-    }
+    // playDeadEnemy(enemy, intervalId) {
+    //     console.log(intervalId, enemy);
+    //     enemy.playAnimation(enemy.IMAGE_DEAD_CHICKEN);
+    //     enemy.stopIntervalWhenEnemyDies(intervalId);
+    //     enemy.animate();
+    // }
 
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
