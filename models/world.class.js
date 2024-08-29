@@ -34,35 +34,26 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
-            let intervalId = setInterval(() => {
-                this.proveIfBottleIsCollidingWithEnemy(bottle, intervalId);
+            let checkThrowId = setInterval(() => {
+                this.proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId);
             }, 25);
         }
     }
 
-    proveIfBottleIsCollidingWithEnemy(bottle, intervalId) {
+    proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
-                // let enemyIndex = this.level.enemies.indexOf(enemy);
+                let enemyArray = this.level.enemies;
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
-                // enemy.intervalIdDeadChicken = intervalID;
-                enemy.animate();
-                // this.playDeadEnemy(enemy, intervalId);
+                enemy.animate(enemyArray, checkThrowId);
             }
         });
     }
 
-    // playDeadEnemy(enemy, intervalId) {
-    //     console.log(intervalId, enemy);
-    //     enemy.playAnimation(enemy.IMAGE_DEAD_CHICKEN);
-    //     enemy.stopIntervalWhenEnemyDies(intervalId);
-    //     enemy.animate();
-    // }
-
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && enemy.isDead == false) {
                 this.character.hit();
                 this.statusbar.percentage -= 1;
                 this.statusbar.setPercentage(this.character.energy);
