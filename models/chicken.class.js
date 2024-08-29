@@ -26,48 +26,55 @@ class Chicken extends MovableObject {
         this.x = 200 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
-        console.log("Important values after the initialization process: ", this.isDead, this.enemyArrayIndex);
     }
 
     animate(array = [], throwId = -1) {
+        this.proveIfIntervalsAlreadyExists();
+        this.animateMovingChickens();
+        if (this.isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId)) {
+            this.clearAllRelevantIntervalsWhenChickenDies(throwId);
+            this.playingDeadEnemyId = setInterval(() => {
+                this.playAnimation(this.IMAGE_DEAD_CHICKEN);
+            }, 50);
+            this.stopPlayingDeadAnimation();
+        }
+    };
+
+    isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId) {
+        return this.isDead == true && array.length > 0 && throwId > -1;
+    }
+
+    clearAllRelevantIntervalsWhenChickenDies(throwId) {
+        clearInterval(this.intervalMoveLeft);
+        clearInterval(this.intervalChangeWalkingImages);
+        clearInterval(throwId);
+    }
+
+    proveIfIntervalsAlreadyExists() {
         if (this.intervalMoveLeft) {
             clearInterval(this.intervalMoveLeft);
         }
         if (this.intervalChangeWalkingImages) {
             clearInterval(this.intervalChangeWalkingImages);
         }
+    }
+
+    animateMovingChickens() {
         this.intervalMoveLeft = setInterval(() => {
             this.moveLeft();
-        }, 1000 / 60); // Alter Wert: 1000 / 60
+        }, 1000 / 60);
         this.intervalChangeWalkingImages = setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-        }, 1000 / 100); // Alter Wert: 1000 / 100
-        if (this.isDead == true && array.length > 0 && throwId > -1) {
-            // console.log("isDead: ", this.isDead, "enemyArrayIndex: ", this.enemyArrayIndex, "Length of Array: ", array.length);
-            clearInterval(this.intervalMoveLeft);
-            clearInterval(this.intervalChangeWalkingImages);
-            clearInterval(throwId);
-            let playingDeadEnemyId = setInterval(() => {
-                this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-            }, 50);
-            // console.log(playingDeadEnemyId);
-            this.stopPlayingDeadAnimation(playingDeadEnemyId);
-        }
-    };
+        }, 1000 / 100);
+    }
 
     stopPlayingDeadAnimation() {
         if (this.playingDeadEnemyId) {
-            console.log("I am getting inside that function: ", this.playingDeadEnemyId);
             clearInterval(this.playingDeadEnemyId);
-            this.playingDeadEnemyId = null; // Setze das Intervall auf null, um zu kennzeichnen, dass es gestoppt wurde
+            this.playingDeadEnemyId = null;
         }
     }
-
-    // stopPlayingDeadAnimation(playingDeadEnemyId) {
-    //     console.log("I am getting inside that function: ", playingDeadEnemyId);
-    //     clearInterval(playingDeadEnemyId);
-    // }
 }
