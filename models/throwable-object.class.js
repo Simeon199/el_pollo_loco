@@ -1,4 +1,5 @@
 class ThrowableObject extends MovableObject {
+    bottleBrokenIntervalId = null;
     isBottleBroken = false;
     intervalID = null;
     height = 60;
@@ -113,6 +114,7 @@ class ThrowableObject extends MovableObject {
         } else if (direction = 'right') {
             this.img.src = this.STANDING_BOTTLE_LEFT_DIRECTION[0];
         }
+        clearInterval(this.intervalID);
     }
 
     pepeIsWatchingRight() {
@@ -123,5 +125,19 @@ class ThrowableObject extends MovableObject {
     pepeIsWatchingLeft() {
         let boleanValue = this.keyboard.rightForThrow == false && this.keyboard.leftForThrow == true;
         return boleanValue;
+    }
+
+    playBottleBrokenAnimation() {
+        if (this.bottleBrokenIntervalId) {
+            clearInterval(this.bottleBrokenIntervalId);
+        }
+        if (this.isBottleBroken) {
+            this.bottleBrokenIntervalId = setInterval(() => {
+                this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
+            })
+        }
+        setTimeout(function () {
+            clearInterval(bottleBrokenIntervalId);
+        }, 1000);
     }
 }
