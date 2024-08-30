@@ -43,6 +43,7 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
+                bottle.isBottleBroken = true;
                 let enemyArray = this.level.enemies;
                 bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
