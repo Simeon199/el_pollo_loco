@@ -1,4 +1,5 @@
 class World {
+    // checkThrowId = null;
     character = new Character();
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
@@ -30,6 +31,9 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.keyD && this.bottlebar.bottlesCollected > 0) {
+            // if (this.checkThrowId !== null) {
+            //     clearInterval(this.checkThrowId);
+            // }
             this.bottlebar.bottlesCollected -= 1;
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
@@ -43,12 +47,13 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround()) {
+                // let throwId = this.throwId;
                 bottle.isBottleBroken = true;
                 bottle.playBottleBrokenAnimation();
                 let enemyArray = this.level.enemies;
-                bottle.playAnimation(bottle.BOTTLE_BROKEN_IMAGES);
                 enemy.isDead = true;
                 enemy.animate(enemyArray, checkThrowId);
+                clearInterval(checkThrowId);
             }
         });
     }

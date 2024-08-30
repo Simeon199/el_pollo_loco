@@ -42,7 +42,7 @@ class ThrowableObject extends MovableObject {
     proveIfBottleIsOnGround() {
         setInterval(() => {
             if (this.y == 360) {
-                console.log("bottle is on ground!");
+                return true;
             }
         }, 25);
     }
@@ -78,8 +78,6 @@ class ThrowableObject extends MovableObject {
         this.intervalID = setInterval(() => {
             console.log(this.y);
             if (this.y >= 350) {
-                // this.y = 150;
-                // this.playAnimation(this.STANDING_BOTTLE_LEFT_DIRECTION);
                 this.stopGame('right');
             } else {
                 this.x += 10;
@@ -95,8 +93,6 @@ class ThrowableObject extends MovableObject {
         this.intervalID = setInterval(() => {
             console.log(this.y);
             if (this.y >= 350) {
-                // this.y = 150;
-                // this.playAnimation(this.STANDING_BOTTLE_RIGHT_DIRECTION);
                 this.stopGame('left');
             } else {
                 this.x -= 10;
@@ -130,14 +126,17 @@ class ThrowableObject extends MovableObject {
     playBottleBrokenAnimation() {
         if (this.bottleBrokenIntervalId) {
             clearInterval(this.bottleBrokenIntervalId);
+            this.bottleBrokenIntervalId = null;
         }
         if (this.isBottleBroken) {
             this.bottleBrokenIntervalId = setInterval(() => {
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
-            })
+            }, 250);
+            setTimeout(function () {
+                clearInterval(this.bottleBrokenIntervalId);
+                // this.bottleBrokenIntervalId = null;
+            }, 100);
+            this.bottleBrokenIntervalId = null;
         }
-        setTimeout(function () {
-            clearInterval(bottleBrokenIntervalId);
-        }, 1000);
     }
 }
