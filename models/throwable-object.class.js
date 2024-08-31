@@ -40,11 +40,7 @@ class ThrowableObject extends MovableObject {
     }
 
     proveIfBottleIsOnGround() {
-        setInterval(() => {
-            if (this.y == 360) {
-                return true;
-            }
-        }, 25);
+        return this.y >= 360;
     }
 
     checkIfThrowMethodShouldBeExecuted() {
@@ -76,7 +72,6 @@ class ThrowableObject extends MovableObject {
             clearInterval(this.intervalID);
         }
         this.intervalID = setInterval(() => {
-            console.log(this.y);
             if (this.y >= 350) {
                 this.stopGame('right');
             } else {
@@ -105,9 +100,9 @@ class ThrowableObject extends MovableObject {
         this.speedY = 0;
         this.acceleration = 0;
         this.y = 360;
-        if (direction = 'left') {
+        if (direction == 'left') {
             this.img.src = this.STANDING_BOTTLE_RIGHT_DIRECTION[0];
-        } else if (direction = 'right') {
+        } else if (direction == 'right') {
             this.img.src = this.STANDING_BOTTLE_LEFT_DIRECTION[0];
         }
         clearInterval(this.intervalID);
@@ -124,19 +119,22 @@ class ThrowableObject extends MovableObject {
     }
 
     playBottleBrokenAnimation() {
+        let currentFrame = 0;
+        let animationInterval = 50;
+        let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
+
         if (this.bottleBrokenIntervalId) {
             clearInterval(this.bottleBrokenIntervalId);
-            this.bottleBrokenIntervalId = null;
         }
-        if (this.isBottleBroken) {
-            this.bottleBrokenIntervalId = setInterval(() => {
-                this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
-            }, 250);
-            setTimeout(function () {
+
+        this.bottleBrokenIntervalId = setInterval(() => {
+            debugger;
+            this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
+            currentFrame++;
+            if (currentFrame >= totalFrames) {
                 clearInterval(this.bottleBrokenIntervalId);
-                // this.bottleBrokenIntervalId = null;
-            }, 100);
-            this.bottleBrokenIntervalId = null;
-        }
+                this.bottleBrokenIntervalId = null;
+            }
+        }, animationInterval);
     }
 }

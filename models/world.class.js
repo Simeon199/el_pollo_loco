@@ -24,8 +24,9 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkThrowObjects();
             this.checkCollisionsWithBottles();
+            this.checkThrowObjects();
+            // this.checkCollisionsWithBottles();
         }, 100);
     }
 
@@ -47,12 +48,10 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround()) {
-                // let throwId = this.throwId;
                 bottle.isBottleBroken = true;
                 bottle.playBottleBrokenAnimation();
-                let enemyArray = this.level.enemies;
                 enemy.isDead = true;
-                enemy.animate(enemyArray, checkThrowId);
+                enemy.animate(this.level.enemies, checkThrowId);
                 clearInterval(checkThrowId);
             }
         });

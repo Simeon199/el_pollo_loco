@@ -15,8 +15,6 @@ class Chicken extends MovableObject {
 
     IMAGE_DEAD_CHICKEN = ['img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
 
-
-
     constructor(enemyArrayIndex) {
         super();
         this.loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -35,7 +33,6 @@ class Chicken extends MovableObject {
             this.clearAllRelevantIntervalsWhenChickenDies(throwId);
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-                // console.log("Animate Dead Chicken function was executed!");
             }, 100);
             this.stopPlayingDeadAnimation();
         }
@@ -77,7 +74,7 @@ class Chicken extends MovableObject {
             setTimeout(function () {
                 clearInterval(this.playingDeadEnemyId);
                 this.playingDeadEnemyId = null;
-            }, 1000);
+            }, 100);
         }
     }
 }
