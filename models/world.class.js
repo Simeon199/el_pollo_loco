@@ -26,15 +26,11 @@ class World {
             this.checkCollisions();
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
-            // this.checkCollisionsWithBottles();
         }, 100);
     }
 
     checkThrowObjects() {
         if (this.keyboard.keyD && this.bottlebar.bottlesCollected > 0) {
-            // if (this.checkThrowId !== null) {
-            //     clearInterval(this.checkThrowId);
-            // }
             this.bottlebar.bottlesCollected -= 1;
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
@@ -59,12 +55,26 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy) && enemy.isDead == false) {
-                this.character.hit();
-                this.statusbar.percentage -= 1;
-                this.statusbar.setPercentage(this.character.energy);
+            if (this.character.isColliding(enemy)) { // Ursprüngliches Statement: this.character.isColliding(enemy) && enemy.isDead == false
+                if (this.characterFallsOnEnemy(enemy)) {
+                    this.enemyIsDefeatedByJump(enemy);
+                } else if (!enemy.isDead) {
+                    this.character.hit();
+                    this.statusbar.percentage -= 1;
+                    this.statusbar.setPercentage(this.character.energy);
+                }
             }
         });
+    }
+
+    characterFallsOnEnemy(enemy) {
+        return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.5;
+    }
+
+    enemyIsDefeatedByJump(enemy) {
+        enemy.isDead = true;
+        enemy.animate(this.level.enemies);
+        this.character.bounce();
     }
 
     checkCollisionsWithBottles() {

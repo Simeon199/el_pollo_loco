@@ -89,4 +89,8 @@ class Character extends MovableObject {
             }
         }, 50);
     };
+
+    bounce() {
+        this.speedY = 15;
+    }
 }

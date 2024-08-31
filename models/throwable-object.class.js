@@ -128,12 +128,13 @@ class ThrowableObject extends MovableObject {
         }
 
         this.bottleBrokenIntervalId = setInterval(() => {
-            debugger;
+            // debugger;
             this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
             currentFrame++;
             if (currentFrame >= totalFrames) {
                 clearInterval(this.bottleBrokenIntervalId);
                 this.bottleBrokenIntervalId = null;
+                this.img.src = '';
             }
         }, animationInterval);
     }
