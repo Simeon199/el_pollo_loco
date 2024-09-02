@@ -1,5 +1,4 @@
 class World {
-    // checkThrowId = null;
     character = new Character();
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
@@ -8,6 +7,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    // bottleArray = [];
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -35,6 +35,7 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
+            console.log('Collided with bottles: ', this.throwableObjects);
             let checkThrowId = setInterval(() => {
                 this.proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId);
             }, 25);
@@ -55,7 +56,7 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) { // Ursprüngliches Statement: this.character.isColliding(enemy) && enemy.isDead == false
+            if (this.character.isColliding(enemy)) {
                 if (this.characterFallsOnEnemy(enemy) && !enemy.isDead) {
                     this.enemyIsDefeatedByJump(enemy);
                 } else if (!enemy.isDead) {
@@ -74,14 +75,19 @@ class World {
     enemyIsDefeatedByJump(enemy) {
         enemy.isDead = true;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
-        // enemy.isAlreadyJumpedOnEnemy++;
         this.character.bounce();
-        // console.log("Number of how often enemy was jumped on: ", enemy.isAlreadyJumpedOnEnemy);
     }
 
     checkCollisionsWithBottles() {
-        this.level.bottles.forEach(bottle => {
+        this.level.bottles.forEach(bottle => { // Die CheckCollisionsWithBottles() - Methode wird nur für this.levels.bottles ausgeführt!
             if (this.character.isColliding(bottle)) {
+                this.collectBottles(bottle);
+                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
+            }
+        });
+        this.throwableObjects.forEach(bottle => {
+            if (this.character.isColliding(bottle) && !bottle.isBottleBroken) { // Bemerkung: collectBottles() - Methode hierfür oiptimieren. Danach sollte es gehen!
+                console.log("Komme in diese Schleife");
                 this.collectBottles(bottle);
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }
