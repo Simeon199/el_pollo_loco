@@ -34,7 +34,7 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
-            console.log('Collided with bottles: ', this.throwableObjects);
+            // console.log('Collided with bottles: ', this.throwableObjects);
             let checkThrowId = setInterval(() => {
                 this.proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId);
             }, 25);
@@ -43,11 +43,17 @@ class World {
 
     proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
         this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround() && !enemy.isDead) {
+            if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround() && enemy.isDead == false && !(enemy instanceof Endboss)) { // !enemy.isDead wurde für Testzwecke entfernt
                 bottle.isBottleBroken = true;
                 bottle.playBottleBrokenAnimation();
                 enemy.isDead = true;
                 enemy.animate(this.level.enemies, checkThrowId);
+                clearInterval(checkThrowId);
+            } else if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround() && enemy.isDead == false && enemy instanceof Endboss) {
+                bottle.isBottleBroken = true;
+                bottle.playBottleBrokenAnimation();
+                // enemy.isDead = true;
+                // enemy.animate(this.level.enemies, checkThrowId);
                 clearInterval(checkThrowId);
             }
         });
@@ -86,7 +92,7 @@ class World {
         });
         this.throwableObjects.forEach(bottle => {
             if (this.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
-                console.log("Komme in diese Schleife");
+                // console.log("Komme in diese Schleife");
                 this.collectGroundBottles(bottle);
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }

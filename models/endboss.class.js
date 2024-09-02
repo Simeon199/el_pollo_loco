@@ -1,5 +1,6 @@
-class Endboss extends MovableObject {
+class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
 
+    isDead = false;
     height = 400;
     width = 250;
     y = 55;
