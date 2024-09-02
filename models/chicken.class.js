@@ -3,7 +3,6 @@ class Chicken extends MovableObject {
     intervalChangeWalkingImages = null;
     playingDeadEnemyId = null;
     enemyArrayIndex;
-    isAlreadyJumpedOnEnemy = 0;
     isDead = false;
     y = 340;
     height = 90;
@@ -28,11 +27,9 @@ class Chicken extends MovableObject {
     }
 
     animate(array = [], throwId = -1) {
-        console.log('Aber hier komme ich hoffentlich noch in die gewünschte If-Abfrage');
         this.proveIfIntervalsAlreadyExists();
         this.animateMovingChickens();
         if (this.isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId)) {
-            console.log('Komme ich überhaupt in diese If-Abfrage');
             this.clearAllRelevantIntervalsWhenChickenDies(throwId);
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
@@ -42,21 +39,19 @@ class Chicken extends MovableObject {
     };
 
     animateDeadChickenWhenItGetsJumpedOn() {
-        if (this.isDead && this.isAlreadyJumpedOnEnemy == 0) {
-            // this.isAlreadyJumpedOnEnemy++;
-            clearInterval(this.intervalMoveLeft);
-            clearInterval(this.intervalChangeWalkingImages);
+        if (this.isDead) {
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
             }, 100);
         }
+        this.clearAllRelevantIntervalsWhenChickenDies();
     }
 
     isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId) {
         return this.isDead == true && array.length > 0 && throwId > -1;
     }
 
-    clearAllRelevantIntervalsWhenChickenDies(throwId) {
+    clearAllRelevantIntervalsWhenChickenDies(throwId = -1) {
         clearInterval(this.intervalMoveLeft);
         clearInterval(this.intervalChangeWalkingImages);
         clearInterval(throwId);

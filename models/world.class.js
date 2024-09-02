@@ -56,7 +56,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) { // Ursprüngliches Statement: this.character.isColliding(enemy) && enemy.isDead == false
-                if (this.characterFallsOnEnemy(enemy)) {
+                if (this.characterFallsOnEnemy(enemy) && !enemy.isDead) {
                     this.enemyIsDefeatedByJump(enemy);
                 } else if (!enemy.isDead) {
                     this.character.hit();
@@ -74,8 +74,9 @@ class World {
     enemyIsDefeatedByJump(enemy) {
         enemy.isDead = true;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
-        enemy.isAlreadyJumpedOnEnemy++;
+        // enemy.isAlreadyJumpedOnEnemy++;
         this.character.bounce();
+        // console.log("Number of how often enemy was jumped on: ", enemy.isAlreadyJumpedOnEnemy);
     }
 
     checkCollisionsWithBottles() {
