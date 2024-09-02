@@ -73,7 +73,8 @@ class World {
 
     enemyIsDefeatedByJump(enemy) {
         enemy.isDead = true;
-        enemy.animate(this.level.enemies);
+        enemy.animateDeadChickenWhenItGetsJumpedOn();
+        enemy.isAlreadyJumpedOnEnemy++;
         this.character.bounce();
     }
 
