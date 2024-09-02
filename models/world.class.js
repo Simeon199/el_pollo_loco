@@ -7,7 +7,6 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    // bottleArray = [];
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -79,16 +78,16 @@ class World {
     }
 
     checkCollisionsWithBottles() {
-        this.level.bottles.forEach(bottle => { // Die CheckCollisionsWithBottles() - Methode wird nur für this.levels.bottles ausgeführt!
+        this.level.bottles.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
                 this.collectBottles(bottle);
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }
         });
         this.throwableObjects.forEach(bottle => {
-            if (this.character.isColliding(bottle) && !bottle.isBottleBroken) { // Bemerkung: collectBottles() - Methode hierfür oiptimieren. Danach sollte es gehen!
+            if (this.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
                 console.log("Komme in diese Schleife");
-                this.collectBottles(bottle);
+                this.collectGroundBottles(bottle);
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }
         });
@@ -158,5 +157,13 @@ class World {
         let index = this.level.bottles.indexOf(bottle);
         this.bottlebar.bottlesCollected += 1;
         this.level.bottles.splice(index, 1);
+    }
+
+    collectGroundBottles(bottle) {
+        let index = this.throwableObjects.indexOf(bottle);
+        this.bottlebar.bottlesCollected += 1;
+        bottle.img.scr = '';
+        this.level.bottles.push(this.throwableObjects[index]);
+        this.throwableObjects.splice(index, 1);
     }
 }
