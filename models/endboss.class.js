@@ -1,5 +1,7 @@
 class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
 
+    animateInterval = -1;
+    isHurt = false;
     isDead = false;
     height = 400;
     width = 250;
@@ -15,16 +17,32 @@ class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
         'img/4_enemie_boss_chicken/2_alert/G12.png'
     ]
 
+    IMAGES_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ]
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_HURT);
         this.x = 1700;
         this.animate();
     }
 
     animate() {
-        setInterval(() => {
+        this.animateInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
+            if (this.isHurt == true) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
         }, 200);
+        if (this.isHurt == true) {
+            setTimeout(function () {
+                // clearInterval(this.animateInterval);
+                this.isHurt = false;
+            }, 100);
+        }
     }
 }
