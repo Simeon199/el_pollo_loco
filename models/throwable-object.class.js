@@ -37,6 +37,18 @@ class ThrowableObject extends MovableObject {
         this.keyboard = z;
         this.checkIfThrowMethodShouldBeExecuted();
         this.proveIfBottleIsOnGround();
+        this.checkIfBottleIsAlreadyBroken();
+    }
+
+    checkIfBottleIsAlreadyBroken() {
+        setInterval(() => {
+            if (this.isBottleBroken == true) {
+                this.img.src = '';
+            }
+        }, 100);
+        // setTimeout(function () {
+        //     clearInterval(checkBottleBreakInterval);
+        // }, 10);
     }
 
     proveIfBottleIsOnGround() {
@@ -68,32 +80,43 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheRight() {
+        // debugger;
+        // console.log("Tell if bottle is broken: ", this.isBottleBroken);
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
-        this.intervalID = setInterval(() => {
-            if (this.y >= 350) {
-                this.stopGame('right');
-            } else {
-                this.x += 10;
-                this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
-            }
-        }, 25);
+        if (this.isBottleBroken == false) {
+            this.intervalID = setInterval(() => {
+                if (this.y >= 350) {
+                    this.stopGame('right');
+                } else {
+                    this.x += 10;
+                    this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
+                }
+            }, 25);
+        } else if (this.isBottleBroken == true) {
+            this.playBottleBrokenAnimation();
+        }
     }
 
     throwBottleToTheLeft() {
+        // debugger;
+        // console.log("Tell if bottle is broken: ", this.isBottleBroken);
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
-        this.intervalID = setInterval(() => {
-            // console.log(this.y);
-            if (this.y >= 350) {
-                this.stopGame('left');
-            } else {
-                this.x -= 10;
-                this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
-            }
-        }, 25);
+        if (!this.isBottleBroken) {
+            this.intervalID = setInterval(() => {
+                if (this.y >= 350) {
+                    this.stopGame('left');
+                } else {
+                    this.x -= 10;
+                    this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
+                }
+            }, 25);
+        } else if (this.isBottleBroken == true) {
+            this.playBottleBrokenAnimation();
+        }
     }
 
     stopGame(direction) {
@@ -132,14 +155,11 @@ class ThrowableObject extends MovableObject {
                 currentFrame++;
                 if (currentFrame >= totalFrames) {
                     clearInterval(this.bottleBrokenIntervalId);
-                    this.bottleBrokenIntervalId = null;
+                    // this.bottleBrokenIntervalId = null;
                     this.img.src = '';
                 }
             }, animationInterval);
-            setTimeout(function () {
-                clearInterval(this.bottleBrokenIntervalId);
-            }, 1000);
+            // this.isBottleBroken = false;
         }
     }
-
 }
