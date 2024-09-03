@@ -32,7 +32,7 @@ class World {
         if (this.keyboard.keyD && this.bottlebar.bottlesCollected > 0) {
             this.bottlebar.bottlesCollected -= 1;
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard); // Diese bottle-Instanz ist garnicht im bottle-Array enhalten! --> Ursache des Fehlers!
             this.throwableObjects.push(bottle);
             // console.log('Collided with bottles: ', this.throwableObjects);
             let checkThrowId = setInterval(() => {
@@ -44,17 +44,22 @@ class World {
     proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
         this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround() && enemy.isDead == false && !(enemy instanceof Endboss)) { // !enemy.isDead wurde für Testzwecke entfernt
+                let bottleIndex = this.level.bottles.indexOf(bottle);
                 bottle.isBottleBroken = true;
-                bottle.playBottleBrokenAnimation();
+                bottle.playBottleBrokenAnimation(this.level.bottles, bottleIndex);
                 enemy.isDead = true;
                 enemy.animate(this.level.enemies, checkThrowId);
                 clearInterval(checkThrowId);
             } else if (bottle.isColliding(enemy) && !bottle.proveIfBottleIsOnGround() && enemy.isDead == false && enemy instanceof Endboss) {
+                debugger;
+                let bottleIndex = this.level.bottles.indexOf(bottle);
+                // console.log(bottleIndex);
                 bottle.isBottleBroken = true;
                 bottle.playBottleBrokenAnimation();
                 // enemy.isDead = true;
                 // enemy.animate(this.level.enemies, checkThrowId);
                 clearInterval(checkThrowId);
+                this.level.bottles.splice(bottleIndex, 1);
             }
         });
     }

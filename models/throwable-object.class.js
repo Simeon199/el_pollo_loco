@@ -86,7 +86,7 @@ class ThrowableObject extends MovableObject {
             clearInterval(this.intervalID);
         }
         this.intervalID = setInterval(() => {
-            console.log(this.y);
+            // console.log(this.y);
             if (this.y >= 350) {
                 this.stopGame('left');
             } else {
@@ -126,15 +126,20 @@ class ThrowableObject extends MovableObject {
         if (this.bottleBrokenIntervalId) {
             clearInterval(this.bottleBrokenIntervalId);
         }
-
-        this.bottleBrokenIntervalId = setInterval(() => {
-            this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
-            currentFrame++;
-            if (currentFrame >= totalFrames) {
+        if (this.isBottleBroken == true) {
+            this.bottleBrokenIntervalId = setInterval(() => {
+                this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
+                currentFrame++;
+                if (currentFrame >= totalFrames) {
+                    clearInterval(this.bottleBrokenIntervalId);
+                    this.bottleBrokenIntervalId = null;
+                    this.img.src = '';
+                }
+            }, animationInterval);
+            setTimeout(function () {
                 clearInterval(this.bottleBrokenIntervalId);
-                this.bottleBrokenIntervalId = null;
-                this.img.src = '';
-            }
-        }, animationInterval);
+            }, 1000);
+        }
     }
+
 }
