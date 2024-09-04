@@ -26,11 +26,23 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
-    animate(array = [], throwId = -1) {
+    // animate(array = [], throwId = -1) {
+    //     this.proveIfIntervalsAlreadyExists();
+    //     this.animateMovingChickens();
+    //     if (this.isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId)) {
+    //         this.clearAllRelevantIntervalsWhenChickenDies(throwId);
+    //         this.playingDeadEnemyId = setInterval(() => {
+    //             this.playAnimation(this.IMAGE_DEAD_CHICKEN);
+    //         }, 100);
+    //         this.stopPlayingDeadAnimation();
+    //     }
+    // };
+
+    animate(array = []) {
         this.proveIfIntervalsAlreadyExists();
         this.animateMovingChickens();
-        if (this.isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId)) {
-            this.clearAllRelevantIntervalsWhenChickenDies(throwId);
+        if (this.isChickenDeadAndAreTheRemainingParametersCorrect(array)) {
+            this.clearAllRelevantIntervalsWhenChickenDies();
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
             }, 100);
@@ -47,14 +59,23 @@ class Chicken extends MovableObject {
         this.clearAllRelevantIntervalsWhenChickenDies();
     }
 
-    isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId) {
-        return this.isDead == true && array.length > 0 && throwId > -1;
+    // isChickenDeadAndAreTheRemainingParametersCorrect(array, throwId) {
+    //     return this.isDead == true && array.length > 0 && throwId > -1;
+    // }
+
+    isChickenDeadAndAreTheRemainingParametersCorrect(array) {
+        return this.isDead == true && array.length > 0;
     }
 
-    clearAllRelevantIntervalsWhenChickenDies(throwId = -1) {
+    // clearAllRelevantIntervalsWhenChickenDies(throwId = -1) {
+    //     clearInterval(this.intervalMoveLeft);
+    //     clearInterval(this.intervalChangeWalkingImages);
+    //     clearInterval(throwId);
+    // }
+
+    clearAllRelevantIntervalsWhenChickenDies() {
         clearInterval(this.intervalMoveLeft);
         clearInterval(this.intervalChangeWalkingImages);
-        clearInterval(throwId);
     }
 
     proveIfIntervalsAlreadyExists() {

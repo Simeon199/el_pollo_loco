@@ -25,6 +25,7 @@ class World {
             this.checkCollisions();
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
+            this.proveIfBottleIsCollidingWithEnemy();
         }, 100);
     }
 
@@ -34,31 +35,28 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
-            let checkThrowId = setInterval(() => {
-                this.proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId);
-            }, 25);
         }
     }
 
-    proveIfBottleIsCollidingWithEnemy(bottle, checkThrowId) {
-        this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy) && bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
-                let bottleIndex = this.level.bottles.indexOf(bottle);
-                bottle.isBottleBroken = true;
-                bottle.playBottleBrokenAnimation(this.level.bottles, bottleIndex);
-                enemy.isDead = true;
-                enemy.animate(this.level.enemies, checkThrowId);
-                clearInterval(checkThrowId);
-            } else if (bottle.isColliding(enemy) && bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
-                enemy.isHurt = true;
-                bottle.isBottleBroken = true;
-                bottle.playBottleBrokenAnimation();
-                clearInterval(enemy.animateInterval);
-                // enemy.playAnimation(enemy.IMAGES_HURT);
-                // console.log("bottle after collision: ", bottle);
-                // clearInterval(checkThrowId);
-            }
-        });
+    proveIfBottleIsCollidingWithEnemy() {
+        // console.log("Überprüfe ob das Objekt this.level.bottles überhaupt existiert: ", this.level.bottles);
+        this.level.bottles.forEach(bottle => {
+            this.level.enemies.forEach(enemy => {
+                if (bottle.isColliding(enemy)) {
+                    bottle.isBottleBroken = true;
+                    if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
+                        let bottleIndex = this.level.bottles.indexOf(bottle);
+                        bottle.playBottleBrokenAnimation(this.level.bottles, bottleIndex);
+                        enemy.isDead = true;
+                        enemy.animate(this.level.enemies);
+                    } else if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
+                        enemy.isHurt = true;
+                        bottle.playBottleBrokenAnimation();
+                        clearInterval(enemy.animateInterval);
+                    }
+                }
+            });
+        })
     }
 
     checkCollisions() {
@@ -94,7 +92,6 @@ class World {
         });
         this.throwableObjects.forEach(bottle => {
             if (this.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
-                // console.log("Komme in diese Schleife");
                 this.collectGroundBottles(bottle);
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }
