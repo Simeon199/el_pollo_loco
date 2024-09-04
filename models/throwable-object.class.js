@@ -35,31 +35,45 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
-        this.checkIfThrowMethodShouldBeExecuted();
-        this.proveIfBottleIsOnGround();
-        this.checkIfBottleIsAlreadyBroken();
+        this.animate();
+        // this.checkIfThrowMethodShouldBeExecuted();
+        // this.proveIfBottleIsOnGround();
+        // this.checkIfBottleIsAlreadyBroken();
     }
 
-    checkIfBottleIsAlreadyBroken() {
+    // aktuell ist hier keine animate Funktion vorhanden --> Orientierung an der Implementierung in Character!
+
+    animate() {
         setInterval(() => {
-            if (this.isBottleBroken == true) {
-                this.img.src = '';
-            }
+            this.checkIfBottleIsAlreadyBroken();
+            // this.checkIfThrowMethodShouldBeExecuted();
+            this.proveIfBottleIsOnGround();
         }, 100);
-        // setTimeout(function () {
-        //     clearInterval(checkBottleBreakInterval);
-        // }, 10);
+    }
+
+    // checkIfBottleIsAlreadyBroken() {
+    //     setInterval(() => {
+    //         if (this.isBottleBroken == true) {
+    //             this.img.src = '';
+    //         }
+    //     }, 100);
+    // }
+
+    checkIfBottleIsAlreadyBroken() {
+        if (this.isBottleBroken == true) {
+            this.img.src = '';
+        }
     }
 
     proveIfBottleIsOnGround() {
         return this.y >= 360;
     }
 
-    checkIfThrowMethodShouldBeExecuted() {
-        if (this.keyboard.keyD) {
-            this.throw();
-        }
-    }
+    // checkIfThrowMethodShouldBeExecuted() {
+    //     if (this.keyboard.keyD) {
+    //         this.throw();
+    //     }
+    // }
 
     throw() {
         if (this.pepeIsWatchingRight()) {
@@ -80,8 +94,6 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheRight() {
-        // debugger;
-        // console.log("Tell if bottle is broken: ", this.isBottleBroken);
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
@@ -100,8 +112,6 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheLeft() {
-        // debugger;
-        // console.log("Tell if bottle is broken: ", this.isBottleBroken);
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
@@ -142,7 +152,8 @@ class ThrowableObject extends MovableObject {
     }
 
     playBottleBrokenAnimation() {
-        let currentFrame = 0;
+        this.currentImage = 0;
+        // let currentFrame = 0;
         let animationInterval = 50;
         let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
 
@@ -151,15 +162,19 @@ class ThrowableObject extends MovableObject {
         }
         if (this.isBottleBroken == true) {
             this.bottleBrokenIntervalId = setInterval(() => {
-                this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
-                currentFrame++;
-                if (currentFrame >= totalFrames) {
+                this.img.src = this.BOTTLE_BROKEN_IMAGES[this.currentImage];
+                // this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
+                this.currentImage++;
+                // currentFrame++;
+                // if (currentFrame >= totalFrames) {
+                //     clearInterval(this.bottleBrokenIntervalId);
+                //     this.img.src = '';
+                // }
+                if (this.currentImage >= totalFrames) {
                     clearInterval(this.bottleBrokenIntervalId);
-                    // this.bottleBrokenIntervalId = null;
                     this.img.src = '';
                 }
             }, animationInterval);
-            // this.isBottleBroken = false;
         }
     }
 }

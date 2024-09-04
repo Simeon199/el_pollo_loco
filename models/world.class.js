@@ -1,4 +1,5 @@
 class World {
+    runInterval = null;
     character = new Character();
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
@@ -21,11 +22,11 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        this.runInterval = setInterval(() => {
             this.checkCollisions();
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
-            this.proveIfBottleIsCollidingWithEnemy();
+            // this.proveIfBottleIsCollidingWithEnemy();
         }, 100);
     }
 
@@ -35,28 +36,26 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
+            bottle.throw();
+            this.proveIfBottleIsCollidingWithEnemy(bottle);
         }
     }
 
-    proveIfBottleIsCollidingWithEnemy() {
-        // console.log("Überprüfe ob das Objekt this.level.bottles überhaupt existiert: ", this.level.bottles);
-        this.level.bottles.forEach(bottle => {
-            this.level.enemies.forEach(enemy => {
-                if (bottle.isColliding(enemy)) {
-                    bottle.isBottleBroken = true;
-                    if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
-                        let bottleIndex = this.level.bottles.indexOf(bottle);
-                        bottle.playBottleBrokenAnimation(this.level.bottles, bottleIndex);
-                        enemy.isDead = true;
-                        enemy.animate(this.level.enemies);
-                    } else if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
-                        enemy.isHurt = true;
-                        bottle.playBottleBrokenAnimation();
-                        clearInterval(enemy.animateInterval);
-                    }
+    proveIfBottleIsCollidingWithEnemy(bottle) {
+        this.level.enemies.forEach(enemy => {
+            if (bottle.isColliding(enemy)) {
+                bottle.isBottleBroken = true;
+                if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
+                    enemy.isDead = true;
+                    enemy.animate(this.level.enemies);
+                } else if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
+                    enemy.isHurt = true;
+                    clearInterval(enemy.animateInterval);
                 }
-            });
-        })
+                bottle.playBottleBrokenAnimation();
+                clearInterval(this.runInterval);
+            }
+        });
     }
 
     checkCollisions() {
