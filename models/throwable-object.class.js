@@ -1,6 +1,7 @@
 class ThrowableObject extends MovableObject {
     bottleBrokenIntervalId = null;
     isBottleBroken = false;
+    isThrown = false;
     intervalID = null;
     height = 60;
     width = 60 * 1.2;
@@ -36,17 +37,10 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
-        this.animate();
+        // this.animate(array, index);
     }
 
     // aktuell ist hier keine animate Funktion vorhanden --> Orientierung an der Implementierung in Character!
-
-    animate() {
-        setInterval(() => {
-            this.checkIfBottleIsAlreadyBroken();
-            this.proveIfBottleIsOnGround();
-        }, 100);
-    }
 
     checkIfBottleIsAlreadyBroken() {
         if (this.isBottleBroken == true) {
@@ -59,6 +53,7 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
+        this.isThrown = true;
         if (this.pepeIsWatchingRight()) {
             this.applyThrowingSetInterval('right');
         } else if (this.pepeIsWatchingLeft()) {
@@ -77,6 +72,7 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheRight() {
+        // debugger;
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
@@ -92,9 +88,11 @@ class ThrowableObject extends MovableObject {
         } else if (this.isBottleBroken == true) {
             this.playBottleBrokenAnimation();
         }
+        // return true;
     }
 
     throwBottleToTheLeft() {
+        // debugger;
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
@@ -110,6 +108,7 @@ class ThrowableObject extends MovableObject {
         } else if (this.isBottleBroken == true) {
             this.playBottleBrokenAnimation();
         }
+        // return true;
     }
 
     stopGame(direction) {

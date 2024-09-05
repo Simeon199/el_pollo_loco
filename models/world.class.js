@@ -48,10 +48,11 @@ class World {
 
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
-            bottle.isBottleBroken = true;
-            bottle.spliceable = true;
+            // bottle.isBottleBroken = true;
+            // bottle.spliceable = true;
             if (bottle.isColliding(enemy)) {
                 this.enemyEitherDiesOrGetsHurt(enemy, bottle);
+
                 return true;
             }
         });
@@ -66,18 +67,33 @@ class World {
     }
 
     executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
-        // bottle.isBottleBroken = true;
+        bottle.isBottleBroken = true;
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
-        // bottle.spliceable = true;
+        bottle.spliceable = true;
+        let bottleIndex = this.throwableObjects.indexOf(bottle);
+        console.log("bottle index registered: ", bottleIndex);
+        setTimeout(function () {
+            this.removeFunction(bottleIndex);
+        }, 10);
     }
 
     executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
+        bottle.isBottleBroken = true;
         enemy.isHurt = true;
         clearInterval(enemy.animateInterval);
         bottle.playBottleBrokenAnimation();
-        // bottle.spliceable = true;
+        bottle.spliceable = true;
+        let bottleIndex = this.throwableObjects.indexOf(bottle);
+        console.log("bottle index registered: ", bottleIndex);
+        setTimeout(function () {
+            this.removeFunction(bottleIndex);
+        }, 10);
+    }
+
+    removeFunction(index) {
+        this.throwableObjects.splice(index, 1); // Fehler im Code: this.removeFunction is not a function 
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
