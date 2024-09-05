@@ -33,10 +33,6 @@ class World {
     checkThrowableObjectsCollision() {
         this.throwableObjects.forEach(bottle => {
             this.proveIfBottleIsCollidingWithEnemy(bottle);
-            // if (this.proveIfBottleIsCollidingWithEnemy(bottle) == true) {
-            //     let bottleIndex = this.throwableObjects.indexOf(bottle);
-            //     this.throwableObjects.splice(bottleIndex, 1);
-            // }
         })
     }
 
@@ -95,15 +91,23 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
-                if (this.characterFallsOnEnemy(enemy) && !enemy.isDead) {
-                    this.enemyIsDefeatedByJump(enemy);
-                } else if (!enemy.isDead) {
-                    this.character.hit();
-                    this.statusbar.percentage -= 1;
-                    this.statusbar.setPercentage(this.character.energy);
-                }
+                this.checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy);
             }
         });
+    }
+
+    checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy) {
+        if (this.characterFallsOnEnemy(enemy) && !enemy.isDead) {
+            this.enemyIsDefeatedByJump(enemy);
+        } else if (!enemy.isDead) {
+            this.adjustStatusBarWhenCharacterGetsHit();
+        }
+    }
+
+    adjustStatusBarWhenCharacterGetsHit() {
+        this.character.hit();
+        this.statusbar.percentage -= 1;
+        this.statusbar.setPercentage(this.character.energy);
     }
 
     characterFallsOnEnemy(enemy) {
