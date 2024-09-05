@@ -33,6 +33,12 @@ class World {
     checkThrowableObjectsCollision() {
         this.throwableObjects.forEach(bottle => {
             this.proveIfBottleIsCollidingWithEnemy(bottle);
+            if (bottle.spliceable == true) {
+                setTimeout(function () {
+                    let bottleIndex = this.throwableObjects.indexOf(bottle);
+                    this.throwableObjects.splice(bottleIndex, 1);
+                }, 50);
+            }
         })
     }
 
@@ -48,17 +54,43 @@ class World {
 
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy) && bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
-                bottle.isBottleBroken = true;
-                enemy.isDead = true;
-                enemy.animate(this.level.enemies);
-                bottle.playBottleBrokenAnimation();
-            } else if (bottle.isColliding(enemy) && bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
-                enemy.isHurt = true;
-                clearInterval(enemy.animateInterval);
-                bottle.playBottleBrokenAnimation();
+            bottle.isBottleBroken = true;
+            bottle.spliceable = true;
+            if (bottle.isColliding(enemy)) {
+                this.enemyEitherDiesOrGetsHurt(enemy, bottle);
             }
         });
+    }
+
+    enemyEitherDiesOrGetsHurt(enemy, bottle) {
+        if (this.isBottleFlyingAndEnemyNotEndboss(bottle, enemy)) {
+            this.executeFunctionsToAnimateDyingEnemy(bottle, enemy);
+        } else if (this.isBottleFlyingAndEnemyIsEndboss(bottle, enemy)) {
+            this.executeFunctionsToAnimateHurtEndboss(bottle, enemy);
+        }
+    }
+
+    executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
+        bottle.isBottleBroken = true;
+        enemy.isDead = true;
+        enemy.animate(this.level.enemies);
+        bottle.playBottleBrokenAnimation();
+        bottle.spliceable = true;
+    }
+
+    executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
+        enemy.isHurt = true;
+        clearInterval(enemy.animateInterval);
+        bottle.playBottleBrokenAnimation();
+        bottle.spliceable = true;
+    }
+
+    isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
+        return bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss;
+    }
+
+    isBottleFlyingAndEnemyNotEndboss(bottle, enemy) {
+        return bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss);
     }
 
     checkCollisions() {

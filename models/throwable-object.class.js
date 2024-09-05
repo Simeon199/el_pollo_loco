@@ -4,6 +4,7 @@ class ThrowableObject extends MovableObject {
     intervalID = null;
     height = 60;
     width = 60 * 1.2;
+    spliceable = false;
     keyboard;
 
     BOTTLE_ROTATE_IMAGES = [
