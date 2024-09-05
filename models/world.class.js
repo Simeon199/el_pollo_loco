@@ -33,12 +33,10 @@ class World {
     checkThrowableObjectsCollision() {
         this.throwableObjects.forEach(bottle => {
             this.proveIfBottleIsCollidingWithEnemy(bottle);
-            if (bottle.spliceable == true) {
-                setTimeout(function () {
-                    let bottleIndex = this.throwableObjects.indexOf(bottle);
-                    this.throwableObjects.splice(bottleIndex, 1);
-                }, 50);
-            }
+            // if (this.proveIfBottleIsCollidingWithEnemy(bottle) == true) {
+            //     let bottleIndex = this.throwableObjects.indexOf(bottle);
+            //     this.throwableObjects.splice(bottleIndex, 1);
+            // }
         })
     }
 
@@ -58,6 +56,7 @@ class World {
             bottle.spliceable = true;
             if (bottle.isColliding(enemy)) {
                 this.enemyEitherDiesOrGetsHurt(enemy, bottle);
+                return true;
             }
         });
     }
@@ -71,18 +70,18 @@ class World {
     }
 
     executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
-        bottle.isBottleBroken = true;
+        // bottle.isBottleBroken = true;
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
-        bottle.spliceable = true;
+        // bottle.spliceable = true;
     }
 
     executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
         enemy.isHurt = true;
         clearInterval(enemy.animateInterval);
         bottle.playBottleBrokenAnimation();
-        bottle.spliceable = true;
+        // bottle.spliceable = true;
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
