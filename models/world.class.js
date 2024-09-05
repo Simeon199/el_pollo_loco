@@ -26,8 +26,14 @@ class World {
             this.checkCollisions();
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
-            // this.proveIfBottleIsCollidingWithEnemy();
+            this.checkThrowableObjectsCollision();
         }, 100);
+    }
+
+    checkThrowableObjectsCollision() {
+        this.throwableObjects.forEach(bottle => {
+            this.proveIfBottleIsCollidingWithEnemy(bottle);
+        })
     }
 
     checkThrowObjects() {
@@ -37,23 +43,20 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
             bottle.throw();
-            this.proveIfBottleIsCollidingWithEnemy(bottle);
         }
     }
 
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy)) {
+            if (bottle.isColliding(enemy) && bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
                 bottle.isBottleBroken = true;
-                if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss)) {
-                    enemy.isDead = true;
-                    enemy.animate(this.level.enemies);
-                } else if (bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
-                    enemy.isHurt = true;
-                    clearInterval(enemy.animateInterval);
-                }
+                enemy.isDead = true;
+                enemy.animate(this.level.enemies);
                 bottle.playBottleBrokenAnimation();
-                clearInterval(this.runInterval);
+            } else if (bottle.isColliding(enemy) && bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && enemy instanceof Endboss) {
+                enemy.isHurt = true;
+                clearInterval(enemy.animateInterval);
+                bottle.playBottleBrokenAnimation();
             }
         });
     }
@@ -81,6 +84,8 @@ class World {
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
     }
+
+    // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert!
 
     checkCollisionsWithBottles() {
         this.level.bottles.forEach(bottle => {

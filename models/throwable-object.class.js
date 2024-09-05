@@ -36,9 +36,6 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.keyboard = z;
         this.animate();
-        // this.checkIfThrowMethodShouldBeExecuted();
-        // this.proveIfBottleIsOnGround();
-        // this.checkIfBottleIsAlreadyBroken();
     }
 
     // aktuell ist hier keine animate Funktion vorhanden --> Orientierung an der Implementierung in Character!
@@ -46,18 +43,9 @@ class ThrowableObject extends MovableObject {
     animate() {
         setInterval(() => {
             this.checkIfBottleIsAlreadyBroken();
-            // this.checkIfThrowMethodShouldBeExecuted();
             this.proveIfBottleIsOnGround();
         }, 100);
     }
-
-    // checkIfBottleIsAlreadyBroken() {
-    //     setInterval(() => {
-    //         if (this.isBottleBroken == true) {
-    //             this.img.src = '';
-    //         }
-    //     }, 100);
-    // }
 
     checkIfBottleIsAlreadyBroken() {
         if (this.isBottleBroken == true) {
@@ -68,12 +56,6 @@ class ThrowableObject extends MovableObject {
     proveIfBottleIsOnGround() {
         return this.y >= 360;
     }
-
-    // checkIfThrowMethodShouldBeExecuted() {
-    //     if (this.keyboard.keyD) {
-    //         this.throw();
-    //     }
-    // }
 
     throw() {
         if (this.pepeIsWatchingRight()) {
@@ -153,7 +135,6 @@ class ThrowableObject extends MovableObject {
 
     playBottleBrokenAnimation() {
         this.currentImage = 0;
-        // let currentFrame = 0;
         let animationInterval = 50;
         let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
 
@@ -163,13 +144,7 @@ class ThrowableObject extends MovableObject {
         if (this.isBottleBroken == true) {
             this.bottleBrokenIntervalId = setInterval(() => {
                 this.img.src = this.BOTTLE_BROKEN_IMAGES[this.currentImage];
-                // this.img.src = this.BOTTLE_BROKEN_IMAGES[currentFrame];
                 this.currentImage++;
-                // currentFrame++;
-                // if (currentFrame >= totalFrames) {
-                //     clearInterval(this.bottleBrokenIntervalId);
-                //     this.img.src = '';
-                // }
                 if (this.currentImage >= totalFrames) {
                     clearInterval(this.bottleBrokenIntervalId);
                     this.img.src = '';
