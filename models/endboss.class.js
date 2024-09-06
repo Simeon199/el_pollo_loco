@@ -38,10 +38,5 @@ class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
                 this.playAnimation(this.IMAGES_HURT);
             }
         }, 100);
-        // if (this.isHurt == true) {
-        //     setTimeout(function () {
-        //         this.isHurt = false;
-        //     }, 100);
-        // }
     }
 }

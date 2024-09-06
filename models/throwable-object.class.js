@@ -133,6 +133,7 @@ class ThrowableObject extends MovableObject {
     }
 
     playBottleBrokenAnimation() {
+        // debugger;
         this.currentImage = 0;
         let animationInterval = 50;
         let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;

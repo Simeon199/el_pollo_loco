@@ -69,9 +69,7 @@ class World {
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
-        console.log("throwable Object: ", this.throwableObjects)
-        // bottle.spliceable = true;
-        // console.log("Throw Objects Array Object: ", bottle.throwObjectsArray);
+        console.log("throwable Object: ", this.throwableObjects);
     }
 
     executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
@@ -80,11 +78,8 @@ class World {
         clearInterval(enemy.animateInterval);
         bottle.spliceable = true;
         bottle.playBottleBrokenAnimation();
-        this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
-        // setTimeout(function () {
-        //     this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
-        // }, 10);
-        // console.log("Throw Objects Array Object: ", bottle.throwObjectsArray);
+        console.log("value of enemy-interval: ", enemy.animateInterval);
+        clearInterval(enemy.animateInterval);
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
