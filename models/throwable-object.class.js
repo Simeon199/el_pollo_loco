@@ -1,7 +1,7 @@
 class ThrowableObject extends MovableObject {
     bottleBrokenIntervalId = null;
     isBottleBroken = false;
-    isThrown = false;
+    throwObjectsArray = [];
     intervalID = null;
     height = 60;
     width = 60 * 1.2;
@@ -53,7 +53,6 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-        this.isThrown = true;
         if (this.pepeIsWatchingRight()) {
             this.applyThrowingSetInterval('right');
         } else if (this.pepeIsWatchingLeft()) {
@@ -151,5 +150,9 @@ class ThrowableObject extends MovableObject {
                 }
             }, animationInterval);
         }
+        // if (this.spliceable == true) {
+        //     let bottleIndex = this.throwObjectsArray.indexOf(this);
+        //     this.throwObjectsArray.splice(bottleIndex, 1);
+        // }
     }
 }

@@ -42,17 +42,15 @@ class World {
             this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
             this.throwableObjects.push(bottle);
+            bottle.throwObjectsArray = this.throwableObjects;
             bottle.throw();
         }
     }
 
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.level.enemies.forEach(enemy => {
-            // bottle.isBottleBroken = true;
-            // bottle.spliceable = true;
             if (bottle.isColliding(enemy)) {
                 this.enemyEitherDiesOrGetsHurt(enemy, bottle);
-
                 return true;
             }
         });
@@ -71,29 +69,22 @@ class World {
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
-        bottle.spliceable = true;
-        let bottleIndex = this.throwableObjects.indexOf(bottle);
-        console.log("bottle index registered: ", bottleIndex);
-        setTimeout(function () {
-            this.removeFunction(bottleIndex);
-        }, 10);
+        console.log("throwable Object: ", this.throwableObjects)
+        // bottle.spliceable = true;
+        // console.log("Throw Objects Array Object: ", bottle.throwObjectsArray);
     }
 
     executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
         bottle.isBottleBroken = true;
         enemy.isHurt = true;
         clearInterval(enemy.animateInterval);
-        bottle.playBottleBrokenAnimation();
         bottle.spliceable = true;
-        let bottleIndex = this.throwableObjects.indexOf(bottle);
-        console.log("bottle index registered: ", bottleIndex);
-        setTimeout(function () {
-            this.removeFunction(bottleIndex);
-        }, 10);
-    }
-
-    removeFunction(index) {
-        this.throwableObjects.splice(index, 1); // Fehler im Code: this.removeFunction is not a function 
+        bottle.playBottleBrokenAnimation();
+        this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
+        // setTimeout(function () {
+        //     this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
+        // }, 10);
+        // console.log("Throw Objects Array Object: ", bottle.throwObjectsArray);
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
