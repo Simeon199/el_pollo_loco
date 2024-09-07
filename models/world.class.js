@@ -27,6 +27,13 @@ class World {
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
+            this.removeBrokenObjects();
+        }, 100);
+    }
+
+    removeBrokenObjects() {
+        setTimeout(function () {
+            this.throwableObjects = this.throwableObjects.filter(bottle => !bottle.isBottleBroken);
         }, 100);
     }
 

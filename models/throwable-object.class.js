@@ -37,7 +37,6 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
-        // this.animate(array, index);
     }
 
     // aktuell ist hier keine animate Funktion vorhanden --> Orientierung an der Implementierung in Character!
@@ -71,7 +70,6 @@ class ThrowableObject extends MovableObject {
     }
 
     throwBottleToTheRight() {
-        // debugger;
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
@@ -87,11 +85,9 @@ class ThrowableObject extends MovableObject {
         } else if (this.isBottleBroken == true) {
             this.playBottleBrokenAnimation();
         }
-        // return true;
     }
 
     throwBottleToTheLeft() {
-        // debugger;
         if (this.intervalID) {
             clearInterval(this.intervalID);
         }
@@ -107,19 +103,20 @@ class ThrowableObject extends MovableObject {
         } else if (this.isBottleBroken == true) {
             this.playBottleBrokenAnimation();
         }
-        // return true;
     }
 
     stopGame(direction) {
-        this.speedY = 0;
-        this.acceleration = 0;
-        this.y = 360;
-        if (direction == 'left') {
-            this.img.src = this.STANDING_BOTTLE_RIGHT_DIRECTION[0];
-        } else if (direction == 'right') {
-            this.img.src = this.STANDING_BOTTLE_LEFT_DIRECTION[0];
+        if (!this.isBottleBroken) { // Überlegung: Warum ist diese zusätzliche Überprüfung notwendig, wenn sie schon in der Funktion zuvor gemacht worden ist?
+            this.speedY = 0;
+            this.acceleration = 0;
+            this.y = 360;
+            if (direction == 'left') {
+                this.img.src = this.STANDING_BOTTLE_RIGHT_DIRECTION[0];
+            } else if (direction == 'right') {
+                this.img.src = this.STANDING_BOTTLE_LEFT_DIRECTION[0];
+            }
+            clearInterval(this.intervalID);
         }
-        clearInterval(this.intervalID);
     }
 
     pepeIsWatchingRight() {
@@ -132,8 +129,11 @@ class ThrowableObject extends MovableObject {
         return boleanValue;
     }
 
+    // removeBottleFromWorld(){
+    //     let 
+    // }
+
     playBottleBrokenAnimation() {
-        // debugger;
         this.currentImage = 0;
         let animationInterval = 50;
         let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
@@ -148,12 +148,9 @@ class ThrowableObject extends MovableObject {
                 if (this.currentImage >= totalFrames) {
                     clearInterval(this.bottleBrokenIntervalId);
                     this.img.src = '';
+                    // this.removeBottleFromWorld();
                 }
             }, animationInterval);
         }
-        // if (this.spliceable == true) {
-        //     let bottleIndex = this.throwObjectsArray.indexOf(this);
-        //     this.throwObjectsArray.splice(bottleIndex, 1);
-        // }
     }
 }
