@@ -27,15 +27,15 @@ class World {
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
-            this.removeBrokenObjects();
+            // this.removeBrokenObjects();
         }, 100);
     }
 
-    removeBrokenObjects() {
-        setTimeout(function () {
-            this.throwableObjects = this.throwableObjects.filter(bottle => !bottle.isBottleBroken);
-        }, 100);
-    }
+    // removeBrokenObjects() {
+    //     setTimeout(function () {
+    //         this.throwableObjects = this.throwableObjects.filter(bottle => !bottle.isBottleBroken);
+    //     }, 100);
+    // }
 
     checkThrowableObjectsCollision() {
         this.throwableObjects.forEach(bottle => {
@@ -76,17 +76,16 @@ class World {
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
-        console.log("throwable Object: ", this.throwableObjects);
+        // console.log("throwable Object: ", this.throwableObjects);
     }
 
     executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
         bottle.isBottleBroken = true;
-        enemy.isHurt = true;
-        clearInterval(enemy.animateInterval);
-        bottle.spliceable = true;
+        enemy.isEndbossHurt = true;
+        // enemy.animate();
+        // bottle.spliceable = true;
         bottle.playBottleBrokenAnimation();
-        console.log("value of enemy-interval: ", enemy.animateInterval);
-        clearInterval(enemy.animateInterval);
+        // clearInterval(enemy.animateInterval);
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {

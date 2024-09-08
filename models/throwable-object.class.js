@@ -129,10 +129,6 @@ class ThrowableObject extends MovableObject {
         return boleanValue;
     }
 
-    // removeBottleFromWorld(){
-    //     let 
-    // }
-
     playBottleBrokenAnimation() {
         this.currentImage = 0;
         let animationInterval = 50;
