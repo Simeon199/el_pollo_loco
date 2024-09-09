@@ -123,10 +123,10 @@ class World {
         bottle.playBottleBrokenAnimation();
 
         // Hier Debugger-Beispiel für Ticket demonstrieren (ursprünglicher Fehler: this.enemy)
-
         enemy.hit();
+        // debugger;
         this.endbossbar.percentage -= 5;
-        this.endbossbar.setPercentage(enemy.energy);
+        this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
 
         // Debugger Beispiel endet
     }

@@ -8,10 +8,6 @@ class MovableObject extends DrawableObject {
     timePassedVariable = 0;
     lastHit = 0;
 
-
-    // isFlippedImage = false;
-
-
     constructor() {
         super();
     }
@@ -33,7 +29,6 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    // character.isColliding(chicken);
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
