@@ -3,6 +3,7 @@ class World {
     character = new Character();
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
+    endbossbar = new EndbossBar();
     level = level1;
     canvas;
     ctx;
@@ -27,20 +28,52 @@ class World {
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
-            // this.removeBrokenObjects();
         }, 100);
     }
 
-    // removeBrokenObjects() {
-    //     setTimeout(function () {
-    //         this.throwableObjects = this.throwableObjects.filter(bottle => !bottle.isBottleBroken);
-    //     }, 100);
-    // }
+    setWorld() {
+        this.character.world = this;
+        this.bottlebar.world = this;
+        this.endbossbar.world = this;
+    }
 
-    checkThrowableObjectsCollision() {
+    checkCollisions() {
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(enemy)) {
+                this.checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy);
+            }
+        });
+    }
+
+    // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert! Die entsprechenden Methoden finden sich hier.
+
+    checkCollisionsWithBottles() {
+        this.level.bottles.forEach(bottle => {
+            if (this.character.isColliding(bottle)) {
+                this.collectBottles(bottle);
+                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
+            }
+        });
         this.throwableObjects.forEach(bottle => {
-            this.proveIfBottleIsCollidingWithEnemy(bottle);
-        })
+            if (this.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
+                this.collectGroundBottles(bottle);
+                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
+            }
+        });
+    }
+
+    collectBottles(bottle) {
+        let index = this.level.bottles.indexOf(bottle);
+        this.bottlebar.bottlesCollected += 1;
+        this.level.bottles.splice(index, 1);
+    }
+
+    collectGroundBottles(bottle) {
+        let index = this.throwableObjects.indexOf(bottle);
+        this.bottlebar.bottlesCollected += 1;
+        bottle.img.scr = '';
+        this.level.bottles.push(this.throwableObjects[index]);
+        this.throwableObjects.splice(index, 1);
     }
 
     checkThrowObjects() {
@@ -52,6 +85,12 @@ class World {
             bottle.throwObjectsArray = this.throwableObjects;
             bottle.throw();
         }
+    }
+
+    checkThrowableObjectsCollision() {
+        this.throwableObjects.forEach(bottle => {
+            this.proveIfBottleIsCollidingWithEnemy(bottle);
+        })
     }
 
     proveIfBottleIsCollidingWithEnemy(bottle) {
@@ -76,16 +115,20 @@ class World {
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
-        // console.log("throwable Object: ", this.throwableObjects);
     }
 
-    executeFunctionsToAnimateHurtEndboss(bottle, enemy) {
+    executeFunctionsToAnimateHurtEndboss(bottle, enemy) { // Hier enemy = endboss !
         bottle.isBottleBroken = true;
         enemy.isEndbossHurt = true;
-        // enemy.animate();
-        // bottle.spliceable = true;
         bottle.playBottleBrokenAnimation();
-        // clearInterval(enemy.animateInterval);
+
+        // Hier Debugger-Beispiel für Ticket demonstrieren (ursprünglicher Fehler: this.enemy)
+
+        enemy.hit();
+        this.endbossbar.percentage -= 5;
+        this.endbossbar.setPercentage(enemy.energy);
+
+        // Debugger Beispiel endet
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
@@ -94,14 +137,6 @@ class World {
 
     isBottleFlyingAndEnemyNotEndboss(bottle, enemy) {
         return bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss);
-    }
-
-    checkCollisions() {
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
-                this.checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy);
-            }
-        });
     }
 
     checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy) {
@@ -128,27 +163,7 @@ class World {
         this.character.bounce();
     }
 
-    // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert!
-
-    checkCollisionsWithBottles() {
-        this.level.bottles.forEach(bottle => {
-            if (this.character.isColliding(bottle)) {
-                this.collectBottles(bottle);
-                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
-            }
-        });
-        this.throwableObjects.forEach(bottle => {
-            if (this.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
-                this.collectGroundBottles(bottle);
-                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
-            }
-        });
-    }
-
-    setWorld() {
-        this.character.world = this;
-        this.bottlebar.world = this;
-    }
+    // Hier sind die draw()-Methoden sowie die flipImage()-Funktionen verortet
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -174,6 +189,7 @@ class World {
     addAllStatusBarsToMap() {
         this.addToMap(this.statusbar);
         this.addToMap(this.bottlebar);
+        this.addToMap(this.endbossbar);
     }
 
     addObjectsToMap(objects) {
@@ -203,19 +219,5 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1
         this.ctx.restore();
-    }
-
-    collectBottles(bottle) {
-        let index = this.level.bottles.indexOf(bottle);
-        this.bottlebar.bottlesCollected += 1;
-        this.level.bottles.splice(index, 1);
-    }
-
-    collectGroundBottles(bottle) {
-        let index = this.throwableObjects.indexOf(bottle);
-        this.bottlebar.bottlesCollected += 1;
-        bottle.img.scr = '';
-        this.level.bottles.push(this.throwableObjects[index]);
-        this.throwableObjects.splice(index, 1);
     }
 }

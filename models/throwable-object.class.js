@@ -144,7 +144,6 @@ class ThrowableObject extends MovableObject {
                 if (this.currentImage >= totalFrames) {
                     clearInterval(this.bottleBrokenIntervalId);
                     this.img.src = '';
-                    // this.removeBottleFromWorld();
                 }
             }, animationInterval);
         }
