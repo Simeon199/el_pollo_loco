@@ -44,7 +44,10 @@ class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
         this.animateInterval = setInterval(() => {
             if (this.wasEndbossHit()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else {
+            } else if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }
+            else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 100);
