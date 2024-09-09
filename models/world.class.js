@@ -35,6 +35,7 @@ class World {
         this.character.world = this;
         this.bottlebar.world = this;
         this.endbossbar.world = this;
+        // this.level.enemies[this.level.enemies.length - 1]
     }
 
     checkCollisions() {
@@ -106,7 +107,7 @@ class World {
         if (this.isBottleFlyingAndEnemyNotEndboss(bottle, enemy)) {
             this.executeFunctionsToAnimateDyingEnemy(bottle, enemy);
         } else if (this.isBottleFlyingAndEnemyIsEndboss(bottle, enemy)) {
-            this.executeFunctionsToAnimateHurtEndboss(bottle, enemy);
+            this.executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy);
         }
     }
 
@@ -117,18 +118,20 @@ class World {
         bottle.playBottleBrokenAnimation();
     }
 
-    executeFunctionsToAnimateHurtEndboss(bottle, enemy) { // Hier enemy = endboss !
+    executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy) {
         bottle.isBottleBroken = true;
         enemy.isEndbossHurt = true;
         bottle.playBottleBrokenAnimation();
-
-        // Hier Debugger-Beispiel für Ticket demonstrieren (ursprünglicher Fehler: this.enemy)
         enemy.hit();
-        // debugger;
-        this.endbossbar.percentage -= 5;
-        this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
-
-        // Debugger Beispiel endet
+        if (enemy.energy > 0) {
+            // Hier Debugger-Beispiel für Ticket demonstrieren (ursprünglicher Fehler: this.enemy)
+            this.endbossbar.percentage -= 5;
+            this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
+            // Debugger Beispiel endet
+        } else {
+            enemy.spliceable = true;
+            enemy.enemiesArray = this.level.enemies;
+        }
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {

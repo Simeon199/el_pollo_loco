@@ -2,6 +2,8 @@ class Chicken extends MovableObject {
     intervalMoveLeft = null;
     intervalChangeWalkingImages = null;
     playingDeadEnemyId = null;
+    spliceable = false;
+    enemiesArray = [];
     enemyArrayIndex;
     isDead = false;
     y = 340;
