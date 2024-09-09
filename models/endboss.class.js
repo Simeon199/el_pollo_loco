@@ -25,9 +25,9 @@ class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
     ];
 
     IMAGES_DEAD = [
-        'img/4_enemie_boss_chicken/5_dead0/G24.png',
-        'img/4_enemie_boss_chicken/5_dead0/G25.png',
-        'img/4_enemie_boss_chicken/5_dead0/G26.png'
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
     constructor() {
@@ -63,22 +63,4 @@ class Endboss extends Chicken { // ehemals class Endboss extends MovableObject
         }
         return false;
     }
-
-
-    // Ursprünglicher Code: Falsche Implementierung
-
-    // wasEndbossHit() {
-    //     if (this.isEndbossHurt == true) {
-    //         this.lastHit = new Date().getTime();
-    //     }
-    //     if (new Date().getTime() - this.lastHit < this.timePassedLimit * 1000) {
-    //         return true;
-    //     }
-    //     if (new Date().getTime() - this.lastHit > this.timePassedLimit * 1000) {
-    //         this.isEndbossHurt = false;
-    //         this.lastHit = 0;
-    //         return false;
-    //     }
-    //     return false;
-    // }
 }

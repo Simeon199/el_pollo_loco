@@ -39,7 +39,7 @@ class ThrowableObject extends MovableObject {
         this.keyboard = z;
     }
 
-    // aktuell ist hier keine animate Funktion vorhanden --> Orientierung an der Implementierung in Character!
+    // Aktuell ist hier keine animate Funktion vorhanden --> Orientierung an der Implementierung in Character!
 
     checkIfBottleIsAlreadyBroken() {
         if (this.isBottleBroken == true) {
