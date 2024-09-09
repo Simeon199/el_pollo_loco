@@ -45,14 +45,14 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
-                this.checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy);
+                this.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
             }
         });
     }
 
     // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert! Die entsprechenden Methoden finden sich hier.
 
-    checkCollisionsWithBottles() {
+    checkCollisionsWithBottles() { // Update die Funktion so, dass die geworfenen Flaschen auch den Charakter selbst treffen können!
         this.level.bottles.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
                 this.collectBottles(bottle);
@@ -128,10 +128,8 @@ class World {
         bottle.playBottleBrokenAnimation();
         enemy.hit();
         if (enemy.energy > 0) {
-            // Hier Debugger-Beispiel für Ticket demonstrieren (ursprünglicher Fehler: this.enemy)
             this.endbossbar.percentage -= 5;
             this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
-            // Debugger Beispiel endet
         } else {
             enemy.spliceable = true;
             enemy.enemiesArray = this.level.enemies;
@@ -146,7 +144,7 @@ class World {
         return bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss);
     }
 
-    checkCasesThatCanOccurWhenCharacterHitsEnemy(enemy) {
+    checkCasesThatCanOccurWhenCharacterGetsHit(enemy) {
         if (this.characterFallsOnEnemy(enemy) && !enemy.isDead) {
             this.enemyIsDefeatedByJump(enemy);
         } else if (!enemy.isDead) {

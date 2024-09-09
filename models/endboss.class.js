@@ -6,11 +6,9 @@ class Endboss extends Chicken {
     animateInterval = -1;
     isEndbossHurt = false;
     isDead = false;
-    height = 300;
-    width = 175;
-    // height = 400;
-    // width = 250;
-    y = 155;
+    height = 400;
+    width = 250;
+    y = 55;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -48,6 +46,7 @@ class Endboss extends Chicken {
     constructor() {
         super();
         this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImage('img/3_enemies_chicken/chicken_normal/2_dead/dead.png')
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
@@ -77,7 +76,6 @@ class Endboss extends Chicken {
     }
 
     stopEndbossAnimation() {
-        console.log(this.enemiesArray);
         this.enemiesArray.splice(this.enemiesArray.length - 1, 1);
     }
 
