@@ -28,6 +28,7 @@ class World {
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
+            this.calibrateDistanceBetweenCharacterAndEndboss();
         }, 100);
     }
 
@@ -35,7 +36,10 @@ class World {
         this.character.world = this;
         this.bottlebar.world = this;
         this.endbossbar.world = this;
-        // this.level.enemies[this.level.enemies.length - 1]
+    }
+
+    calibrateDistanceBetweenCharacterAndEndboss() {
+        this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
     }
 
     checkCollisions() {
