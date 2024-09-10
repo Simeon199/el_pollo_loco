@@ -145,7 +145,7 @@ class World {
     }
 
     checkCasesThatCanOccurWhenCharacterGetsHit(enemy) {
-        if (this.characterFallsOnEnemy(enemy) && !enemy.isDead) {
+        if (this.characterFallsOnEnemy(enemy) && !enemy.isDead && !(enemy instanceof Endboss)) {
             this.enemyIsDefeatedByJump(enemy);
         } else if (!enemy.isDead) {
             this.adjustStatusBarWhenCharacterGetsHit();
@@ -156,25 +156,25 @@ class World {
     adjustStatusBarWhenCharacterGetsHit() {
         this.character.hit();
         this.statusbar.percentage -= 5;
-        this.character.x -= 50;
         this.statusbar.setPercentage(this.character.energy);
     }
 
     applyKnockback(enemy) {
-        const knockbackDistance = 50;
-        const knockbackSpeed = 5;
+        let knockbackDistance = 100;
+        let knockbackSpeed = 5;
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;
         let knockbackInterval = setInterval(() => {
-            if (distanceMoved < knockbackDistance) {
-                this.character.x += direction * knockbackSpeed;
-                distanceMoved += knockbackSpeed;
-            } else {
-                clearInterval(knockbackInterval);
+            if (this.character.x < this.level.level_end_x && this.character.x > -this.level.level_end_x) {
+                if (distanceMoved < knockbackDistance) {
+                    this.character.x += direction * knockbackSpeed;
+                    distanceMoved += knockbackSpeed;
+                } else {
+                    clearInterval(knockbackInterval);
+                }
             }
         }, 1000 / 60);
     }
-
 
     characterFallsOnEnemy(enemy) {
         return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.5;
