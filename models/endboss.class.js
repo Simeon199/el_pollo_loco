@@ -57,14 +57,14 @@ class Endboss extends Chicken {
 
     animate() {
         this.animateInterval = setInterval(() => {
-            console.log(this.mainCharacterPosition);
+            // console.log(this.mainCharacterPosition);
             if (this.wasEndbossHit() && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.wasEndbossHit() && this.energy == 0) {
                 this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    this.stopEndbossAnimation();
-                }, 1500);
+                // setTimeout(() => {
+                //     this.stopEndbossAnimation();
+                // }, 1500);
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.x -= this.endbossSpeedX;
@@ -75,9 +75,9 @@ class Endboss extends Chicken {
         }, 100);
     }
 
-    stopEndbossAnimation() {
-        this.enemiesArray.splice(this.enemiesArray.length - 1, 1);
-    }
+    // stopEndbossAnimation() {
+    //     this.enemiesArray.splice(this.enemiesArray.length - 1, 1);
+    // }
 
     wasEndbossHit() {
         if (this.isEndbossHurt && this.lastHit === 0) {

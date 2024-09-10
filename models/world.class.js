@@ -52,7 +52,7 @@ class World {
 
     // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert! Die entsprechenden Methoden finden sich hier.
 
-    checkCollisionsWithBottles() { // Update die Funktion so, dass die geworfenen Flaschen auch den Charakter selbst treffen können!
+    checkCollisionsWithBottles() {
         this.level.bottles.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
                 this.collectBottles(bottle);
@@ -149,14 +149,32 @@ class World {
             this.enemyIsDefeatedByJump(enemy);
         } else if (!enemy.isDead) {
             this.adjustStatusBarWhenCharacterGetsHit();
+            this.applyKnockback(enemy);
         }
     }
 
     adjustStatusBarWhenCharacterGetsHit() {
         this.character.hit();
-        this.statusbar.percentage -= 1;
+        this.statusbar.percentage -= 5;
+        this.character.x -= 50;
         this.statusbar.setPercentage(this.character.energy);
     }
+
+    applyKnockback(enemy) {
+        const knockbackDistance = 50;
+        const knockbackSpeed = 5;
+        let direction = this.character.x < enemy.x ? -1 : 1;
+        let distanceMoved = 0;
+        let knockbackInterval = setInterval(() => {
+            if (distanceMoved < knockbackDistance) {
+                this.character.x += direction * knockbackSpeed;
+                distanceMoved += knockbackSpeed;
+            } else {
+                clearInterval(knockbackInterval);
+            }
+        }, 1000 / 60);
+    }
+
 
     characterFallsOnEnemy(enemy) {
         return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.5;
