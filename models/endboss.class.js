@@ -1,14 +1,11 @@
 class Endboss extends Chicken {
     endbossSpeedX = 20;
-    mainCharacterPosition = null; // mainCharacterPosition
+    mainCharacterPosition = null;
     hurtAnimationEnd = 0;
     timePassedLimit = 5;
     animateInterval = -1;
     isEndbossHurt = false;
     isDead = false;
-    // height = 300;
-    // width = 150;
-    // y = 155;
     height = 400;
     width = 250;
     y = 55;
@@ -62,7 +59,16 @@ class Endboss extends Chicken {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
             if (this.wasEndbossHit() && this.energy > 0) {
-                this.playAnimation(this.IMAGES_HURT);
+                if (new Date().getTime() - this.lastHit < 300) {
+                    this.playAnimation(this.IMAGES_HURT);
+                } else {
+                    this.playAnimation(this.IMAGES_ATTACK);
+                    if (this.mainCharacterPosition < this.x) {
+                        this.x -= this.endbossSpeedX;
+                    } else {
+                        this.x += this.endbossSpeedX;
+                    }
+                }
             } else if (this.wasEndbossHit() && this.energy == 0) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition) {
