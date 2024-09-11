@@ -4,6 +4,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
+    // coin = new Coin();
     level = level1;
     canvas;
     ctx;
