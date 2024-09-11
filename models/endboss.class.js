@@ -18,6 +18,7 @@ class Endboss extends Chicken {
     chickenScream = new Audio('audio/chicken_scream1.mp3');
     hitAndScream = new Audio('audio/punch_and_ouch1.mp3');
 
+
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -87,7 +88,8 @@ class Endboss extends Chicken {
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.x -= this.endbossSpeedX;
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition) {
-                this.x -= this.endbossSpeedX;
+                this.chickenSound.play();
+                // this.x -= this.endbossSpeedX;
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.x += this.endbossSpeedX;
             }

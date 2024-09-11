@@ -27,6 +27,8 @@ class ThrowableObject extends MovableObject {
     STANDING_BOTTLE_LEFT_DIRECTION = ['img/6_salsa_bottle/1_salsa_bottle_on_ground.png'];
     STANDING_BOTTLE_RIGHT_DIRECTION = ['img/6_salsa_bottle/2_salsa_bottle_on_ground.png'];
 
+    bottleLanding = new Audio('audio/soft_landing.mp3');
+
     constructor(x, y, z) {
         super();
         this.loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
@@ -115,6 +117,7 @@ class ThrowableObject extends MovableObject {
             } else if (direction == 'right') {
                 this.img.src = this.STANDING_BOTTLE_LEFT_DIRECTION[0];
             }
+            this.bottleLanding.play();
             clearInterval(this.intervalID);
         }
     }

@@ -12,6 +12,8 @@ class World {
     throwableObjects = [];
     punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
     bottleHit = new Audio('audio/bottle_hit.mp3');
+    hit = new Audio('audio/hit3.mp3');
+    // bottleCollectClick = new Audio('audio/bottleClick.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -47,7 +49,6 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
-                this.punchAndOuch.play();
                 this.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
             }
         });
@@ -68,6 +69,7 @@ class World {
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }
         });
+        // this.bottleCollectClick.play();
     }
 
     collectBottles(bottle) {
@@ -155,6 +157,7 @@ class World {
         } else if (!enemy.isDead) {
             this.adjustStatusBarWhenCharacterGetsHit();
             this.applyKnockback(enemy);
+            this.punchAndOuch.play();
         }
     }
 
@@ -192,6 +195,7 @@ class World {
         enemy.isDead = true;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
+        this.hit.play();
     }
 
     // Hier sind die draw()-Methoden sowie die flipImage()-Funktionen verortet
