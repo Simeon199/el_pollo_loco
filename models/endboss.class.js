@@ -10,6 +10,14 @@ class Endboss extends Chicken {
     width = 250;
     y = 55;
 
+    // Musterbeispiel
+    // walking_sound = new Audio('audio/running.mp3');
+    // this.walking_sound.play();
+
+    chickenSound = new Audio('audio/chicken_sound1.mp3');
+    chickenScream = new Audio('audio/chicken_scream1.mp3');
+    hitAndScream = new Audio('audio/punch_and_ouch1.mp3');
+
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -59,22 +67,27 @@ class Endboss extends Chicken {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
             if (this.wasEndbossHit() && this.energy > 0) {
+                this.chickenScream.play();
                 if (new Date().getTime() - this.lastHit < 300) {
                     this.playAnimation(this.IMAGES_HURT);
                 } else {
-                    this.playAnimation(this.IMAGES_ATTACK);
+                    this.chickenScream.pause();
+                    this.chickenSound.play();
                     if (this.mainCharacterPosition < this.x) {
                         this.x -= this.endbossSpeedX;
                     } else {
                         this.x += this.endbossSpeedX;
                     }
+                    this.playAnimation(this.IMAGES_ATTACK);
                 }
             } else if (this.wasEndbossHit() && this.energy == 0) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition) {
+                this.chickenSound.play();
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.x -= this.endbossSpeedX;
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition) {
+                this.x -= this.endbossSpeedX;
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.x += this.endbossSpeedX;
             }

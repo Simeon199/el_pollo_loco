@@ -10,6 +10,8 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
+    punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
+    bottleHit = new Audio('audio/bottle_hit.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -45,6 +47,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
+                this.punchAndOuch.play();
                 this.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
             }
         });
@@ -120,6 +123,7 @@ class World {
         enemy.isDead = true;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
+        this.bottleHit.play();
     }
 
     executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy) {
@@ -130,6 +134,7 @@ class World {
         if (enemy.energy > 0) {
             this.endbossbar.percentage -= 5;
             this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
+            this.bottleHit.play();
         } else {
             enemy.spliceable = true;
             enemy.enemiesArray = this.level.enemies;
