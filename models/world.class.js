@@ -165,13 +165,16 @@ class World {
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;
         let knockbackInterval = setInterval(() => {
-            if (this.character.x < this.level.level_end_x && this.character.x > -this.level.level_end_x) {
+            let newXPosition = this.character.x + direction * knockbackSpeed;
+            if (newXPosition >= -this.level.level_end_x + 100 && newXPosition <= this.level.level_end_x) {
                 if (distanceMoved < knockbackDistance) {
-                    this.character.x += direction * knockbackSpeed;
+                    this.character.x = newXPosition;
                     distanceMoved += knockbackSpeed;
                 } else {
                     clearInterval(knockbackInterval);
                 }
+            } else {
+                clearInterval(knockbackInterval);
             }
         }, 1000 / 60);
     }
