@@ -2,12 +2,15 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+// let backgroundMusic = new Audio('audio/laCucaracha.mp3');
 
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     ctx = canvas.getContext('2d');
-    // console.log("My character is", world.character);
+    // setInterval(() => {
+    //     backgroundMusic.play();
+    // }, 100);
 }
 
 window.addEventListener('keydown', (event) => {
@@ -42,8 +45,6 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
     }
-
-    // console.log(event);
 })
 
 window.addEventListener('keyup', (event) => {
@@ -70,6 +71,4 @@ window.addEventListener('keyup', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = false;
     }
-
-    // console.log(event);
 })

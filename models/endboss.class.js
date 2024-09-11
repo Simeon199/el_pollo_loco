@@ -89,7 +89,6 @@ class Endboss extends Chicken {
                 this.x -= this.endbossSpeedX;
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition) {
                 this.chickenSound.play();
-                // this.x -= this.endbossSpeedX;
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.x += this.endbossSpeedX;
             }

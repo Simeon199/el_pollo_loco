@@ -42,7 +42,6 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/running.mp3');
-    // punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
     bottle;
 
     constructor() {

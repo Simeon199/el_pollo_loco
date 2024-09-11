@@ -13,7 +13,7 @@ class World {
     punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
     bottleHit = new Audio('audio/bottle_hit.mp3');
     hit = new Audio('audio/hit3.mp3');
-    // bottleCollectClick = new Audio('audio/bottleClick.mp3');
+    backgroundMusic = new Audio('audio/laCucaracha.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,6 +33,7 @@ class World {
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
             this.calibrateDistanceBetweenCharacterAndEndboss();
+            this.backgroundMusic.play();
         }, 100);
     }
 
@@ -69,7 +70,6 @@ class World {
                 this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
             }
         });
-        // this.bottleCollectClick.play();
     }
 
     collectBottles(bottle) {
