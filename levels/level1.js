@@ -1,44 +1,9 @@
-const level1 = new Level(
-    new Keyboard(),
-    [
-        new Chicken(0),
-        new Chicken(1),
-        new Chicken(2),
-        new Endboss(3)
-    ],
-    [
-        new Cloud()
-    ],
-    [
-        new BackgroundObject('img/5_background/layers/air.png', -719 * 2),
-        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', -719 * 2),
-        new BackgroundObject('img/5_background/layers/2_second_layer/1.png', -719 * 2),
-        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', -719 * 2),
 
-        new BackgroundObject('img/5_background/layers/air.png', -719),
-        new BackgroundObject('img/5_background/layers/3_third_layer/2.png', -719),
-        new BackgroundObject('img/5_background/layers/2_second_layer/2.png', -719),
-        new BackgroundObject('img/5_background/layers/1_first_layer/2.png', -719),
+const level1 = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles());
 
-        new BackgroundObject('img/5_background/layers/air.png', 0),
-        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
-
-        new BackgroundObject('img/5_background/layers/air.png', 719),
-        new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719),
-        new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719),
-        new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719),
-
-        new BackgroundObject('img/5_background/layers/air.png', 719 * 2),
-        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 719 * 2),
-        new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719 * 2),
-        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719 * 2)
-    ],
-
-    generateRandomBottles(),
-
-);
+function generateCloud() {
+    return [new Cloud()];
+}
 
 function generateRandomBottles() {
     let bottles = [];
@@ -46,4 +11,35 @@ function generateRandomBottles() {
         bottles.push(new ThrowableObject(- 1 * 700 + Math.random() * 1000, 300, this.Keyboard));
     }
     return bottles;
+}
+
+function generateEnemies() {
+    let enemies = [];
+    for (i = 0; i < 5; i++) {
+        enemies.push(new Chicken(i));
+    }
+    let endbossIndex = enemies.length
+    enemies.push(new Endboss(endbossIndex));
+    return enemies;
+}
+
+function generateBackgroundArray() {
+    let layers = [
+        'img/5_background/layers/air.png',
+        'img/5_background/layers/3_third_layer/',
+        'img/5_background/layers/2_second_layer/',
+        'img/5_background/layers/1_first_layer/'
+    ];
+    let backgrounds = [];
+    let numScreens = 5;
+    let screenWidth = 719;
+    for (let i = -2; i <= numScreens - 3; i++) {
+        let position = i * screenWidth;
+        backgrounds.push(new BackgroundObject(layers[0], position));
+        for (let j = 1; j < layers.length; j++) {
+            let layerImage = layers[j] + ((Math.abs(i) % 2) + 1) + '.png';
+            backgrounds.push(new BackgroundObject(layerImage, position));
+        }
+    }
+    return backgrounds;
 }

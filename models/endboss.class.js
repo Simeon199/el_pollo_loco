@@ -10,10 +10,6 @@ class Endboss extends Chicken {
     width = 250;
     y = 55;
 
-    // Musterbeispiel
-    // walking_sound = new Audio('audio/running.mp3');
-    // this.walking_sound.play();
-
     chickenSound = new Audio('audio/chicken_sound1.mp3');
     chickenScream = new Audio('audio/chicken_scream1.mp3');
     hitAndScream = new Audio('audio/punch_and_ouch1.mp3');

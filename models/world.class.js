@@ -4,7 +4,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
-    // coin = new Coin();
+    coin = new Coin();
     level = level1;
     canvas;
     ctx;
@@ -216,6 +216,7 @@ class World {
     addMainObjectsToMap() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+        this.addToMap(this.coin);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
