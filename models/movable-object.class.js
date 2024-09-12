@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
-    timePassedLimit = 1;
+    timePassedLimit = 0.5;
     timePassedVariable = 0;
     lastHit = 0;
 

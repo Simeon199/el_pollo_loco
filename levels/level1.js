@@ -7,7 +7,7 @@ function generateCloud() {
 
 function generateRandomBottles() {
     let bottles = [];
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 10; i++) {
         bottles.push(new ThrowableObject(- 1 * 700 + Math.random() * 1000, 300, this.Keyboard));
     }
     return bottles;

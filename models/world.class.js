@@ -4,17 +4,22 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
-    coin = new Coin();
+    coins = [];
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
     throwableObjects = [];
+
+    // audio related content
+
     punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
     bottleHit = new Audio('audio/bottle_hit.mp3');
     hit = new Audio('audio/hit3.mp3');
     backgroundMusic = new Audio('audio/laCucaracha.mp3');
+    loadingSound = new Audio('audio/loadingSound.mp3');
+    bellSound = new Audio('audio/bellSound.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -24,6 +29,7 @@ class World {
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
+        this.coins = this.generateCoinsArray();
         this.run();
     }
 
@@ -44,6 +50,18 @@ class World {
         this.endbossbar.world = this;
     }
 
+    generateCoinsArray() {
+        let coinsArray = [];
+        let i = 0;
+        for (let j = 0; j < 10; j++) {
+            if (i < j) {
+                coinsArray.push(new Coin());
+                i++;
+            }
+        }
+        return coinsArray;
+    }
+
     calibrateDistanceBetweenCharacterAndEndboss() {
         this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
     }
@@ -54,6 +72,29 @@ class World {
                 this.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
             }
         });
+
+        this.coins.forEach(coin => {
+            if (this.character.isColliding(coin)) {
+                // console.log('Yeah!');
+                this.collectCoins(coin);
+            }
+        })
+    }
+
+    collectCoins(coin) {
+        let index = this.coins.indexOf(coin);
+        coin.img.scr = '';
+        this.coins.splice(index, 1);
+        if (this.character.energy <= 95) {
+            this.character.energy += 5;
+            this.adjustStatusBarWhenCharacterGetsCoin();
+        }
+    }
+
+    adjustStatusBarWhenCharacterGetsCoin() {
+        this.statusbar.percentage += 5;
+        this.statusbar.setPercentage(this.character.energy);
+        this.bellSound.play();
     }
 
     // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert! Die entsprechenden Methoden finden sich hier.
@@ -77,6 +118,7 @@ class World {
         let index = this.level.bottles.indexOf(bottle);
         this.bottlebar.bottlesCollected += 1;
         this.level.bottles.splice(index, 1);
+        this.loadingSound.play();
     }
 
     collectGroundBottles(bottle) {
@@ -216,11 +258,11 @@ class World {
     addMainObjectsToMap() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addToMap(this.coin);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.coins);
     }
 
     addAllStatusBarsToMap() {
