@@ -17,7 +17,7 @@ class World {
     punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
     bottleHit = new Audio('audio/bottle_hit.mp3');
     hit = new Audio('audio/hit3.mp3');
-    // backgroundMusic = new Audio('audio/laCucaracha.mp3');
+    backgroundMusic = new Audio('audio/laCucaracha.mp3');
     loadingSound = new Audio('audio/loadingSound.mp3');
     bellSound = new Audio('audio/bellSound.mp3');
 
@@ -40,7 +40,7 @@ class World {
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
             this.calibrateDistanceBetweenCharacterAndEndboss();
-            // this.backgroundMusic.play();
+            this.backgroundMusic.play();
         }, 100);
     }
 

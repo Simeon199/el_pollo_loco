@@ -109,8 +109,6 @@ class Endboss extends Chicken {
                 this.endbossSpeedX = 20;
             }, 100);
         }
-        // console.log("Time when Endboss striked main character: ", this.endbossHitCharacterAtTime);
-        // console.log("time difference: ", timeDifference);
     }
 
     updateEndbossDirection() {
