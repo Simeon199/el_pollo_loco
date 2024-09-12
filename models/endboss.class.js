@@ -1,4 +1,6 @@
 class Endboss extends Chicken {
+    endbossHitCharacter = false;
+    endbossHitCharacterAtTime = 0;
     endbossSpeedX = 20;
     mainCharacterPosition = null;
     hurtAnimationEnd = 0;
@@ -71,8 +73,10 @@ class Endboss extends Chicken {
                     this.chickenScream.pause();
                     this.chickenSound.play();
                     if (this.mainCharacterPosition < this.x) {
+                        this.checkIfEndbossAlreadyHitCharacter();
                         this.x -= this.endbossSpeedX;
                     } else {
+                        this.checkIfEndbossAlreadyHitCharacter();
                         this.x += this.endbossSpeedX;
                     }
                     this.playAnimation(this.IMAGES_ATTACK);
@@ -82,16 +86,31 @@ class Endboss extends Chicken {
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition) {
                 this.chickenSound.play();
                 this.playAnimation(this.IMAGES_ATTACK);
+                this.checkIfEndbossAlreadyHitCharacter();
                 this.x -= this.endbossSpeedX;
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition) {
                 this.chickenSound.play();
                 this.playAnimation(this.IMAGES_ATTACK);
+                this.checkIfEndbossAlreadyHitCharacter();
                 this.x += this.endbossSpeedX;
-            }
-            else {
+            } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 100);
+    }
+
+    checkIfEndbossAlreadyHitCharacter() {
+        let date = new Date().getTime();
+        let timeDifference = date - this.endbossHitCharacterAtTime;
+        if (timeDifference < 200) {
+            this.endbossSpeedX = 0;
+        } else {
+            setTimeout(() => {
+                this.endbossSpeedX = 20;
+            }, 100);
+        }
+        // console.log("Time when Endboss striked main character: ", this.endbossHitCharacterAtTime);
+        // console.log("time difference: ", timeDifference);
     }
 
     updateEndbossDirection() {

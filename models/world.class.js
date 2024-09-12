@@ -17,7 +17,7 @@ class World {
     punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
     bottleHit = new Audio('audio/bottle_hit.mp3');
     hit = new Audio('audio/hit3.mp3');
-    backgroundMusic = new Audio('audio/laCucaracha.mp3');
+    // backgroundMusic = new Audio('audio/laCucaracha.mp3');
     loadingSound = new Audio('audio/loadingSound.mp3');
     bellSound = new Audio('audio/bellSound.mp3');
 
@@ -40,7 +40,7 @@ class World {
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
             this.calibrateDistanceBetweenCharacterAndEndboss();
-            this.backgroundMusic.play();
+            // this.backgroundMusic.play();
         }, 100);
     }
 
@@ -75,7 +75,6 @@ class World {
 
         this.coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
-                // console.log('Yeah!');
                 this.collectCoins(coin);
             }
         })
@@ -211,13 +210,18 @@ class World {
     }
 
     applyKnockback(enemy) {
+        if (enemy instanceof Endboss) {
+            enemy.endbossHitCharacter = true;
+            enemy.endbossHitCharacterAtTime = new Date().getTime();
+            // console.log("Time when Endboss striked main character: ", enemy.endbossHitCharacterAtTime);
+        }
         let knockbackDistance = 100;
         let knockbackSpeed = 5;
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;
         let knockbackInterval = setInterval(() => {
             let newXPosition = this.character.x + direction * knockbackSpeed;
-            if (newXPosition >= -this.level.level_end_x + 100 && newXPosition <= this.level.level_end_x) {
+            if (newXPosition >= -this.level.level_end_x + 100 && newXPosition <= this.level.level_end_x + 100) {
                 if (distanceMoved < knockbackDistance) {
                     this.character.x = newXPosition;
                     distanceMoved += knockbackSpeed;

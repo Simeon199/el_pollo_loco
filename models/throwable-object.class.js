@@ -71,6 +71,9 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+
+    // --- To-Do: Bündle throwBottleToTheRight() und ThrowBottleToTheLeft() in einer Funktion ---
+
     throwBottleToTheRight() {
         if (this.intervalID) {
             clearInterval(this.intervalID);
@@ -106,6 +109,8 @@ class ThrowableObject extends MovableObject {
             this.playBottleBrokenAnimation();
         }
     }
+
+    // --- Todo-Ende --- //
 
     stopGame(direction) {
         if (!this.isBottleBroken) { // Überlegung: Warum ist diese zusätzliche Überprüfung notwendig, wenn sie schon in der Funktion zuvor gemacht worden ist?
