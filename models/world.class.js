@@ -4,7 +4,6 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
-    introAnimation = new IntroAnimation();
     coins = [];
     level = level1;
     canvas;

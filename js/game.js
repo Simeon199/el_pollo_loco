@@ -2,11 +2,36 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+let hasGameStarted = false;
 
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     ctx = canvas.getContext('2d');
+    checkIfEnemyOrCharacterIsDead();
+}
+
+function startGame() {
+    document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('intro-image').style.display = 'none';
+    init();
+}
+
+function checkIfEnemyOrCharacterIsDead() {
+    setInterval(() => {
+        if (world.character.energy == 0) {
+            stopGame();
+        }
+    }, 100);
+}
+
+function stopGame() {
+    setTimeout(() => {
+        for (let i = 1; i < 99999; i++)
+            window.clearInterval(i);
+    }, 500);
+    document.getElementById('canvas').style.display = 'none';
+    document.getElementById('winning-image').style.display = 'block';
 }
 
 window.addEventListener('keydown', (event) => {

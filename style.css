@@ -29,9 +29,21 @@ h1 {
     font-size: 60px;
 }
 
+#intro-image {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
 #intro-image img {
     width: 720px;
     height: 480px;
+}
+
+#intro-image button {
+    width: 15%;
+    cursor: pointer;
 }
 
 canvas {
