@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js"></script>
+    <script src="models/intro-animation.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/character.class.js"></script>
     <script src="models/chicken.class.js"></script>
@@ -27,12 +28,13 @@
     <link rel="icon" type="image/x-icon" href="/assets/chicken.png">
 </head>
 
-<body onload="init()">
+<body>
     <!-- <a href="https://www.flaticon.com/free-icons/chicken" title="chicken icons">Chicken icons created by Freepik - Flaticon</a> -->
     <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="720" height="480">
-
-    </canvas>
+    <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
+    <div id="intro-image">
+        <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
+    </div>
 </body>
 
 </html>

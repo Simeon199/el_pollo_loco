@@ -4,6 +4,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
+    introAnimation = new IntroAnimation();
     coins = [];
     level = level1;
     canvas;
@@ -11,6 +12,8 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
+    hasGameStarted = false;
+    isGameOver = false;
 
     // audio related content
 
@@ -21,17 +24,32 @@ class World {
     loadingSound = new Audio('audio/loadingSound.mp3');
     bellSound = new Audio('audio/bellSound.mp3');
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard) { // Hier das Intro einfügen
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-        this.level = level1;
         this.keyboard = keyboard;
+        this.level = level1;
+        // this.proveIfGameHasStarted(canvas, keyboard);
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
         this.coins = this.generateCoinsArray();
         this.run();
     }
+
+    // proveIfGameHasStarted() {
+    //     if (this.hasGameStarted == false) {
+    //         console.log('It hasnt started yet! ', this.introAnimation);
+    //         debugger;
+    //         this.introAnimation.draw();
+    //     } else {
+    //         this.draw();
+    //         this.setWorld();
+    //         this.bottlebar.bottleAmount = this.level.bottles.length;
+    //         this.coins = this.generateCoinsArray();
+    //         this.run();
+    //     }
+    // }
 
     run() {
         this.runInterval = setInterval(() => {
@@ -77,7 +95,7 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.collectCoins(coin);
             }
-        })
+        });
     }
 
     collectCoins(coin) {

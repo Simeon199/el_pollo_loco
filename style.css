@@ -21,8 +21,17 @@ body {
     font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
 }
 
+.d-none {
+    display: none;
+}
+
 h1 {
     font-size: 60px;
+}
+
+#intro-image img {
+    width: 720px;
+    height: 480px;
 }
 
 canvas {
