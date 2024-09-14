@@ -4,6 +4,13 @@
 }
 
 @font-face {
+    font-family: 'damion';
+    src: url('fonts/Damion-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    /* font-family: 'damion';
+    src: url('fonts/Damion-Regular.ttf') format('truetype'); */
     font-family: 'sombrero';
     src: url('fonts/SombreroLight.ttf') format('truetype');
 }
@@ -63,6 +70,7 @@ h1 {
     background-color: gold;
     font-weight: bold;
     color: dimgray;
+    font-family: 'damion', sans-serif;
     transition: transform 500ms ease-in-out;
 }
 
@@ -124,8 +132,10 @@ h1 {
 }
 
 h2 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'damion', sans-serif;
     color: dimgray;
+    font-size: 40px;
+    padding: 8px;
 }
 
 a {
