@@ -30,10 +30,22 @@ h1 {
 }
 
 #intro-image {
+    width: 720px;
+    height: 480px;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 16px;
+}
+
+#winning-image img {
+    width: 720px;
+    height: 480px;
+}
+
+#losing-image img {
+    width: 720px;
+    height: 480px;
 }
 
 #intro-image img {
