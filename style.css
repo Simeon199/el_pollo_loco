@@ -44,6 +44,81 @@ h1 {
 #intro-image button {
     width: 15%;
     cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 36px;
+    padding: 8px;
+    background-color: gold;
+    font-weight: bold;
+    color: dimgray;
+    transition: transform 500ms ease-in-out;
+}
+
+#intro-image button:hover {
+    transform: scale(1.2);
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}
+
+.image-container button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: gold;
+    transition: transform 500ms ease-in-out;
+}
+
+.image-container button:hover {
+    background-color: rgb(95, 81, 3);
+    transform: scale(1.5);
+}
+
+.image-container img {
+    width: 200px;
+    transition: transform 500ms ease-in-out;
+}
+
+.image-container img:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#intro-image button:hover {
+    background-color: rgb(95, 81, 3);
+}
+
+.main-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.outer-image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 800px;
+    width: 100%;
+}
+
+h1 {
+    padding-top: 24px;
+}
+
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: dimgray;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
 }
 
 canvas {

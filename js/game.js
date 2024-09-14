@@ -24,7 +24,6 @@ function checkIfEnemyOrCharacterIsDead() {
         } else if (world.enemiesNumber <= 0) {
             stopGame('winning');
         }
-        console.log(world.enemiesNumber);
     }, 100);
 }
 
