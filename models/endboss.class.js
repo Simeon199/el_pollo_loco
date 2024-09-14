@@ -7,7 +7,7 @@ class Endboss extends Chicken {
     timePassedLimit = 5;
     animateInterval = -1;
     isEndbossHurt = false;
-    isDead = false;
+    // isDead = false;
     height = 400;
     width = 250;
     y = 55;
@@ -82,6 +82,7 @@ class Endboss extends Chicken {
                     this.playAnimation(this.IMAGES_ATTACK);
                 }
             } else if (this.wasEndbossHit() && this.energy == 0) {
+                this.isDead == true;
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition) {
                 this.chickenSound.play();

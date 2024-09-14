@@ -13,6 +13,7 @@ class World {
     throwableObjects = [];
     hasGameStarted = false;
     isGameOver = false;
+    enemiesNumber = this.level.enemies.length;
 
     // audio related content
 
@@ -28,27 +29,12 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.level = level1;
-        // this.proveIfGameHasStarted(canvas, keyboard);
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
         this.coins = this.generateCoinsArray();
         this.run();
     }
-
-    // proveIfGameHasStarted() {
-    //     if (this.hasGameStarted == false) {
-    //         console.log('It hasnt started yet! ', this.introAnimation);
-    //         debugger;
-    //         this.introAnimation.draw();
-    //     } else {
-    //         this.draw();
-    //         this.setWorld();
-    //         this.bottlebar.bottleAmount = this.level.bottles.length;
-    //         this.coins = this.generateCoinsArray();
-    //         this.run();
-    //     }
-    // }
 
     run() {
         this.runInterval = setInterval(() => {
@@ -182,6 +168,7 @@ class World {
     executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
         bottle.isBottleBroken = true;
         enemy.isDead = true;
+        this.enemiesNumber -= 1;
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
         this.bottleHit.play();
@@ -199,6 +186,7 @@ class World {
         } else {
             enemy.spliceable = true;
             enemy.enemiesArray = this.level.enemies;
+            this.enemiesNumber -= 1;
         }
     }
 
@@ -230,7 +218,6 @@ class World {
         if (enemy instanceof Endboss) {
             enemy.endbossHitCharacter = true;
             enemy.endbossHitCharacterAtTime = new Date().getTime();
-            // console.log("Time when Endboss striked main character: ", enemy.endbossHitCharacterAtTime);
         }
         let knockbackDistance = 100;
         let knockbackSpeed = 5;

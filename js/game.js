@@ -20,18 +20,30 @@ function startGame() {
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         if (world.character.energy == 0) {
-            stopGame();
+            stopGame('losing');
+        } else if (world.enemiesNumber <= 0) {
+            stopGame('winning');
         }
+        console.log(world.enemiesNumber);
     }, 100);
 }
 
-function stopGame() {
+function stopGame(string) {
     setTimeout(() => {
-        for (let i = 1; i < 99999; i++)
-            window.clearInterval(i);
-    }, 500);
-    document.getElementById('canvas').style.display = 'none';
-    document.getElementById('winning-image').style.display = 'block';
+        clearAllIntervals();
+        document.getElementById('canvas').style.display = 'none';
+        if (string == 'losing') {
+            document.getElementById('losing-image').style.display = 'block';
+        } else if (string == 'winning') {
+            document.getElementById('winning-image').style.display = 'block';
+        }
+    }, 1000);
+}
+
+function clearAllIntervals() {
+    for (let i = 1; i < 99999; i++) {
+        window.clearInterval(i);
+    }
 }
 
 window.addEventListener('keydown', (event) => {
