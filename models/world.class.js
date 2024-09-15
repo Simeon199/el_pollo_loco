@@ -26,7 +26,7 @@ class World {
     loadingSound = new Audio('audio/loadingSound.mp3');
     bellSound = new Audio('audio/bellSound.mp3');
 
-    constructor(canvas, keyboard) { // Hier das Intro einfügen
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -34,7 +34,6 @@ class World {
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
-        // this.coins = this.generateCoinsArray();
         this.run();
     }
 
@@ -56,18 +55,6 @@ class World {
         this.coinbar.world = this;
     }
 
-    // generateCoinsArray() {
-    //     let coinsArray = [];
-    //     let i = 0;
-    //     for (let j = 0; j < 10; j++) {
-    //         if (i < j) {
-    //             coinsArray.push(new Coin());
-    //             i++;
-    //         }
-    //     }
-    //     return coinsArray;
-    // }
-
     calibrateDistanceBetweenCharacterAndEndboss() {
         this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
     }
@@ -82,10 +69,6 @@ class World {
         this.level.coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
                 this.collectCoins(coin);
-                this.coinbar.energy += 5;
-                this.coinbar.percentage += 5;
-                this.coinbar.setPercentage(this.coinbar.energy, this.coinbar.COIN_BAR_IMAGES);
-                // this.bottleHit.play();
             }
         });
     }
@@ -93,6 +76,7 @@ class World {
     collectCoins(coin) {
         let index = this.level.coins.indexOf(coin);
         coin.img.scr = '';
+        this.adjustCoinbarWhenCharacterCollectsCoin();
         this.level.coins.splice(index, 1);
         if (this.character.energy <= 95) {
             this.character.energy += 5;
@@ -104,6 +88,15 @@ class World {
         this.statusbar.percentage += 5;
         this.statusbar.setPercentage(this.character.energy);
         this.bellSound.play();
+    }
+
+    adjustCoinbarWhenCharacterCollectsCoin() {
+        this.coinbar.percentage += (1 / (this.level.coins.length)) * 100;
+        if (this.level.coins.length <= 1) {
+            this.coinbar.setPercentage(100, this.coinbar.COIN_BAR_IMAGES);
+        } else {
+            this.coinbar.setPercentage(this.coinbar.percentage, this.coinbar.COIN_BAR_IMAGES);
+        }
     }
 
     // Mit der Funktion checkCollisionsWithBottles wird das Einsammeln der Flaschen gesteuert! Die entsprechenden Methoden finden sich hier.
