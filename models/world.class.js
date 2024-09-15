@@ -4,8 +4,6 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
-    // coinbar = new CoinBar();
-    // coins = [];
     coinbar = new CoinBar();
     level = level1;
     canvas;
@@ -82,12 +80,12 @@ class World {
             this.character.energy += 5;
             this.adjustStatusBarWhenCharacterGetsCoin();
         }
+        this.bellSound.play();
     }
 
     adjustStatusBarWhenCharacterGetsCoin() {
         this.statusbar.percentage += 5;
         this.statusbar.setPercentage(this.character.energy);
-        this.bellSound.play();
     }
 
     adjustCoinbarWhenCharacterCollectsCoin() {

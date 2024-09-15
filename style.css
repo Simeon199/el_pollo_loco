@@ -156,3 +156,15 @@ a:nth-child(1) {
 canvas {
     background-color: black;
 }
+
+.arrow-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.arrow-image img {
+    width: 200px;
+}
