@@ -4,7 +4,9 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
-    coins = [];
+    // coinbar = new CoinBar();
+    // coins = [];
+    coinbar = new CoinBar();
     level = level1;
     canvas;
     ctx;
@@ -32,7 +34,7 @@ class World {
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
-        this.coins = this.generateCoinsArray();
+        // this.coins = this.generateCoinsArray();
         this.run();
     }
 
@@ -51,19 +53,20 @@ class World {
         this.character.world = this;
         this.bottlebar.world = this;
         this.endbossbar.world = this;
+        this.coinbar.world = this;
     }
 
-    generateCoinsArray() {
-        let coinsArray = [];
-        let i = 0;
-        for (let j = 0; j < 10; j++) {
-            if (i < j) {
-                coinsArray.push(new Coin());
-                i++;
-            }
-        }
-        return coinsArray;
-    }
+    // generateCoinsArray() {
+    //     let coinsArray = [];
+    //     let i = 0;
+    //     for (let j = 0; j < 10; j++) {
+    //         if (i < j) {
+    //             coinsArray.push(new Coin());
+    //             i++;
+    //         }
+    //     }
+    //     return coinsArray;
+    // }
 
     calibrateDistanceBetweenCharacterAndEndboss() {
         this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
@@ -76,17 +79,21 @@ class World {
             }
         });
 
-        this.coins.forEach(coin => {
+        this.level.coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
                 this.collectCoins(coin);
+                this.coinbar.energy += 5;
+                this.coinbar.percentage += 5;
+                this.coinbar.setPercentage(this.coinbar.energy, this.coinbar.COIN_BAR_IMAGES);
+                // this.bottleHit.play();
             }
         });
     }
 
     collectCoins(coin) {
-        let index = this.coins.indexOf(coin);
+        let index = this.level.coins.indexOf(coin);
         coin.img.scr = '';
-        this.coins.splice(index, 1);
+        this.level.coins.splice(index, 1);
         if (this.character.energy <= 95) {
             this.character.energy += 5;
             this.adjustStatusBarWhenCharacterGetsCoin();
@@ -270,13 +277,14 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.coins);
+        this.addObjectsToMap(this.level.coins);
     }
 
     addAllStatusBarsToMap() {
         this.addToMap(this.statusbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.endbossbar);
+        this.addToMap(this.coinbar);
     }
 
     addObjectsToMap(objects) {

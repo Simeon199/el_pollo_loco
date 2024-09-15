@@ -1,5 +1,5 @@
 
-const level1 = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles());
+const level1 = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
 
 function generateCloud() {
     return [new Cloud()];
@@ -11,6 +11,18 @@ function generateRandomBottles() {
         bottles.push(new ThrowableObject(- 1 * 700 + Math.random() * 1000, 300, this.Keyboard));
     }
     return bottles;
+}
+
+function generateCoinsArray() {
+    let coinsArray = [];
+    let i = 0;
+    for (let j = 0; j < 10; j++) {
+        if (i < j) {
+            coinsArray.push(new Coin());
+            i++;
+        }
+    }
+    return coinsArray;
 }
 
 function generateEnemies() {
