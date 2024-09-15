@@ -19,10 +19,5 @@ class CoinBar extends StatusBar {
         this.loadImages(this.COIN_BAR_IMAGES);
         this.x = 30;
         this.y = 100;
-        // this.showRealPercentage();
     }
-
-    // showRealPercentage() {
-    //     console.log("Percentage Status of the Coin Bar: ", this.percentage);
-    // }
 }
