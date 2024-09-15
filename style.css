@@ -138,7 +138,19 @@ h2 {
 
 a {
     text-decoration: none;
+}
+
+a:nth-child(1) {
+    bottom: 0;
+    position: absolute;
+    right: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-weight: bold;
     cursor: pointer;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    color: black;
 }
 
 canvas {
