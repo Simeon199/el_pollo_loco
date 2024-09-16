@@ -7,7 +7,6 @@ class Endboss extends Chicken {
     timePassedLimit = 5;
     animateInterval = -1;
     isEndbossHurt = false;
-    // isDead = false;
     height = 400;
     width = 250;
     y = 55;
@@ -65,7 +64,7 @@ class Endboss extends Chicken {
     animate() {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
-            if (this.wasEndbossHit() && this.energy > 0) {
+            if (this.wasEndbossHit() && this.energy > 0 || this.isEndbossFinalEnemy == true) {
                 this.chickenScream.play();
                 if (new Date().getTime() - this.lastHit < 300) {
                     this.playAnimation(this.IMAGES_HURT);

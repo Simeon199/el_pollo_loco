@@ -42,6 +42,7 @@ class World {
             this.checkThrowObjects();
             this.checkThrowableObjectsCollision();
             this.calibrateDistanceBetweenCharacterAndEndboss();
+            this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.backgroundMusic.play();
         }, 100);
     }
@@ -55,6 +56,19 @@ class World {
 
     calibrateDistanceBetweenCharacterAndEndboss() {
         this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
+    }
+
+    checkIfAllEnemiesAreDeadExceptTheEndboss() {
+        console.log('number of enemies at the beginning of the function: ', this.enemiesNumber);
+        if (this.enemiesNumber == 1) {
+            // debugger;
+            this.level.enemies.forEach(enemy => {
+                if (enemy.isDead == false) {
+                    console.log("last enemy: ", enemy.isDead);
+                    enemy.isEndbossFinalEnemy = true;
+                }
+            })
+        }
     }
 
     checkCollisions() {
@@ -166,7 +180,7 @@ class World {
     executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
         bottle.isBottleBroken = true;
         enemy.isDead = true;
-        this.enemiesNumber -= 1;
+        this.enemiesNumber -= 1; // Hier ansetzen !
         enemy.animate(this.level.enemies);
         bottle.playBottleBrokenAnimation();
         this.bottleHit.play();
@@ -184,7 +198,7 @@ class World {
         } else {
             enemy.spliceable = true;
             enemy.enemiesArray = this.level.enemies;
-            this.enemiesNumber -= 1;
+            // this.enemiesNumber -= 1;
         }
     }
 
@@ -242,6 +256,7 @@ class World {
 
     enemyIsDefeatedByJump(enemy) {
         enemy.isDead = true;
+        this.enemiesNumber -= 1;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
         this.hit.play();
