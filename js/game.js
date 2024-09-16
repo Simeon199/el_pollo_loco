@@ -21,7 +21,8 @@ function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         if (world.character.energy == 0) {
             stopGame('losing');
-        } else if (world.enemiesNumber <= 0) {
+        } else if (world.enemiesNumber <= 0) { // Dieser Wert wird nicht korrekt berechnet (Wird sehr schnell sehr negativ)! --> Bug!
+            console.log(world.enemiesNumber);
             stopGame('winning');
         }
     }, 100);

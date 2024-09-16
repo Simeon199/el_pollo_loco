@@ -80,26 +80,36 @@ class Endboss extends Chicken {
                     }
                     this.playAnimation(this.IMAGES_ATTACK);
                 }
-            } else if (this.wasEndbossHit() && this.energy == 0) {
+            } else if (this.wasEndbossHit() && this.isEndbossFinalEnemy == false && this.energy == 0) {
                 this.isDead == true;
-                this.playAnimation(this.IMAGES_DEAD);
+                if (new Date().getTime() - this.lastHit < 1000) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                } else if (new Date().getTime() - this.lastHit >= 1000) {
+                    this.playAnimation(this.IMAGE_DEAD_CHICKEN);
+                    this.mainCharacterPosition = 100000;
+                    this.stopAnimateFunction();
+                }
             } else if (this.isEndbossFinalEnemy == true && this.energy == 0) {
                 this.isDead == true;
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition) {
+            } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0) {
                 this.chickenSound.play();
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.checkIfEndbossAlreadyHitCharacter();
                 this.x -= this.endbossSpeedX;
-            } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition) {
+            } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0) {
                 this.chickenSound.play();
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.checkIfEndbossAlreadyHitCharacter();
                 this.x += this.endbossSpeedX;
-            } else {
+            } else if (this.isDead == false && this.energy > 0 && !(this.wasEndbossHit())) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 100);
+    }
+
+    stopAnimateFunction() {
+        clearInterval(this.animateInterval);
     }
 
     checkIfEndbossAlreadyHitCharacter() {

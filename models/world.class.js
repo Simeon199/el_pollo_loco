@@ -55,16 +55,16 @@ class World {
     }
 
     calibrateDistanceBetweenCharacterAndEndboss() {
-        this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
+        console.log("Living Status of Endboss: ", this.level.enemies[this.level.enemies.length - 1].isDead);
+        if (this.level.enemies[this.level.enemies.length - 1].isDead == false) {
+            this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
+        }
     }
 
     checkIfAllEnemiesAreDeadExceptTheEndboss() {
-        console.log('number of enemies at the beginning of the function: ', this.enemiesNumber);
         if (this.enemiesNumber == 1) {
-            // debugger;
             this.level.enemies.forEach(enemy => {
                 if (enemy.isDead == false) {
-                    console.log("last enemy: ", enemy.isDead);
                     enemy.isEndbossFinalEnemy = true;
                 }
             })
@@ -169,6 +169,8 @@ class World {
         });
     }
 
+    // Neue Implementierung 
+
     enemyEitherDiesOrGetsHurt(enemy, bottle) {
         if (this.isBottleFlyingAndEnemyNotEndboss(bottle, enemy)) {
             this.executeFunctionsToAnimateDyingEnemy(bottle, enemy);
@@ -178,12 +180,14 @@ class World {
     }
 
     executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
-        bottle.isBottleBroken = true;
-        enemy.isDead = true;
-        this.enemiesNumber -= 1; // Hier ansetzen !
-        enemy.animate(this.level.enemies);
-        bottle.playBottleBrokenAnimation();
-        this.bottleHit.play();
+        if (!(enemy instanceof Endboss) && enemy instanceof Chicken) {
+            bottle.isBottleBroken = true;
+            enemy.isDead = true;
+            this.enemiesNumber -= 1;
+            enemy.animate(this.level.enemies);
+            bottle.playBottleBrokenAnimation();
+            this.bottleHit.play();
+        }
     }
 
     executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy) {
@@ -195,7 +199,8 @@ class World {
             this.endbossbar.percentage -= 5;
             this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
             this.bottleHit.play();
-        } else {
+        } else if (enemy.energy == 0) {
+            enemy.isDead = true;
             enemy.spliceable = true;
             enemy.enemiesArray = this.level.enemies;
             this.enemiesNumber -= 1;
