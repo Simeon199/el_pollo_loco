@@ -198,7 +198,7 @@ class World {
         } else {
             enemy.spliceable = true;
             enemy.enemiesArray = this.level.enemies;
-            // this.enemiesNumber -= 1;
+            this.enemiesNumber -= 1;
         }
     }
 
