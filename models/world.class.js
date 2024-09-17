@@ -24,6 +24,7 @@ class World {
     loadingSound = new Audio('audio/loadingSound.mp3');
     bellSound = new Audio('audio/bellSound.mp3');
 
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -32,6 +33,7 @@ class World {
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
+        this.backgroundMusic.volume = 0.25;
         this.run();
     }
 

@@ -30,15 +30,33 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        let tolerance = 5;
+        let tolerance = this.returnCorrectTolerance();
         return this.x + this.width - tolerance > mo.x &&
             this.y + this.height - tolerance > mo.y &&
             this.x + tolerance < mo.x + mo.width &&
             this.y + tolerance < mo.y + mo.height;
     }
 
+    returnCorrectTolerance() {
+        let tolerance = 0;
+        if (this instanceof Character && this.isAboveGround()) {
+            tolerance = -10;
+        } else if (this instanceof Character && this.isAboveGround()) {
+            tolerance = 30;
+        }
+        return tolerance;
+    }
+
+    substractCorrectEnergyAmountWhenGetHit() {
+        if (this instanceof Endboss) {
+            this.energy -= 1;
+        } else {
+            this.energy -= 5;
+        }
+    }
+
     hit() {
-        this.energy -= 5;
+        this.substractCorrectEnergyAmountWhenGetHit();
         if (this.energy < 0) {
             this.energy = 0;
         } else {
