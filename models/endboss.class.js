@@ -64,48 +64,106 @@ class Endboss extends Chicken {
     animate() {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
-            if ((this.isEndbossFinalEnemy == true && this.energy > 0) || (this.wasEndbossHit() && this.energy > 0)) {
-                this.chickenScream.play();
-                if (new Date().getTime() - this.lastHit < 300) {
-                    this.playAnimation(this.IMAGES_HURT);
-                } else {
-                    this.chickenScream.pause();
-                    this.chickenSound.play();
-                    if (this.mainCharacterPosition < this.x) {
-                        this.checkIfEndbossAlreadyHitCharacter();
-                        this.x -= this.endbossSpeedX;
-                    } else {
-                        this.checkIfEndbossAlreadyHitCharacter();
-                        this.x += this.endbossSpeedX;
-                    }
-                    this.playAnimation(this.IMAGES_ATTACK);
-                }
-            } else if (this.wasEndbossHit() && this.isEndbossFinalEnemy == false && this.energy == 0) {
-                this.isDead == true;
-                if (new Date().getTime() - this.lastHit < 1000) {
-                    this.playAnimation(this.IMAGES_DEAD);
-                } else if (new Date().getTime() - this.lastHit >= 1000) {
-                    this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-                    this.mainCharacterPosition = 100000;
-                    this.stopAnimateFunction();
-                }
-            } else if (this.isEndbossFinalEnemy == true && this.energy == 0) {
-                this.isDead == true;
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0) {
-                this.chickenSound.play();
-                this.playAnimation(this.IMAGES_ATTACK);
-                this.checkIfEndbossAlreadyHitCharacter();
+            if (this.wasEndbossProvokedByCharacter()) {
+                this.handleAttackingEndbossAndHurtingEndbossAnimation();
+            } else if (this.isEndbossNotFinalEnemyButDead()) {
+                this.playDyingAnimationAndSetFixedDeadEndbossImage();
+            } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
+                this.setIsDeadAttributeAndplayDyingAnimation();
+            } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
+                this.playAttackEndbossAnimation();
                 this.x -= this.endbossSpeedX;
-            } else if (this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0) {
-                this.chickenSound.play();
-                this.playAnimation(this.IMAGES_ATTACK);
-                this.checkIfEndbossAlreadyHitCharacter();
+            } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
+                this.playAttackEndbossAnimation();
                 this.x += this.endbossSpeedX;
-            } else if (this.isDead == false && this.energy > 0 && !(this.wasEndbossHit())) {
+            } else if (this.isEndbossAliveAndWasNotAttacked()) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 100);
+    }
+
+    handleAttackingEndbossAndHurtingEndbossAnimation() {
+        this.chickenScream.play();
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else {
+            this.animateMovingAndAttackingEndboss();
+        }
+    }
+
+    animateMovingAndAttackingEndboss() {
+        this.chickenScream.pause();
+        this.chickenSound.play();
+        this.directEndbossIntoAttackDirectionAndCheckCollisions();
+        this.playAnimation(this.IMAGES_ATTACK);
+    }
+
+    directEndbossIntoAttackDirectionAndCheckCollisions() {
+        if (this.mainCharacterPosition < this.x) {
+            this.checkIfEndbossAlreadyHitCharacter();
+            this.x -= this.endbossSpeedX;
+        } else {
+            this.checkIfEndbossAlreadyHitCharacter();
+            this.x += this.endbossSpeedX;
+        }
+    }
+
+    checkTimeDifferenceSinceLastTimeHit() {
+        return new Date().getTime() - this.lastHit;
+    }
+
+    wasEndbossProvokedByCharacter() {
+        return this.isEndbossAliveAndFinalEnemy() || this.isEndbossAliveAndWasAttacked();
+    }
+
+    isEndbossAliveAndWasAttacked() {
+        return this.wasEndbossHit() && this.energy > 0;
+    }
+
+    isEndbossAliveAndFinalEnemy() {
+        return this.isEndbossFinalEnemy == true && this.energy > 0;
+    }
+
+    playDyingAnimationAndSetFixedDeadEndbossImage() {
+        this.isDead == true;
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 1000) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 1000) {
+            this.playAnimation(this.IMAGE_DEAD_CHICKEN);
+            this.mainCharacterPosition = 100000;
+            this.stopAnimateFunction();
+        }
+    }
+
+    isEndbossNotFinalEnemyButDead() {
+        return this.wasEndbossHit() && this.isEndbossFinalEnemy == false && this.energy == 0;
+    }
+
+    isFinalEnemyEndbossAndIsHeDead() {
+        return this.isEndbossFinalEnemy == true && this.energy == 0;
+    }
+
+    isEndbossAliveAndWasNotAttacked() {
+        return this.isDead == false && this.energy > 0 && !(this.wasEndbossHit());
+    }
+
+    isCharacterToCloseToEndbossFromTheRight() {
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0;
+    }
+
+    isCharacterToCloseToEndbossFromTheLeft() {
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0;
+    }
+
+    playAttackEndbossAnimation() {
+        this.chickenSound.play();
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.checkIfEndbossAlreadyHitCharacter();
+    }
+
+    setIsDeadAttributeAndplayDyingAnimation() {
+        this.isDead == true;
+        this.playAnimation(this.IMAGES_DEAD);
     }
 
     stopAnimateFunction() {

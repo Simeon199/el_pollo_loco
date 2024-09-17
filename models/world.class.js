@@ -244,7 +244,7 @@ class World {
         let distanceMoved = 0;
         let knockbackInterval = setInterval(() => {
             let newXPosition = this.character.x + direction * knockbackSpeed;
-            if (newXPosition >= -this.level.level_end_x + 100 && newXPosition <= this.level.level_end_x + 100) {
+            if (-this.level.level_end_x + 100 >= newXPosition && newXPosition <= this.level.level_end_x + 100) { // -this.level.level_end_x + 100 && newXPosition <= this.level.level_end_x + 100
                 if (distanceMoved < knockbackDistance) {
                     this.character.x = newXPosition;
                     distanceMoved += knockbackSpeed;

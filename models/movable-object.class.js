@@ -40,7 +40,7 @@ class MovableObject extends DrawableObject {
     returnCorrectTolerance() {
         let tolerance = 0;
         if (this instanceof Character && this.isAboveGround()) {
-            tolerance = -10;
+            tolerance = 0;
         } else if (this instanceof Character && this.isAboveGround()) {
             tolerance = 30;
         }
@@ -49,7 +49,7 @@ class MovableObject extends DrawableObject {
 
     substractCorrectEnergyAmountWhenGetHit() {
         if (this instanceof Endboss) {
-            this.energy -= 1;
+            this.energy -= 10;
         } else {
             this.energy -= 5;
         }
@@ -102,7 +102,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) { // this instanceof Character && (this.isHurt() || this.isDead())
             this.speedY = 0;
         } else {
-            this.speedY = 35;
+            this.speedY = 30;
         }
     }
 
