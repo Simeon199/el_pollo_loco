@@ -60,6 +60,7 @@ h1 {
 }
 
 #winning-image img {
+    margin-top: 42px;
     width: 720px;
     height: 480px;
 }
@@ -69,14 +70,36 @@ h1 {
     height: 480px;
 }
 
-#intro-image img {
+#intro-image img:nth-child(1) {
     width: 720px;
     height: 480px;
 }
 
+#intro-image img:nth-child(2) {
+    position: absolute;
+    top: 88%;
+    width: 48px;
+    height: auto;
+    cursor: pointer;
+}
+
+#intro-image img:nth-child(2) {
+    position: absolute;
+    top: 88%;
+    width: 48px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 500ms ease-in-out;
+}
+
+#intro-image img:nth-child(2):hover {
+    transform: scale(1.2);
+}
+
+
 #intro-image button {
     position: absolute;
-    top: 80%;
+    top: 85%;
     width: 15%;
     cursor: pointer;
     border: none;
@@ -91,6 +114,8 @@ h1 {
 }
 
 .button-style {
+    position: absolute;
+    top: calc((100% - 65px)/1.6);
     cursor: pointer;
     border: none;
     border-radius: 8px;
