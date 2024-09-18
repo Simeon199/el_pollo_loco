@@ -40,7 +40,7 @@ class MovableObject extends DrawableObject {
     returnCorrectTolerance() {
         let tolerance = 0;
         if (this instanceof Character && this.isAboveGround()) {
-            tolerance = 0;
+            tolerance = 5;
         } else if (this instanceof Character && this.isAboveGround()) {
             tolerance = 30;
         }

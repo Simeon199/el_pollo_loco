@@ -29,11 +29,27 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.level = level1;
+        this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
         this.draw();
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
         this.backgroundMusic.volume = 0.25;
+        this.run();
+    }
+
+    reset() {
+        this.character = new Character();
+        this.statusbar = new StatusBar();
+        this.bottlebar = new BottleBar();
+        this.endbossbar = new EndbossBar();
+        this.coinbar = new CoinBar();
+        this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
+        this.enemiesNumber = this.level.enemies.length;
+        this.throwableObjects = [];
+        this.camera_x = 0;
+        this.setWorld();
+        this.bottlebar.bottleAmount = this.level.bottles.length;
+        clearInterval(this.runInterval);
         this.run();
     }
 
@@ -54,10 +70,11 @@ class World {
         this.bottlebar.world = this;
         this.endbossbar.world = this;
         this.coinbar.world = this;
+        this.level.world = this;
     }
 
     calibrateDistanceBetweenCharacterAndEndboss() {
-        console.log("Living Status of Endboss: ", this.level.enemies[this.level.enemies.length - 1].isDead);
+        // console.log("Living Status of Endboss: ", this.level.enemies[this.level.enemies.length - 1].isDead);
         if (this.level.enemies[this.level.enemies.length - 1].isDead == false) {
             this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
         }
@@ -244,7 +261,7 @@ class World {
         let distanceMoved = 0;
         let knockbackInterval = setInterval(() => {
             let newXPosition = this.character.x + direction * knockbackSpeed;
-            if (-this.level.level_end_x + 100 >= newXPosition && newXPosition <= this.level.level_end_x + 100) { // -this.level.level_end_x + 100 && newXPosition <= this.level.level_end_x + 100
+            if (-this.level.level_end_x + 100 <= newXPosition && newXPosition <= this.level.level_end_x + 100) {
                 if (distanceMoved < knockbackDistance) {
                     this.character.x = newXPosition;
                     distanceMoved += knockbackSpeed;

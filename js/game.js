@@ -5,8 +5,12 @@ let keyboard = new Keyboard();
 let hasGameStarted = false;
 
 function init() {
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
+    if (world) {
+        world.reset();
+    } else {
+        canvas = document.getElementById("canvas");
+        world = new World(canvas, keyboard);
+    }
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
 }
@@ -17,12 +21,20 @@ function startGame() {
     init();
 }
 
+function playAgain() {
+    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('losing-image').style.display = 'none';
+    document.getElementById('winning-image').style.display = 'none';
+    world = new World(canvas, keyboard);
+    hasGameStarted = false;
+    checkIfEnemyOrCharacterIsDead();
+}
+
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         if (world.character.energy == 0) {
             stopGame('losing');
         } else if (world.enemiesNumber <= 0) {
-            console.log(world.enemiesNumber);
             stopGame('winning');
         }
     }, 100);
@@ -37,7 +49,7 @@ function stopGame(string) {
         } else if (string == 'winning') {
             document.getElementById('winning-image').style.display = 'block';
         }
-    }, 1000);
+    }, 500);
 }
 
 function clearAllIntervals() {
