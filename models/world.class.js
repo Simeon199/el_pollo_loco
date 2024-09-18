@@ -74,7 +74,6 @@ class World {
     }
 
     calibrateDistanceBetweenCharacterAndEndboss() {
-        // console.log("Living Status of Endboss: ", this.level.enemies[this.level.enemies.length - 1].isDead);
         if (this.level.enemies[this.level.enemies.length - 1].isDead == false) {
             this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
         }

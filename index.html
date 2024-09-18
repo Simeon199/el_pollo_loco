@@ -35,26 +35,27 @@
     <h1>El Pollo Loco</h1>
     <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
 
-    <div id="intro-image">
-        <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
-        <button id="playButton" onclick="startGame()">Play</button>
-    </div>
-
-    <div id="winning-image" class="d-none">
-        <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image">
-        <button onclick="playAgain()" class="button-style">Play Again</button>
-    </div>
-
-    <div id="losing-image" class="d-none">
-        <img src="img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Losing-Image">
-        <button onclick="playAgain()">Play Again</button>
-    </div>
-    <a href="start.html">
-        <div class="arrow-image">
-            <img src="assets/arrow_left.png" alt="left">
-            <h2>Back To Start</h2>
+    <div class="overlay">
+        <div id="intro-image">
+            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
+            <button id="playButton" onclick="startGame()">Play</button>
         </div>
-    </a>
+        <div id="winning-image" class="d-none">
+            <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image">
+            <button onclick="playAgain()" class="button-style">Play Again</button>
+        </div>
+
+        <div id="losing-image" class="d-none">
+            <img src="img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Losing-Image">
+            <button onclick="playAgain()">Play Again</button>
+        </div>
+        <a href="start.html">
+            <div class="arrow-image">
+                <img src="assets/arrow_left.png" alt="left">
+                <h2>Back To Start</h2>
+            </div>
+        </a>
+    </div>
 </body>
 
 </html>

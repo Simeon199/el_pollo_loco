@@ -26,6 +26,14 @@ body {
     font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
 }
 
+.overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
 .d-none {
     display: none;
 }
@@ -35,12 +43,15 @@ h1 {
 }
 
 #intro-image {
+    position: absolute;
     width: 720px;
     height: 480px;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 16px;
+    left: calc((100% - 720px)/2);
+    top: calc((100% - 480px)/2);
 }
 
 .winning-image-properties {
@@ -64,6 +75,8 @@ h1 {
 }
 
 #intro-image button {
+    position: absolute;
+    top: 80%;
     width: 15%;
     cursor: pointer;
     border: none;
