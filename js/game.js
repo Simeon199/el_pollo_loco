@@ -45,11 +45,13 @@ function stopGame(string) {
         clearAllIntervals();
         document.getElementById('canvas').style.display = 'none';
         if (string == 'losing') {
-            document.getElementById('losing-image').style.display = 'block';
+            document.getElementById('losing-image').style.display = 'flex';
+            document.getElementById('winning-image').classList.add('winning-image-properties');
         } else if (string == 'winning') {
-            document.getElementById('winning-image').style.display = 'block';
+            document.getElementById('winning-image').style.display = 'flex';
+            document.getElementById('winning-image').classList.add('winning-image-properties');
         }
-    }, 500);
+    }, 100);
 }
 
 function clearAllIntervals() {
