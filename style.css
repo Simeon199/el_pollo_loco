@@ -110,6 +110,14 @@ h1 {
     transform: scale(1.2);
 }
 
+#fullscreenButton {
+    position: fixed;
+    top: 20px;
+    right: 100px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
 
 #intro-image button {
     position: absolute;

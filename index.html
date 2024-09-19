@@ -35,7 +35,9 @@
     <h1 id="main-title">El Pollo Loco</h1>
     <div class="canvas-container">
         <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
-        <img src="assets/full-screen.png" alt="full-screen" onclick="goFullscreen('canvas')" id="fullscreen"
+        <img src="assets/full-screen.png" alt="full-screen" onclick="toggleFullscreen('canvas')" id="fullscreen"
+            class="d-none">
+        <img src="assets/minimize.png" alt="full-screen" onclick="toggleFullscreen('canvas')" id="fullscreenButton"
             class="d-none">
     </div>
 

@@ -15,10 +15,16 @@ function init() {
     checkIfEnemyOrCharacterIsDead();
 }
 
-function goFullscreen(id) {
+function toggleFullscreen(id) {
     let element = document.getElementById(id);
-    if (element.webkitRequestFullScreen) {
-        element.webkitRequestFullScreen();
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
     }
 }
 
