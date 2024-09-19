@@ -66,10 +66,17 @@ h1 {
 }
 
 #losing-image {
-    /* display: flex; */
     position: absolute;
     top: calc((100% - 480px) / 2);
     left: calc((100% - 720px) / 2);
+}
+
+.canvas-container img {
+    position: absolute;
+    right: calc((100% - 720px) / 1.98);
+    width: 64px;
+    top: calc((100% - 480px) / 0.68);
+    cursor: pointer;
 }
 
 #losing-image img {

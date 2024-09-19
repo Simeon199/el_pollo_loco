@@ -15,9 +15,18 @@ function init() {
     checkIfEnemyOrCharacterIsDead();
 }
 
+function goFullscreen(id) {
+    let element = document.getElementById(id);
+    if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+    }
+}
+
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('overlay').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('fullscreen').classList.remove('d-none');
     init();
 }
 
