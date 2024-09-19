@@ -25,6 +25,7 @@ function playAgain() {
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('losing-image').style.display = 'none';
     document.getElementById('winning-image').style.display = 'none';
+    document.getElementById('main-title').style.display = 'none';
     world = new World(canvas, keyboard);
     hasGameStarted = false;
     checkIfEnemyOrCharacterIsDead();
