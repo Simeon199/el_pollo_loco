@@ -33,13 +33,12 @@
         Flaticon
     </a>
     <h1 id="main-title">El Pollo Loco</h1>
-    <div class="canvas-container">
-        <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
-        <img src="assets/full-screen.png" alt="full-screen" onclick="toggleFullscreen('canvas')" id="fullscreen"
-            class="d-none">
-        <img src="assets/minimize.png" alt="full-screen" onclick="toggleFullscreen('canvas')" id="fullscreenButton"
-            class="d-none">
+    <div class="canvas-container" id="canvas-container" onclick="fullscreen()">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <img src="assets/full-screen.png" alt="full-screen" id="fullscreen">
+        <img src="assets/minimize.png" alt="full-screen" id="minimize-button">
     </div>
+
 
     <div class="overlay" id="overlay">
         <div id="intro-image">

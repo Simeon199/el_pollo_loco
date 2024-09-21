@@ -3,6 +3,9 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 let hasGameStarted = false;
+let isFullscreenActivated = false;
+
+
 
 function init() {
     if (world) {
@@ -15,24 +18,55 @@ function init() {
     checkIfEnemyOrCharacterIsDead();
 }
 
-function toggleFullscreen(id) {
-    let element = document.getElementById(id);
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
+function enterFullscreen(element) {
+    if (isFullscreenActivated == false) {
+        isFullscreenActivated = true;
+        if (!document.getElementById('canvas').classList.contains('fullscreen-mode') && !document.getElementById('canvas').classList.contains('normal-mode')) {
+            document.getElementById('canvas').classList.add('fullscreen-mode');
+        } else if (!document.getElementById('canvas').classList.contains('fullscreen-mode') && document.getElementById('canvas').classList.contains('normal-mode')) {
+            document.getElementById('canvas').classList.remove('normal-mode');
+            document.getElementById('canvas').classList.add('fullscreen-mode');
         }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
+    }
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (isFullscreenActivated == true) {
+        isFullscreenActivated = false;
+        if (document.getElementById('canvas').classList.contains('fullscreen-mode') && !document.getElementById('canvas').classList.contains('normal-mode')) {
+            document.getElementById('canvas').classList.remove('fullscreen-mode');
+            document.getElementById('canvas').classList.add('normal-mode');
         }
+    }
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitRequestFullscreen) {
+        document.webkitRequestFullscreen();
+    }
+}
+
+function fullscreen() {
+    let fullscreen = document.getElementById('canvas-container');
+    if (isFullscreenActivated == false) {
+        enterFullscreen(fullscreen);
+    } else if (isFullscreenActivated == true) {
+        exitFullscreen();
     }
 }
 
 function startGame() {
-    document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('canvas-container').style.display = 'block';
+    // document.getElementById('canvas').classList.add('style-canvas');
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('fullscreen').classList.remove('d-none');
+    document.getElementById('fullscreen').style.display = 'block';
     init();
 }
 
