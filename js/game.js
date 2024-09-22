@@ -5,8 +5,6 @@ let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isFullscreenActivated = false;
 
-
-
 function init() {
     if (world) {
         world.reset();
@@ -18,17 +16,63 @@ function init() {
     checkIfEnemyOrCharacterIsDead();
 }
 
+function canvasNotContainFullscreenModeAndNormalModeClass() {
+    let fullscreenMode = document.getElementById('canvas').classList.contains('fullscreen-mode');
+    let normalMode = document.getElementById('canvas').classList.contains('normal-mode');
+    return !fullscreenMode && !normalMode;
+}
+
+function removeStyleCanvasClassAndAddFullscreenModeClass() {
+    document.getElementById('canvas').classList.remove('style-canvas');
+    document.getElementById('canvas').classList.add('fullscreen-mode');
+}
+
+function canvasContainsNormalModeClassButNotFullscreenModeClass() {
+    let fullscreenMode = document.getElementById('canvas').classList.contains('fullscreen-mode');
+    let normalMode = document.getElementById('canvas').classList.contains('normal-mode');
+    return !fullscreenMode && normalMode;
+}
+
+function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
+    document.getElementById('canvas').classList.remove('style-canvas');
+    document.getElementById('canvas').classList.remove('normal-mode');
+    document.getElementById('canvas').classList.add('fullscreen-mode');
+}
+
+function manageAddRemoveClassesWhenEnterFullscreen() {
+    if (canvasNotContainFullscreenModeAndNormalModeClass()) {
+        removeStyleCanvasClassAndAddFullscreenModeClass();
+    } else if (canvasContainsNormalModeClassButNotFullscreenModeClass()) {
+        addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas();
+    }
+    document.getElementById('fullscreen').style.display = 'none';
+    document.getElementById('minimize-button').style.display = 'block';
+}
+
+function canvasContainsFullscreenModeClassButNotNormalModeClass() {
+    let fullscreenMode = document.getElementById('canvas').classList.contains('fullscreen-mode');
+    let normalMode = document.getElementById('canvas').classList.contains('normal-mode');
+    return fullscreenMode && !normalMode;
+}
+
+function addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode() {
+    document.getElementById('canvas').classList.add('style-canvas');
+    document.getElementById('canvas').classList.remove('fullscreen-mode');
+    document.getElementById('canvas').classList.add('normal-mode');
+}
+
+function manageAddRemoveClassesWhenExitFullscreen() {
+    if (canvasContainsFullscreenModeClassButNotNormalModeClass()) {
+        addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode();
+    }
+    document.getElementById('fullscreen').style.display = "block";
+    document.getElementById('minimize-button').style.display = 'none';
+}
+
 function enterFullscreen(element) {
-    if (isFullscreenActivated == false) {
+    if (!isFullscreenActivated) {
         isFullscreenActivated = true;
-        if (!document.getElementById('canvas').classList.contains('fullscreen-mode') && !document.getElementById('canvas').classList.contains('normal-mode')) {
-            document.getElementById('canvas').classList.remove('style-canvas');
-            document.getElementById('canvas').classList.add('fullscreen-mode');
-        } else if (!document.getElementById('canvas').classList.contains('fullscreen-mode') && document.getElementById('canvas').classList.contains('normal-mode')) {
-            document.getElementById('canvas').classList.remove('style-canvas');
-            document.getElementById('canvas').classList.remove('normal-mode');
-            document.getElementById('canvas').classList.add('fullscreen-mode');
-        }
+        manageAddRemoveClassesWhenEnterFullscreen();
     }
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -42,17 +86,9 @@ function enterFullscreen(element) {
 function exitFullscreen() {
     if (isFullscreenActivated == true) {
         isFullscreenActivated = false;
-        if (document.getElementById('canvas').classList.contains('fullscreen-mode') && !document.getElementById('canvas').classList.contains('normal-mode')) {
-            document.getElementById('canvas').classList.add('style-canvas');
-            document.getElementById('canvas').classList.remove('fullscreen-mode');
-            document.getElementById('canvas').classList.add('normal-mode');
-        }
+        manageAddRemoveClassesWhenExitFullscreen();
     }
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitRequestFullscreen) {
-        document.webkitRequestFullscreen();
-    }
+    document.exitFullscreen();
 }
 
 function fullscreen() {
@@ -145,6 +181,10 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
     }
+
+    if (event.keyCode == 27) {
+        exitFullscreen();
+    }
 })
 
 window.addEventListener('keyup', (event) => {
@@ -170,5 +210,9 @@ window.addEventListener('keyup', (event) => {
 
     if (event.keyCode == 68) {
         keyboard.keyD = false;
+    }
+
+    if (event.keyCode == 27) {
+        exitFullscreen();
     }
 })
