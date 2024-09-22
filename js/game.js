@@ -90,7 +90,6 @@ document.addEventListener('fullscreenchange', () => {
     }
 });
 
-
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 27) {
         if (isFullscreenActivated) {
@@ -98,7 +97,6 @@ window.addEventListener('keydown', (event) => {
         }
     }
 });
-
 
 function exitFullscreen() {
     if (document.fullscreenElement) {
@@ -118,6 +116,7 @@ function fullscreen() {
 function startGame() {
     document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('canvas').classList.add('style-canvas');
+    document.getElementById('canvas').style.pointerEvents = 'none';
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'block';
@@ -150,13 +149,15 @@ function stopGame(string) {
     setTimeout(() => {
         clearAllIntervals();
         document.getElementById('canvas').style.display = 'none';
+        document.getElementById('canvas').style.pointerEvents = 'auto';
         if (string == 'losing') {
             document.getElementById('losing-image').style.display = 'flex';
-            document.getElementById('winning-image').classList.add('winning-image-properties');
+            document.getElementById('losing-image').classList.add('winning-image-properties');
             document.getElementById('main-title').style.display = 'none';
         } else if (string == 'winning') {
             document.getElementById('winning-image').style.display = 'flex';
             document.getElementById('winning-image').classList.add('winning-image-properties');
+            document.getElementById('main-title').style.display = 'none';
         }
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('canvas-container').style.display = 'none';
