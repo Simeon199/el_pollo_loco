@@ -83,12 +83,27 @@ function enterFullscreen(element) {
     }
 }
 
-function exitFullscreen() {
-    if (isFullscreenActivated == true) {
-        isFullscreenActivated = false;
+document.addEventListener('fullscreenchange', () => {
+    isFullscreenActivated = !!document.fullscreenElement;
+    if (!isFullscreenActivated) {
         manageAddRemoveClassesWhenExitFullscreen();
     }
-    document.exitFullscreen();
+});
+
+
+window.addEventListener('keydown', (event) => {
+    if (event.keyCode == 27) {
+        if (isFullscreenActivated) {
+            exitFullscreen();
+        }
+    }
+});
+
+
+function exitFullscreen() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    }
 }
 
 function fullscreen() {
@@ -110,6 +125,8 @@ function startGame() {
 }
 
 function playAgain() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('losing-image').style.display = 'none';
     document.getElementById('winning-image').style.display = 'none';
@@ -136,10 +153,13 @@ function stopGame(string) {
         if (string == 'losing') {
             document.getElementById('losing-image').style.display = 'flex';
             document.getElementById('winning-image').classList.add('winning-image-properties');
+            document.getElementById('main-title').style.display = 'none';
         } else if (string == 'winning') {
             document.getElementById('winning-image').style.display = 'flex';
             document.getElementById('winning-image').classList.add('winning-image-properties');
         }
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('canvas-container').style.display = 'none';
     }, 100);
 }
 
@@ -181,10 +201,6 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
     }
-
-    if (event.keyCode == 27) {
-        exitFullscreen();
-    }
 })
 
 window.addEventListener('keyup', (event) => {
@@ -210,9 +226,5 @@ window.addEventListener('keyup', (event) => {
 
     if (event.keyCode == 68) {
         keyboard.keyD = false;
-    }
-
-    if (event.keyCode == 27) {
-        exitFullscreen();
     }
 })
