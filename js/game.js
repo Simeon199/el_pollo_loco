@@ -1,9 +1,13 @@
+// All Global Variables
+
 let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isFullscreenActivated = false;
+
+// Initialize Game
 
 function init() {
     if (world) {
@@ -15,6 +19,65 @@ function init() {
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
 }
+
+function checkIfEnemyOrCharacterIsDead() {
+    setInterval(() => {
+        if (world.character.energy == 0) {
+            stopGame('losing');
+        } else if (world.enemiesNumber <= 0) {
+            stopGame('winning');
+        }
+    }, 100);
+}
+
+// Start-or-Stop Game Related Logic
+
+function startGame() {
+    document.getElementById('arrow-image-container').style.display = 'none';
+    document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('fullscreen').style.display = 'block';
+    init();
+}
+
+function stopGame(string) {
+    setTimeout(() => {
+        clearAllIntervals();
+        document.getElementById('canvas').style.display = 'none';
+        if (string == 'losing') {
+            changeStyleWhenLosing();
+        } else if (string == 'winning') {
+            changeStyleWhenWinning();
+        }
+        changeStyleWhenIndependentOfWinningOrLosing();
+    }, 100);
+    exitFullscreen();
+}
+
+function clearAllIntervals() {
+    for (let i = 1; i < 99999; i++) {
+        window.clearInterval(i);
+    }
+}
+
+function playAgain() {
+    document.getElementById('overlay').focus();
+    if (!(document.getElementById('arrow-image-container').style.display = 'none')) {
+        document.getElementById('arrow-image-container').style.display = 'none';
+    }
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('losing-image').style.display = 'none';
+    document.getElementById('winning-image').style.display = 'none';
+    document.getElementById('main-title').style.display = 'none';
+    world = new World(canvas, keyboard);
+    hasGameStarted = false;
+    checkIfEnemyOrCharacterIsDead();
+}
+
+// All CSS-Styling-Related Code
 
 function canvasNotContainFullscreenModeAndNormalModeClass() {
     let fullscreenMode = document.getElementById('canvas').classList.contains('fullscreen-mode');
@@ -56,6 +119,25 @@ function addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode() {
     document.getElementById('canvas').classList.add('canvas-style');
 }
 
+function changeStyleWhenIndependentOfWinningOrLosing() {
+    document.getElementById('overlay').style.display = 'flex';
+    document.getElementById('canvas-container').style.display = 'none';
+}
+
+function changeStyleWhenLosing() {
+    document.getElementById('losing-image').style.display = 'flex';
+    document.getElementById('losing-image').classList.add('winning-image-properties');
+    document.getElementById('main-title').style.display = 'none';
+}
+
+function changeStyleWhenWinning() {
+    document.getElementById('winning-image').style.display = 'flex';
+    document.getElementById('winning-image').classList.add('winning-image-properties');
+    document.getElementById('main-title').style.display = 'none';
+}
+
+// Back-and-Forth-Shifting Fullscreen and Normal Mode Screen
+
 function enterFullscreen(element) {
     if (!isFullscreenActivated) {
         isFullscreenActivated = true;
@@ -69,21 +151,6 @@ function enterFullscreen(element) {
         element.webkitRequestFullscreen();
     }
 }
-
-document.addEventListener('fullscreenchange', () => {
-    isFullscreenActivated = !!document.fullscreenElement;
-    if (!isFullscreenActivated) {
-        manageAddRemoveClassesWhenExitFullscreen();
-    }
-});
-
-window.addEventListener('keydown', (event) => {
-    if (event.keyCode == 27) {
-        if (isFullscreenActivated) {
-            exitFullscreen();
-        }
-    }
-});
 
 function exitFullscreen() {
     if (document.fullscreenElement) {
@@ -100,64 +167,22 @@ function fullscreen() {
     }
 }
 
-function startGame() {
-    document.getElementById('arrow-image-container').style.display = 'none';
-    document.getElementById('canvas-container').style.display = 'block';
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('fullscreen').style.display = 'block';
-    init();
-}
+// All Event-Listener-Functions Collected
 
-function playAgain() {
-    document.getElementById('overlay').focus();
-    if (!(document.getElementById('arrow-image-container').style.display = 'none')) {
-        document.getElementById('arrow-image-container').style.display = 'none';
+document.addEventListener('fullscreenchange', () => {
+    isFullscreenActivated = !!document.fullscreenElement;
+    if (!isFullscreenActivated) {
+        manageAddRemoveClassesWhenExitFullscreen();
     }
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('canvas-container').style.display = 'block';
-    document.getElementById('canvas').style.display = 'block';
-    document.getElementById('losing-image').style.display = 'none';
-    document.getElementById('winning-image').style.display = 'none';
-    document.getElementById('main-title').style.display = 'none';
-    world = new World(canvas, keyboard);
-    hasGameStarted = false;
-    checkIfEnemyOrCharacterIsDead();
-}
+});
 
-function checkIfEnemyOrCharacterIsDead() {
-    setInterval(() => {
-        if (world.character.energy == 0) {
-            stopGame('losing');
-        } else if (world.enemiesNumber <= 0) {
-            stopGame('winning');
+window.addEventListener('keydown', (event) => {
+    if (event.keyCode == 27) {
+        if (isFullscreenActivated) {
+            exitFullscreen();
         }
-    }, 100);
-}
-
-function stopGame(string) {
-    setTimeout(() => {
-        clearAllIntervals();
-        document.getElementById('canvas').style.display = 'none';
-        if (string == 'losing') {
-            document.getElementById('losing-image').style.display = 'flex';
-            document.getElementById('losing-image').classList.add('winning-image-properties');
-            document.getElementById('main-title').style.display = 'none';
-        } else if (string == 'winning') {
-            document.getElementById('winning-image').style.display = 'flex';
-            document.getElementById('winning-image').classList.add('winning-image-properties');
-            document.getElementById('main-title').style.display = 'none';
-        }
-        document.getElementById('overlay').style.display = 'flex';
-        document.getElementById('canvas-container').style.display = 'none';
-    }, 100);
-}
-
-function clearAllIntervals() {
-    for (let i = 1; i < 99999; i++) {
-        window.clearInterval(i);
     }
-}
+});
 
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
