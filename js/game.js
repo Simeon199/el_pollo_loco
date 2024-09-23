@@ -23,7 +23,6 @@ function canvasNotContainFullscreenModeAndNormalModeClass() {
 }
 
 function removeStyleCanvasClassAndAddFullscreenModeClass() {
-    document.getElementById('canvas').classList.remove('style-canvas');
     document.getElementById('canvas').classList.add('fullscreen-mode');
 }
 
@@ -40,33 +39,21 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 }
 
 function manageAddRemoveClassesWhenEnterFullscreen() {
-    if (canvasNotContainFullscreenModeAndNormalModeClass()) {
-        removeStyleCanvasClassAndAddFullscreenModeClass();
-    } else if (canvasContainsNormalModeClassButNotFullscreenModeClass()) {
-        addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas();
-    }
+    document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
     document.getElementById('minimize-button').style.display = 'block';
 }
 
-function canvasContainsFullscreenModeClassButNotNormalModeClass() {
-    let fullscreenMode = document.getElementById('canvas').classList.contains('fullscreen-mode');
-    let normalMode = document.getElementById('canvas').classList.contains('normal-mode');
-    return fullscreenMode && !normalMode;
+function manageAddRemoveClassesWhenExitFullscreen() {
+    document.getElementById('canvas').classList.remove('fullscreen-mode');
+    document.getElementById('fullscreen').style.display = 'block';
+    document.getElementById('minimize-button').style.display = 'none';
 }
 
 function addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode() {
-    document.getElementById('canvas').classList.add('style-canvas');
     document.getElementById('canvas').classList.remove('fullscreen-mode');
     document.getElementById('canvas').classList.add('normal-mode');
-}
-
-function manageAddRemoveClassesWhenExitFullscreen() {
-    if (canvasContainsFullscreenModeClassButNotNormalModeClass()) {
-        addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode();
-    }
-    document.getElementById('fullscreen').style.display = "block";
-    document.getElementById('minimize-button').style.display = 'none';
+    document.getElementById('canvas').classList.add('canvas-style');
 }
 
 function enterFullscreen(element) {
@@ -114,9 +101,8 @@ function fullscreen() {
 }
 
 function startGame() {
+    document.getElementById('arrow-image-container').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'block';
-    document.getElementById('canvas').classList.add('style-canvas');
-    document.getElementById('canvas').style.pointerEvents = 'none';
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'block';
@@ -124,6 +110,10 @@ function startGame() {
 }
 
 function playAgain() {
+    document.getElementById('overlay').focus();
+    if (!(document.getElementById('arrow-image-container').style.display = 'none')) {
+        document.getElementById('arrow-image-container').style.display = 'none';
+    }
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('canvas').style.display = 'block';
@@ -149,7 +139,6 @@ function stopGame(string) {
     setTimeout(() => {
         clearAllIntervals();
         document.getElementById('canvas').style.display = 'none';
-        document.getElementById('canvas').style.pointerEvents = 'auto';
         if (string == 'losing') {
             document.getElementById('losing-image').style.display = 'flex';
             document.getElementById('losing-image').classList.add('winning-image-properties');
@@ -159,7 +148,7 @@ function stopGame(string) {
             document.getElementById('winning-image').classList.add('winning-image-properties');
             document.getElementById('main-title').style.display = 'none';
         }
-        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('overlay').style.display = 'flex';
         document.getElementById('canvas-container').style.display = 'none';
     }, 100);
 }

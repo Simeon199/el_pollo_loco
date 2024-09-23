@@ -27,11 +27,7 @@ body {
 }
 
 .overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    z-index: 10;
 }
 
 .d-none {
@@ -54,6 +50,12 @@ h1 {
     top: calc((100% - 480px)/2);
 }
 
+#winning-image {
+    display: none;
+    gap: 24px;
+    z-index: 11;
+}
+
 .winning-image-properties {
     flex-direction: column;
     align-items: center;
@@ -66,10 +68,9 @@ h1 {
 }
 
 #losing-image {
-    position: absolute;
-    top: calc((100% - 480px) / 2);
-    left: calc((100% - 720px) / 2);
-    /* z-index: 5; */
+    display: none;
+    gap: 24px;
+    z-index: 11;
 }
 
 #losing-image img {
@@ -113,6 +114,13 @@ h1 {
     transform: scale(1.2);
 }
 
+#minimize-button {
+    background-color: white;
+    padding: 8px;
+    border-radius: 16px;
+}
+
+
 :fullscreen #minimize-button {
     position: absolute;
     bottom: 40px;
@@ -128,25 +136,7 @@ h1 {
     display: block !important;
 }
 
-#canvas {
-    pointer-events: auto;
-}
-
-#button-style-winning-image-canvas {
-    display: none;
-}
-
-#button-style-losing-image-canvas {
-    display: none;
-}
-
 #canvas-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
     display: none;
 }
 
@@ -168,8 +158,6 @@ h1 {
 }
 
 .button-style-winning-image {
-    position: absolute;
-    top: calc((100% - 65px)/1.6);
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -183,9 +171,6 @@ h1 {
 }
 
 .button-style-losing-image {
-    /* position: absolute; */
-    top: calc((100% - 65px) / 0.8);
-    left: calc((100% - 170.02px) / 2);
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -287,12 +272,6 @@ a:nth-child(1) {
 canvas {
     background-color: black;
     z-index: 1;
-}
-
-.style-canvas {
-    position: absolute;
-    top: calc((100% - 480px)/2);
-    left: calc((100% - 720px)/2);
 }
 
 .fullscreen-mode {
