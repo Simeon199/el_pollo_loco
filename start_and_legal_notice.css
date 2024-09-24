@@ -38,17 +38,6 @@ h2 {
     font-size: 32px;
 }
 
-a {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    font-family: 'Arial';
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: 16px;
-}
-
 /* Start CSS-Block */
 
 .main-container {
@@ -96,6 +85,10 @@ a {
 
 /* Legal-Notice CSS-Block */
 
+.outer-image-container .image-container:nth-child(2) img {
+    width: 296px;
+}
+
 .back-to-start-container {
     display: flex;
     flex-direction: column;
@@ -126,4 +119,37 @@ a {
     padding-right: 16px;
     padding-left: 16px;
     padding-top: 16px;
+}
+
+a h2 {
+    font-family: 'damion', sans-serif;
+    color: dimgray;
+    font-size: 40px;
+    padding: 8px;
+}
+
+.all-icons-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    text-align: center;
+    border: 2px solid black;
+    padding: 8px;
+    border-radius: 16px;
+}
+
+.all-icons-container a {
+    font-family: 'Arial', 'Helvetica', 'sans-serif';
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.all-icons-container h2 {
+    font-family: 'Arial';
+    text-decoration: underline;
+    padding-bottom: 8px;
 }

@@ -30,6 +30,17 @@ function checkIfEnemyOrCharacterIsDead() {
     }, 100);
 }
 
+// Section which explains the game
+
+function openSettingsFunction() {
+    let explainGameContainer = document.getElementById('explain-game-container');
+    if (explainGameContainer.classList.contains('d-none')) {
+        explainGameContainer.classList.remove('d-none');
+    } else {
+        explainGameContainer.classList.add('d-none');
+    }
+}
+
 // Start-or-Stop Game Related Logic
 
 function startGame() {
