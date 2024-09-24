@@ -33,9 +33,7 @@ function checkIfEnemyOrCharacterIsDead() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
-    document.getElementById('arrow-image-container').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'block';
-    document.getElementById('overlay').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'block';
     init();
@@ -63,10 +61,6 @@ function clearAllIntervals() {
 
 function playAgain() {
     document.getElementById('overlay').focus();
-    if (!(document.getElementById('arrow-image-container').style.display = 'none')) {
-        document.getElementById('arrow-image-container').style.display = 'none';
-    }
-    document.getElementById('overlay').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('losing-image').style.display = 'none';
@@ -120,7 +114,6 @@ function addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode() {
 }
 
 function changeStyleWhenIndependentOfWinningOrLosing() {
-    document.getElementById('overlay').style.display = 'flex';
     document.getElementById('canvas-container').style.display = 'none';
 }
 
