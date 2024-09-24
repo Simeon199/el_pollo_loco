@@ -24,6 +24,7 @@
     <script src="models/coin.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/start.js"></script>
     <title>El Pollo Loco</title>
     <link rel="icon" type="image/x-icon" href="/assets/chicken.png">
 </head>
@@ -54,17 +55,16 @@
             <button onclick="playAgain()" class="button-style-losing-image">Play Again</button>
         </div>
         <div class="links-images">
-            <div class="main-title-properties" id="arrow-image-container">
+            <div class="main-title-properties" id="arrow-image-container" onclick="redirectToStart()">
                 <img src="assets/arrow_left.png" alt="left">
                 <h2>Back To Start</h2>
             </div>
             <h1 id="main-title">El Pollo Loco</h1>
-            <div class="main-title-properties" id="cartwheel-image-container">
+            <div class="main-title-properties" id="cartwheel-image-container" onclick="openSettingsFunction()">
                 <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image">
                 <h2>Settings</h2>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Notwendige Icons -->
@@ -75,6 +75,7 @@
     <!-- <a href="https://www.flaticon.com/free-icons/video" title="video icons">Video icons created by Freepik - Flaticon</a> -->
     <!-- <a href="https://www.flaticon.com/free-icons/king-size" title="king size icons">King size icons created by Prosymbols Premium - Flaticon</a>
     <a href="https://www.flaticon.com/free-icons/exit-full-screen" title="exit full screen icons">Exit full screen icons created by Prosymbols Premium - Flaticon</a> -->
+
 </body>
 
 </html>

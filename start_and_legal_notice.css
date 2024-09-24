@@ -1,0 +1,129 @@
+/* General Settings */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'damion';
+    src: url('fonts/Damion-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'sombrero';
+    src: url('fonts/SombreroLight.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('assets/desert_3.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
+}
+
+h1 {
+    padding-top: 16px;
+    font-size: 64px;
+}
+
+h2 {
+    font-family: 'damion';
+    font-size: 32px;
+}
+
+a {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    font-family: 'Arial';
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Start CSS-Block */
+
+.main-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.outer-image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 800px;
+    width: 100%;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    cursor: pointer;
+    transition: transform 500ms ease-in-out;
+}
+
+.image-container:hover {
+    transform: scale(1.2);
+}
+
+.image-container button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: gold;
+}
+
+.image-container button:hover {
+    background-color: rgb(95, 81, 3);
+}
+
+.image-container img {
+    width: 200px;
+}
+
+/* Legal-Notice CSS-Block */
+
+.back-to-start-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    font-family: damion;
+    font-size: 24px;
+    transition: transform 500ms ease-in-out;
+}
+
+.back-to-start-container img {
+    width: 200px;
+}
+
+.back-to-start-container:hover {
+    transform: scale(1.2);
+}
+
+.main-legal-notice-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 16px;
+}

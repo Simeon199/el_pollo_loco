@@ -5,35 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Startpage</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="start_and_legal_notice.css">
     <link rel="icon" type="image/x-icon" href="/assets/chicken.png">
+    <script src="js/start.js"></script>
 </head>
 
 <body>
     <a href="https://www.flaticon.com/free-icons/chicken" title="chicken icons">Chicken icons created by Freepik -
         Flaticon
     </a>
-    <h1>El Pollo Loco - El Mejor Juego del Universo!</h1>
+    <h1>El Pollo Loco</h1>
     <div class="main-container">
         <div class="outer-image-container">
-            <div class="image-container">
-                <img src="assets/cartwheel.png" alt="settings">
+            <div class="image-container" onclick="redirectToPlayPage()">
+                <img src="assets/door.png" alt="chicken_play">
                 <button>
-                    <h2>Settings</h2>
+                    <h2>Play the Game</h2>
                 </button>
             </div>
-            <a href="index.html">
-                <div class="image-container">
-                    <img src="assets/door.png" alt="chicken_play">
-                    <button>
-                        <h2>Play</h2>
-                    </button>
-                </div>
-            </a>
-            <div class="image-container">
-                <img src="assets/help.png" alt="help">
+            <div class="image-container" onclick="redirectToLegalNoticePage()">
+                <img src="assets/notice.png" alt="notice">
                 <button>
-                    <h2>Help</h2>
+                    <h2>Legal Notice</h2>
                 </button>
             </div>
         </div>

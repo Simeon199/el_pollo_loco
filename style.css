@@ -43,10 +43,6 @@ body {
     padding-left: 16px;
 }
 
-/* a img {
-    width: 64px;
-} */
-
 #settings-image {
     width: 128px;
     cursor: pointer;
@@ -162,7 +158,6 @@ h1 {
     display: none;
 }
 
-
 #intro-image button {
     position: absolute;
     top: 85%;
@@ -214,83 +209,36 @@ h1 {
     transform: scale(1.2);
 }
 
-.image-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-}
-
-.image-container button {
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    background-color: gold;
-    transition: transform 500ms ease-in-out;
-}
-
-.image-container button:hover {
-    background-color: rgb(95, 81, 3);
-    transform: scale(1.5);
-}
-
-.image-container img {
-    width: 200px;
-    transition: transform 500ms ease-in-out;
-}
-
-.image-container img:hover {
-    cursor: pointer;
-    transform: scale(1.2);
-}
-
 #intro-image button:hover {
     background-color: rgb(95, 81, 3);
-}
-
-.main-container {
-    display: flex;
-    align-items: center;
-    flex: 1;
-}
-
-.outer-image-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 800px;
-    width: 100%;
 }
 
 h1 {
     padding-top: 24px;
 }
 
-h2 {
+a h2 {
     font-family: 'damion', sans-serif;
     color: dimgray;
     font-size: 40px;
     padding: 8px;
 }
 
+a {
+    font-family: 'Arial', 'Helvetica', 'sans-serif';
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    right: 16px;
+    bottom: 16px;
+}
+
 .links-images a {
     display: flex;
     text-decoration: none;
 }
-
-/* a:nth-child(1) {
-    bottom: 0;
-    position: absolute;
-    right: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    color: black;
-} */
 
 canvas {
     background-color: black;
@@ -313,8 +261,15 @@ canvas {
     align-items: center;
     padding: 16px;
     cursor: pointer;
+    font-family: damion;
+    font-size: 24px;
+    transition: transform 500ms ease-in-out;
 }
 
 .main-title-properties img {
     width: 144px;
+}
+
+.main-title-properties:hover {
+    transform: scale(1.2);
 }
