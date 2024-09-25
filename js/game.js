@@ -36,7 +36,12 @@ function openSettingsFunction() {
     let explainGameContainer = document.getElementById('explain-game-container');
     if (explainGameContainer.classList.contains('d-none')) {
         explainGameContainer.classList.remove('d-none');
-    } else {
+    }
+}
+
+function closeExplainGameContainer() {
+    let explainGameContainer = document.getElementById('explain-game-container');
+    if (!explainGameContainer.classList.contains('d-none')) {
         explainGameContainer.classList.add('d-none');
     }
 }
