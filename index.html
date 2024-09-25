@@ -77,8 +77,8 @@
         </div>
     </div>
 
-    <div class="explain-game-container d-none" id="explain-game-container">
-        <div class="game-functions-container">
+    <div class="explain-game-container d-none" id="explain-game-container" onclick="closeExplainGameContainer()">
+        <div class="game-functions-container" id="game-functions-container" onclick="preventBubbling(event)">
             <h2>How To Control Pepe</h2>
             <img src="assets/close.png" alt="close" onclick="closeExplainGameContainer()">
             <div class="control-keys">

@@ -46,6 +46,10 @@ function closeExplainGameContainer() {
     }
 }
 
+function preventBubbling(event) {
+    event.stopPropagation();
+}
+
 // Start-or-Stop Game Related Logic
 
 function startGame() {
