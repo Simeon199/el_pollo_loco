@@ -13,6 +13,16 @@
     src: url('fonts/SombreroLight.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'playpensans';
+    src: url('fonts/PlaypenSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans light';
+    src: url('fonts/PlaypenSans-Light.ttf') format('truetype');
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -225,21 +235,22 @@ a h2 {
 }
 
 .all-icons-container {
-    width: 220px;
-    gap: 8px;
+    font-size: 14px;
+    width: 100%;
+    gap: 18px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     position: fixed;
-    bottom: 16px;
-    right: 16px;
+    bottom: 0;
+    right: 0;
     text-align: center;
     border: 2px solid black;
     padding: 8px;
-    border-radius: 16px;
+    background-color: rgba(236, 199, 148, 0.5);
 }
 
 .all-icons-container a {
-    font-family: 'Arial', 'Helvetica', 'sans-serif';
+    font-family: 'playpensans light';
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -247,9 +258,8 @@ a h2 {
 }
 
 .all-icons-container h2 {
-    font-family: 'Arial';
-    text-decoration: underline;
-    padding-bottom: 8px;
+    font-family: 'playpensans';
+    font-size: 24px;
 }
 
 .links-images a {
@@ -303,12 +313,10 @@ canvas {
 
 .game-functions-container {
     position: fixed;
-    top: calc((100% - 800px)/2);
-    left: calc((100% - 800px)/2);
     border: 2px solid black;
-    border-radius: 16px;
-    height: 800px;
-    width: 800px;
+    right: 0;
+    height: 100%;
+    width: 400px;
     background-color: rgb(214, 214, 214, 0.95);
 }
 
@@ -321,7 +329,7 @@ canvas {
 }
 
 .game-functions-container h2 {
-    font-family: 'Arial';
+    font-family: 'playpensans';
     text-align: center;
     padding: 24px;
     font-weight: bold;
@@ -337,11 +345,11 @@ canvas {
 }
 
 .control-keys h3 {
-    font-family: 'Arial';
+    font-family: 'playpensans';
 }
 
 .control-keys img {
-    width: 112px;
+    width: 96px;
 }
 
 .control-key-style {
@@ -355,7 +363,7 @@ canvas {
     display: flex;
     flex-direction: column;
     padding: 24px;
-    font-family: 'Arial';
+    font-family: 'playpensans';
     font-size: 18px;
 }
 
