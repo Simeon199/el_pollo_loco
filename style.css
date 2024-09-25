@@ -225,6 +225,8 @@ a h2 {
 }
 
 .all-icons-container {
+    width: 220px;
+    gap: 8px;
     display: flex;
     flex-direction: column;
     position: fixed;
