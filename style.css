@@ -1,7 +1,11 @@
+/* All element styling */
+
 * {
     box-sizing: border-box;
     margin: 0;
 }
+
+/* font-families */
 
 @font-face {
     font-family: 'damion';
@@ -23,6 +27,8 @@
     src: url('fonts/PlaypenSans-Light.ttf') format('truetype');
 }
 
+/* body properties */
+
 body {
     display: flex;
     flex-direction: column;
@@ -36,35 +42,124 @@ body {
     font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
 }
 
+/* All sections HTML-Sections */
+
+/* all-icons-container properties */
+
+.all-icons-container {
+    font-size: 14px;
+    width: 100%;
+    gap: 18px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    border: 2px solid black;
+    padding: 8px;
+    background-color: rgba(236, 199, 148, 0.5);
+}
+
+#all-icons-container-mini-version {
+    font-family: 'playpensans light';
+    font-size: 12px;
+    width: 100%;
+    gap: 0px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    text-align: center;
+    border: 1px solid black;
+    padding: 8px;
+    background-color: rgba(236, 199, 148, 1);
+}
+
+#all-icons-container-mini-version a {
+    color: black;
+    text-decoration: none;
+}
+
+.all-icons-container-mini-version img {
+    width: 24px;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.all-icons-container a {
+    font-family: 'playpensans light';
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.all-icons-container h2 {
+    font-family: 'playpensans';
+    font-size: 24px;
+}
+
+/* Canvas-container section properties */
+
+#canvas-container {
+    display: none;
+}
+
+.canvas-container img {
+    position: absolute;
+    right: calc((100% - 720px) / 1.96);
+    width: 48px;
+    z-index: 2;
+    top: calc((100% - 480px) / 0.705);
+    cursor: pointer;
+    display: none;
+}
+
+canvas {
+    display: block;
+    background-color: black;
+    z-index: 1;
+}
+
+/* fullscreen and minimize-button properties */
+
+.fullscreen-mode {
+    height: 100%;
+    width: 100%;
+}
+
+:fullscreen #minimize-button {
+    position: absolute;
+    bottom: 40px;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 48px;
+    cursor: pointer;
+    display: none;
+}
+
+#minimize-button {
+    background-color: white;
+    padding: 8px;
+    border-radius: 16px;
+}
+
+.normal-mode {
+    height: 480px;
+    width: 720px;
+}
+
+/* All overlay sections */
+
 .overlay {
     z-index: 10;
 }
 
-.links-images {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 16px;
-    padding-right: 16px;
-    padding-left: 16px;
-}
-
-#settings-image {
-    width: 128px;
-    cursor: pointer;
-}
-
-.d-none {
-    display: none;
-}
-
-h1 {
-    font-size: 60px;
-}
+/* #intro-image properties */
 
 #intro-image {
     position: absolute;
@@ -76,44 +171,6 @@ h1 {
     gap: 16px;
     left: calc((100% - 720px)/2);
     top: calc((100% - 480px)/2);
-}
-
-#winning-image {
-    display: none;
-    gap: 24px;
-    z-index: 11;
-}
-
-.winning-image-properties {
-    flex-direction: column;
-    align-items: center;
-}
-
-#winning-image img {
-    margin-top: 42px;
-    width: 720px;
-    height: 480px;
-}
-
-#losing-image {
-    display: none;
-    gap: 24px;
-    z-index: 11;
-}
-
-#losing-image img {
-    width: 720px;
-    height: 480px;
-}
-
-.canvas-container img {
-    position: absolute;
-    right: calc((100% - 720px) / 1.96);
-    width: 48px;
-    z-index: 2;
-    top: calc((100% - 480px) / 0.705);
-    cursor: pointer;
-    display: none;
 }
 
 #intro-image img:nth-child(1) {
@@ -142,32 +199,6 @@ h1 {
     transform: scale(1.2);
 }
 
-#minimize-button {
-    background-color: white;
-    padding: 8px;
-    border-radius: 16px;
-}
-
-
-:fullscreen #minimize-button {
-    position: absolute;
-    bottom: 40px;
-    top: 20px;
-    right: 20px;
-    z-index: 100;
-    width: 48px;
-    cursor: pointer;
-    display: none;
-}
-
-.visible {
-    display: block !important;
-}
-
-#canvas-container {
-    display: none;
-}
-
 #intro-image button {
     position: absolute;
     top: 85%;
@@ -184,82 +215,56 @@ h1 {
     transition: transform 500ms ease-in-out;
 }
 
-.button-style-winning-image {
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    font-size: 36px;
-    padding: 8px;
-    background-color: gold;
-    font-weight: bold;
-    color: dimgray;
-    font-family: 'damion', sans-serif;
-    transition: transform 500ms ease-in-out;
-}
-
-.button-style-losing-image {
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    font-size: 36px;
-    padding: 8px;
-    gap: 24px;
-    background-color: gold;
-    font-weight: bold;
-    color: dimgray;
-    font-family: 'damion', sans-serif;
-    transition: transform 500ms ease-in-out;
-}
-
-.button-style:hover {
-    transform: scale(1.2);
-}
-
-#intro-image button:hover {
-    transform: scale(1.2);
-}
-
 #intro-image button:hover {
     background-color: rgb(95, 81, 3);
+    transform: scale(1.2);
 }
 
-h1 {
-    padding-top: 24px;
+/* #winning-image properties */
+
+#winning-image {
+    display: none;
+    gap: 24px;
+    z-index: 11;
 }
 
-a h2 {
-    font-family: 'damion', sans-serif;
-    color: dimgray;
-    font-size: 40px;
-    padding: 8px;
-}
-
-.all-icons-container {
-    font-size: 14px;
-    width: 100%;
-    gap: 18px;
-    display: flex;
+.winning-image-properties {
+    flex-direction: column;
     align-items: center;
-    position: fixed;
-    bottom: 0;
+}
+
+#winning-image img {
+    margin-top: 42px;
+    width: 720px;
+    height: 480px;
+}
+
+/* #losing-image properties */
+
+#losing-image {
+    display: none;
+    gap: 24px;
+    z-index: 11;
+}
+
+#losing-image img {
+    width: 720px;
+    height: 480px;
+}
+
+/* .links-images properties */
+
+.links-images {
+    position: absolute;
+    top: 0;
+    left: 0;
     right: 0;
-    text-align: center;
-    border: 2px solid black;
-    padding: 8px;
-    background-color: rgba(236, 199, 148, 0.5);
-}
-
-.all-icons-container a {
-    font-family: 'playpensans light';
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    padding: 2px;
-}
-
-.all-icons-container h2 {
-    font-family: 'playpensans';
-    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
 }
 
 .links-images a {
@@ -267,20 +272,7 @@ a h2 {
     text-decoration: none;
 }
 
-canvas {
-    background-color: black;
-    z-index: 1;
-}
-
-.fullscreen-mode {
-    height: 100%;
-    width: 100%;
-}
-
-.normal-mode {
-    height: 480px;
-    width: 720px;
-}
+/* .main-title-properties-division properties  */
 
 .main-title-properties {
     display: flex;
@@ -300,6 +292,13 @@ canvas {
 .main-title-properties:hover {
     transform: scale(1.2);
 }
+
+#settings-image {
+    width: 128px;
+    cursor: pointer;
+}
+
+/* .explain-game-container properties as well as all sections below that */
 
 .explain-game-container {
     position: absolute;
@@ -371,4 +370,145 @@ canvas {
     padding-bottom: 8px;
     text-align: center;
     text-decoration: underline;
+}
+
+/* d-none class */
+
+.d-none {
+    display: none;
+}
+
+/* button-styling in case of winning/losing */
+
+.button-style-winning-image {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 36px;
+    padding: 8px;
+    background-color: gold;
+    font-weight: bold;
+    color: dimgray;
+    font-family: 'damion', sans-serif;
+    transition: transform 500ms ease-in-out;
+}
+
+.button-style-losing-image {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 36px;
+    padding: 8px;
+    gap: 24px;
+    background-color: gold;
+    font-weight: bold;
+    color: dimgray;
+    font-family: 'damion', sans-serif;
+    transition: transform 500ms ease-in-out;
+}
+
+.button-style:hover {
+    transform: scale(1.2);
+}
+
+.all-icons-button-container {
+    display: none;
+    font-family: 'playpensans';
+    font-size: 18px;
+    position: fixed;
+    left: 8px;
+    bottom: 8px;
+}
+
+/* .all-icons-container properties */
+
+.all-icons-button-container button {
+    font-size: 18px;
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.all-icons-button-container button:hover {
+    background-color: rgb(95, 81, 3);
+}
+
+/* link and title properties */
+
+h1 {
+    font-size: 60px;
+    padding-top: 24px;
+}
+
+
+a h2 {
+    font-family: 'damion', sans-serif;
+    color: dimgray;
+    font-size: 40px;
+    padding: 8px;
+}
+
+/* Section with media queries */
+
+@media(max-width: 1075px) {
+    h1 {
+        text-align: center;
+        font-size: 40px;
+    }
+
+    .links-images {
+        padding: 0;
+    }
+
+    .main-title-properties {
+        padding-top: 8px;
+    }
+
+    .main-title-properties img {
+        width: 80px;
+    }
+
+    .main-title-properties h2 {
+        font-size: 30px;
+    }
+
+    #settings-image {
+        width: 80px;
+    }
+
+    .all-icons-container {
+        display: none;
+    }
+
+    .all-icons-button-container {
+        display: block;
+    }
+}
+
+/* @media(max-width: 800px) {
+    body {
+        position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+} */
+
+/* Smartphones */
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+/* Smartphones */
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }
