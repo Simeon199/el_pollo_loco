@@ -488,6 +488,7 @@ a h2 {
 
 @media(max-width: 800px) {
     .links-images {
+        padding-top: 8px;
         position: absolute;
         width: 90%;
         top: 0;
@@ -495,7 +496,25 @@ a h2 {
         right: 5%;
     }
 
+    .main-title-properties {
+        padding: 0;
+    }
+
+    .main-title-properties img {
+        width: 60px;
+    }
+
+    #main-title {
+        font-size: 32px;
+        padding: 0;
+    }
+
+    #settings-image {
+        width: 60px;
+    }
+
     #intro-image {
+        position: relative;
         height: unset;
         top: 35%;
         width: 90%;
@@ -508,6 +527,12 @@ a h2 {
         width: 100%;
         aspect-ratio: 3 / 2;
     }
+
+    #intro-image img:nth-child(2) {
+        position: absolute;
+        bottom: 5%;
+        width: 36px;
+    }
 }
 
 /* Smartphones */
@@ -515,6 +540,48 @@ a h2 {
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
+    }
+}
+
+@media(max-width: 700px) {
+    #intro-image img:nth-child(2) {
+        width: 24px;
+    }
+
+    .main-title-properties h2 {
+        display: none;
+    }
+
+    .main-title-properties img {
+        width: 40px;
+    }
+
+    #main-title {
+        font-size: 24px;
+        padding: 0;
+    }
+
+    #settings-image {
+        width: 40px;
+    }
+
+    .all-icons-button-container button {
+        font-size: 13px;
+        padding: 4px;
+    }
+
+    #all-icons-container-mini-version {
+        font-size: 10px;
+    }
+
+    #all-icons-container-mini-version img {
+        width: 18px;
+    }
+}
+
+@media(max-width: 500px) {
+    #intro-image img:nth-child(2) {
+        width: 18px;
     }
 }
 
