@@ -153,6 +153,34 @@ a h2 {
     background-color: rgba(236, 199, 148, 0.5);
 }
 
+#all-icons-container-mini-version {
+    font-family: 'playpensans light';
+    font-size: 12px;
+    width: 100%;
+    gap: 0px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    text-align: center;
+    border: 1px solid black;
+    padding: 8px;
+    background-color: rgba(236, 199, 148, 1);
+}
+
+#all-icons-container-mini-version a {
+    color: black;
+    text-decoration: none;
+}
+
+.all-icons-container-mini-version img {
+    width: 24px;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
 .all-icons-container a {
     font-family: 'playpensans light';
     text-decoration: none;
@@ -166,6 +194,90 @@ a h2 {
     font-size: 24px;
 }
 
-.all-icons-container h2 {
+.all-icons-button-container {
+    display: none;
     font-family: 'playpensans';
+    font-size: 18px;
+    position: fixed;
+    left: 8px;
+    bottom: 8px;
+}
+
+.all-icons-button-container button {
+    font-size: 18px;
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.all-icons-button-container button:hover {
+    background-color: rgb(95, 81, 3);
+}
+
+
+@media(max-width: 1075px) {
+    h1 {
+        font-size: 40px;
+    }
+
+    .all-icons-container {
+        display: none;
+    }
+
+    .all-icons-button-container {
+        display: block;
+    }
+}
+
+@media(max-width: 850px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .outer-image-container {
+        min-width: 500px;
+    }
+
+    .image-container img {
+        width: 100px;
+    }
+
+    .outer-image-container .image-container:nth-child(2) img {
+        width: 180px;
+    }
+}
+
+@media(max-width: 700px) {
+    .all-icons-button-container button {
+        font-size: 13px;
+        padding: 4px;
+    }
+
+    #all-icons-container-mini-version {
+        font-size: 10px;
+    }
+
+    #all-icons-container-mini-version img {
+        width: 18px;
+    }
+}
+
+@media(max-width: 500px) {
+    .outer-image-container {
+        min-width: 300px;
+    }
+
+    .image-container img {
+        width: 80px;
+    }
+
+    .outer-image-container .image-container:nth-child(2) img {
+        width: 120px;
+    }
+
+    .image-container:hover {
+        transform: scale(1.05);
+    }
 }
