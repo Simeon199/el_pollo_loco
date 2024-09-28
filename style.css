@@ -104,9 +104,22 @@ body {
 
 /* Canvas-container section properties */
 
-#canvas-container {
+.canvas-container {
     display: none;
+    position: relative;
 }
+
+#fullscreen {
+    display: block;
+    position: absolute;
+    right: 2%;
+    top: 90%;
+    width: 24px;
+}
+
+/* #canvas-container {
+    display: none;
+} */
 
 .canvas-container img {
     position: absolute;
@@ -143,7 +156,6 @@ canvas {
 }
 
 #minimize-button {
-    background-color: white;
     padding: 8px;
     border-radius: 16px;
 }
@@ -378,22 +390,7 @@ canvas {
     display: none;
 }
 
-/* button-styling in case of winning/losing */
-
-.button-style-winning-image {
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    font-size: 36px;
-    padding: 8px;
-    background-color: gold;
-    font-weight: bold;
-    color: dimgray;
-    font-family: 'damion', sans-serif;
-    transition: transform 500ms ease-in-out;
-}
-
-.button-style-losing-image {
+.button-style {
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -409,6 +406,7 @@ canvas {
 
 .button-style:hover {
     transform: scale(1.2);
+    background-color: rgb(95, 81, 3)
 }
 
 .all-icons-button-container {
@@ -452,6 +450,7 @@ a h2 {
 /* Section with media queries */
 
 @media(max-width: 1075px) {
+
     h1 {
         text-align: center;
         font-size: 40px;
@@ -486,6 +485,14 @@ a h2 {
     }
 }
 
+@media(max-width: 1000px) {
+    .canvas-container img {
+        right: 12%;
+        top: 72%;
+        width: 36px;
+    }
+}
+
 @media(max-width: 800px) {
     .links-images {
         padding-top: 8px;
@@ -494,15 +501,6 @@ a h2 {
         top: 0;
         left: 5%;
         right: 5%;
-    }
-
-    /* .canvas-container {
-        width: 100%;
-    } */
-
-    .canvas-container img {
-        right: 8%;
-        top: 70%;
     }
 
     .canvas {
@@ -595,6 +593,20 @@ a h2 {
         right: 20px;
         top: 12px;
     }
+
+    #winning-image img {
+        width: 90%;
+        height: auto;
+    }
+
+    #losing-image img {
+        width: 90%;
+        height: auto;
+    }
+
+    .button-style {
+        font-size: 24px;
+    }
 }
 
 /* Smartphones */
@@ -607,18 +619,6 @@ a h2 {
 
 @media(max-width: 700px) {
     #intro-image img:nth-child(2) {
-        width: 24px;
-    }
-
-    .canvas-container {
-        position: relative;
-    }
-
-    #fullscreen {
-        display: block;
-        position: absolute;
-        right: 2%;
-        top: 90%;
         width: 24px;
     }
 
@@ -660,6 +660,11 @@ a h2 {
 
     .game-notification {
         font-size: 10px;
+    }
+
+    #fullscreen {
+        width: 24px;
+        top: 84%;
     }
 }
 
