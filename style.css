@@ -496,6 +496,19 @@ a h2 {
         right: 5%;
     }
 
+    /* .canvas-container {
+        width: 100%;
+    } */
+
+    .canvas-container img {
+        right: 8%;
+        top: 70%;
+    }
+
+    .canvas {
+        width: 100%;
+    }
+
     .main-title-properties {
         padding: 0;
     }
@@ -588,12 +601,24 @@ a h2 {
 
 @media only screen and (max-width: 720px) {
     canvas {
-        width: 90%;
+        width: 100%;
     }
 }
 
 @media(max-width: 700px) {
     #intro-image img:nth-child(2) {
+        width: 24px;
+    }
+
+    .canvas-container {
+        position: relative;
+    }
+
+    #fullscreen {
+        display: block;
+        position: absolute;
+        right: 2%;
+        top: 90%;
         width: 24px;
     }
 
@@ -636,12 +661,6 @@ a h2 {
     .game-notification {
         font-size: 10px;
     }
-
-    .game-functions-container img:nth-child(2) {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-    }
 }
 
 /* Smartphones */
@@ -649,5 +668,15 @@ a h2 {
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
+    }
+}
+
+@media(max-width: 430px) {
+    .control-keys {
+        width: 100%;
+    }
+
+    .game-notification {
+        display: none;
     }
 }
