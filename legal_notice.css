@@ -3,6 +3,10 @@
     src: url('fonts/Damion-Regular.ttf') format('truetype');
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -14,10 +18,17 @@ body {
     background-repeat: no-repeat;
     min-height: 100vh;
     font-family: 'Arial', 'Helvetica', 'sans-serif';
+    margin: 0;
 }
 
 h1 {
     font-family: 'Arial';
+    margin: 0;
+    padding-bottom: 16px;
+}
+
+h2 {
+    margin: 0;
 }
 
 .main-legal-notice-container {
@@ -50,7 +61,7 @@ a {
     flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding-top: 160px;
     font-family: damion;
     font-size: 24px;
     transition: transform 500ms ease-in-out;
@@ -65,6 +76,34 @@ a {
     width: 200px;
 }
 
-/* .back-to-start-container:hover {
-    transform: scale(1.025);
-} */
+@media(max-width: 700px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media(max-width: 500px) {
+    .image-and-back-to-start-container h2 {
+        display: none;
+    }
+
+    .legal-notice-upper-part-container {
+        justify-content: start;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
