@@ -14,14 +14,20 @@ function redirectToStart() {
 
 function openAllIconsContainer() {
     let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
+    let allIconsButton = document.getElementById('all-icons-button');
     if (allIconsMiniVersionContainer.style.display !== 'flex') {
         allIconsMiniVersionContainer.style.display = ' flex';
+        allIconsButton.style.display = 'none';
     }
+    window.scrollBy(0, 200);
 }
 
 function closeAllIconsContainer() {
     let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
+    let allIconsButton = document.getElementById('all-icons-button');
     if (allIconsMiniVersionContainer.style.display !== 'none') {
         allIconsMiniVersionContainer.style.display = ' none';
+        allIconsButton.style.display = 'block';
     }
+    window.scrollBy(0, 200);
 }

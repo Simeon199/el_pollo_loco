@@ -85,8 +85,9 @@ function stopGame(string) {
             changeStyleWhenWinning();
         }
         changeStyleWhenIndependentOfWinningOrLosing();
-    }, 100);
-    exitFullscreen();
+        exitFullscreen();
+    }, 1000); // old value: 100
+    // exitFullscreen();
 }
 
 function clearAllIntervals() {
