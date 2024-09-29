@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'damion';
+    src: url('fonts/Damion-Regular.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('assets/desert_3.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'Arial', 'Helvetica', 'sans-serif';
+}
+
+h1 {
+    font-family: 'Arial';
+}
+
+.main-legal-notice-container {
+    font-family: 'Arial';
+    padding: 80px;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+}
+
+.image-and-back-to-start-container {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.image-and-back-to-start-container:hover {
+    transform: scale(1.025);
+}
+
+.legal-notice-upper-part-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    font-family: damion;
+    font-size: 24px;
+    transition: transform 500ms ease-in-out;
+}
+
+.legal-notice-upper-part-container h2 {
+    font-family: 'damion';
+}
+
+
+.legal-notice-upper-part-container img {
+    width: 200px;
+}
+
+/* .back-to-start-container:hover {
+    transform: scale(1.025);
+} */
