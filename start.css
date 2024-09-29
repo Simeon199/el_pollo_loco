@@ -93,28 +93,8 @@ h2 {
     width: 200px;
 }
 
-/* Legal-Notice CSS-Block */
-
 .outer-image-container .image-container:nth-child(2) img {
     width: 296px;
-}
-
-.back-to-start-container {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    cursor: pointer;
-    font-family: damion;
-    font-size: 24px;
-    transition: transform 500ms ease-in-out;
-}
-
-.back-to-start-container img {
-    width: 200px;
-}
-
-.back-to-start-container:hover {
-    transform: scale(1.2);
 }
 
 a h2 {
