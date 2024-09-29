@@ -126,7 +126,7 @@ a h2 {
     gap: 0px;
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     z-index: 20;
@@ -164,7 +164,7 @@ a h2 {
     display: none;
     font-family: 'playpensans';
     font-size: 18px;
-    position: fixed;
+    position: absolute;
     left: 8px;
     bottom: 8px;
 }
