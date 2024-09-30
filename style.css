@@ -3,6 +3,7 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    outline: none;
 }
 
 /* font-families */
@@ -167,9 +168,9 @@ canvas {
 
 /* All overlay sections */
 
-.overlay {
+/* .overlay {
     z-index: 10;
-}
+} */
 
 /* #intro-image properties */
 
