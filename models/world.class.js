@@ -14,6 +14,7 @@ class World {
     hasGameStarted = false;
     isGameOver = false;
     enemiesNumber = this.level.enemies.length;
+    // wasPlayAgainButtonPressed = false;
 
     // audio related content
 

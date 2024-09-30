@@ -86,8 +86,13 @@ function stopGame(string) {
         }
         changeStyleWhenIndependentOfWinningOrLosing();
         exitFullscreen();
-    }, 1000); // old value: 100
-    // exitFullscreen();
+    }, 1000);
+    stopAllSounds();
+}
+
+function stopAllSounds() {
+    world.backgroundMusic.pause();
+    world.level.enemies[world.level.enemies.length - 1].chickenSound.pause();
 }
 
 function clearAllIntervals() {
