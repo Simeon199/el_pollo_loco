@@ -14,7 +14,6 @@ class World {
     hasGameStarted = false;
     isGameOver = false;
     enemiesNumber = this.level.enemies.length;
-    // wasPlayAgainButtonPressed = false;
 
     // audio related content
 
@@ -275,7 +274,8 @@ class World {
     }
 
     characterFallsOnEnemy(enemy) {
-        return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.5;
+        // return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.5;
+        return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.75 && this.character.y + this.character.height > enemy.y;
     }
 
     enemyIsDefeatedByJump(enemy) {
@@ -328,7 +328,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }

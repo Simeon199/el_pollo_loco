@@ -37,12 +37,13 @@ class MovableObject extends DrawableObject {
             this.y + tolerance < mo.y + mo.height;
     }
 
+
     returnCorrectTolerance() {
         let tolerance = 0;
         if (this instanceof Character && this.isAboveGround()) {
             tolerance = 5;
-        } else if (this instanceof Character && this.isAboveGround()) {
-            tolerance = 30;
+        } else if (this instanceof Character && !this.isAboveGround()) {
+            tolerance = 20;
         }
         return tolerance;
     }
@@ -99,7 +100,7 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        if (this.isMovableObjectCharacterAndHurtOrDead()) { // this instanceof Character && (this.isHurt() || this.isDead())
+        if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else {
             this.speedY = 30;
