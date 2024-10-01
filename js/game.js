@@ -7,9 +7,20 @@ let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isFullscreenActivated = false;
 
+// Check Orientation 
+
+function checkOrientation() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        console.log("Das Gerät wird im Hochformat gehalten.");
+    } else if (window.matchMedia("(orientation: landscape)").matches) {
+        console.log("Das Gerät wird im Querformat gehalten.");
+    }
+}
+
 // Initialize Game
 
 function init() {
+    checkOrientation();
     if (world) {
         world.reset();
     } else {
@@ -209,6 +220,8 @@ document.addEventListener('fullscreenchange', () => {
         manageAddRemoveClassesWhenExitFullscreen();
     }
 });
+
+window.addEventListener("orientationchange", checkOrientation);
 
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 27) {
