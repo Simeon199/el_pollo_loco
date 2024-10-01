@@ -11,16 +11,50 @@ let isFullscreenActivated = false;
 
 function checkOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
-        console.log("Das Gerät wird im Hochformat gehalten.");
+        console.log('Hochformat');
+        return false;
     } else if (window.matchMedia("(orientation: landscape)").matches) {
-        console.log("Das Gerät wird im Querformat gehalten.");
+        console.log('Querformat');
+        return true;
+    }
+}
+
+function playGameWhenDeviceHasRightOrientation() {
+    if (areCanvasContainersHidden() == true && window.matchMedia("(orientation: landscape)").matches) { // Fehler ist laut Debugger in dieser Zeile
+        document.getElementById('message-to-turn-device').style.display = 'block';
+        document.getElementById('intro-image').style.display = 'block';
+        // document.getElementById('canvas').style.display = 'block';
+        document.getElementById('fullscreen').style.display = 'block';
+    }
+}
+
+function showButtonToTurnDeviceInCaseOfWrongOrientation() {
+    document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('overlay').innerHTML = `<div id="message-to-turn-device">
+                                                        <button onclick="playGameWhenDeviceHasRightOrientation()">
+                                                             Please Turn Your Device And Press This Button To Play The Game!
+                                                        </button>
+                                                    </div>`
+}
+
+function setCanvasElementsRightInCaseOfRightOrientation() {
+    document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('fullscreen').style.display = 'block';
+}
+
+function areCanvasContainersHidden() {
+    if (document.getElementById('intro-image').style.display == 'none' && document.getElementById('fullscreen').style.display == 'none') {
+        return true;
+    } else {
+        return false;
     }
 }
 
 // Initialize Game
 
 function init() {
-    checkOrientation();
+    // checkOrientation();
     if (world) {
         world.reset();
     } else {
@@ -80,10 +114,12 @@ function closeAllIconsContainer() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
-    document.getElementById('canvas-container').style.display = 'block';
-    document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('fullscreen').style.display = 'block';
-    init();
+    if (checkOrientation() == true) {
+        setCanvasElementsRightInCaseOfRightOrientation();
+        init();
+    } else if (checkOrientation() == false) {
+        showButtonToTurnDeviceInCaseOfWrongOrientation();
+    }
 }
 
 function stopGame(string) {

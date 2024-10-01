@@ -62,21 +62,7 @@ class World {
             this.calibrateDistanceBetweenCharacterAndEndboss();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.backgroundMusic.play();
-            // this.checkOrientation();
         }, 100);
-    }
-
-    checkOrientation() {
-        if (window.matchMedia("(orientation: portrait)").matches) {
-            document.getElementById('canvas').style.display = 'none';
-            document.getElementById('fullscreen').style.display = 'none';
-            document.getElementById('canvas-container').innerHTML += `<div id="message-to-turn-device">
-                                                                        <h2>Please Turn Your Device To Play The Game</h2>
-                                                                    </div>`
-            console.log("Das Gerät wird im Hochformat gehalten.");
-        } else if (window.matchMedia("(orientation: landscape)").matches) {
-            console.log("Das Gerät wird im Querformat gehalten.");
-        }
     }
 
     setWorld() {

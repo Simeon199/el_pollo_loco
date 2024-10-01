@@ -45,6 +45,24 @@ body {
 
 /* All sections HTML-Sections */
 
+#message-to-turn-device {
+    display: block;
+}
+
+#message-to-turn-device button {
+    padding: 16px;
+    border: 1px solid black;
+    border-radius: 16px;
+    font-size: 22px;
+    font-family: 'damion';
+    background-color: gold;
+}
+
+#message-to-turn-device button:hover {
+    cursor: pointer;
+    background-color: rgb(95, 81, 3);
+}
+
 /* all-icons-container properties */
 
 .all-icons-container {
