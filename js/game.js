@@ -11,26 +11,24 @@ let isFullscreenActivated = false;
 
 function checkOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
-        console.log('Hochformat');
         return false;
     } else if (window.matchMedia("(orientation: landscape)").matches) {
-        console.log('Querformat');
         return true;
     }
 }
 
 function playGameWhenDeviceHasRightOrientation() {
-    if (areCanvasContainersHidden() == true && window.matchMedia("(orientation: landscape)").matches) { // Fehler ist laut Debugger in dieser Zeile
-        document.getElementById('message-to-turn-device').style.display = 'block';
+    if (document.getElementById('message-to-turn-device').style.display = 'block' && window.matchMedia("(orientation: landscape)").matches) {
+        document.getElementById('message-to-turn-device').style.display = 'none';
         document.getElementById('intro-image').style.display = 'block';
-        // document.getElementById('canvas').style.display = 'block';
+        document.getElementById('playIcon').style.right = '45%';
         document.getElementById('fullscreen').style.display = 'block';
     }
 }
 
 function showButtonToTurnDeviceInCaseOfWrongOrientation() {
     document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('overlay').innerHTML = `<div id="message-to-turn-device">
+    document.getElementById('overlay').innerHTML += `<div id="message-to-turn-device">
                                                         <button onclick="playGameWhenDeviceHasRightOrientation()">
                                                              Please Turn Your Device And Press This Button To Play The Game!
                                                         </button>
@@ -41,14 +39,6 @@ function setCanvasElementsRightInCaseOfRightOrientation() {
     document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'block';
-}
-
-function areCanvasContainersHidden() {
-    if (document.getElementById('intro-image').style.display == 'none' && document.getElementById('fullscreen').style.display == 'none') {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 // Initialize Game
@@ -114,6 +104,7 @@ function closeAllIconsContainer() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
+    console.log('Check Intro-Image-Existence when game is starting:', document.getElementById('intro-image'));
     if (checkOrientation() == true) {
         setCanvasElementsRightInCaseOfRightOrientation();
         init();
