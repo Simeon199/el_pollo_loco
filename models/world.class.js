@@ -249,7 +249,7 @@ class World {
         this.statusbar.setPercentage(this.character.energy);
     }
 
-    applyKnockback(enemy) {
+    applyKnockback(enemy) { // Diese Funktion kleiner machen
         if (enemy instanceof Endboss) {
             enemy.endbossHitCharacter = true;
             enemy.endbossHitCharacterAtTime = new Date().getTime();
