@@ -28,15 +28,13 @@ function playGameWhenDeviceHasRightOrientation() {
 
 function showButtonToTurnDeviceInCaseOfWrongOrientation() {
     document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('overlay').innerHTML += `<div id="message-to-turn-device">
-                                                        <button onclick="playGameWhenDeviceHasRightOrientation()">
-                                                             Please Turn Your Device And Press This Button To Play The Game!
-                                                        </button>
-                                                    </div>`
+    document.getElementById('message-to-turn-device').classList.remove('d-none');
+    document.getElementById('message-to-turn-device').classList.add('d-block');
 }
 
 function setCanvasElementsRightInCaseOfRightOrientation() {
     document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('canvas').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'block';
 }
@@ -149,6 +147,8 @@ function playAgain() {
         hasGameStarted = false;
         checkIfEnemyOrCharacterIsDead();
     } else {
+        document.getElementById('winning-image').style.display = 'none';
+        document.getElementById('losing-image').style.display = 'none';
         showButtonToTurnDeviceInCaseOfWrongOrientation();
     }
 

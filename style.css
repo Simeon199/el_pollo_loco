@@ -45,9 +45,9 @@ body {
 
 /* All sections HTML-Sections */
 
-#message-to-turn-device {
+/* #message-to-turn-device {
     display: block;
-}
+} */
 
 #message-to-turn-device button {
     padding: 16px;
@@ -186,9 +186,11 @@ canvas {
 
 /* All overlay sections */
 
-/* .overlay {
-    z-index: 10;
+/* #overlay {
+    min-height: 100vh;
+    width: 100%;
 } */
+
 
 /* #intro-image properties */
 
@@ -407,6 +409,10 @@ canvas {
 
 .d-none {
     display: none;
+}
+
+.d-block {
+    display: block;
 }
 
 .button-style {
