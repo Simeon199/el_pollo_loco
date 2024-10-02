@@ -44,7 +44,6 @@ function setCanvasElementsRightInCaseOfRightOrientation() {
 // Initialize Game
 
 function init() {
-    // checkOrientation();
     if (world) {
         world.reset();
     } else {
@@ -140,14 +139,19 @@ function clearAllIntervals() {
 }
 
 function playAgain() {
-    document.getElementById('canvas-container').style.display = 'block';
-    document.getElementById('canvas').style.display = 'block';
-    document.getElementById('losing-image').style.display = 'none';
-    document.getElementById('winning-image').style.display = 'none';
-    document.getElementById('main-title').style.display = 'none';
-    world = new World(canvas, keyboard);
-    hasGameStarted = false;
-    checkIfEnemyOrCharacterIsDead();
+    if (checkOrientation() == true) {
+        document.getElementById('canvas-container').style.display = 'block';
+        document.getElementById('canvas').style.display = 'block';
+        document.getElementById('losing-image').style.display = 'none';
+        document.getElementById('winning-image').style.display = 'none';
+        document.getElementById('main-title').style.display = 'none';
+        world = new World(canvas, keyboard);
+        hasGameStarted = false;
+        checkIfEnemyOrCharacterIsDead();
+    } else {
+        showButtonToTurnDeviceInCaseOfWrongOrientation();
+    }
+
 }
 
 // All CSS-Styling-Related Code
