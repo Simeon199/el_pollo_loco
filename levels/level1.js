@@ -26,8 +26,11 @@ function generateCoinsArray() {
 
 function generateEnemies() {
     let enemies = [];
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 3; i++) {
         enemies.push(new Chicken(i));
+    }
+    for (j = 0; j < 3; j++) {
+        enemies.push(new BabyChicken(j));
     }
     let endbossIndex = enemies.length
     enemies.push(new Endboss(endbossIndex));

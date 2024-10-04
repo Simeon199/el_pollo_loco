@@ -62,6 +62,7 @@ class World {
             this.calibrateDistanceBetweenCharacterAndEndboss();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.backgroundMusic.play();
+            this.checkMovingDirectionOfEnemies();
         }, 100);
     }
 
@@ -71,6 +72,20 @@ class World {
         this.endbossbar.world = this;
         this.coinbar.world = this;
         this.level.world = this;
+    }
+
+    checkMovingDirectionOfEnemies() {
+        this.level.enemies.forEach(enemy => {
+            if (!(enemy instanceof Endboss) && (enemy instanceof Chicken)) {
+                if (enemy.x <= -400) {
+                    // clearInterval(enemy.intervalMove);
+                    enemy.animateMovingChickens('right');
+                } else if (enemy.x >= 400) {
+                    // clearInterval(enemy.intervalMove);
+                    enemy.animateMovingChickens('left');
+                }
+            }
+        });
     }
 
     calibrateDistanceBetweenCharacterAndEndboss() {
@@ -85,7 +100,7 @@ class World {
                 if (enemy.isDead == false) {
                     enemy.isEndbossFinalEnemy = true;
                 }
-            })
+            });
         }
     }
 

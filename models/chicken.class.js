@@ -1,5 +1,6 @@
 class Chicken extends MovableObject {
-    intervalMoveLeft = null;
+    // movingDirection = 'left';
+    intervalMove = null;
     intervalChangeWalkingImages = null;
     playingDeadEnemyId = null;
     spliceable = false;
@@ -25,7 +26,7 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGE_DEAD_CHICKEN);
         this.enemyArrayIndex = enemyArrayIndex;
         this.x = 500 + Math.random() * 700;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 1 + Math.random() * 0.25;
         this.animate();
     }
 
@@ -56,23 +57,34 @@ class Chicken extends MovableObject {
 
 
     clearAllRelevantIntervalsWhenChickenDies() {
-        clearInterval(this.intervalMoveLeft);
+        clearInterval(this.intervalMove);
         clearInterval(this.intervalChangeWalkingImages);
     }
 
     proveIfIntervalsAlreadyExists() {
         if (this.intervalMoveLeft) {
-            clearInterval(this.intervalMoveLeft);
+            clearInterval(this.intervalMove);
         }
         if (this.intervalChangeWalkingImages) {
             clearInterval(this.intervalChangeWalkingImages);
         }
     }
 
-    animateMovingChickens() {
-        this.intervalMoveLeft = setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+    animateMovingChickens(movingDirection = 'left') {
+        if (this.intervalMove !== null) {
+            clearInterval(this.intervalMove);
+        }
+        if (movingDirection == 'left') {
+            this.otherDirection = false;
+            this.intervalMove = setInterval(() => {
+                this.moveLeft();
+            }, 1000 / 60);
+        } else if (movingDirection == 'right') {
+            this.otherDirection = true;
+            this.intervalMove = setInterval(() => {
+                this.moveRight();
+            }, 1000 / 60);
+        }
         this.intervalChangeWalkingImages = setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
