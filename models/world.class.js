@@ -77,12 +77,12 @@ class World {
     checkMovingDirectionOfEnemies() {
         this.level.enemies.forEach(enemy => {
             if (!(enemy instanceof Endboss) && (enemy instanceof Chicken)) {
-                if (enemy.x <= -400) {
-                    // clearInterval(enemy.intervalMove);
-                    enemy.animateMovingChickens('right');
-                } else if (enemy.x >= 400) {
-                    // clearInterval(enemy.intervalMove);
-                    enemy.animateMovingChickens('left');
+                if (enemy.x <= -500) {
+                    enemy.movingDirection = 'right';
+                    enemy.otherDirection = true;
+                } else if (enemy.x >= 500) {
+                    enemy.otherDirection = false;
+                    enemy.movingDirection = 'left';
                 }
             }
         });

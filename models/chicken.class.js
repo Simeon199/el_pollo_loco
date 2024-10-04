@@ -1,5 +1,5 @@
 class Chicken extends MovableObject {
-    // movingDirection = 'left';
+    movingDirection = 'left'
     intervalMove = null;
     intervalChangeWalkingImages = null;
     playingDeadEnemyId = null;
@@ -63,7 +63,7 @@ class Chicken extends MovableObject {
     }
 
     proveIfIntervalsAlreadyExists() {
-        if (this.intervalMoveLeft) {
+        if (this.intervalMove) {
             clearInterval(this.intervalMove);
         }
         if (this.intervalChangeWalkingImages) {
@@ -71,21 +71,17 @@ class Chicken extends MovableObject {
         }
     }
 
-    animateMovingChickens(movingDirection = 'left') {
-        if (this.intervalMove !== null) {
-            clearInterval(this.intervalMove);
-        }
-        if (movingDirection == 'left') {
-            this.otherDirection = false;
-            this.intervalMove = setInterval(() => {
-                this.moveLeft();
-            }, 1000 / 60);
-        } else if (movingDirection == 'right') {
-            this.otherDirection = true;
-            this.intervalMove = setInterval(() => {
-                this.moveRight();
-            }, 1000 / 60);
-        }
+    animateMovingChickens() {
+        this.intervalMove = setInterval(() => {
+            if (this.isDead == false) {
+                if (this.movingDirection == 'left') {
+                    this.moveLeft();
+                } else if (this.movingDirection == 'right') {
+                    this.moveRight();
+                };
+            }
+        }, 1000 / 60);
+
         this.intervalChangeWalkingImages = setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
