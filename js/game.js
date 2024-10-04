@@ -135,8 +135,9 @@ function playAgain() {
 // All CSS-Styling-Related Code
 
 function playGameWhenDeviceHasRightOrientation() {
-    if (document.getElementById('message-to-turn-device').style.display = 'block' && window.matchMedia("(orientation: landscape)").matches) {
-        document.getElementById('message-to-turn-device').style.display = 'none';
+    if (document.getElementById('message-to-turn-device').classList.contains('d-block') && window.matchMedia("(orientation: landscape)").matches) {
+        document.getElementById('message-to-turn-device').classList.remove('d-block');
+        document.getElementById('message-to-turn-device').classList.add('d-none');
         document.getElementById('intro-image').style.display = 'block';
         document.getElementById('playIcon').style.right = '45%';
         document.getElementById('fullscreen').style.display = 'block';
