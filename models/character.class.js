@@ -1,4 +1,11 @@
 class Character extends MovableObject {
+    fixDate = 0;
+    isJumping = false;
+    wasRandomKeyOncePressed = false;
+    isKeyStillPressed = false;
+    someKeyWasPressedAgain = 0;
+    lastTimeKeyPressed = 0;
+    timePassedWhenKeyPressed;
     height = 280;
     width = 130;
     y = 20;
@@ -12,6 +19,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-25.png',
         'img/2_character_pepe/2_walk/W-26.png'
     ];
+
+    IMAGES_CHILL = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ]
 
     IMAGES_SLEEP = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
@@ -61,6 +81,7 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_CHILL);
         this.loadImages(this.IMAGES_SLEEP);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -71,7 +92,18 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
+            this.fixDate = new Date().getTime();
+            this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
             this.walking_sound.pause();
+            if (this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false) {
+                this.playAnimation(this.IMAGES_SLEEP);
+            }
+            if (this.timePassedWhenKeyPressed < 5000 && this.timePassedWhenKeyPressed > 2000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && !this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_CHILL);
+            }
+            if (this.timePassedWhenKeyPressed < 2000 && !this.isAboveGround() && !(this.world.keyboard.SPACE) && !(this.world.keyboard.LEFT) && !(this.world.keyboard.RIGHT)) {
+                this.playAnimation([this.IMAGES_JUMPING[1]]);
+            }
             if (this.world.keyboard.RIGHT && this.x < world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -88,10 +120,6 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
-            }
-
-            if (!this.isAboveGround() && !(this.world.keyboard.SPACE) && !(this.world.keyboard.LEFT) && !(this.world.keyboard.RIGHT)) {
-                this.playAnimation([this.IMAGES_JUMPING[1]]);
             }
         }, 1000 / 60);
 

@@ -1,5 +1,9 @@
 // All Global Variables
 
+let wasRandomKeyOncePressed = false;
+let isKeyPressed = false;
+let someKeyWasPressedAgain = 0;
+let lastTimeKeyPressed = 0;
 let canvas;
 let ctx;
 let world;
@@ -32,6 +36,7 @@ function init() {
 
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
+        // checkTimePassedBetweenKeyPressedAndKeyReleased();
         if (world.character.energy == 0) {
             stopGame('losing');
         } else if (world.enemiesNumber <= 0) {
@@ -79,7 +84,7 @@ function closeAllIconsContainer() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
-    console.log('Check Intro-Image-Existence when game is starting:', document.getElementById('intro-image'));
+    // console.log('Check Intro-Image-Existence when game is starting:', document.getElementById('intro-image'));
     if (checkOrientation() == true) {
         setCanvasElementsRightInCaseOfRightOrientation();
         init();
@@ -264,6 +269,12 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('keydown', (event) => {
+    wasRandomKeyOncePressed = true;
+    isKeyPressed = true;
+    someKeyWasPressedAgain = new Date().getTime();
+    world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+    world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+    world.character.isKeyStillPressed = isKeyPressed;
     if (event.keyCode == 39) {
         keyboard.RIGHT = true;
         if (keyboard.leftForThrow == true) {
@@ -295,9 +306,13 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
     }
-})
+});
 
 window.addEventListener('keyup', (event) => {
+    isKeyPressed = false;
+    lastTimeKeyPressed = new Date().getTime();
+    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+    world.character.isKeyStillPressed = isKeyPressed;
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
     }
@@ -321,4 +336,4 @@ window.addEventListener('keyup', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = false;
     }
-})
+});
