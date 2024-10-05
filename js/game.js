@@ -84,7 +84,6 @@ function closeAllIconsContainer() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
-    // console.log('Check Intro-Image-Existence when game is starting:', document.getElementById('intro-image'));
     if (checkOrientation() == true) {
         setCanvasElementsRightInCaseOfRightOrientation();
         init();

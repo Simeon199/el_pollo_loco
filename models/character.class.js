@@ -76,6 +76,7 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/running.mp3');
+    snorring_sound = new Audio('audio/snor.mp3');
     bottle;
 
     constructor() {
@@ -95,30 +96,32 @@ class Character extends MovableObject {
             this.fixDate = new Date().getTime();
             this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
             this.walking_sound.pause();
-            if (this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false) {
+            this.snorring_sound.pause();
+            if (this.keyWasntPressedForMoreThanFiveSeconds()) {
                 this.playAnimation(this.IMAGES_SLEEP);
+                this.snorring_sound.play();
             }
-            if (this.timePassedWhenKeyPressed < 5000 && this.timePassedWhenKeyPressed > 2000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && !this.isAboveGround()) {
+            if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
                 this.playAnimation(this.IMAGES_CHILL);
             }
-            if (this.timePassedWhenKeyPressed < 2000 && !this.isAboveGround() && !(this.world.keyboard.SPACE) && !(this.world.keyboard.LEFT) && !(this.world.keyboard.RIGHT)) {
+            if (this.keyWasntPressedForLessThanTwoSeconds()) {
                 this.playAnimation([this.IMAGES_JUMPING[1]]);
             }
-            if (this.world.keyboard.RIGHT && this.x < world.level.level_end_x) {
+            if (this.keyRightWasPressed()) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
             }
             this.world.camera_x = this.x + 100;
 
-            if (this.world.keyboard.LEFT && this.x > -719) {
+            if (this.keyLeftWasPressed()) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
             this.world.camera_x = -this.x + 100;
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            if (this.keySpaceWasPressed()) {
                 this.jump();
             }
         }, 1000 / 60);
@@ -131,12 +134,40 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                if (this.wasRightOrLeftKeyPressed()) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
         }, 50);
     };
+
+    keyWasntPressedForMoreThanFiveSeconds() {
+        return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && !this.isHurt();
+    }
+
+    keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
+        return this.timePassedWhenKeyPressed < 5000 && this.timePassedWhenKeyPressed > 1000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && !this.isAboveGround() && !this.isHurt();
+    }
+
+    keyWasntPressedForLessThanTwoSeconds() {
+        this.timePassedWhenKeyPressed < 1000 && !this.isAboveGround() && !this.isHurt();
+    }
+
+    keyRightWasPressed() {
+        return this.world.keyboard.RIGHT && this.x < world.level.level_end_x;
+    }
+
+    keyLeftWasPressed() {
+        return this.world.keyboard.LEFT && this.x > -719;
+    }
+
+    keySpaceWasPressed() {
+        return this.world.keyboard.SPACE && !this.isAboveGround();
+    }
+
+    wasRightOrLeftKeyPressed() {
+        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+    }
 
     bounce() {
         this.speedY = 30;
