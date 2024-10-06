@@ -23,22 +23,19 @@ function checkOrientation() {
 }
 
 function togglePanelsForMobileVersion() {
-    // debugger;
     let controlPanel = document.getElementById('control-panel-everything');
-    if (window.matchMedia("(max-width: 768px)").matches) {
+    if (checkOrientation()) { // Eventuell hier hinzufügen, dass das Spiel automatisch abgebrochen wird, wenn das Handy im Hochformat gehalten wird.
         controlPanel.classList.remove('d-none');
         controlPanel.classList.add('d-flex');
     } else {
         controlPanel.classList.remove('d-flex');
         controlPanel.classList.add('d-none');
-        console.log('Funktion wird trotzdem ausgeführt');
     }
 }
 
 // Initialize Game
 
 function init() {
-    // togglePanelsForMobileVersion();
     if (world) {
         world.reset();
     } else {
@@ -147,7 +144,6 @@ function playAgain() {
         document.getElementById('losing-image').style.display = 'none';
         showButtonToTurnDeviceInCaseOfWrongOrientation();
     }
-
 }
 
 // All CSS-Styling-Related Code
