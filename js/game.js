@@ -26,10 +26,11 @@ function togglePanelsForMobileVersion() {
     // debugger;
     let controlPanel = document.getElementById('control-panel-everything');
     if (window.matchMedia("(max-width: 768px)").matches) {
-        console.log('Und jetzt bin ich hier drin!');
         controlPanel.classList.remove('d-none');
-    } else {
         controlPanel.classList.add('d-flex');
+    } else {
+        controlPanel.classList.remove('d-flex');
+        controlPanel.classList.add('d-none');
         console.log('Funktion wird trotzdem ausgeführt');
     }
 }
@@ -152,8 +153,8 @@ function playAgain() {
 // All CSS-Styling-Related Code
 
 function playGameWhenDeviceHasRightOrientation() {
-    if (document.getElementById('message-to-turn-device').classList.contains('d-block') && window.matchMedia("(orientation: landscape)").matches) {
-        document.getElementById('message-to-turn-device').classList.remove('d-block');
+    if (document.getElementById('message-to-turn-device').classList.contains('d-flex') && window.matchMedia("(orientation: landscape)").matches) {
+        document.getElementById('message-to-turn-device').classList.remove('d-flex');
         document.getElementById('message-to-turn-device').classList.add('d-none');
         document.getElementById('intro-image').style.display = 'block';
         document.getElementById('playIcon').style.right = '45%';
@@ -164,7 +165,9 @@ function playGameWhenDeviceHasRightOrientation() {
 function showButtonToTurnDeviceInCaseOfWrongOrientation() {
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('message-to-turn-device').classList.remove('d-none');
-    document.getElementById('message-to-turn-device').classList.add('d-block');
+    document.getElementById('message-to-turn-device').classList.add('d-flex');
+    document.getElementById('control-panel-everything').classList.remove('d-flex');
+    document.getElementById('control-panel-everything').classList.add('d-none');
 }
 
 function setCanvasElementsRightInCaseOfRightOrientation() {
@@ -346,6 +349,50 @@ window.addEventListener('keyup', (event) => {
     }
 
     if (event.keyCode == 68) {
+        keyboard.keyD = false;
+    }
+});
+
+window.addEventListener('touchstart', (event) => {
+    if (event.target == document.getElementById('buttonLeft')) {
+        keyboard.LEFT = true;
+        if (keyboard.rightForThrow == true) {
+            keyboard.rightForThrow = false;
+        }
+        keyboard.rightForThrow = true;
+    }
+
+    if (event.target == document.getElementById('buttonRight')) {
+        keyboard.RIGHT = true;
+        if (keyboard.rightForThrow == true) {
+            keyboard.rightForThrow = false;
+        }
+        keyboard.rightForThrow = true;
+    }
+
+    if (event.target == document.getElementById('buttonUp')) {
+        keyboard.SPACE = true;
+    }
+
+    if (event.target == document.getElementById('buttonThrow')) {
+        keyboard.keyD = true;
+    }
+})
+
+window.addEventListener('touchend', (event) => {
+    if (event.target == document.getElementById('buttonLeft')) {
+        keyboard.LEFT = false;
+    }
+
+    if (event.target == document.getElementById('buttonRight')) {
+        keyboard.RIGHT = false;
+    }
+
+    if (event.target == document.getElementById('buttonUp')) {
+        keyboard.SPACE = false;
+    }
+
+    if (event.target == document.getElementById('buttonThrow')) {
         keyboard.keyD = false;
     }
 });
