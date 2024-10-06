@@ -12,6 +12,7 @@ let hasGameStarted = false;
 let isFullscreenActivated = false;
 
 // Check Orientation 
+document.addEventListener('DOMContentLoaded', togglePanelsForMobileVersion);
 
 function checkOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
@@ -21,9 +22,22 @@ function checkOrientation() {
     }
 }
 
+function togglePanelsForMobileVersion() {
+    // debugger;
+    let controlPanel = document.getElementById('control-panel-everything');
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        console.log('Und jetzt bin ich hier drin!');
+        controlPanel.classList.remove('d-none');
+    } else {
+        controlPanel.classList.add('d-flex');
+        console.log('Funktion wird trotzdem ausgeführt');
+    }
+}
+
 // Initialize Game
 
 function init() {
+    // togglePanelsForMobileVersion();
     if (world) {
         world.reset();
     } else {
@@ -36,7 +50,6 @@ function init() {
 
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
-        // checkTimePassedBetweenKeyPressedAndKeyReleased();
         if (world.character.energy == 0) {
             stopGame('losing');
         } else if (world.enemiesNumber <= 0) {

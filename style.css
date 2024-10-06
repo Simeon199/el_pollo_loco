@@ -45,9 +45,53 @@ body {
 
 /* All sections HTML-Sections */
 
-/* #message-to-turn-device {
-    display: block;
-} */
+#control-panel-everything {
+    padding-top: 8px;
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#control-panel-right-left {
+    display: flex;
+    gap: 8px;
+}
+
+#control-panel-up-throw {
+    display: flex;
+    gap: 8px;
+}
+
+#control-panel-right-left button {
+    padding: 4px;
+    border: 2px solid black;
+    border-radius: 40px;
+    background-color: rgba(177, 165, 86, 0.62);
+}
+
+#control-panel-up-throw button {
+    padding: 4px;
+    border: 2px solid black;
+    border-radius: 40px;
+    background-color: rgba(177, 165, 86, 0.62);
+}
+
+#control-panel-right-left button img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    padding: 4px;
+}
+
+#control-panel-up-throw button img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    padding: 4px;
+}
 
 #message-to-turn-device button {
     padding: 16px;
@@ -405,7 +449,7 @@ canvas {
     text-decoration: underline;
 }
 
-/* d-none class */
+/* Classes to add with Javascript */
 
 .d-none {
     display: none;
@@ -413,6 +457,10 @@ canvas {
 
 .d-block {
     display: block;
+}
+
+.d-flex {
+    display: flex;
 }
 
 .button-style {
