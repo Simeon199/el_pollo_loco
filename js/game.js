@@ -9,7 +9,7 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 let hasGameStarted = false;
-let isFullscreenActivated = false;
+let isIntroImageActivated = false;
 
 // Check Orientation and check for Desktop vs Mobile Device
 
@@ -43,7 +43,6 @@ function togglePanelsForMobileVersion() {
 }
 
 function handleOrientationChange() {
-    // debugger;
     if (isMobileDevice()) {
         if (checkOrientation()) {
             stopGame('orientation');
@@ -116,22 +115,13 @@ function closeAllIconsContainer() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
-    if (!checkOrientation()) { // Querformat
+    if (!checkOrientation()) {
         setCanvasElementsRightInCaseOfRightOrientation();
-        init();  // Spiel initialisieren
+        init();
     } else {
         showButtonToTurnDeviceInCaseOfWrongOrientation();
     }
 }
-
-// function startGame() {
-//     if (!handleOrientationChange()) { // checkOrientation()
-//         setCanvasElementsRightInCaseOfRightOrientation();
-//         init();
-//     } else {
-//         showButtonToTurnDeviceInCaseOfWrongOrientation();
-//     }
-// }
 
 function stopGame(string) {
     setTimeout(() => {
@@ -185,43 +175,34 @@ function playAgain() {
 // All CSS-Styling-Related Code
 
 function playGameWhenDeviceHasRightOrientation() {
-    debugger;
-    if (!checkOrientation()) {  // Nur wenn Querformat aktiv ist
+    if (!checkOrientation()) {
         document.getElementById('message-to-turn-device').classList.remove('d-flex');
         document.getElementById('message-to-turn-device').classList.add('d-none');
         document.getElementById('intro-image').style.display = 'block';
+        document.getElementById('canvas-container').style.width = '100%';
+        document.getElementById('canvas').style.width = '50%';
+        document.getElementById('canvas').style.margin = '0 auto';
         document.getElementById('playIcon').style.right = '45%';
-        document.getElementById('fullscreen').style.display = 'block';
-        // playAgain();  // Starte das Spiel neu
+        document.getElementById('control-panel-everything').classList.remove('d-none');
+        document.getElementById('control-panel-everything').style.display = 'flex';
     }
 }
 
-// document.getElementById('message-to-turn-device').addEventListener('click', () => {
-//     if (!checkOrientation()) { // Wenn das Gerät in Querformat ist
-//         playGameWhenDeviceHasRightOrientation();
-//     }
-// });
-
-// function playGameWhenDeviceHasRightOrientation() {
-//     if (document.getElementById('message-to-turn-device').classList.contains('d-flex') && checkOrientation() && handleOrientationChange()) {
-//         document.getElementById('message-to-turn-device').classList.remove('d-flex');
-//         document.getElementById('message-to-turn-device').classList.add('d-none');
-//         document.getElementById('intro-image').style.display = 'block';
-//         document.getElementById('playIcon').style.right = '45%';
-//         document.getElementById('fullscreen').style.display = 'block';
-//         playAgain();
-//     }
-// }
-
 function showButtonToTurnDeviceInCaseOfWrongOrientation() {
-    document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('intro-image').classList.add('d-none');
     document.getElementById('message-to-turn-device').classList.remove('d-none');
     document.getElementById('message-to-turn-device').classList.add('d-flex');
     document.getElementById('control-panel-everything').classList.remove('d-flex');
     document.getElementById('control-panel-everything').classList.add('d-none');
 }
 
+function removeButtonToTurnDeviceInCaseOfRightOrientation() {
+    document.getElementById('message-to-turn-device').classList.remove('d-flex');
+    document.getElementById('message-to-turn-device').classList.add('d-none');
+}
+
 function setCanvasElementsRightInCaseOfRightOrientation() {
+    removeButtonToTurnDeviceInCaseOfRightOrientation();
     document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';

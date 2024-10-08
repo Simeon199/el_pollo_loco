@@ -50,7 +50,7 @@ body {
     margin: 0 auto;
     width: 90%;
     /* display: flex; */
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 #control-panel-right-left {
@@ -232,11 +232,9 @@ canvas {
 
 /* All overlay sections */
 
-/* #overlay {
-    min-height: 100vh;
+#overlay {
     width: 100%;
-} */
-
+}
 
 /* #intro-image properties */
 
