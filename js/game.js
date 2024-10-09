@@ -10,45 +10,14 @@ let world;
 let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isIntroImageActivated = false;
-
-// Check Orientation and check for Desktop vs Mobile Device
-
-document.addEventListener('DOMContentLoaded', togglePanelsForMobileVersion);
-window.addEventListener('orientationchange', handleOrientationChange);
-
-function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
-}
-
-
-function checkOrientation() {
-    return window.matchMedia("(orientation: portrait)").matches;
-}
-
-function togglePanelsForMobileVersion() {
-    let controlPanel = document.getElementById('control-panel-everything');
-
-    if (isMobileDevice()) {
-        if (checkOrientation()) {
-            controlPanel.classList.remove('d-none');
-            controlPanel.classList.add('d-flex');
-        } else {
-            controlPanel.classList.remove('d-flex');
-            controlPanel.classList.add('d-none');
-            stopGame('orientation');
-        }
-    } else {
-        controlPanel.classList.add('d-none');
-    }
-}
+let isFullscreenActivated = false;
 
 function handleOrientationChange() {
     if (isMobileDevice()) {
         if (checkOrientation()) {
-            stopGame('orientation');
-            showButtonToTurnDeviceInCaseOfWrongOrientation();
-        } else {
-            playGameWhenDeviceHasRightOrientation();
+            if (hasGameStarted = true) {
+                stopGame('orientation');
+            }
         }
     }
 }
@@ -115,12 +84,8 @@ function closeAllIconsContainer() {
 // Start-or-Stop Game Related Logic
 
 function startGame() {
-    if (!checkOrientation()) {
-        setCanvasElementsRightInCaseOfRightOrientation();
-        init();
-    } else {
-        showButtonToTurnDeviceInCaseOfWrongOrientation();
-    }
+    setCanvasElementsRightInCaseOfRightOrientation();
+    init();
 }
 
 function stopGame(string) {
@@ -131,8 +96,6 @@ function stopGame(string) {
             changeStyleWhenLosing();
         } else if (string == 'winning') {
             changeStyleWhenWinning();
-        } else if (string == 'orientation') {
-            showButtonToTurnDeviceInCaseOfWrongOrientation();
         }
         changeStyleWhenIndependentOfWinningOrLosing();
         exitFullscreen();
@@ -156,57 +119,23 @@ function clearAllIntervals() {
 }
 
 function playAgain() {
-    if (checkOrientation() == true) {
-        document.getElementById('canvas-container').style.display = 'block';
-        document.getElementById('canvas').style.display = 'block';
-        document.getElementById('losing-image').style.display = 'none';
-        document.getElementById('winning-image').style.display = 'none';
-        document.getElementById('main-title').style.display = 'none';
-        world = new World(canvas, keyboard);
-        hasGameStarted = false;
-        checkIfEnemyOrCharacterIsDead();
-    } else {
-        document.getElementById('winning-image').style.display = 'none';
-        document.getElementById('losing-image').style.display = 'none';
-        showButtonToTurnDeviceInCaseOfWrongOrientation();
-    }
+    document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('losing-image').style.display = 'none';
+    document.getElementById('winning-image').style.display = 'none';
+    document.getElementById('main-title').style.display = 'none';
+    world = new World(canvas, keyboard);
+    hasGameStarted = false;
+    checkIfEnemyOrCharacterIsDead();
 }
 
 // All CSS-Styling-Related Code
 
-function playGameWhenDeviceHasRightOrientation() {
-    if (!checkOrientation()) {
-        document.getElementById('message-to-turn-device').classList.remove('d-flex');
-        document.getElementById('message-to-turn-device').classList.add('d-none');
-        document.getElementById('intro-image').style.display = 'block';
-        document.getElementById('canvas-container').style.width = '100%';
-        document.getElementById('canvas').style.width = '50%';
-        document.getElementById('canvas').style.margin = '0 auto';
-        document.getElementById('playIcon').style.right = '45%';
-        document.getElementById('control-panel-everything').classList.remove('d-none');
-        document.getElementById('control-panel-everything').style.display = 'flex';
-    }
-}
-
-function showButtonToTurnDeviceInCaseOfWrongOrientation() {
-    document.getElementById('intro-image').classList.add('d-none');
-    document.getElementById('message-to-turn-device').classList.remove('d-none');
-    document.getElementById('message-to-turn-device').classList.add('d-flex');
-    document.getElementById('control-panel-everything').classList.remove('d-flex');
-    document.getElementById('control-panel-everything').classList.add('d-none');
-}
-
-function removeButtonToTurnDeviceInCaseOfRightOrientation() {
-    document.getElementById('message-to-turn-device').classList.remove('d-flex');
-    document.getElementById('message-to-turn-device').classList.add('d-none');
-}
-
 function setCanvasElementsRightInCaseOfRightOrientation() {
-    removeButtonToTurnDeviceInCaseOfRightOrientation();
     document.getElementById('canvas-container').style.display = 'block';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('fullscreen').style.display = 'block';
+    document.getElementById('intro-image').style.display = 'none';
 }
 
 function canvasNotContainFullscreenModeAndNormalModeClass() {
