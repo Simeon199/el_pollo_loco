@@ -92,15 +92,22 @@ body {
     padding: 4px;
 }
 
+#message-to-turn-device {
+    justify-content: center;
+    display: flex;
+}
+
 #message-to-turn-device button {
     margin: 0 auto;
-    max-width: 90%;
     padding: 16px;
     border: 1px solid black;
     border-radius: 16px;
     font-size: 22px;
     font-family: 'damion';
     background-color: gold;
+    top: calc((100% - 64px) / 2);
+    right: calc((100% - 390px) / 2);
+    position: absolute;
 }
 
 #message-to-turn-device button:hover {
