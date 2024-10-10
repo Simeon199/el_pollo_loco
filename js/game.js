@@ -23,29 +23,8 @@ function handleOrientationChange() {
     }
 }
 
-
-// Prevent orientation check if fullscreen is being activated
-// function checkOrientation() {
-//     if (!isChangingToFullscreen) {
-//         if (!isFullscreenActivated) {
-//             if (window.innerHeight > window.innerWidth) {
-//                 document.getElementById('message-to-turn-device').style.display = 'flex';
-//                 document.getElementById('intro-image').style.display = 'none';
-//                 document.getElementById('canvas').style.display = 'none';
-//                 clearAllIntervals();
-//                 stopAllSounds();
-//                 changeStyleWhenIndependentOfWinningOrLosing();
-//             } else {
-//                 document.getElementById('message-to-turn-device').style.display = 'none';
-//                 document.getElementById('intro-image').style.display = 'block';
-//             }
-//         }
-//     } else {
-//         isChangingToFullscreen = false; 
-//     }
-// }
-
 function checkOrientation() {
+    // debugger;
     if (!isChangingToFullscreen) {
         if (!isFullscreenActivated) {
             if (window.innerHeight > window.innerWidth) {
