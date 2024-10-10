@@ -11,6 +11,7 @@ let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isIntroImageActivated = false;
 let isFullscreenActivated = false;
+let isChangingToFullscreen = false;
 
 function handleOrientationChange() {
     if (isMobileDevice()) {
@@ -21,6 +22,52 @@ function handleOrientationChange() {
         }
     }
 }
+
+
+// Prevent orientation check if fullscreen is being activated
+// function checkOrientation() {
+//     if (!isChangingToFullscreen) {
+//         if (!isFullscreenActivated) {
+//             if (window.innerHeight > window.innerWidth) {
+//                 document.getElementById('message-to-turn-device').style.display = 'flex';
+//                 document.getElementById('intro-image').style.display = 'none';
+//                 document.getElementById('canvas').style.display = 'none';
+//                 clearAllIntervals();
+//                 stopAllSounds();
+//                 changeStyleWhenIndependentOfWinningOrLosing();
+//             } else {
+//                 document.getElementById('message-to-turn-device').style.display = 'none';
+//                 document.getElementById('intro-image').style.display = 'block';
+//             }
+//         }
+//     } else {
+//         isChangingToFullscreen = false; 
+//     }
+// }
+
+function checkOrientation() {
+    if (!isChangingToFullscreen) {
+        if (!isFullscreenActivated) {
+            if (window.innerHeight > window.innerWidth) {
+                document.getElementById('message-to-turn-device').style.display = 'flex';
+                document.getElementById('intro-image').style.display = 'none';
+                document.getElementById('canvas').style.display = 'none';
+                clearAllIntervals();
+                stopAllSounds();
+                changeStyleWhenIndependentOfWinningOrLosing();
+            } else {
+                document.getElementById('message-to-turn-device').style.display = 'none';
+                document.getElementById('intro-image').style.display = 'block';
+            }
+        } else {
+            exitFullscreen();
+        }
+    }
+}
+
+
+window.addEventListener("orientationchange", checkOrientation);
+window.addEventListener('resize', checkOrientation);
 
 // Initialize Game
 
@@ -199,6 +246,7 @@ function changeStyleWhenWinning() {
 function enterFullscreen(element) {
     if (!isFullscreenActivated) {
         isFullscreenActivated = true;
+        isChangingToFullscreen = true;
         manageAddRemoveClassesWhenEnterFullscreen();
     }
     if (element.requestFullscreen) {
@@ -218,9 +266,9 @@ function exitFullscreen() {
 
 function fullscreen() {
     let fullscreen = document.getElementById('canvas-container');
-    if (isFullscreenActivated == false) {
+    if (!isFullscreenActivated) {
         enterFullscreen(fullscreen);
-    } else if (isFullscreenActivated == true) {
+    } else {
         exitFullscreen();
     }
 }
@@ -231,10 +279,10 @@ document.addEventListener('fullscreenchange', () => {
     isFullscreenActivated = !!document.fullscreenElement;
     if (!isFullscreenActivated) {
         manageAddRemoveClassesWhenExitFullscreen();
+    } else {
+        isChangingToFullscreen = false;
     }
 });
-
-// window.addEventListener("orientationchange", checkOrientation);
 
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 27) {
