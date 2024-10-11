@@ -36,7 +36,15 @@ function checkOrientation() {
             } else {
                 document.getElementById('message-to-turn-device').style.display = 'none';
                 document.getElementById('intro-image').style.display = 'flex';
-                document.getElementById('control-panel-everything').style.display = 'none';
+                // document.getElementById('control-panel-everything').style.display = 'none';
+                // Unterscheidung zwischen mobilen Geräten und Desktops
+                if (isMobileDevice()) {
+                    // Nur auf mobilen Geräten im Querformat
+                    document.getElementById('control-panel-everything').style.display = 'flex';
+                } else {
+                    // Auf Desktops wird das Panel nicht angezeigt
+                    document.getElementById('control-panel-everything').style.display = 'none';
+                }
             }
         } else {
             exitFullscreen();
