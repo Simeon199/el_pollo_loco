@@ -720,6 +720,16 @@ a h2 {
     }
 }
 
+@media(max-height: 700px) {
+    .links-images {
+        display: none;
+    }
+
+    #all-icons-button {
+        display: none;
+    }
+}
+
 /* Smartphones */
 
 @media only screen and (max-height: 480px) {
@@ -760,7 +770,7 @@ a h2 {
 
 #intro-image,
 #message-to-turn-device {
-    display: none;
+    display: block;
 }
 
 @media (orientation: landscape) {
@@ -771,9 +781,17 @@ a h2 {
     #message-to-turn-device {
         display: none;
     }
+
+    #control-panel-everything {
+        display: flex;
+    }
 }
 
 @media (orientation: portrait) {
+    .canvas-container img {
+        display: none;
+    }
+
     #intro-image {
         display: none;
     }
@@ -785,7 +803,6 @@ a h2 {
         height: 100%;
         min-height: 100vh;
         background-color: rgba(0, 0, 0, 0.8);
-        /* color: white; */
         font-size: 18px;
         text-align: center;
     }
