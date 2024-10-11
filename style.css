@@ -676,6 +676,100 @@ a h2 {
 
 /* Smartphones */
 
+@media(max-height: 950px) and (min-width: 1075px) {
+    .game-functions-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        position: fixed;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .control-keys {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .control-keys h3 {
+        font-size: 18px;
+    }
+
+    .control-key-style {
+        min-width: 200px;
+    }
+
+    .control-keys img {
+        width: 36px;
+    }
+
+    .game-notification {
+        padding: 0;
+        max-width: 420px;
+        font-size: 14px;
+        padding-right: 40px;
+    }
+}
+
+@media(max-height: 950px) and (max-width: 1074px) {
+    .game-functions-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .control-keys {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .control-keys h3 {
+        font-size: 14px;
+    }
+
+    .control-key-style {
+        min-width: 200px;
+    }
+
+    .control-keys img {
+        width: 24px;
+    }
+
+    .game-notification {
+        padding: 0;
+        max-width: 420px;
+        font-size: 12px;
+        padding-right: 40px;
+    }
+
+    .game-functions-container h2 {
+        display: none;
+    }
+
+    .game-functions-container img:nth-child(2) {
+        width: 16px;
+        right: 20px;
+        top: 12px;
+    }
+}
+
 @media only screen and (max-width: 720px) {
     canvas {
         height: 100%;
@@ -733,6 +827,32 @@ a h2 {
 /* Smartphones */
 
 @media only screen and (max-height: 480px) {
+
+    #overlay {
+        display: flex;
+        justify-content: center;
+    }
+
+    #intro-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #intro-image img:nth-child(1) {
+        height: 80%;
+        max-height: 320px;
+        width: auto;
+        align-items: center;
+        position: unset;
+    }
+
+    #intro-image img:nth-child(2) {
+        top: 74%;
+        right: 48%;
+        width: 32px;
+    }
+
     #control-panel-everything {
         width: 100%;
         padding: 16px;
@@ -747,7 +867,7 @@ a h2 {
     }
 
     canvas {
-        width: 90vw;
+        height: 80vh;
     }
 }
 
