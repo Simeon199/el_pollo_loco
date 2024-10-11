@@ -886,16 +886,28 @@ a h2 {
     }
 }
 
+@media(max-width: 400px) {
+    #message-to-turn-device {
+        width: 100%;
+        min-width: 100vw;
+    }
+
+    #message-to-turn-device button {
+        position: unset;
+        max-width: 300px;
+    }
+}
+
 /* Hochformat vs Querformat */
 
 #intro-image,
 #message-to-turn-device {
-    display: block;
+    display: flex;
 }
 
 @media (orientation: landscape) {
     #intro-image {
-        display: block;
+        display: flex;
     }
 
     #message-to-turn-device {
