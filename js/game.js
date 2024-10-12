@@ -363,55 +363,59 @@ window.addEventListener('keyup', (event) => {
 });
 
 window.addEventListener('touchstart', (event) => {
-    wasRandomKeyOncePressed = true;
-    isKeyPressed = true;
-    someKeyWasPressedAgain = new Date().getTime();
-    world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-    world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-    world.character.isKeyStillPressed = isKeyPressed;
-    if (event.target == document.getElementById('buttonLeft')) {
-        keyboard.LEFT = true;
-        if (keyboard.rightForThrow == true) {
-            keyboard.rightForThrow = false;
+    if (event.target !== document.getElementById('playIcon')) {
+        wasRandomKeyOncePressed = true;
+        isKeyPressed = true;
+        someKeyWasPressedAgain = new Date().getTime();
+        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+        world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+        world.character.isKeyStillPressed = isKeyPressed;
+        if (event.target == document.getElementById('buttonLeft')) {
+            keyboard.LEFT = true;
+            if (keyboard.rightForThrow == true) {
+                keyboard.rightForThrow = false;
+            }
+            keyboard.rightForThrow = true;
         }
-        keyboard.rightForThrow = true;
-    }
 
-    if (event.target == document.getElementById('buttonRight')) {
-        keyboard.RIGHT = true;
-        if (keyboard.rightForThrow == true) {
-            keyboard.rightForThrow = false;
+        if (event.target == document.getElementById('buttonRight')) {
+            keyboard.RIGHT = true;
+            if (keyboard.rightForThrow == true) {
+                keyboard.rightForThrow = false;
+            }
+            keyboard.rightForThrow = true;
         }
-        keyboard.rightForThrow = true;
-    }
 
-    if (event.target == document.getElementById('buttonUp')) {
-        keyboard.SPACE = true;
-    }
+        if (event.target == document.getElementById('buttonUp')) {
+            keyboard.SPACE = true;
+        }
 
-    if (event.target == document.getElementById('buttonThrow')) {
-        keyboard.keyD = true;
+        if (event.target == document.getElementById('buttonThrow')) {
+            keyboard.keyD = true;
+        }
     }
 })
 
 window.addEventListener('touchend', (event) => {
-    isKeyPressed = false;
-    lastTimeKeyPressed = new Date().getTime();
-    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyStillPressed = isKeyPressed;
-    if (event.target == document.getElementById('buttonLeft')) {
-        keyboard.LEFT = false;
-    }
+    if (event.target !== document.getElementById('playIcon')) {
+        isKeyPressed = false;
+        lastTimeKeyPressed = new Date().getTime();
+        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+        world.character.isKeyStillPressed = isKeyPressed;
+        if (event.target == document.getElementById('buttonLeft')) {
+            keyboard.LEFT = false;
+        }
 
-    if (event.target == document.getElementById('buttonRight')) {
-        keyboard.RIGHT = false;
-    }
+        if (event.target == document.getElementById('buttonRight')) {
+            keyboard.RIGHT = false;
+        }
 
-    if (event.target == document.getElementById('buttonUp')) {
-        keyboard.SPACE = false;
-    }
+        if (event.target == document.getElementById('buttonUp')) {
+            keyboard.SPACE = false;
+        }
 
-    if (event.target == document.getElementById('buttonThrow')) {
-        keyboard.keyD = false;
+        if (event.target == document.getElementById('buttonThrow')) {
+            keyboard.keyD = false;
+        }
     }
 });
