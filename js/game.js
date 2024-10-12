@@ -159,6 +159,38 @@ function stopAllSounds() {
     }
 }
 
+function turnSoundOnOrOff(string) {
+    // debugger;
+    if (string == 'true') {
+        // allSoundsPlay();
+        document.getElementById('sound-off-icon').style.display = 'block';
+        document.getElementById('sound-on-icon').style.display = 'none'
+        document.getElementById('sound-off-icon-landscape').style.display = 'block'
+        document.getElementById('sound-on-icon-landscape').style.display = 'none'
+    } else {
+        allSoundsPause();
+        document.getElementById('sound-off-icon').style.display = 'none';
+        document.getElementById('sound-on-icon').style.display = 'block';
+        document.getElementById('sound-on-icon-landscape').style.display = 'block'
+        document.getElementById('sound-off-icon-landscape').style.display = 'none'
+    }
+}
+
+function allSoundsPause() {
+    stopAllSounds();
+    // world.character.walking_sound.pause();
+    // world.character.snorring_sound.pause();
+    // world.punchAndOuch.pause();
+    // world.bottleHit.pause();
+    // world.hit.pause();
+    // world.backgroundMusic.pause();
+    // world.loadingSound.pause();
+    // world.bellSound.pause();
+    // world.level.enemies[enemies.length - 1].chickenSound.pause();
+    // world.level.enemies[enemies.length - 1].chickenScream.pause();
+    // world.level.enemies[enemies.length - 1].hitAndScream.pause();
+}
+
 function clearAllIntervals() {
     for (let i = 1; i < 99999; i++) {
         window.clearInterval(i);
