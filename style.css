@@ -949,6 +949,11 @@ a h2 {
     #control-panel-everything {
         display: flex;
     }
+
+    #fullscreen {
+        top: 83%;
+        width: 24px;
+    }
 }
 
 @media (orientation: portrait) {
