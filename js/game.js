@@ -407,13 +407,13 @@ window.addEventListener('touchstart', (event) => {
             if (keyboard.rightForThrow == true) {
                 keyboard.rightForThrow = false;
             }
-            keyboard.rightForThrow = true;
+            keyboard.leftForThrow = true;
         }
 
         if (event.target == document.getElementById('buttonRight')) {
             keyboard.RIGHT = true;
-            if (keyboard.rightForThrow == true) {
-                keyboard.rightForThrow = false;
+            if (keyboard.leftForThrow == true) {
+                keyboard.leftForThrow = false;
             }
             keyboard.rightForThrow = true;
         }

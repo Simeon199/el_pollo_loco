@@ -113,7 +113,7 @@ class ThrowableObject extends MovableObject {
     // --- Todo-Ende --- //
 
     stopGame(direction) {
-        if (!this.isBottleBroken) { // Überlegung: Warum ist diese zusätzliche Überprüfung notwendig, wenn sie schon in der Funktion zuvor gemacht worden ist?
+        if (!this.isBottleBroken) {
             this.speedY = 0;
             this.acceleration = 0;
             this.y = 360;
