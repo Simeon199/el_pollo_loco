@@ -13,6 +13,7 @@ let isIntroImageActivated = false;
 let isFullscreenActivated = false;
 let isChangingToFullscreen = false;
 let soundIsMuted = false;
+let isGamePlaying = false;
 
 function handleOrientationChange() {
     if (isMobileDevice()) {
@@ -52,6 +53,14 @@ function checkOrientation() {
 
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
+// window.addEventListener('resize', stopGame());
+window.addEventListener('resize', () => {
+    if (isGamePlaying) {
+        stopGame();
+    }
+});
+
+
 
 // Initialize Game
 
@@ -70,6 +79,7 @@ function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         if (world.character.energy == 0) {
             stopGame('losing');
+            isGamePlaying = false;
         } else if (world.enemiesNumber <= 0) {
             stopGame('winning');
         }
@@ -122,6 +132,7 @@ function startGame() {
     checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
     init();
+    isGamePlaying = true;
 }
 
 function checkForMobileVersion() {
@@ -137,19 +148,33 @@ function checkForMobileVersion() {
 }
 
 function stopGame(string) {
+    if (!isGamePlaying) return;
     setTimeout(() => {
         clearAllIntervals();
+        stopAllSounds();
+        isGamePlaying = false;
         document.getElementById('canvas').style.display = 'none';
-        if (string == 'losing') {
+        if (string === 'losing') {
             changeStyleWhenLosing();
-        } else if (string == 'winning') {
+        } else if (string === 'winning') {
             changeStyleWhenWinning();
+        } else {
+            resetGame();
         }
         changeStyleWhenIndependentOfWinningOrLosing();
         exitFullscreen();
     }, 1000);
-    stopAllSounds();
 }
+
+function resetGame() {
+    location.reload();
+    // document.getElementById('canvas').style.display = 'none';
+    // document.getElementById('intro-image').style.display = 'block';
+    // isGamePlaying = false;
+    // world = null;
+}
+
+
 
 function stopAllSounds() {
     if (world && world.backgroundMusic) {
@@ -161,7 +186,6 @@ function stopAllSounds() {
                 enemy.chickenSound.pause();
             }
         });
-        // world.level.enemies[world.level.enemies.length - 1].chickenSound.pause();
     }
 }
 
@@ -285,12 +309,21 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
     document.getElementById('minimize-button').style.display = 'block';
+
+    document.getElementById('sound-off-icon').style.display = 'none';
+    document.getElementById('sound-on-icon').style.display = 'none';
 }
 
 function manageAddRemoveClassesWhenExitFullscreen() {
     document.getElementById('canvas').classList.remove('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'block';
     document.getElementById('minimize-button').style.display = 'none';
+
+    if (soundIsMuted) {
+        document.getElementById('sound-off-icon').style.display = 'block';
+    } else {
+        document.getElementById('sound-on-icon').style.display = 'block';
+    }
 }
 
 function addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode() {
