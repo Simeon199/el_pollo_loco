@@ -12,6 +12,7 @@ let hasGameStarted = false;
 let isIntroImageActivated = false;
 let isFullscreenActivated = false;
 let isChangingToFullscreen = false;
+let soundIsMuted = false;
 
 function handleOrientationChange() {
     if (isMobileDevice()) {
@@ -155,20 +156,25 @@ function stopAllSounds() {
         world.backgroundMusic.pause();
     }
     if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
-        world.level.enemies[world.level.enemies.length - 1].chickenSound.pause();
+        world.level.enemies.forEach(enemy => {
+            if (enemy.chickenSound) {
+                enemy.chickenSound.pause();
+            }
+        });
+        // world.level.enemies[world.level.enemies.length - 1].chickenSound.pause();
     }
 }
 
-function turnSoundOnOrOff(string) {
-    // debugger;
-    if (string == 'true') {
-        // allSoundsPlay();
+function turnSoundOnOrOff() {
+    soundIsMuted = !soundIsMuted;
+    if (soundIsMuted) {
+        muteUnmuteSound(true);
         document.getElementById('sound-off-icon').style.display = 'block';
         document.getElementById('sound-on-icon').style.display = 'none'
         document.getElementById('sound-off-icon-landscape').style.display = 'block'
         document.getElementById('sound-on-icon-landscape').style.display = 'none'
     } else {
-        allSoundsPause();
+        muteUnmuteSound(false);
         document.getElementById('sound-off-icon').style.display = 'none';
         document.getElementById('sound-on-icon').style.display = 'block';
         document.getElementById('sound-on-icon-landscape').style.display = 'block'
@@ -176,19 +182,55 @@ function turnSoundOnOrOff(string) {
     }
 }
 
-function allSoundsPause() {
-    stopAllSounds();
-    // world.character.walking_sound.pause();
-    // world.character.snorring_sound.pause();
-    // world.punchAndOuch.pause();
-    // world.bottleHit.pause();
-    // world.hit.pause();
-    // world.backgroundMusic.pause();
-    // world.loadingSound.pause();
-    // world.bellSound.pause();
-    // world.level.enemies[enemies.length - 1].chickenSound.pause();
-    // world.level.enemies[enemies.length - 1].chickenScream.pause();
-    // world.level.enemies[enemies.length - 1].hitAndScream.pause();
+function muteUnmuteSound(bolean) {
+    if (world) {
+        if (world.backgroundMusic) {
+            world.backgroundMusic.muted = bolean;
+        }
+        if (world.hit) {
+            world.hit.muted = bolean;
+        }
+        if (world.punchAndOuch) {
+            world.punchAndOuch.muted = bolean;
+        }
+        if (world.bottleHit) {
+            world.bottleHit.muted = bolean;
+        }
+        if (world.loadingSound) {
+            world.loadingSound.muted = bolean;
+        }
+        if (world.bellSound) {
+            world.bellSound.muted = bolean;
+        }
+        if (world.character) {
+            if (world.character.walking_sound) {
+                world.character.walking_sound.muted = bolean;
+            }
+            if (world.character.snorring_sound) {
+                world.character.snorring_sound.muted = bolean;
+            }
+        }
+        if (world.throwableObjects) {
+            world.throwableObjects.forEach(throwableObject => {
+                if (throwableObject.bottleLanding) {
+                    throwableObject.bottleLanding.muted = bolean;
+                }
+            })
+        }
+        if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
+            world.level.enemies.forEach(enemy => {
+                if (enemy.chickenSound) {
+                    enemy.chickenSound.muted = bolean;
+                }
+                if (enemy.chickenScream) {
+                    enemy.chickenScream.muted = bolean;
+                }
+                if (enemy.hitAndScream) {
+                    enemy.hitAndScream.muted = bolean;
+                }
+            });
+        }
+    }
 }
 
 function clearAllIntervals() {

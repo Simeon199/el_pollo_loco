@@ -84,9 +84,13 @@
             onclick="fullscreen()">
         <img src="assets/full-screen.png" class="style-container" alt="full-screen" id="fullscreen"
             onclick="fullscreen()">
-        <div class="sound-container style-container">
+        <!-- <div class="sound-container style-container">
             <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff('false')">
             <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff('true')">
+        </div> -->
+        <div class="sound-container style-container">
+            <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
+            <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
         </div>
         <div class="control-panel-everything" id="control-panel-everything">
             <div class="control-panel-right-left" id="control-panel-right-left">
@@ -99,10 +103,16 @@
             </div>
             <div class="sound-container-landscape-version style-container">
                 <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon-landscape"
+                    onclick="turnSoundOnOrOff()">
+                <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon-landscape"
+                    onclick="turnSoundOnOrOff()">
+            </div>
+            <!-- <div class="sound-container-landscape-version style-container">
+                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon-landscape"
                     onclick="turnSoundOnOrOff('false')">
                 <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon-landscape"
                     onclick="turnSoundOnOrOff('true')">
-            </div>
+            </div> -->
         </div>
     </div>
 
