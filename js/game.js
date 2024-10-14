@@ -183,20 +183,28 @@ function checkForMobileVersion() {
 function stopGame(string) {
     if (!isGamePlaying) return;
     setTimeout(() => {
-        clearAllIntervals();
-        stopAllSounds();
-        isGamePlaying = false;
-        document.getElementById('canvas').style.display = 'none';
-        if (string === 'losing') {
-            changeStyleWhenLosing();
-        } else if (string === 'winning') {
-            changeStyleWhenWinning();
-        } else {
-            resetGame();
-        }
-        changeStyleWhenIndependentOfWinningOrLosing();
-        exitFullscreen();
+        manageStyleWhenGameIsStopped();
+        manageStyleDependingOnWinndingOrLosing(string);
     }, 1000);
+}
+
+function manageStyleWhenGameIsStopped() {
+    clearAllIntervals();
+    stopAllSounds();
+    isGamePlaying = false;
+    document.getElementById('canvas').style.display = 'none';
+    changeStyleWhenIndependentOfWinningOrLosing();
+    exitFullscreen();
+}
+
+function manageStyleDependingOnWinndingOrLosing(string) {
+    if (string === 'losing') {
+        changeStyleWhenLosing(string);
+    } else if (string === 'winning') {
+        changeStyleWhenWinning(string);
+    } else {
+        resetGame();
+    }
 }
 
 function resetGame() {
@@ -206,8 +214,6 @@ function resetGame() {
     world = null;
     location.reload();
 }
-
-
 
 function stopAllSounds() {
     if (world && world.backgroundMusic) {
@@ -519,23 +525,18 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
         prepareForThrowingRight();
     }
-
     if (event.keyCode == 37) {
         prepareForThrowingLeft();
     }
-
     if (event.keyCode == 38) {
         keyboard.UP = true;
     }
-
     if (event.keyCode == 40) {
         keyboard.DOWN = true;
     }
-
     if (event.keyCode == 32) {
         keyboard.SPACE = true;
     }
-
     if (event.keyCode == 68) {
         keyboard.keyD = true;
     }
@@ -546,23 +547,18 @@ window.addEventListener('keyup', (event) => {
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
     }
-
     if (event.keyCode == 37) {
         keyboard.LEFT = false;
     }
-
     if (event.keyCode == 38) {
         keyboard.UP = false;
     }
-
     if (event.keyCode == 40) {
         keyboard.DOWN = false;
     }
-
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
     }
-
     if (event.keyCode == 68) {
         keyboard.keyD = false;
     }
