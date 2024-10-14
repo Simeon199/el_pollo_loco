@@ -15,52 +15,71 @@ let isChangingToFullscreen = false;
 let soundIsMuted = false;
 let isGamePlaying = false;
 
-function handleOrientationChange() {
-    if (isMobileDevice()) {
-        if (checkOrientation()) {
-            if (hasGameStarted = true) {
-                stopGame('orientation');
-            }
-        }
-    }
-}
-
 function checkOrientation() {
-    if (!isChangingToFullscreen) {
-        if (!isFullscreenActivated) {
-            if (window.innerHeight > window.innerWidth) {
-                document.getElementById('message-to-turn-device').style.display = 'flex';
-                document.getElementById('intro-image').style.display = 'none';
-                document.getElementById('canvas').style.display = 'none';
-                clearAllIntervals();
-                stopAllSounds();
-                changeStyleWhenIndependentOfWinningOrLosing();
-            } else {
-                document.getElementById('message-to-turn-device').style.display = 'none';
-                document.getElementById('intro-image').style.display = 'flex';
-                if (isMobileDevice()) {
-                    document.getElementById('control-panel-everything').style.display = 'none';
-                } else {
-                    document.getElementById('control-panel-everything').style.display = 'flex';
-                }
-            }
+    if (isChangingToFullscreenActivated()) {
+        if (wasFullscreenActivated()) {
+            manageStyleDependingOnLandscapeScreenActivated();
         } else {
             exitFullscreen();
         }
     }
 }
 
+function manageStyleDependingOnLandscapeScreenActivated() {
+    if (isLandscapeScreenActivated()) {
+        stopGameAndShowTurnDeviceMessage();
+    } else {
+        showIntroImageAndDeactivateTurnDeviceMessage();
+        addControlPanelInCaseOfMobileDevice();
+    }
+}
+
+function stopGameAndShowTurnDeviceMessage() {
+    activateMessageToTurnDevice();
+    clearAllIntervals();
+    stopAllSounds();
+    changeStyleWhenIndependentOfWinningOrLosing();
+}
+
+function addControlPanelInCaseOfMobileDevice() {
+    if (isMobileDevice()) {
+        document.getElementById('control-panel-everything').style.display = 'none';
+    } else {
+        document.getElementById('control-panel-everything').style.display = 'flex';
+    }
+}
+
+function showIntroImageAndDeactivateTurnDeviceMessage() {
+    document.getElementById('message-to-turn-device').style.display = 'none';
+    document.getElementById('intro-image').style.display = 'flex';
+}
+
+function activateMessageToTurnDevice() {
+    document.getElementById('message-to-turn-device').style.display = 'flex';
+    document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('canvas').style.display = 'none';
+}
+
+function wasFullscreenActivated() {
+    return !isFullscreenActivated;
+}
+
+function isChangingToFullscreenActivated() {
+    return !isChangingToFullscreen;
+}
+
+function isLandscapeScreenActivated() {
+    return window.innerHeight > window.innerWidth;
+}
+
 
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
-// window.addEventListener('resize', stopGame());
 window.addEventListener('resize', () => {
     if (isGamePlaying) {
         stopGame();
     }
 });
-
-
 
 // Initialize Game
 
@@ -131,8 +150,20 @@ function isMobileDevice() {
 function startGame() {
     checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
-    init();
+    positionIconsProperly();
     isGamePlaying = true;
+    init();
+}
+
+function positionIconsProperly() {
+    if (!isMobileDevice()) {
+        document.getElementById('fullscreen').style.top = '90%';
+        document.getElementById('fullscreen').style.right = '2%';
+        document.getElementById('sound-on-icon').style.top = '90%';
+        document.getElementById('sound-on-icon').style.right = '8%';
+        document.getElementById('sound-off-icon').style.top = '90%';
+        document.getElementById('sound-off-icon').style.right = '8%';
+    }
 }
 
 function checkForMobileVersion() {
@@ -146,6 +177,8 @@ function checkForMobileVersion() {
         }
     }
 }
+
+// stopGame muss noch vereinfacht werden!
 
 function stopGame(string) {
     if (!isGamePlaying) return;
@@ -167,11 +200,11 @@ function stopGame(string) {
 }
 
 function resetGame() {
+    document.getElementById('canvas').style.display = 'none';
+    document.getElementById('intro-image').style.display = 'block';
+    isGamePlaying = false;
+    world = null;
     location.reload();
-    // document.getElementById('canvas').style.display = 'none';
-    // document.getElementById('intro-image').style.display = 'block';
-    // isGamePlaying = false;
-    // world = null;
 }
 
 
@@ -193,66 +226,134 @@ function turnSoundOnOrOff() {
     soundIsMuted = !soundIsMuted;
     if (soundIsMuted) {
         muteUnmuteSound(true);
-        document.getElementById('sound-off-icon').style.display = 'block';
-        document.getElementById('sound-on-icon').style.display = 'none'
-        document.getElementById('sound-off-icon-landscape').style.display = 'block'
-        document.getElementById('sound-on-icon-landscape').style.display = 'none'
+        showTurningSoundOffIcon();
     } else {
         muteUnmuteSound(false);
-        document.getElementById('sound-off-icon').style.display = 'none';
-        document.getElementById('sound-on-icon').style.display = 'block';
-        document.getElementById('sound-on-icon-landscape').style.display = 'block'
-        document.getElementById('sound-off-icon-landscape').style.display = 'none'
+        showTurningSoundOnIcon();
+    }
+}
+
+function showTurningSoundOffIcon() {
+    document.getElementById('sound-off-icon').style.display = 'block';
+    document.getElementById('sound-on-icon').style.display = 'none'
+    document.getElementById('sound-off-icon-landscape').style.display = 'block'
+    document.getElementById('sound-on-icon-landscape').style.display = 'none'
+}
+
+function showTurningSoundOnIcon() {
+    document.getElementById('sound-off-icon').style.display = 'none';
+    document.getElementById('sound-on-icon').style.display = 'block';
+    document.getElementById('sound-on-icon-landscape').style.display = 'block'
+    document.getElementById('sound-off-icon-landscape').style.display = 'none'
+}
+
+function setAllWorldAudioSound(bolean) {
+    manageBackgroundMusic(bolean);
+    manageAudioRelatedToHitting(bolean);
+    manageAudioRelatedToCollectingItems(bolean);
+}
+
+function manageBackgroundMusic(bolean) {
+    if (world.backgroundMusic) {
+        world.backgroundMusic.muted = bolean;
+    }
+}
+
+function manageAudioRelatedToHitting(bolean) {
+    if (world.hit) {
+        world.hit.muted = bolean;
+    }
+    if (world.punchAndOuch) {
+        world.punchAndOuch.muted = bolean;
+    }
+    if (world.bottleHit) {
+        world.bottleHit.muted = bolean;
+    }
+}
+
+function manageAudioRelatedToCollectingItems(bolean) {
+    if (world.loadingSound) {
+        world.loadingSound.muted = bolean;
+    }
+    if (world.bellSound) {
+        world.bellSound.muted = bolean;
+    }
+}
+
+function setAllCharacterAudioSound(bolean) {
+    if (world.character.walking_sound) {
+        world.character.walking_sound.muted = bolean;
+    }
+    if (world.character.snorring_sound) {
+        world.character.snorring_sound.muted = bolean;
+    }
+}
+
+function setThrowableObjectsAudioSound(bolean) {
+    world.throwableObjects.forEach(throwableObject => {
+        if (throwableObject.bottleLanding) {
+            throwableObject.bottleLanding.muted = bolean;
+        }
+    });
+}
+
+function setEnemiesAudioSound(bolean) {
+    world.level.enemies.forEach(enemy => {
+        if (enemy.chickenSound) {
+            enemy.chickenSound.muted = bolean;
+        }
+        if (enemy.chickenScream) {
+            enemy.chickenScream.muted = bolean;
+        }
+        if (enemy.hitAndScream) {
+            enemy.hitAndScream.muted = bolean;
+        }
+    });
+}
+
+function doesWorldExist() {
+    if (world) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function doesCharacterExistInWorld() {
+    if (world.character) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function doThrowableObjectsExistInWorld() {
+    if (world.throwableObject) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function doEnemiesExistInWorld() {
+    if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
+        return true;
+    } else {
+        return false;
     }
 }
 
 function muteUnmuteSound(bolean) {
-    if (world) {
-        if (world.backgroundMusic) {
-            world.backgroundMusic.muted = bolean;
+    if (doesWorldExist()) {
+        setAllWorldAudioSound(bolean);
+        if (doesCharacterExistInWorld()) {
+            setAllCharacterAudioSound(bolean);
         }
-        if (world.hit) {
-            world.hit.muted = bolean;
+        if (doThrowableObjectsExistInWorld()) {
+            setThrowableObjectsAudioSound(bolean);
         }
-        if (world.punchAndOuch) {
-            world.punchAndOuch.muted = bolean;
-        }
-        if (world.bottleHit) {
-            world.bottleHit.muted = bolean;
-        }
-        if (world.loadingSound) {
-            world.loadingSound.muted = bolean;
-        }
-        if (world.bellSound) {
-            world.bellSound.muted = bolean;
-        }
-        if (world.character) {
-            if (world.character.walking_sound) {
-                world.character.walking_sound.muted = bolean;
-            }
-            if (world.character.snorring_sound) {
-                world.character.snorring_sound.muted = bolean;
-            }
-        }
-        if (world.throwableObjects) {
-            world.throwableObjects.forEach(throwableObject => {
-                if (throwableObject.bottleLanding) {
-                    throwableObject.bottleLanding.muted = bolean;
-                }
-            })
-        }
-        if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
-            world.level.enemies.forEach(enemy => {
-                if (enemy.chickenSound) {
-                    enemy.chickenSound.muted = bolean;
-                }
-                if (enemy.chickenScream) {
-                    enemy.chickenScream.muted = bolean;
-                }
-                if (enemy.hitAndScream) {
-                    enemy.hitAndScream.muted = bolean;
-                }
-            });
+        if (doEnemiesExistInWorld()) {
+            setEnemiesAudioSound(bolean);
         }
     }
 }
@@ -309,7 +410,6 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
     document.getElementById('minimize-button').style.display = 'block';
-
     document.getElementById('sound-off-icon').style.display = 'none';
     document.getElementById('sound-on-icon').style.display = 'none';
 }
@@ -318,7 +418,6 @@ function manageAddRemoveClassesWhenExitFullscreen() {
     document.getElementById('canvas').classList.remove('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'block';
     document.getElementById('minimize-button').style.display = 'none';
-
     if (soundIsMuted) {
         document.getElementById('sound-off-icon').style.display = 'block';
     } else {
@@ -399,27 +498,30 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-window.addEventListener('keydown', (event) => {
+function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
     wasRandomKeyOncePressed = true;
     isKeyPressed = true;
     someKeyWasPressedAgain = new Date().getTime();
     world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
     world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
     world.character.isKeyStillPressed = isKeyPressed;
+}
+
+function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
+    isKeyPressed = false;
+    lastTimeKeyPressed = new Date().getTime();
+    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+    world.character.isKeyStillPressed = isKeyPressed;
+}
+
+window.addEventListener('keydown', (event) => {
+    settingGlobalVariablesInKeyDownOrTouchStartEvent();
     if (event.keyCode == 39) {
-        keyboard.RIGHT = true;
-        if (keyboard.leftForThrow == true) {
-            keyboard.leftForThrow = false;
-        }
-        keyboard.rightForThrow = true;
+        prepareForThrowingRight();
     }
 
     if (event.keyCode == 37) {
-        keyboard.LEFT = true;
-        if (keyboard.rightForThrow == true) {
-            keyboard.rightForThrow = false;
-        }
-        keyboard.leftForThrow = true;
+        prepareForThrowingLeft();
     }
 
     if (event.keyCode == 38) {
@@ -440,10 +542,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('keyup', (event) => {
-    isKeyPressed = false;
-    lastTimeKeyPressed = new Date().getTime();
-    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyStillPressed = isKeyPressed;
+    settingGlobalVariablesInKeyUpOrTouchEndEvent();
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
     }
@@ -469,59 +568,73 @@ window.addEventListener('keyup', (event) => {
     }
 });
 
+function prepareForThrowingLeft() {
+    keyboard.LEFT = true;
+    if (keyboard.rightForThrow == true) {
+        keyboard.rightForThrow = false;
+    }
+    keyboard.leftForThrow = true;
+}
+
+function prepareForThrowingRight() {
+    keyboard.RIGHT = true;
+    if (keyboard.leftForThrow == true) {
+        keyboard.leftForThrow = false;
+    }
+    keyboard.rightForThrow = true;
+}
+
+function wasntPlayIconPressed(event) {
+    return event.target !== document.getElementById('playIcon');
+}
+
+function wasButtonLeftPressed(event) {
+    return event.target == document.getElementById('buttonLeft');
+}
+
+function wasButtonRightPressed(event) {
+    return event.target == document.getElementById('buttonRight');
+}
+
+function wasButtonUpPressed(event) {
+    return event.target == document.getElementById('buttonUp');
+}
+
+function wasButtonThrowPressed(event) {
+    return event.target == document.getElementById('buttonThrow');
+}
+
 window.addEventListener('touchstart', (event) => {
-    if (event.target !== document.getElementById('playIcon')) {
-        wasRandomKeyOncePressed = true;
-        isKeyPressed = true;
-        someKeyWasPressedAgain = new Date().getTime();
-        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-        world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-        world.character.isKeyStillPressed = isKeyPressed;
-        if (event.target == document.getElementById('buttonLeft')) {
-            keyboard.LEFT = true;
-            if (keyboard.rightForThrow == true) {
-                keyboard.rightForThrow = false;
-            }
-            keyboard.leftForThrow = true;
+    if (wasntPlayIconPressed(event)) {
+        settingGlobalVariablesInKeyDownOrTouchStartEvent();
+        if (wasButtonLeftPressed(event)) {
+            prepareForThrowingLeft();
         }
-
-        if (event.target == document.getElementById('buttonRight')) {
-            keyboard.RIGHT = true;
-            if (keyboard.leftForThrow == true) {
-                keyboard.leftForThrow = false;
-            }
-            keyboard.rightForThrow = true;
+        if (wasButtonRightPressed(event)) {
+            prepareForThrowingRight();
         }
-
-        if (event.target == document.getElementById('buttonUp')) {
+        if (wasButtonUpPressed(event)) {
             keyboard.SPACE = true;
         }
-
-        if (event.target == document.getElementById('buttonThrow')) {
+        if (wasButtonThrowPressed(event)) {
             keyboard.keyD = true;
         }
     }
 })
 
 window.addEventListener('touchend', (event) => {
-    if (event.target !== document.getElementById('playIcon')) {
-        isKeyPressed = false;
-        lastTimeKeyPressed = new Date().getTime();
-        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-        world.character.isKeyStillPressed = isKeyPressed;
-        if (event.target == document.getElementById('buttonLeft')) {
+    if (wasntPlayIconPressed(event)) {
+        settingGlobalVariablesInKeyUpOrTouchEndEvent();
+        if (wasButtonLeftPressed(event)) {
             keyboard.LEFT = false;
         }
-
-        if (event.target == document.getElementById('buttonRight')) {
+        if (wasButtonRightPressed(event)) {
             keyboard.RIGHT = false;
         }
-
-        if (event.target == document.getElementById('buttonUp')) {
+        if (wasButtonUpPressed(event)) {
             keyboard.SPACE = false;
         }
-
-        if (event.target == document.getElementById('buttonThrow')) {
+        if (wasButtonThrowPressed(event)) {
             keyboard.keyD = false;
         }
     }
