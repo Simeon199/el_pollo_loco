@@ -88,13 +88,13 @@
     </div>
     <div class="canvas-container" id="canvas-container">
         <canvas id="canvas" width="720" height="480"></canvas>
-        <img src="assets/minimize.png" class="style-container" alt="minimize" id="minimize-button"
-            onclick="fullscreen()">
-        <img src="assets/full-screen.png" class="style-container" alt="full-screen" id="fullscreen"
-            onclick="fullscreen()">
-        <div class="sound-container style-container">
-            <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
-            <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
+        <div class="sound-and-screen-icons">
+            <div class="sound-container style-container">
+                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
+                <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
+            </div>
+            <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
+            <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
         </div>
         <div class="control-panel-everything" id="control-panel-everything">
             <div class="control-panel-right-left" id="control-panel-right-left">
