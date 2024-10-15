@@ -43,6 +43,7 @@ function stopGameAndShowTurnDeviceMessage() {
 
 function addControlPanelInCaseOfMobileDevice() {
     if (isMobileDevice()) {
+        console.log('test');
         document.getElementById('control-panel-everything').style.display = 'none';
     } else {
         document.getElementById('control-panel-everything').style.display = 'flex';
@@ -74,7 +75,7 @@ function isLandscapeScreenActivated() {
 
 
 window.addEventListener("orientationchange", checkOrientation);
-// window.addEventListener('resize', checkOrientation);
+window.addEventListener('resize', checkOrientation);
 // window.addEventListener('resize', () => {
 //     if (isGamePlaying) {
 //         stopGame();
@@ -168,8 +169,8 @@ function startGame() {
 
 function checkForMobileVersion() {
     if (isMobileDevice()) {
-        console.log('test');
-        // document.getElementById('fullscreen').style.display = 'none';
+        // console.log('test');
+        document.getElementById('fullscreen').style.display = 'none';
     }
     if (window.innerWidth > window.innerHeight) {
         let controlPanel = document.getElementById('control-panel-everything');
