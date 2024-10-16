@@ -63,10 +63,6 @@ body {
     border-radius: 16px;
 }
 
-/* #minimize-button {
-    display: none;
-} */
-
 #fullscreen {
     display: flex;
     width: 40px;
@@ -187,6 +183,26 @@ canvas {
     width: 40px;
 }
 
+#sound-off-icon {
+    display: none;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: wheat;
+    width: 40px;
+}
+
+
+.screen-container {
+    display: flex;
+}
+
+#fullscreen {
+    cursor: pointer;
+}
+
 #minimize-button {
     display: none;
     justify-content: center;
@@ -199,36 +215,12 @@ canvas {
     cursor: pointer;
 }
 
-.screen-container {
-    display: flex;
-}
-
-#fullscreen {
-    cursor: pointer;
-}
-
 /* fullscreen and minimize-button properties */
 
 .fullscreen-mode {
     height: 100%;
     width: 100%;
 }
-
-/* :fullscreen #minimize-button {
-    position: absolute;
-    bottom: 40px;
-    top: 20px;
-    right: 20px;
-    z-index: 100;
-    width: 48px;
-    cursor: pointer;
-    display: none;
-} */
-
-/* #minimize-button {
-    padding: 8px;
-    border-radius: 16px;
-} */
 
 .normal-mode {
     height: 480px;
@@ -550,11 +542,31 @@ a h2 {
         display: flex;
         flex: 1;
         justify-content: flex-end;
-        /* position: absolute; */
+        position: absolute;
         gap: 8px;
         top: 90%;
         right: 26%;
         z-index: 100;
+    }
+
+    #sound-on-icon {
+        width: 60px;
+    }
+
+    #sound-off-icon {
+        width: 60px;
+    }
+
+    #fullscreen {
+        width: 60px;
+    }
+
+    :fullscreen .sound-and-screen-icons {
+        right: 2%;
+    }
+
+    #minimize-button {
+        width: 100px;
     }
 
     .style-container {
@@ -775,15 +787,6 @@ a h2 {
         border: 4px solid black;
         background-color: chartreuse;
     }
-
-    /* .sound-container {
-        padding: 4px;
-        border: 2px solid black;
-        display: flex;
-        align-items: center;
-        background-color: wheat;
-        border-radius: 4px;
-    } */
 
     #sound-off-icon {
         width: 60px;

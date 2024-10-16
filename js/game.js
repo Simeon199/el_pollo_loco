@@ -14,6 +14,8 @@ let isFullscreenActivated = false;
 let isChangingToFullscreen = false;
 let soundIsMuted = false;
 let isGamePlaying = false;
+let soundOn = true;
+
 
 function checkOrientation() {
     if (isChangingToFullscreenActivated()) {
@@ -227,11 +229,13 @@ function turnSoundOnOrOff() {
 }
 
 function showTurningSoundOffIcon() {
+    soundOn = false;
     document.getElementById('sound-off-icon').style.display = 'flex';
     document.getElementById('sound-on-icon').style.display = 'none'
 }
 
 function showTurningSoundOnIcon() {
+    soundOn = true;
     document.getElementById('sound-off-icon').style.display = 'none';
     document.getElementById('sound-on-icon').style.display = 'flex';
 }
@@ -399,8 +403,14 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
     document.getElementById('minimize-button').style.display = 'flex';
-    document.getElementById('sound-off-icon').style.display = 'none';
-    document.getElementById('sound-on-icon').style.display = 'none';
+    if (soundOn) {
+        document.getElementById('sound-off-icon').style.display = 'none';
+        document.getElementById('sound-on-icon').style.display = 'flex';
+    } else {
+        document.getElementById('sound-off-icon').style.display = 'flex';
+        document.getElementById('sound-on-icon').style.display = 'none';
+    }
+
 }
 
 function manageAddRemoveClassesWhenExitFullscreen() {
