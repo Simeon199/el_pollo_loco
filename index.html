@@ -89,12 +89,14 @@
     <div class="canvas-container" id="canvas-container">
         <canvas id="canvas" width="720" height="480"></canvas>
         <div class="sound-and-screen-icons">
-            <div class="sound-container style-container">
+            <div class="sound-container">
                 <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
                 <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
             </div>
-            <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
-            <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
+            <div class="screen-container">
+                <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
+                <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
+            </div>
         </div>
         <div class="control-panel-everything" id="control-panel-everything">
             <div class="control-panel-right-left" id="control-panel-right-left">
@@ -104,12 +106,6 @@
             <div class="control-panel-up-throw" id="control-panel-up-throw">
                 <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button>
                 <button><img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d"></button>
-            </div>
-            <div class="sound-container-landscape-version style-container">
-                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon-landscape"
-                    onclick="turnSoundOnOrOff()">
-                <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon-landscape"
-                    onclick="turnSoundOnOrOff()">
             </div>
         </div>
     </div>

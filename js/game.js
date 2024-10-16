@@ -151,24 +151,12 @@ function isMobileDevice() {
 function startGame() {
     checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
-    // positionIconsProperly();
     isGamePlaying = true;
     init();
 }
 
-// function positionIconsProperly() {
-//     if (!isMobileDevice()) {
-//         document.getElementById('fullscreen').style.top = '90%';
-//         document.getElementById('fullscreen').style.right = '2%';
-//         document.getElementById('sound-on-icon').style.top = '90%';
-//         document.getElementById('sound-on-icon').style.right = '8%';
-//         document.getElementById('sound-off-icon').style.top = '90%';
-//         document.getElementById('sound-off-icon').style.right = '8%';
-//     }
-// }
-
 function checkForMobileVersion() {
-    if (isMobileDevice()) {
+    if (isMobileDevice() && window.innerWidth < 1000) {
         // console.log('test');
         document.getElementById('fullscreen').style.display = 'none';
     }
@@ -373,7 +361,7 @@ function clearAllIntervals() {
 }
 
 function playAgain() {
-    document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('losing-image').style.display = 'none';
     document.getElementById('winning-image').style.display = 'none';
@@ -386,7 +374,7 @@ function playAgain() {
 // All CSS-Styling-Related Code
 
 function setCanvasElementsRightInCaseOfRightOrientation() {
-    document.getElementById('canvas-container').style.display = 'block';
+    document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
@@ -416,7 +404,7 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 
 function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
-    // document.getElementById('fullscreen').style.display = 'none';
+    document.getElementById('fullscreen').style.display = 'none';
     document.getElementById('minimize-button').style.display = 'block';
     document.getElementById('sound-off-icon').style.display = 'none';
     document.getElementById('sound-on-icon').style.display = 'none';
