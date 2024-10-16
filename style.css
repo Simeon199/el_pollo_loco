@@ -63,12 +63,12 @@ body {
     border-radius: 16px;
 }
 
-#minimize-button {
+/* #minimize-button {
     display: none;
-}
+} */
 
 #fullscreen {
-    display: block;
+    display: flex;
     width: 40px;
     padding: 4px;
     border: 2px solid black;
@@ -185,6 +185,22 @@ canvas {
     padding: 4px;
     background-color: wheat;
     width: 40px;
+}
+
+#minimize-button {
+    display: none;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: wheat;
+    width: 40px;
+    cursor: pointer;
+}
+
+.screen-container {
+    display: flex;
 }
 
 #fullscreen {
@@ -534,7 +550,7 @@ a h2 {
         display: flex;
         flex: 1;
         justify-content: flex-end;
-        position: absolute;
+        /* position: absolute; */
         gap: 8px;
         top: 90%;
         right: 26%;

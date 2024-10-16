@@ -168,8 +168,6 @@ function checkForMobileVersion() {
     }
 }
 
-// stopGame muss noch vereinfacht werden!
-
 function stopGame(string) {
     if (!isGamePlaying) return;
     setTimeout(() => {
@@ -202,7 +200,6 @@ function resetGame() {
     document.getElementById('intro-image').style.display = 'block';
     isGamePlaying = false;
     world = null;
-    // location.reload();
 }
 
 function stopAllSounds() {
@@ -230,17 +227,13 @@ function turnSoundOnOrOff() {
 }
 
 function showTurningSoundOffIcon() {
-    document.getElementById('sound-off-icon').style.display = 'block';
+    document.getElementById('sound-off-icon').style.display = 'flex';
     document.getElementById('sound-on-icon').style.display = 'none'
-    document.getElementById('sound-off-icon-landscape').style.display = 'block'
-    document.getElementById('sound-on-icon-landscape').style.display = 'none'
 }
 
 function showTurningSoundOnIcon() {
     document.getElementById('sound-off-icon').style.display = 'none';
-    document.getElementById('sound-on-icon').style.display = 'block';
-    document.getElementById('sound-on-icon-landscape').style.display = 'block'
-    document.getElementById('sound-off-icon-landscape').style.display = 'none'
+    document.getElementById('sound-on-icon').style.display = 'flex';
 }
 
 function setAllWorldAudioSound(bolean) {
@@ -405,7 +398,7 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
-    document.getElementById('minimize-button').style.display = 'block';
+    document.getElementById('minimize-button').style.display = 'flex';
     document.getElementById('sound-off-icon').style.display = 'none';
     document.getElementById('sound-on-icon').style.display = 'none';
 }
@@ -415,9 +408,9 @@ function manageAddRemoveClassesWhenExitFullscreen() {
     document.getElementById('fullscreen').style.display = 'block';
     document.getElementById('minimize-button').style.display = 'none';
     if (soundIsMuted) {
-        document.getElementById('sound-off-icon').style.display = 'block';
+        document.getElementById('sound-off-icon').style.display = 'flex';
     } else {
-        document.getElementById('sound-on-icon').style.display = 'block';
+        document.getElementById('sound-on-icon').style.display = 'flex';
     }
 }
 
