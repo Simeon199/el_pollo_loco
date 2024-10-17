@@ -44,13 +44,22 @@ function stopGameAndShowTurnDeviceMessage() {
 }
 
 function addControlPanelInCaseOfMobileDevice() {
-    if (isMobileDevice()) {
+    if (isMobileDevice()) { //  || isTabletDevice()
         console.log('test');
         document.getElementById('control-panel-everything').style.display = 'none';
     } else {
         document.getElementById('control-panel-everything').style.display = 'flex';
     }
 }
+
+// function addControlPanelInCaseOfMobileDevice() {
+//     if (!(isMobileDevice() || isTabletDevice())) {
+//         console.log('test');
+//         document.getElementById('control-panel-everything').style.display = 'none';
+//     } else {
+//         document.getElementById('control-panel-everything').style.display = 'flex';
+//     }
+// }
 
 function showIntroImageAndDeactivateTurnDeviceMessage() {
     document.getElementById('message-to-turn-device').style.display = 'none';
@@ -150,6 +159,11 @@ function isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
 }
 
+function isTabletDevice() {
+    return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
+}
+
+
 function startGame() {
     checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
@@ -159,10 +173,10 @@ function startGame() {
 
 function checkForMobileVersion() {
     if (isMobileDevice() && window.innerWidth < 1000) {
-        // console.log('test');
         document.getElementById('fullscreen').style.display = 'none';
-    }
-    if (window.innerWidth > window.innerHeight) {
+    } else if (isTabletDevice() || (window.innerWidth > 1000 && window.innerWidth < 1400 && window.innerWidth > window.innerHeight)) {
+        fullscreen();
+    } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice()) {
         let controlPanel = document.getElementById('control-panel-everything');
         if (controlPanel.style.display == 'none') {
             controlPanel.style.display = 'flex';

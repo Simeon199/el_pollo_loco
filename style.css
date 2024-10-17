@@ -589,7 +589,7 @@ a h2 {
     }
 }
 
-@media(max-width: 1075px) or (max-height: 800px) {
+@media(max-width: 1400px) or (max-height: 1100px) {
 
     h1 {
         text-align: center;
@@ -622,6 +622,40 @@ a h2 {
 
     .all-icons-button-container {
         display: block;
+    }
+
+    :fullscreen .control-panel-everything {
+        display: flex;
+        position: absolute;
+        justify-content: space-around;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: 16px;
+        z-index: 10000;
+    }
+
+    :fullscreen .control-panel-everything #control-panel-right-left {
+        display: flex;
+    }
+
+    :fullscreen .control-panel-everything #control-panel-up-throw {
+        display: flex;
+    }
+
+    /* :fullscreen #minimize-button {
+        display: none;
+    } */
+
+    .canvas-container button {
+        border: 4px solid black;
+        border-radius: 16px;
+        padding: 6px;
+        background-color: wheat;
+    }
+
+    .canvas-container img:nth-child(1) {
+        display: block;
+        width: 60px;
     }
 }
 
