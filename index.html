@@ -88,7 +88,29 @@
     </div>
     <div class="canvas-container" id="canvas-container">
         <canvas id="canvas" width="720" height="480"></canvas>
-        <div class="sound-and-screen-icons">
+        <div class="sound-screen-control-container" id="sound-screen-control-container">
+            <div class="sound-and-screen-icons" id="sound-and-screen-icons">
+                <div class="sound-container">
+                    <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
+                    <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
+                </div>
+                <div class="screen-container">
+                    <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
+                    <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
+                </div>
+            </div>
+            <div class="control-panel-everything" id="control-panel-everything">
+                <div class="control-panel-right-left" id="control-panel-right-left">
+                    <button><img src="assets/left_arrow.png" alt="left" id="buttonLeft"></button>
+                    <button><img src="assets/right_arrow.png" alt="right" id="buttonRight"></button>
+                </div>
+                <div class="control-panel-up-throw" id="control-panel-up-throw">
+                    <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button>
+                    <button><img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d"></button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="sound-and-screen-icons" id="sound-and-screen-icons">
             <div class="sound-container">
                 <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
                 <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
@@ -107,7 +129,7 @@
                 <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button>
                 <button><img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d"></button>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="overlay" id="overlay">

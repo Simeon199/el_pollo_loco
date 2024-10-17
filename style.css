@@ -59,7 +59,7 @@ body {
 
 .style-container {
     padding: 4px;
-    border: 2px solid black;
+    border: 4px solid black;
     border-radius: 16px;
 }
 
@@ -67,8 +67,8 @@ body {
     display: flex;
     width: 40px;
     padding: 4px;
-    border: 2px solid black;
-    border-radius: 4px;
+    border: 4px solid black;
+    border-radius: 16px;
     background-color: wheat;
 }
 
@@ -160,7 +160,7 @@ canvas {
     z-index: 1;
 }
 
-.sound-and-screen-icons {
+.sound-screen-control-container {
     display: flex;
     flex: 1;
     z-index: 10001;
@@ -169,15 +169,21 @@ canvas {
     gap: 8px;
     top: 88%;
     right: 1%;
-    width: unset;
+    width: 100%;
+}
+
+
+.sound-and-screen-icons {
+    display: flex;
+    gap: 4px;
 }
 
 #sound-on-icon {
     display: flex;
     justify-content: center;
     align-content: center;
-    border: 2px solid black;
-    border-radius: 4px;
+    border: 4px solid black;
+    border-radius: 16px;
     padding: 4px;
     background-color: wheat;
     width: 40px;
@@ -187,8 +193,8 @@ canvas {
     display: none;
     justify-content: center;
     align-content: center;
-    border: 2px solid black;
-    border-radius: 4px;
+    border: 4px solid black;
+    border-radius: 16px;
     padding: 4px;
     background-color: wheat;
     width: 40px;
@@ -207,11 +213,10 @@ canvas {
     display: none;
     justify-content: center;
     align-content: center;
-    border: 2px solid black;
-    border-radius: 4px;
+    border: 4px solid black;
+    border-radius: 16px;
     padding: 4px;
     background-color: wheat;
-    width: 40px;
     cursor: pointer;
 }
 
@@ -363,7 +368,7 @@ canvas {
 
 .game-functions-container {
     position: fixed;
-    border: 2px solid black;
+    border: 4px solid black;
     right: 0;
     height: 100%;
     width: 400px;
@@ -538,7 +543,7 @@ a h2 {
         height: auto;
     }
 
-    .sound-and-screen-icons {
+    .sound-screen-control-container {
         display: flex;
         flex: 1;
         justify-content: flex-end;
@@ -547,6 +552,10 @@ a h2 {
         top: 90%;
         right: 26%;
         z-index: 100;
+    }
+
+    :fullscreen .sound-screen-control-container {
+        right: 2%;
     }
 
     #sound-on-icon {
@@ -561,16 +570,12 @@ a h2 {
         width: 60px;
     }
 
-    :fullscreen .sound-and-screen-icons {
-        right: 2%;
-    }
-
     #minimize-button {
         width: 100px;
     }
 
     .style-container {
-        border-radius: 4px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -586,6 +591,10 @@ a h2 {
 
     .all-icons-container {
         display: none;
+    }
+
+    :fullscreen .sound-screen-control-container {
+        right: 2%;
     }
 }
 
@@ -624,27 +633,22 @@ a h2 {
         display: block;
     }
 
-    :fullscreen .control-panel-everything {
+    :fullscreen .sound-screen-control-container {
         display: flex;
         position: absolute;
-        justify-content: space-around;
-        bottom: 0;
         width: 100%;
-        padding-bottom: 16px;
+        right: 2%;
+        top: 85%;
         z-index: 10000;
     }
 
-    :fullscreen .control-panel-everything #control-panel-right-left {
+    :fullscreen .sound-and-screen-icons .control-panel-everything #control-panel-right-left {
         display: flex;
     }
 
-    :fullscreen .control-panel-everything #control-panel-up-throw {
+    :fullscreen .sound-and-screen-icons .control-panel-everything #control-panel-up-throw {
         display: flex;
     }
-
-    /* :fullscreen #minimize-button {
-        display: none;
-    } */
 
     .canvas-container button {
         border: 4px solid black;
@@ -655,7 +659,7 @@ a h2 {
 
     .canvas-container img:nth-child(1) {
         display: block;
-        width: 60px;
+        width: 80px;
     }
 }
 
@@ -772,7 +776,6 @@ a h2 {
     }
 }
 
-
 @media(max-width: 800px) {
     .main-title-properties h2 {
         display: none;
@@ -809,13 +812,6 @@ a h2 {
         display: flex;
     }
 
-    .sound-and-screen-icons {
-        width: unset;
-        bottom: 0;
-        padding-bottom: 16px;
-        top: unset;
-    }
-
     .style-container {
         padding: 6px;
         border: 4px solid black;
@@ -839,13 +835,11 @@ a h2 {
         border-radius: 16px;
     }
 
-    .control-panel-everything {
+    .sound-screen-control-container {
         display: flex;
         position: absolute;
-        justify-content: space-around;
-        bottom: 0;
+        top: 82%;
         width: 100%;
-        padding-bottom: 16px;
         z-index: 10000;
     }
 

@@ -172,16 +172,36 @@ function startGame() {
 }
 
 function checkForMobileVersion() {
-    if (isMobileDevice() && window.innerWidth < 1000) {
-        document.getElementById('fullscreen').style.display = 'none';
-    } else if (isTabletDevice() || (window.innerWidth > 1000 && window.innerWidth < 1400 && window.innerWidth > window.innerHeight)) {
+    if (isMobileOrSmallDevice()) {
+        setFullscreenStyle();
+    } else if (isTabletOrCloseToDesktopSize()) {
         fullscreen();
-    } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice()) {
-        let controlPanel = document.getElementById('control-panel-everything');
-        if (controlPanel.style.display == 'none') {
-            controlPanel.style.display = 'flex';
-        }
+    } else if (isDesktopDevice()) {
+        setControlPanelStyle();
     }
+}
+
+function setFullscreenStyle() {
+    document.getElementById('fullscreen').style.display = 'none';
+}
+
+function setControlPanelStyle() {
+    let controlPanel = document.getElementById('control-panel-everything');
+    if (controlPanel.style.display == 'none') {
+        controlPanel.style.display = 'flex';
+    }
+}
+
+function isDesktopDevice() {
+    return window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice();
+}
+
+function isMobileOrSmallDevice() {
+    return isMobileDevice() && window.innerWidth < 1000;
+}
+
+function isTabletOrCloseToDesktopSize() {
+    return isTabletDevice() || (window.innerWidth > 1000 && window.innerWidth < 1400 && window.innerWidth > window.innerHeight);
 }
 
 function stopGame(string) {
@@ -413,10 +433,26 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
 }
 
+function setSoundStylingForFullscreen() {
+    document.getElementById('sound-on-icon').style.width = '80px';
+    document.getElementById('sound-on-icon').style.borderRadius = '16px';
+    document.getElementById('sound-on-icon').style.border = '4px solid black';
+    document.getElementById('sound-on-icon').style.padding = '6px';
+    document.getElementById('sound-off-icon').style.width = '80px';
+    document.getElementById('sound-off-icon').style.borderRadius = '16px';
+    document.getElementById('sound-off-icon').style.border = '4px solid black';
+    document.getElementById('sound-off-icon').style.padding = '6px';
+    // document.getElementById('sound-screen-control-container').style.top = '85%';
+}
+
 function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
-    document.getElementById('minimize-button').style.display = 'flex';
+    if (isTabletOrCloseToDesktopSize()) {
+        document.getElementById('minimize-button').style.display = 'none';
+    } else {
+        document.getElementById('minimize-button').style.display = 'flex';
+    }
     if (soundOn) {
         document.getElementById('sound-off-icon').style.display = 'none';
         document.getElementById('sound-on-icon').style.display = 'flex';
@@ -424,7 +460,7 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
         document.getElementById('sound-off-icon').style.display = 'flex';
         document.getElementById('sound-on-icon').style.display = 'none';
     }
-
+    setSoundStylingForFullscreen();
 }
 
 function manageAddRemoveClassesWhenExitFullscreen() {
@@ -503,13 +539,13 @@ document.addEventListener('fullscreenchange', () => {
     }
 });
 
-window.addEventListener('keydown', (event) => {
-    if (event.keyCode == 27) {
-        if (isFullscreenActivated) {
-            exitFullscreen();
-        }
-    }
-});
+// window.addEventListener('keydown', (event) => {
+//     if (event.keyCode == 27) {
+//         if (isFullscreenActivated) {
+//             exitFullscreen();
+//         }
+//     }
+// });
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
     wasRandomKeyOncePressed = true;
