@@ -91,53 +91,78 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    playSleepAnimationWithAudio() {
+        this.playAnimation(this.IMAGES_SLEEP);
+        this.snorring_sound.play();
+    }
+
+    playMovingRightAnimationWithAudio() {
+        this.moveRight();
+        this.otherDirection = false;
+        this.walking_sound.play();
+    }
+
+    playMovingLeftAnimationWithAudio() {
+        this.moveLeft();
+        this.otherDirection = true;
+        this.walking_sound.play();
+    }
+
+    setRelevantGlobalVariablesForMovingCharacter() {
+        this.fixDate = new Date().getTime();
+        this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
+        this.walking_sound.pause();
+        this.snorring_sound.pause();
+    }
+
+    characterIsEitherSleepingOrChilling() {
+        if (this.keyWasntPressedForMoreThanFiveSeconds()) {
+            this.playSleepAnimationWithAudio();
+        }
+        if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
+            this.playAnimation(this.IMAGES_CHILL);
+        }
+    }
+
+    characterIsJumpingOrMoving() {
+        if (this.keyWasntPressedForLessThanTwoSeconds()) {
+            this.playAnimation([this.IMAGES_JUMPING[1]]);
+        }
+        if (this.keyRightWasPressed()) {
+            this.playMovingRightAnimationWithAudio();
+        }
+        this.world.camera_x = this.x + 100;
+        if (this.keyLeftWasPressed()) {
+            this.playMovingLeftAnimationWithAudio();
+        }
+        this.world.camera_x = -this.x + 100;
+        if (this.keySpaceWasPressed()) {
+            this.jump();
+        }
+    }
+
+    characterIsDyingGetsHurtIsJumpingOrWalking() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else {
+            if (this.wasRightOrLeftKeyPressed()) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+        }
+    }
+
     animate() {
         setInterval(() => {
-            this.fixDate = new Date().getTime();
-            this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
-            this.walking_sound.pause();
-            this.snorring_sound.pause();
-            if (this.keyWasntPressedForMoreThanFiveSeconds()) {
-                this.playAnimation(this.IMAGES_SLEEP);
-                this.snorring_sound.play();
-            }
-            if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
-                this.playAnimation(this.IMAGES_CHILL);
-            }
-            if (this.keyWasntPressedForLessThanTwoSeconds()) {
-                this.playAnimation([this.IMAGES_JUMPING[1]]);
-            }
-            if (this.keyRightWasPressed()) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.walking_sound.play();
-            }
-            this.world.camera_x = this.x + 100;
-
-            if (this.keyLeftWasPressed()) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.walking_sound.play();
-            }
-            this.world.camera_x = -this.x + 100;
-
-            if (this.keySpaceWasPressed()) {
-                this.jump();
-            }
+            this.setRelevantGlobalVariablesForMovingCharacter();
+            this.characterIsEitherSleepingOrChilling();
+            this.characterIsJumpingOrMoving();
         }, 1000 / 60);
-
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else {
-                if (this.wasRightOrLeftKeyPressed()) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
-            }
+            this.characterIsDyingGetsHurtIsJumpingOrWalking();
         }, 50);
     };
 
