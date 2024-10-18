@@ -14,19 +14,27 @@ class MovableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGroundOrUpwardSpeedPositive()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
     }
 
+    isAboveGroundOrUpwardSpeedPositive() {
+        return this.isAboveGround() || this.speedY > 0;
+    }
+
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
+        if (this.isInstanceOfThrowableObject()) {
             return true;
         } else {
             return this.y < 135;
         }
+    }
+
+    isInstanceOfThrowableObject() {
+        return this instanceof ThrowableObject;
     }
 
     isColliding(mo) {
@@ -40,20 +48,32 @@ class MovableObject extends DrawableObject {
 
     returnCorrectTolerance() {
         let tolerance = 0;
-        if (this instanceof Character && this.isAboveGround()) {
+        if (this.isCharacterAndAboveGround()) {
             tolerance = 5;
-        } else if (this instanceof Character && !this.isAboveGround()) {
+        } else if (this.isCharacterAndNotAboveGround()) {
             tolerance = 20;
         }
         return tolerance;
     }
 
+    isCharacterAndAboveGround() {
+        return this instanceof Character && this.isAboveGround();
+    }
+
+    isCharacterAndNotAboveGround() {
+        return this instanceof Character && !this.isAboveGround();
+    }
+
     substractCorrectEnergyAmountWhenGetHit() {
-        if (this instanceof Endboss) {
+        if (this.isEndboss()) {
             this.energy -= 10;
         } else {
             this.energy -= 5;
         }
+    }
+
+    isEndboss() {
+        return this instanceof Endboss;
     }
 
     hit() {

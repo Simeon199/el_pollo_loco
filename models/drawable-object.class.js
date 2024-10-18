@@ -46,7 +46,11 @@ class DrawableObject {
     }
 
     proveIfInstanceOfCertainType() {
-        let bolean = this instanceof Character || this instanceof Chicken || this instanceof ThrowableObject || this instanceof Endboss || this instanceof Coin;
+        let bolean = this.isInstanceOfTheFollowingObjects();
         return bolean;
+    }
+
+    isInstanceOfTheFollowingObjects() {
+        return this instanceof Character || this instanceof Chicken || this instanceof ThrowableObject || this instanceof Endboss || this instanceof Coin;
     }
 }
