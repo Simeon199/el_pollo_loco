@@ -56,7 +56,6 @@ class Chicken extends MovableObject {
         return this.isDead == true && array.length > 0;
     }
 
-
     clearAllRelevantIntervalsWhenChickenDies() {
         clearInterval(this.intervalMove);
         clearInterval(this.intervalChangeWalkingImages);
@@ -71,17 +70,32 @@ class Chicken extends MovableObject {
         }
     }
 
+    decideWhetherChickensAreMovingRightOrLeft() {
+        if (this.movingDirection == 'left') {
+            this.moveLeft();
+        } else if (this.movingDirection == 'right') {
+            this.moveRight();
+        };
+    }
+
+    isChickenDead() {
+        return this.isDead == false;
+    }
+
     animateMovingChickens() {
+        this.setMovingChickens();
+        this.setIntervalChangeWalkingImages();
+    }
+
+    setMovingChickens() {
         this.intervalMove = setInterval(() => {
-            if (this.isDead == false) {
-                if (this.movingDirection == 'left') {
-                    this.moveLeft();
-                } else if (this.movingDirection == 'right') {
-                    this.moveRight();
-                };
+            if (this.isChickenDead()) {
+                this.decideWhetherChickensAreMovingRightOrLeft();
             }
         }, 1000 / 60);
+    }
 
+    setIntervalChangeWalkingImages() {
         this.intervalChangeWalkingImages = setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
