@@ -434,11 +434,11 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 }
 
 function setSoundStylingForFullscreen() {
-    document.getElementById('sound-on-icon').style.width = '80px';
+    // document.getElementById('sound-on-icon').style.width = '100px';
     document.getElementById('sound-on-icon').style.borderRadius = '16px';
     document.getElementById('sound-on-icon').style.border = '4px solid black';
     document.getElementById('sound-on-icon').style.padding = '6px';
-    document.getElementById('sound-off-icon').style.width = '80px';
+    // document.getElementById('sound-off-icon').style.width = '100px';
     document.getElementById('sound-off-icon').style.borderRadius = '16px';
     document.getElementById('sound-off-icon').style.border = '4px solid black';
     document.getElementById('sound-off-icon').style.padding = '6px';
