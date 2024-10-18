@@ -27,17 +27,21 @@ class BottleBar extends StatusBar {
         this.img = this.imageCache[path];
     }
 
+    isBottleRatioOfCertainSize(firstNumber, secondNumber) {
+        return this.bottleRatio > firstNumber && this.bottleRatio <= secondNumber;
+    }
+
     resolveBottleBarIndex() {
         this.bottleRatio = this.bottlesCollected / this.bottleAmount;
         if (this.bottleRatio > 0.95) {
             return 5;
-        } else if (this.bottleRatio > 0.75 && this.bottleRatio <= 0.95) {
+        } else if (this.isBottleRatioOfCertainSize(0.75, 0.95)) {
             return 4;
-        } else if (this.bottleRatio > 0.55 && this.bottleRatio <= 0.75) {
+        } else if (this.isBottleRatioOfCertainSize(0.55, 0.75)) {
             return 3;
-        } else if (this.bottleRatio > 0.35 && this.bottleRatio <= 0.55) {
+        } else if (this.isBottleRatioOfCertainSize(0.35, 0.55)) {
             return 2;
-        } else if (this.bottleRatio > 0.15 && this.bottleRatio <= 0.35) {
+        } else if (this.isBottleRatioOfCertainSize(0.15, 0.35)) {
             return 1;
         } else {
             return 0;
