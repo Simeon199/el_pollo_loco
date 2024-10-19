@@ -167,15 +167,25 @@ class Character extends MovableObject {
     };
 
     keyWasntPressedForMoreThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && !this.isHurt();
+        return this.timePassedWhenKeyPressed > 5000 &&
+            this.wasRandomKeyOncePressed == true &&
+            this.isKeyStillPressed == false &&
+            !this.isHurt();
     }
 
     keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed < 5000 && this.timePassedWhenKeyPressed > 1000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && !this.isAboveGround() && !this.isHurt();
+        return this.timePassedWhenKeyPressed < 5000 &&
+            this.timePassedWhenKeyPressed > 1000 &&
+            this.wasRandomKeyOncePressed == true &&
+            this.isKeyStillPressed == false &&
+            !this.isAboveGround() &&
+            !this.isHurt();
     }
 
     keyWasntPressedForLessThanTwoSeconds() {
-        this.timePassedWhenKeyPressed < 1000 && !this.isAboveGround() && !this.isHurt();
+        this.timePassedWhenKeyPressed < 1000 &&
+            !this.isAboveGround() &&
+            !this.isHurt();
     }
 
     keyRightWasPressed() {

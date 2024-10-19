@@ -64,22 +64,34 @@ class Endboss extends Chicken {
     animate() {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
-            if (this.wasEndbossProvokedByCharacter()) {
-                this.handleAttackingEndbossAndHurtingEndbossAnimation();
-            } else if (this.isEndbossNotFinalEnemyButDead()) {
-                this.playDyingAnimationAndSetFixedDeadEndbossImage();
-            } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
-                this.setIsDeadAttributeAndplayDyingAnimation();
-            } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
-                this.playAttackEndbossAnimation();
-                this.x -= this.endbossSpeedX;
-            } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
-                this.playAttackEndbossAnimation();
-                this.x += this.endbossSpeedX;
-            } else if (this.isEndbossAliveAndWasNotAttacked()) {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
+            this.checkAndAnimateAllPossibleBehavioursOfEndboss();
         }, 100);
+    }
+
+    checkAndAnimateAllPossibleBehavioursOfEndboss() {
+        if (this.wasEndbossProvokedByCharacter()) {
+            this.handleAttackingEndbossAndHurtingEndbossAnimation();
+        } else if (this.isEndbossNotFinalEnemyButDead()) {
+            this.playDyingAnimationAndSetFixedDeadEndbossImage();
+        } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
+            this.setIsDeadAttributeAndplayDyingAnimation();
+        } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
+            this.playAttackingEndbossAndShowHimRunningLeft();
+        } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
+            this.playAttackingEndbossAndShowHimRunningRight();
+        } else if (this.isEndbossAliveAndWasNotAttacked()) {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+
+    playAttackingEndbossAndShowHimRunningLeft() {
+        this.playAttackEndbossAnimation();
+        this.x -= this.endbossSpeedX;
+    }
+
+    playAttackingEndbossAndShowHimRunningRight() {
+        this.playAttackEndbossAnimation();
+        this.x += this.endbossSpeedX;
     }
 
     handleAttackingEndbossAndHurtingEndbossAnimation() {
@@ -129,14 +141,20 @@ class Endboss extends Chicken {
         if (this.checkTimeDifferenceSinceLastTimeHit() < 1000) {
             this.playAnimation(this.IMAGES_DEAD);
         } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 1000) {
-            this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-            this.mainCharacterPosition = 100000;
-            this.stopAnimateFunction();
+            this.showDefeatedEndbossAndPositionCharacter();
         }
     }
 
+    showDefeatedEndbossAndPositionCharacter() {
+        this.playAnimation(this.IMAGE_DEAD_CHICKEN);
+        this.mainCharacterPosition = 100000;
+        this.stopAnimateFunction();
+    }
+
     isEndbossNotFinalEnemyButDead() {
-        return this.wasEndbossHit() && this.isEndbossFinalEnemy == false && this.energy == 0;
+        return this.wasEndbossHit() &&
+            this.isEndbossFinalEnemy == false &&
+            this.energy == 0;
     }
 
     isFinalEnemyEndbossAndIsHeDead() {
@@ -144,15 +162,23 @@ class Endboss extends Chicken {
     }
 
     isEndbossAliveAndWasNotAttacked() {
-        return this.isDead == false && this.energy > 0 && !(this.wasEndbossHit());
+        return this.isDead == false &&
+            this.energy > 0 &&
+            !(this.wasEndbossHit());
     }
 
     isCharacterToCloseToEndbossFromTheRight() {
-        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0;
+        return this.x - this.mainCharacterPosition &&
+            Math.abs(this.x - this.mainCharacterPosition) < 400 &&
+            this.x < this.mainCharacterPosition &&
+            this.energy > 0;
     }
 
     isCharacterToCloseToEndbossFromTheLeft() {
-        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0;
+        return this.x - this.mainCharacterPosition &&
+            Math.abs(this.x - this.mainCharacterPosition) < 400 &&
+            this.x > this.mainCharacterPosition &&
+            this.energy > 0;
     }
 
     playAttackEndbossAnimation() {
@@ -190,16 +216,37 @@ class Endboss extends Chicken {
         }
     }
 
+    isEndbossHurtAndLastHitEqualsZero() {
+        return this.isEndbossHurt && this.lastHit === 0;
+    }
+
+    isEndbossHurtAndTimeSinceLastHitIsBelowTimeLimit() {
+        return this.isEndbossHurt &&
+            (new Date().getTime() - this.lastHit < this.timePassedLimit * 1000);
+    }
+
+    isEndbossHurtAndTimeSinceLastHitExceedsTimeLimit() {
+        return new Date().getTime() - this.lastHit >= this.timePassedLimit * 1000;
+    }
+
+    setEndbossIsNotHurtAnymore() {
+        this.isEndbossHurt = false;
+        this.lastHit = 0;
+    }
+
+    getLastHitTime() {
+        this.lastHit = new Date().getTime();
+    }
+
     wasEndbossHit() {
-        if (this.isEndbossHurt && this.lastHit === 0) {
-            this.lastHit = new Date().getTime();
+        if (this.isEndbossHurtAndLastHitEqualsZero()) {
+            this.getLastHitTime();
         }
-        if (this.isEndbossHurt && (new Date().getTime() - this.lastHit < this.timePassedLimit * 1000)) {
+        if (this.isEndbossHurtAndTimeSinceLastHitIsBelowTimeLimit()) {
             return true;
         }
-        if (new Date().getTime() - this.lastHit >= this.timePassedLimit * 1000) {
-            this.isEndbossHurt = false;
-            this.lastHit = 0;
+        if (this.isEndbossHurtAndTimeSinceLastHitExceedsTimeLimit()) {
+            this.setEndbossIsNotHurtAnymore();
         }
         return false;
     }
