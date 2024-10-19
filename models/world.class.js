@@ -110,7 +110,6 @@ class World {
                 this.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
             }
         });
-
         this.level.coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
                 this.collectCoins(coin);
@@ -202,8 +201,6 @@ class World {
         });
     }
 
-    // Neue Implementierung 
-
     enemyEitherDiesOrGetsHurt(enemy, bottle) {
         if (this.isBottleFlyingAndEnemyNotEndboss(bottle, enemy)) {
             this.executeFunctionsToAnimateDyingEnemy(bottle, enemy);
@@ -223,21 +220,37 @@ class World {
         }
     }
 
+    animateHurtButStillAliveEndboss(enemy) {
+        this.endbossbar.percentage -= 5;
+        this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
+        this.bottleHit.play();
+    }
+
+    setVariablesToPrepareDyingEndbossAnimation(enemy) {
+        enemy.isDead = true;
+        enemy.spliceable = true;
+        enemy.enemiesArray = this.level.enemies;
+        this.enemiesNumber -= 1;
+    }
+
     executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy) {
         bottle.isBottleBroken = true;
         enemy.isEndbossHurt = true;
         bottle.playBottleBrokenAnimation();
         enemy.hit();
-        if (enemy.energy > 0) {
-            this.endbossbar.percentage -= 5;
-            this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
-            this.bottleHit.play();
-        } else if (enemy.energy == 0) {
-            enemy.isDead = true;
-            enemy.spliceable = true;
-            enemy.enemiesArray = this.level.enemies;
-            this.enemiesNumber -= 1;
+        if (this.isEndbossAlive(enemy)) {
+            this.animateHurtButStillAliveEndboss(enemy);
+        } else if (this.isEndbossDead(enemy)) {
+            this.setVariablesToPrepareDyingEndbossAnimation(enemy);
         }
+    }
+
+    isEndbossAlive(enemy) {
+        return enemy.energy > 0;
+    }
+
+    isEndbossDead(enemy) {
+        return enemy.energy == 0;
     }
 
     isBottleFlyingAndEnemyIsEndboss(bottle, enemy) {
@@ -248,8 +261,12 @@ class World {
         return bottle.proveIfBottleIsOnGround() == false && enemy.isDead == false && !(enemy instanceof Endboss);
     }
 
+    isEnemyChickenAndGetsJumpedOnByCharacter(enemy) {
+        return this.characterFallsOnEnemy(enemy) && !enemy.isDead && !(enemy instanceof Endboss);
+    }
+
     checkCasesThatCanOccurWhenCharacterGetsHit(enemy) {
-        if (this.characterFallsOnEnemy(enemy) && !enemy.isDead && !(enemy instanceof Endboss)) {
+        if (this.isEnemyChickenAndGetsJumpedOnByCharacter(enemy)) {
             this.enemyIsDefeatedByJump(enemy);
         } else if (!enemy.isDead) {
             this.adjustStatusBarWhenCharacterGetsHit();
@@ -264,32 +281,54 @@ class World {
         this.statusbar.setPercentage(this.character.energy);
     }
 
-    applyKnockback(enemy) { // Diese Funktion kleiner machen
-        if (enemy instanceof Endboss) {
-            enemy.endbossHitCharacter = true;
-            enemy.endbossHitCharacterAtTime = new Date().getTime();
+    isEnemyEndboss(enemy) {
+        return enemy instanceof Endboss;
+    }
+
+    setEndbossVariablesForKnockbackOfCharacter() {
+        enemy.endbossHitCharacter = true;
+        enemy.endbossHitCharacterAtTime = new Date().getTime();
+    }
+
+    isNewCharacterPositionNotAtTheEdgeOfCanvas(newXPosition) {
+        return -this.level.level_end_x + 100 <= newXPosition && newXPosition <= this.level.level_end_x + 100;
+    }
+
+    isDistanceMovedSmallerThanKnockbackDistance(distanceMoved, knockbackDistance) {
+        return distanceMoved < knockbackDistance;
+    }
+
+    setKnockBackInterval(knockbackDistance, knockbackSpeed, direction, distanceMoved) {
+        let knockbackInterval = setInterval(() => {
+            let newXPosition = this.character.x + direction * knockbackSpeed;
+            if (this.isNewCharacterPositionNotAtTheEdgeOfCanvas(newXPosition)) {
+                if (this.isDistanceMovedSmallerThanKnockbackDistance(distanceMoved, knockbackDistance)) {
+                    this.character.x = newXPosition;
+                    distanceMoved += knockbackSpeed;
+                    return;
+                } else {
+                    clearInterval(knockbackInterval);
+                }
+            }
+            clearInterval(knockbackInterval);
+        }, 1000 / 60);
+    }
+
+    applyKnockback(enemy) {
+        if (this.isEnemyEndboss(enemy)) {
+            this.setEndbossVariablesForKnockbackOfCharacter();
         }
         let knockbackDistance = 100;
         let knockbackSpeed = 5;
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;
-        let knockbackInterval = setInterval(() => {
-            let newXPosition = this.character.x + direction * knockbackSpeed;
-            if (-this.level.level_end_x + 100 <= newXPosition && newXPosition <= this.level.level_end_x + 100) {
-                if (distanceMoved < knockbackDistance) {
-                    this.character.x = newXPosition;
-                    distanceMoved += knockbackSpeed;
-                } else {
-                    clearInterval(knockbackInterval);
-                }
-            } else {
-                clearInterval(knockbackInterval);
-            }
-        }, 1000 / 60);
+        this.setKnockBackInterval(knockbackDistance, knockbackSpeed, direction, distanceMoved);
     }
 
     characterFallsOnEnemy(enemy) {
-        return this.character.speedY < 0 && this.character.y + this.character.height <= enemy.y + enemy.height * 0.75 && this.character.y + this.character.height > enemy.y;
+        return this.character.speedY < 0 &&
+            this.character.y + this.character.height <= enemy.y + enemy.height * 0.75 &&
+            this.character.y + this.character.height > enemy.y;
     }
 
     enemyIsDefeatedByJump(enemy) {
@@ -299,8 +338,6 @@ class World {
         this.character.bounce();
         this.hit.play();
     }
-
-    // Hier sind die draw()-Methoden sowie die flipImage()-Funktionen verortet
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
