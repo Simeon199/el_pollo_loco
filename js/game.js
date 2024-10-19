@@ -46,7 +46,7 @@ function stopGameAndShowTurnDeviceMessage() {
 function addControlPanelInCaseOfMobileDevice() {
     if (isMobileDevice()) { //  || isTabletDevice()
         console.log('test');
-        document.getElementById('control-panel-everything').style.display = 'none';
+        // document.getElementById('control-panel-everything').style.display = 'none';
     } else {
         document.getElementById('control-panel-everything').style.display = 'flex';
     }

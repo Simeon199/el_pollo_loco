@@ -53,9 +53,11 @@ body {
     cursor: pointer;
 }
 
-.control-panel-everything {
-    display: none;
-}
+/* .control-panel-everything {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+} */
 
 .style-container {
     padding: 4px;
