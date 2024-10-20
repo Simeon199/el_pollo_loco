@@ -1,3 +1,8 @@
+/**
+ * Represents the Endboss, a subclass of Chicken, with further animations and behaviors. 
+ * The Endboss has specific attack, hurt, and dying animations and interacts with the main character.
+ */
+
 class Endboss extends Chicken {
     endbossHitCharacter = false;
     endbossHitCharacterAtTime = 0;
@@ -47,7 +52,11 @@ class Endboss extends Chicken {
         'img/4_enemie_boss_chicken/3_attack/G18.png',
         'img/4_enemie_boss_chicken/3_attack/G19.png',
         'img/4_enemie_boss_chicken/3_attack/G20.png'
-    ]
+    ];
+
+    /**
+     * Constructs an Endboss instance, initializing its position, loading all images and starts the animation function.
+     */
 
     constructor() {
         super();
@@ -61,12 +70,20 @@ class Endboss extends Chicken {
         this.animate();
     }
 
+    /**
+     * Starts the animation loop for the Endboss, updating its behavior every 100ms.
+     */
+
     animate() {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
             this.checkAndAnimateAllPossibleBehavioursOfEndboss();
         }, 100);
     }
+
+    /**
+    * Checks and handles different behaviors of the Endboss such as attacking, being hurt, or dying.
+    */
 
     checkAndAnimateAllPossibleBehavioursOfEndboss() {
         if (this.wasEndbossProvokedByCharacter()) {
@@ -84,15 +101,27 @@ class Endboss extends Chicken {
         }
     }
 
+    /**
+    * Animates the Endboss running left while attacking.
+    */
+
     playAttackingEndbossAndShowHimRunningLeft() {
         this.playAttackEndbossAnimation();
         this.x -= this.endbossSpeedX;
     }
 
+    /**
+    * Animates the Endboss running right while attacking.
+    */
+
     playAttackingEndbossAndShowHimRunningRight() {
         this.playAttackEndbossAnimation();
         this.x += this.endbossSpeedX;
     }
+
+    /**
+     * Handles the attacking and hurt animation of the Endboss, playing sounds and deciding on movement.
+     */
 
     handleAttackingEndbossAndHurtingEndbossAnimation() {
         this.chickenScream.play();
@@ -103,12 +132,20 @@ class Endboss extends Chicken {
         }
     }
 
+    /**
+     * Animates the Endboss attacking while moving.
+     */
+
     animateMovingAndAttackingEndboss() {
         this.chickenScream.pause();
         this.chickenSound.play();
         this.directEndbossIntoAttackDirectionAndCheckCollisions();
         this.playAnimation(this.IMAGES_ATTACK);
     }
+
+    /**
+     * Directs the Endboss towards the main character and checks for collisions.
+     */
 
     directEndbossIntoAttackDirectionAndCheckCollisions() {
         if (this.mainCharacterPosition < this.x) {
@@ -120,21 +157,49 @@ class Endboss extends Chicken {
         }
     }
 
+    /**
+     * Checks the time difference since the Endboss was last hit.
+     * 
+     * @returns {number} Time in milliseconds since the last hit.
+     */
+
     checkTimeDifferenceSinceLastTimeHit() {
         return new Date().getTime() - this.lastHit;
     }
+
+    /**
+     * Determines if the Endboss was provoked by the character.
+     * 
+     * @returns {boolean} True if provoked, false otherwise.
+     */
 
     wasEndbossProvokedByCharacter() {
         return this.isEndbossAliveAndFinalEnemy() || this.isEndbossAliveAndWasAttacked();
     }
 
+    /**
+     * Checks if the Endboss is alive and was attacked.
+     * 
+     * @returns {boolean} True if alive and attacked, false otherwise.
+     */
+
     isEndbossAliveAndWasAttacked() {
         return this.wasEndbossHit() && this.energy > 0;
     }
 
+    /**
+     * Checks if the Endboss is not the final enemy but is dead.
+     * 
+     * @returns {boolean} True if not the final enemy and dead, false otherwise.
+     */
+
     isEndbossAliveAndFinalEnemy() {
         return this.isEndbossFinalEnemy == true && this.energy > 0;
     }
+
+    /**
+     * Plays the dying animation and sets the Endboss image to a fixed dead image.
+     */
 
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
@@ -145,11 +210,21 @@ class Endboss extends Chicken {
         }
     }
 
+    /**
+     * Displays the defeated Endboss and positions the character correct.
+     */
+
     showDefeatedEndbossAndPositionCharacter() {
         this.playAnimation(this.IMAGE_DEAD_CHICKEN);
         this.mainCharacterPosition = 100000;
         this.stopAnimateFunction();
     }
+
+    /**
+    * Checks if the Endboss is not the final enemy but is dead.
+    * 
+    * @returns {boolean} True if not the final enemy and dead, false otherwise.
+    */
 
     isEndbossNotFinalEnemyButDead() {
         return this.wasEndbossHit() &&
@@ -157,15 +232,35 @@ class Endboss extends Chicken {
             this.energy == 0;
     }
 
+    /**
+    * Checks if the Endboss is the final enemy and dead.
+    * 
+    * @returns {boolean} True if the final enemy and dead, false otherwise.
+    */
+
     isFinalEnemyEndbossAndIsHeDead() {
         return this.isEndbossFinalEnemy == true && this.energy == 0;
     }
+
+    /**
+    * Checks if the Endboss is alive and was not hit.
+    * 
+    * @returns {boolean} True if the endboss is alive and not hit, false otherwise.
+    */
 
     isEndbossAliveAndWasNotAttacked() {
         return this.isDead == false &&
             this.energy > 0 &&
             !(this.wasEndbossHit());
     }
+
+    /**
+    * Checks if the main character is too close to the Endboss from the right side.
+    * The condition is met if the horizontal distance between the Endboss and the character
+    * is less than 400 pixels and the Endboss is positioned to the left of the character.
+    * 
+    * @returns {boolean} True if the main character is close from the right and the Endboss is still alive, false otherwise.
+    */
 
     isCharacterToCloseToEndbossFromTheRight() {
         return this.x - this.mainCharacterPosition &&
@@ -174,6 +269,14 @@ class Endboss extends Chicken {
             this.energy > 0;
     }
 
+    /**
+    * Checks if the main character is too close to the Endboss from the left side.
+    * The condition is met if the horizontal distance between the Endboss and the character
+    * is less than 400 pixels and the Endboss is positioned to the right of the character.
+    * 
+    * @returns {boolean} True if the main character is close from the left and the Endboss is still alive, false otherwise.
+    */
+
     isCharacterToCloseToEndbossFromTheLeft() {
         return this.x - this.mainCharacterPosition &&
             Math.abs(this.x - this.mainCharacterPosition) < 400 &&
@@ -181,20 +284,36 @@ class Endboss extends Chicken {
             this.energy > 0;
     }
 
+    /**
+     * Plays the Endboss attack animation and checks if Enboss hit character.
+     */
+
     playAttackEndbossAnimation() {
         this.chickenSound.play();
         this.playAnimation(this.IMAGES_ATTACK);
         this.checkIfEndbossAlreadyHitCharacter();
     }
 
+    /**
+    * Sets the Endboss as dead and plays the dying animation.
+    */
+
     setIsDeadAttributeAndplayDyingAnimation() {
         this.isDead == true;
         this.playAnimation(this.IMAGES_DEAD);
     }
 
+    /**
+     * Stops the Endboss animation.
+     */
+
     stopAnimateFunction() {
         clearInterval(this.animateInterval);
     }
+
+    /**
+     * Checks if the Endboss already hit the main character and adjusts its speed.
+     */
 
     checkIfEndbossAlreadyHitCharacter() {
         let date = new Date().getTime();
@@ -208,6 +327,10 @@ class Endboss extends Chicken {
         }
     }
 
+    /**
+     * Updates the Endboss direction based on the main character's position.
+     */
+
     updateEndbossDirection() {
         if (this.mainCharacterPosition < this.x) {
             this.otherDirection = false;
@@ -216,27 +339,60 @@ class Endboss extends Chicken {
         }
     }
 
+    /**
+    * Checks if the Endboss is hurt and if the last hit occurred at the initial state (time equals zero).
+    * 
+    * @returns {boolean} True if the Endboss is hurt and the last hit was at the initial time (0), false otherwise.
+    */
+
     isEndbossHurtAndLastHitEqualsZero() {
         return this.isEndbossHurt && this.lastHit === 0;
     }
+
+    /**
+    * Checks if the Endboss is hurt and if the time passed since the last hit is below the defined time limit. 
+    * The time limit (`this.timePassedLimit`) is multiplied by 1000 to convert seconds into milliseconds.
+    * 
+    * @returns {boolean} True if the Endboss is hurt and the time since the last hit is less than the time limit, false otherwise.
+    */
 
     isEndbossHurtAndTimeSinceLastHitIsBelowTimeLimit() {
         return this.isEndbossHurt &&
             (new Date().getTime() - this.lastHit < this.timePassedLimit * 1000);
     }
 
+    /**
+    * Checks if the time passed since the Endboss was last hit exceeds the defined time limit.
+    * 
+    * @returns {boolean} True if the time since the last hit is greater than or equal to the time limit, false otherwise.
+    */
+
     isEndbossHurtAndTimeSinceLastHitExceedsTimeLimit() {
         return new Date().getTime() - this.lastHit >= this.timePassedLimit * 1000;
     }
+
+    /**
+    * Resets the state of the Endboss to indicate that it is no longer hurt. It also resets the `lastHit` property to 0.
+    */
 
     setEndbossIsNotHurtAnymore() {
         this.isEndbossHurt = false;
         this.lastHit = 0;
     }
 
+    /**
+    * Records the current time as the last time the Endboss was hit.
+    */
+
     getLastHitTime() {
         this.lastHit = new Date().getTime();
     }
+
+    /**
+     * Returns whether the Endboss was hit and handles the hit state.
+     * 
+     * @returns {boolean} True if the Endboss was hit, false otherwise.
+     */
 
     wasEndbossHit() {
         if (this.isEndbossHurtAndLastHitEqualsZero()) {
