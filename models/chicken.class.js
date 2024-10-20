@@ -1,3 +1,7 @@
+/**
+ * Represents a chicken enemy in the game that can move, die, and play animations. It extends the MovableObject class.
+*/
+
 class Chicken extends MovableObject {
     movingDirection = 'left'
     intervalMove = null;
@@ -20,6 +24,12 @@ class Chicken extends MovableObject {
 
     IMAGE_DEAD_CHICKEN = ['img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
 
+    /**
+     * Creates an instance of Chicken and initializes its position and speed. Loads the images for the walking and dead animations.
+     * 
+     * @param {number} enemyArrayIndex - The index of this chicken in the enemies array.
+     */
+
     constructor(enemyArrayIndex) {
         super();
         this.loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -30,6 +40,12 @@ class Chicken extends MovableObject {
         this.speed = 1 + Math.random() * 0.25;
         this.animate();
     }
+
+    /**
+     * Starts the animation loop for the chicken's movement and death state. Checks if the chicken is dead and and plays the dead animation in that case.
+     * 
+     * @param {array} [array=[]] - Optional array parameter for additional animation checks.
+     */
 
     animate(array = []) {
         this.proveIfIntervalsAlreadyExists();
@@ -43,6 +59,10 @@ class Chicken extends MovableObject {
         }
     };
 
+    /**
+     * Animates the dead chicken when it gets jumped on. Stops all other relevant animations and plays the dead animation.
+     */
+
     animateDeadChickenWhenItGetsJumpedOn() {
         if (this.isDead) {
             this.playingDeadEnemyId = setInterval(() => {
@@ -52,14 +72,29 @@ class Chicken extends MovableObject {
         this.clearAllRelevantIntervalsWhenChickenDies();
     }
 
+    /**
+     * Checks if the chicken is dead and if additional parameters are correct.
+     * 
+     * @param {array} array - An array of parameters for checking the condition.
+     * @returns {boolean} True if the chicken is dead and the parameters are correct, false otherwise.
+     */
+
     isChickenDeadAndAreTheRemainingParametersCorrect(array) {
         return this.isDead == true && array.length > 0;
     }
+
+    /**
+    * Clears all intervals related to the chicken's movement and animation when it dies.
+    */
 
     clearAllRelevantIntervalsWhenChickenDies() {
         clearInterval(this.intervalMove);
         clearInterval(this.intervalChangeWalkingImages);
     }
+
+    /**
+    * Checks if the movement and animation intervals already exist and clears them if they do.
+    */
 
     proveIfIntervalsAlreadyExists() {
         if (this.intervalMove) {
@@ -70,6 +105,10 @@ class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Decides whether the chicken moves left or right based on its current direction.
+     */
+
     decideWhetherChickensAreMovingRightOrLeft() {
         if (this.movingDirection == 'left') {
             this.moveLeft();
@@ -78,14 +117,28 @@ class Chicken extends MovableObject {
         };
     }
 
+    /**
+     * Checks if the chicken is still alive.
+     * 
+     * @returns {boolean} True if the chicken is alive, false otherwise.
+     */
+
     isChickenDead() {
         return this.isDead == false;
     }
+
+    /**
+     * Animates the chicken's movement and sets up intervals for updating its position and animation frames.
+     */
 
     animateMovingChickens() {
         this.setMovingChickens();
         this.setIntervalChangeWalkingImages();
     }
+
+    /**
+     * Sets up the interval for moving the chicken.
+     */
 
     setMovingChickens() {
         this.intervalMove = setInterval(() => {
@@ -95,6 +148,10 @@ class Chicken extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Sets up the interval for changing the chicken's walking images.
+     */
+
     setIntervalChangeWalkingImages() {
         this.intervalChangeWalkingImages = setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
@@ -103,6 +160,10 @@ class Chicken extends MovableObject {
             this.currentImage++;
         }, 1000 / 100);
     }
+
+    /**
+    * Stops the animation of the dead chicken after a certain time.
+    */
 
     stopPlayingDeadAnimation() {
         if (this.playingDeadEnemyId) {
