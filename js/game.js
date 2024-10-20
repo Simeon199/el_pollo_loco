@@ -52,15 +52,6 @@ function addControlPanelInCaseOfMobileDevice() {
     }
 }
 
-// function addControlPanelInCaseOfMobileDevice() {
-//     if (!(isMobileDevice() || isTabletDevice())) {
-//         console.log('test');
-//         document.getElementById('control-panel-everything').style.display = 'none';
-//     } else {
-//         document.getElementById('control-panel-everything').style.display = 'flex';
-//     }
-// }
-
 function showIntroImageAndDeactivateTurnDeviceMessage() {
     document.getElementById('message-to-turn-device').style.display = 'none';
     document.getElementById('intro-image').style.display = 'flex';
@@ -87,11 +78,13 @@ function isLandscapeScreenActivated() {
 
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
-// window.addEventListener('resize', () => {
-//     if (isGamePlaying) {
-//         stopGame();
-//     }
-// });
+window.addEventListener('resize', () => {
+    if (isGamePlaying && !isFullscreenActivated) {
+        document.getElementById('control-panel-everything').style.display = 'none';
+    } else if (isGamePlaying && isFullscreenActivated) {
+        document.getElementById('control-panel-everything').style.display = 'flex';
+    }
+});
 
 // Initialize Game
 
@@ -104,7 +97,19 @@ function init() {
     }
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
+    // checkScreenResolution();
 }
+
+// function checkScreenResolution() {
+//     setInterval(() => {
+//         if (!isFullscreenActivated && window.innerWidth > window.innerHeight && window.innerHeight < 900) {
+//             fullscreen();
+//             if (document.getElementById('minimize-button').style.display == 'flex') {
+//                 document.getElementById('minimize-button').style.display = 'none';
+//             }
+//         }
+//     }, 100);
+// }
 
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
@@ -517,6 +522,8 @@ function exitFullscreen() {
     if (document.fullscreenElement) {
         document.exitFullscreen();
     }
+    isFullscreenActivated = false;
+    isChangingToFullscreen = false;
 }
 
 function fullscreen() {
@@ -538,14 +545,6 @@ document.addEventListener('fullscreenchange', () => {
         isChangingToFullscreen = false;
     }
 });
-
-// window.addEventListener('keydown', (event) => {
-//     if (event.keyCode == 27) {
-//         if (isFullscreenActivated) {
-//             exitFullscreen();
-//         }
-//     }
-// });
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
     wasRandomKeyOncePressed = true;
@@ -644,7 +643,7 @@ function wasButtonThrowPressed(event) {
 }
 
 window.addEventListener('touchstart', (event) => {
-    if (wasntPlayIconPressed(event)) {
+    if (wasntPlayIconPressed(event) && isGamePlaying == true) {
         settingGlobalVariablesInKeyDownOrTouchStartEvent();
         if (wasButtonLeftPressed(event)) {
             prepareForThrowingLeft();
@@ -662,7 +661,7 @@ window.addEventListener('touchstart', (event) => {
 })
 
 window.addEventListener('touchend', (event) => {
-    if (wasntPlayIconPressed(event)) {
+    if (wasntPlayIconPressed(event) && isGamePlaying == true) {
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
         if (wasButtonLeftPressed(event)) {
             keyboard.LEFT = false;

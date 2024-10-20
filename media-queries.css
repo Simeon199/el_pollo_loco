@@ -204,10 +204,6 @@
     #fullscreen {
         display: none;
     }
-
-    /* .control-panel-everything img {
-        width: 60px;
-    } */
 }
 
 @media(max-width: 1100px) and (min-height: 700px) {
@@ -249,55 +245,6 @@
         position: absolute;
         bottom: 5%;
         width: 36px;
-    }
-
-    .game-functions-container {
-        display: flex;
-        align-items: center;
-        position: fixed;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        padding-left: 8px;
-        top: 0;
-        right: 0;
-        width: 100%;
-        height: auto;
-    }
-
-    .control-keys {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .control-keys h3 {
-        font-size: 14px;
-    }
-
-    .control-key-style {
-        min-width: 200px;
-    }
-
-    .control-keys img {
-        width: 24px;
-    }
-
-    .game-notification {
-        padding: 0;
-        max-width: 420px;
-        font-size: 12px;
-        padding-right: 40px;
-    }
-
-    .game-functions-container h2 {
-        display: none;
-    }
-
-    .game-functions-container img:nth-child(2) {
-        width: 16px;
-        right: 20px;
-        top: 12px;
     }
 
     #winning-image img {
@@ -347,8 +294,6 @@
     }
 }
 
-/* @media(orientation: landscape) and (max-width: 1000px) {} */
-
 @media(orientation: landscape) and (max-width: 1700px) {
     .control-keys {
         flex-direction: row;
@@ -377,6 +322,51 @@
 
     .game-functions-container img:nth-child(2) {
         width: 24px;
+    }
+}
+
+@media(orientation: landscape) and (max-width: 1000px) {
+    .control-keys {
+        flex-direction: column;
+        padding-bottom: 8px;
+        padding-bottom: 8px;
+    }
+
+    .control-key-style {
+        min-width: 200px;
+    }
+
+    /* .control-keys {
+        flex-direction: row;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .control-key-style {
+        min-width: unset;
+    } */
+
+    .control-keys img {
+        width: 32px;
+    }
+
+    .game-functions-container {
+        width: 100%;
+        height: unset;
+    }
+
+    .game-functions-container h2 {
+        padding: 8px;
+        font-size: xx-large;
+    }
+
+    .game-notification {
+        padding: 4px;
+        font-size: 12px;
+    }
+
+    .game-functions-container img:nth-child(2) {
+        width: 18px;
     }
 }
 
@@ -477,6 +467,10 @@
 }
 
 @media (orientation: portrait) {
+    .game-functions-container {
+        display: none;
+    }
+
     .canvas-container img {
         display: none;
     }
