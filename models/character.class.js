@@ -1,3 +1,8 @@
+/**
+ * Represents a character in the game that can move, jump, get hurt, die, and play various animations.
+ * Extends the MovableObject class.
+ */
+
 class Character extends MovableObject {
     fixDate = 0;
     isJumping = false;
@@ -79,6 +84,10 @@ class Character extends MovableObject {
     snorring_sound = new Audio('audio/snor.mp3');
     bottle;
 
+    /**
+     * Creates an instance of Character and initializes its properties along with loading images for various animations and applies artificial gravity.
+     */
+
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -91,10 +100,18 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+    * Plays the sleep animation with the snoring sound.
+    */
+
     playSleepAnimationWithAudio() {
         this.playAnimation(this.IMAGES_SLEEP);
         this.snorring_sound.play();
     }
+
+    /**
+     * Moves the character to the right and plays the walking sound.
+     */
 
     playMovingRightAnimationWithAudio() {
         this.moveRight();
@@ -102,11 +119,19 @@ class Character extends MovableObject {
         this.walking_sound.play();
     }
 
+    /**
+     * Moves the character to the left and plays the walking sound.
+     */
+
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
         this.walking_sound.play();
     }
+
+    /**
+     * Sets all the global variables that are related to the character's movement state.
+     */
 
     setRelevantGlobalVariablesForMovingCharacter() {
         this.fixDate = new Date().getTime();
@@ -114,6 +139,10 @@ class Character extends MovableObject {
         this.walking_sound.pause();
         this.snorring_sound.pause();
     }
+
+    /**
+     * Checks if the character should play the sleep or chill animation based on inactivity.
+     */
 
     characterIsEitherSleepingOrChilling() {
         if (this.keyWasntPressedForMoreThanFiveSeconds()) {
@@ -123,6 +152,10 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_CHILL);
         }
     }
+
+    /**
+     * Checks if the character should jump or move based on which key is pressed.
+     */
 
     characterIsJumpingOrMoving() {
         if (this.keyWasntPressedForLessThanTwoSeconds()) {
@@ -141,6 +174,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the character is hurt, dead, jumping, or walking and plays the corresponding animation.
+     */
+
     characterIsDyingGetsHurtIsJumpingOrWalking() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -155,6 +192,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Starts the animation cycle for the character. Calls different checks for movement, sleeping, and other states at defined intervals.
+     */
+
     animate() {
         setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
@@ -166,12 +207,22 @@ class Character extends MovableObject {
         }, 50);
     };
 
+    /**
+     * Checks if no key was pressed for more than 5 seconds (inactivity check).
+     * @returns {boolean} True if the condition is met, false otherwise.
+     */
+
     keyWasntPressedForMoreThanFiveSeconds() {
         return this.timePassedWhenKeyPressed > 5000 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&
             !this.isHurt();
     }
+
+    /**
+     * Checks if no key was pressed for more than 2 seconds but less than 5 seconds.
+     * @returns {boolean} True if the condition is met, false otherwise.
+     */
 
     keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
         return this.timePassedWhenKeyPressed < 5000 &&
@@ -182,27 +233,56 @@ class Character extends MovableObject {
             !this.isHurt();
     }
 
+    /**
+     * Checks if no key was pressed for less than 2 seconds.
+     * @returns {boolean} True if the condition is met, false otherwise.
+     */
+
     keyWasntPressedForLessThanTwoSeconds() {
         this.timePassedWhenKeyPressed < 1000 &&
             !this.isAboveGround() &&
             !this.isHurt();
     }
 
+    /**
+     * Checks if the right key is pressed.
+     * @returns {boolean} True if the right key is pressed, false otherwise.
+     */
+
     keyRightWasPressed() {
         return this.world.keyboard.RIGHT && this.x < world.level.level_end_x;
     }
+
+    /**
+     * Checks if the left key is pressed.
+     * @returns {boolean} True if the left key is pressed, false otherwise.
+     */
 
     keyLeftWasPressed() {
         return this.world.keyboard.LEFT && this.x > -719;
     }
 
+    /**
+     * Checks if the space key is pressed.
+     * @returns {boolean} True if the space key is pressed, false otherwise.
+     */
+
     keySpaceWasPressed() {
         return this.world.keyboard.SPACE && !this.isAboveGround();
     }
 
+    /**
+     * Checks if either the left or right key is pressed.
+     * @returns {boolean} True if either key is pressed, false otherwise.
+     */
+
     wasRightOrLeftKeyPressed() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }
+
+    /**
+     * Makes the character bounce by setting the vertical speed to 30.
+     */
 
     bounce() {
         this.speedY = 30;

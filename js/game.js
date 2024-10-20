@@ -97,19 +97,7 @@ function init() {
     }
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
-    // checkScreenResolution();
 }
-
-// function checkScreenResolution() {
-//     setInterval(() => {
-//         if (!isFullscreenActivated && window.innerWidth > window.innerHeight && window.innerHeight < 900) {
-//             fullscreen();
-//             if (document.getElementById('minimize-button').style.display == 'flex') {
-//                 document.getElementById('minimize-button').style.display = 'none';
-//             }
-//         }
-//     }, 100);
-// }
 
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
@@ -405,6 +393,9 @@ function playAgain() {
     world = new World(canvas, keyboard);
     hasGameStarted = false;
     checkIfEnemyOrCharacterIsDead();
+    if (!isFullscreenActivated) {
+        fullscreen();
+    }
 }
 
 // All CSS-Styling-Related Code

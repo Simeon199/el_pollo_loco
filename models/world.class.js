@@ -285,7 +285,7 @@ class World {
         return enemy instanceof Endboss;
     }
 
-    setEndbossVariablesForKnockbackOfCharacter() {
+    setEndbossVariablesForKnockbackOfCharacter(enemy) {
         enemy.endbossHitCharacter = true;
         enemy.endbossHitCharacterAtTime = new Date().getTime();
     }
@@ -316,7 +316,7 @@ class World {
 
     applyKnockback(enemy) {
         if (this.isEnemyEndboss(enemy)) {
-            this.setEndbossVariablesForKnockbackOfCharacter();
+            this.setEndbossVariablesForKnockbackOfCharacter(enemy);
         }
         let knockbackDistance = 100;
         let knockbackSpeed = 5;
