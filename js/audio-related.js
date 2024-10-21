@@ -1,5 +1,3 @@
-// All sound related JS
-
 function stopAllSounds() {
     if (world && world.backgroundMusic) {
         world.backgroundMusic.pause();

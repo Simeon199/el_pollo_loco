@@ -99,7 +99,6 @@ function checkIfEnemyOrCharacterIsDead() {
     }, 100);
 }
 
-
 function preventBubbling(event) {
     event.stopPropagation();
 }
@@ -158,8 +157,6 @@ function resetGame() {
     isGamePlaying = false;
     world = null;
 }
-
-// Exist Object Functions (should stay in game.js)
 
 function doesWorldExist() {
     if (world) {

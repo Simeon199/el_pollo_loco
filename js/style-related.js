@@ -1,5 +1,3 @@
-// All CSS-Styling-Related Code
-
 function setCanvasElementsRightInCaseOfRightOrientation() {
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas').style.display = 'block';
@@ -30,15 +28,12 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 }
 
 function setSoundStylingForFullscreen() {
-    // document.getElementById('sound-on-icon').style.width = '100px';
     document.getElementById('sound-on-icon').style.borderRadius = '16px';
     document.getElementById('sound-on-icon').style.border = '4px solid black';
     document.getElementById('sound-on-icon').style.padding = '6px';
-    // document.getElementById('sound-off-icon').style.width = '100px';
     document.getElementById('sound-off-icon').style.borderRadius = '16px';
     document.getElementById('sound-off-icon').style.border = '4px solid black';
     document.getElementById('sound-off-icon').style.padding = '6px';
-    // document.getElementById('sound-screen-control-container').style.top = '85%';
 }
 
 function manageAddRemoveClassesWhenEnterFullscreen() {
@@ -154,8 +149,6 @@ function setControlPanelStyle() {
     }
 }
 
-// Open and Close Mini-Version of All-Icons-Container (Kann man in einer Funktion behandeln --> später: Vereinfache dies!)
-
 function openAllIconsContainer() {
     let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
     if (allIconsMiniVersionContainer.style.display !== 'flex') {
@@ -169,8 +162,6 @@ function closeAllIconsContainer() {
         allIconsMiniVersionContainer.style.display = ' none';
     }
 }
-
-// Section which explains the game
 
 function openSettingsFunction() {
     let explainGameContainer = document.getElementById('explain-game-container');
