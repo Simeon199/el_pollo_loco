@@ -1,3 +1,9 @@
+/**
+ * Represents a coin status bar that displays the number of collected coins. Inherits from the StatusBar class.
+ * 
+ * @extends StatusBar
+ */
+
 class CoinBar extends StatusBar {
 
     COIN_BAR_IMAGES = [

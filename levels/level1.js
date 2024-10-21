@@ -1,8 +1,22 @@
+// Create a new Level instance with various game elements.
+
 let level1 = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
+
+/**
+ * Generates an array containing a single cloud object.
+ * 
+ * @returns {Cloud[]} An array with one Cloud object.
+ */
 
 function generateCloud() {
     return [new Cloud()];
 }
+
+/**
+ * Generates an array of random throwable bottles.
+ * 
+ * @returns {ThrowableObject[]} An array of ThrowableObject instances representing bottles.
+ */
 
 function generateRandomBottles() {
     let bottles = [];
@@ -11,6 +25,12 @@ function generateRandomBottles() {
     }
     return bottles;
 }
+
+/**
+ * Generates an array of coin objects.
+ * 
+ * @returns {Coin[]} An array of Coin instances.
+ */
 
 function generateCoinsArray() {
     let coinsArray = [];
@@ -24,6 +44,12 @@ function generateCoinsArray() {
     return coinsArray;
 }
 
+/**
+ * Generates an array of enemy objects, including chickens and a boss.
+ * 
+ * @returns {Array<Chicken|BabyChicken|Endboss>} An array of enemy instances.
+ */
+
 function generateEnemies() {
     let enemies = [];
     for (i = 0; i < 3; i++) {
@@ -36,6 +62,12 @@ function generateEnemies() {
     enemies.push(new Endboss(endbossIndex));
     return enemies;
 }
+
+/**
+ * Generates an array of background objects for the level.
+ * 
+ * @returns {BackgroundObject[]} An array of BackgroundObject instances representing different layers of the background.
+ */
 
 function generateBackgroundArray() {
     let layers = [

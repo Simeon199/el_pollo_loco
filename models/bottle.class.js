@@ -1,3 +1,9 @@
+/**
+ * Represents a bottle object in the game. Inherits from the MovableObject class.
+ * 
+ * @extends MovableObject
+ */
+
 class Bottle extends MovableObject {
 
     height = 60;
@@ -11,6 +17,10 @@ class Bottle extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
     ];
+
+    /**
+    * Creates an instance of the Bottle class. Loads the bottle image and the rotation images for animation.
+    */
 
     constructor() {
         super();

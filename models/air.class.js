@@ -1,3 +1,10 @@
+/**
+ * Represents an air object in the game.
+ * Inherits from the MovableObject class.
+ * 
+ * @extends MovableObject
+ */
+
 class Air extends MovableObject {
     x = 0;
     y = 0;

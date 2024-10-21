@@ -14,6 +14,7 @@ class World {
     canvas;
     ctx;
     keyboard;
+    utilityClass;
     camera_x = 0;
     throwableObjects = [];
     hasGameStarted = false;
@@ -66,6 +67,7 @@ class World {
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
         clearInterval(this.runInterval);
+        this.utilityClass = new Utility();
         this.run();
     }
 

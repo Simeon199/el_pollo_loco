@@ -1,3 +1,7 @@
+/**
+ * Represents a drawable object in the game. This class provides functionality to load and draw images, as well as manage their properties.
+ */
+
 class DrawableObject {
     x = 120;
     y = 280;
@@ -7,10 +11,22 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
+    /**
+     * Loads an image from a given path.
+     * 
+     * @param {string} path - The path to the image file.
+     */
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
+
+    /**
+     * Draws the loaded image onto the canvas at the object's current position.
+     * 
+     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context for the canvas.
+     */
 
     draw(ctx) {
         try {
@@ -23,9 +39,10 @@ class DrawableObject {
     }
 
     /**
-    * 
-    * @param {Array} arr - ['img/image_1.png', 'img/image_2.png',...] 
-    */
+     * Loads multiple images and caches them for later use.
+     * 
+     * @param {Array<string>} arr - An array of image paths.
+     */
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -34,6 +51,12 @@ class DrawableObject {
             this.imageCache[path] = img;
         });
     }
+
+    /**
+     * Draws a frame around the drawable object if it is a specific type.
+     * 
+     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context for the canvas.
+     */
 
     drawFrame(ctx) {
         if (this.proveIfInstanceOfCertainType()) {
@@ -45,10 +68,22 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Determines if the current instance is of a certain type.
+     * 
+     * @returns {boolean} - True if the instance is one of the specified types, otherwise false.
+     */
+
     proveIfInstanceOfCertainType() {
         let bolean = this.isInstanceOfTheFollowingObjects();
         return bolean;
     }
+
+    /**
+    * Checks if the current instance is an instance of specific classes.
+    * 
+    * @returns {boolean} - True if the instance is a Character, Chicken, ThrowableObject, Endboss, or Coin.
+    */
 
     isInstanceOfTheFollowingObjects() {
         return this instanceof Character || this instanceof Chicken || this instanceof ThrowableObject || this instanceof Endboss || this instanceof Coin;
