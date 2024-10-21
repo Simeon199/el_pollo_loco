@@ -45,6 +45,7 @@ class World {
         this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
         this.draw();
         this.setWorld();
+        this.utilityClass = new Utility(this);
         this.bottlebar.bottleAmount = this.level.bottles.length;
         this.backgroundMusic.volume = 0.25;
         this.run();
@@ -67,7 +68,6 @@ class World {
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
         clearInterval(this.runInterval);
-        this.utilityClass = new Utility();
         this.run();
     }
 
@@ -78,14 +78,9 @@ class World {
 
     run() {
         this.runInterval = setInterval(() => {
-            this.checkCollisions();
-            this.checkCollisionsWithBottles();
-            this.checkThrowObjects();
-            this.checkThrowableObjectsCollision();
-            this.calibrateDistanceBetweenCharacterAndEndboss();
+            this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.backgroundMusic.play();
-            this.checkMovingDirectionOfEnemies();
         }, 100);
     }
 
@@ -99,35 +94,6 @@ class World {
         this.endbossbar.world = this;
         this.coinbar.world = this;
         this.level.world = this;
-    }
-
-    /**
-     * Checks and adjusts the movement direction of enemies based on their position in the game world.
-     * Applied only to chickens, adjusting their movement if they go beyond certain bounds.
-     */
-
-    checkMovingDirectionOfEnemies() {
-        this.level.enemies.forEach(enemy => {
-            if (!(enemy instanceof Endboss) && (enemy instanceof Chicken)) {
-                if (enemy.x <= -500) {
-                    enemy.movingDirection = 'right';
-                    enemy.otherDirection = true;
-                } else if (enemy.x >= 500) {
-                    enemy.otherDirection = false;
-                    enemy.movingDirection = 'left';
-                }
-            }
-        });
-    }
-
-    /**
-     * Updates the position of the Endboss based on the main character's position, if the Endboss is still alive.
-     */
-
-    calibrateDistanceBetweenCharacterAndEndboss() {
-        if (this.level.enemies[this.level.enemies.length - 1].isDead == false) {
-            this.level.enemies[this.level.enemies.length - 1].mainCharacterPosition = this.character.x;
-        }
     }
 
     /**
@@ -145,52 +111,6 @@ class World {
     }
 
     /**
-     * Checks for collisions between the character and enemies or collectible coins.
-     * Calls relevant functions when a collision is detected.
-     */
-
-    checkCollisions() {
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
-                this.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
-            }
-        });
-        this.level.coins.forEach(coin => {
-            if (this.character.isColliding(coin)) {
-                this.collectCoins(coin);
-            }
-        });
-    }
-
-    /**
-     * Handles the logic for collecting coins, removing the coin from the game world,
-     * updating the coin bar and energy of the character.
-     * 
-     * @param {Object} coin - The coin object that was collected.
-     */
-
-    collectCoins(coin) {
-        let index = this.level.coins.indexOf(coin);
-        coin.img.scr = '';
-        this.adjustCoinbarWhenCharacterCollectsCoin();
-        this.level.coins.splice(index, 1);
-        if (this.character.energy <= 95) {
-            this.character.energy += 5;
-            this.adjustStatusBarWhenCharacterGetsCoin();
-        }
-        this.bellSound.play();
-    }
-
-    /**
-     * Adjusts the status bar when the character collects a coin, increasing the percentage of energy displayed.
-     */
-
-    adjustStatusBarWhenCharacterGetsCoin() {
-        this.statusbar.percentage += 5;
-        this.statusbar.setPercentage(this.character.energy);
-    }
-
-    /**
     * Adjusts the coin bar when the character collects a coin.
     * Updates the coin bar percentage based on the remaining number of coins in the game.
     */
@@ -202,202 +122,6 @@ class World {
         } else {
             this.coinbar.setPercentage(this.coinbar.percentage, this.coinbar.COIN_BAR_IMAGES);
         }
-    }
-
-    /**
-    * Checks for collisions between the character and bottles, both stationary and throwable.
-    * When a collision is detected, bottles are collected and the bottle bar is updated.
-    */
-
-    checkCollisionsWithBottles() {
-        this.level.bottles.forEach(bottle => {
-            if (this.character.isColliding(bottle)) {
-                this.collectBottles(bottle);
-                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
-            }
-        });
-        this.throwableObjects.forEach(bottle => {
-            if (this.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
-                this.collectGroundBottles(bottle);
-                this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
-            }
-        });
-    }
-
-    /**
-    * Collects a bottle from the game world and removes it from the bottle array.
-    * Updates the number of collected bottles and plays a sound effect.
-    * 
-    * @param {Object} bottle - The bottle object that the character collects.
-    */
-
-    collectBottles(bottle) {
-        let index = this.level.bottles.indexOf(bottle);
-        this.bottlebar.bottlesCollected += 1;
-        this.level.bottles.splice(index, 1);
-        this.loadingSound.play();
-    }
-
-    /**
-    * Collects a throwable bottle that is on the ground.
-    * Removes the bottle from the throwable objects array and adds it to the game world bottle array.
-    * 
-    * @param {Object} bottle - The bottle object that the character collects from the ground.
-    */
-
-    collectGroundBottles(bottle) {
-        let index = this.throwableObjects.indexOf(bottle);
-        this.bottlebar.bottlesCollected += 1;
-        bottle.img.scr = '';
-        this.level.bottles.push(this.throwableObjects[index]);
-        this.throwableObjects.splice(index, 1);
-    }
-
-    /**
-    * Checks if the character throws a bottle and updates the bottle bar correct.
-    * When a bottle is thrown, it is added to the throwable objects array.
-    */
-
-    checkThrowObjects() {
-        if (this.keyboard.keyD && this.bottlebar.bottlesCollected > 0) {
-            this.bottlebar.bottlesCollected -= 1;
-            this.bottlebar.updateBottleBar(this.bottlebar.bottleAmount);
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.keyboard);
-            this.throwableObjects.push(bottle);
-            bottle.throwObjectsArray = this.throwableObjects;
-            bottle.throw();
-        }
-    }
-
-    /**
-    * Checks for collisions between throwable bottles and enemies.
-    * If a collision is detected, the bottle's interaction with the enemy is handled.
-    */
-
-    checkThrowableObjectsCollision() {
-        this.throwableObjects.forEach(bottle => {
-            this.proveIfBottleIsCollidingWithEnemy(bottle);
-        })
-    }
-
-    /**
-    * Determines if a throwable bottle is colliding with an enemy.
-    * If a collision occurs, the appropriate action is taken based on the enemy type.
-    * 
-    * @param {Object} bottle - The thrown bottle object.
-    * @returns {boolean} - Returns true if the bottle collides with an enemy.
-    */
-
-    proveIfBottleIsCollidingWithEnemy(bottle) {
-        this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy)) {
-                this.enemyEitherDiesOrGetsHurt(enemy, bottle);
-                return true;
-            }
-        });
-    }
-
-    /**
-    * Handles the behavior when a bottle hits an enemy.
-    * Determines if the enemy is killed or hurt based on its type (e.g., Endboss or regular enemy).
-    * 
-    * @param {Object} enemy - The enemy that is hit by the bottle.
-    * @param {Object} bottle - The thrown bottle object.
-    */
-
-    enemyEitherDiesOrGetsHurt(enemy, bottle) {
-        if (this.isBottleFlyingAndEnemyNotEndboss(bottle, enemy)) {
-            this.executeFunctionsToAnimateDyingEnemy(bottle, enemy);
-        } else if (this.isBottleFlyingAndEnemyIsEndboss(bottle, enemy)) {
-            this.executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy);
-        }
-    }
-
-    /**
-    * Animates the death of a regular enemy when hit by a bottle.
-    * Marks the bottle as broken, sets the enemy as dead, and decreases the number of enemies.
-    * 
-    * @param {Object} bottle - The thrown bottle object.
-    * @param {Object} enemy - The enemy that is hit and killed.
-    */
-
-    executeFunctionsToAnimateDyingEnemy(bottle, enemy) {
-        if (!(enemy instanceof Endboss) && enemy instanceof Chicken) {
-            bottle.isBottleBroken = true;
-            enemy.isDead = true;
-            this.enemiesNumber -= 1;
-            enemy.animate(this.level.enemies);
-            bottle.playBottleBrokenAnimation();
-            this.bottleHit.play();
-        }
-    }
-
-    /**
-    * Animates the Endboss when it is hurt but still alive after being hit by a bottle.
-    * Reduces the Endboss' energy and updates the Endboss' health bar.
-    * 
-    * @param {Object} enemy - The Endboss that is hit but still alive.
-    */
-
-    animateHurtButStillAliveEndboss(enemy) {
-        this.endbossbar.percentage -= 5;
-        this.endbossbar.setPercentage(enemy.energy, this.endbossbar.IMAGES_DEAD_ENDBOSS);
-        this.bottleHit.play();
-    }
-
-    /**
-    * Prepares the variables and state for animating the Endboss' death.
-    * Marks the Endboss as dead and reduces the number of enemies.
-    * 
-    * @param {Object} enemy - The Endboss that is killed.
-    */
-
-    setVariablesToPrepareDyingEndbossAnimation(enemy) {
-        enemy.isDead = true;
-        enemy.spliceable = true;
-        enemy.enemiesArray = this.level.enemies;
-        this.enemiesNumber -= 1;
-    }
-
-    /**
-    * Animates the Endboss either being hurt or killed depending on its energy level after being hit by a bottle.
-    * 
-    * @param {Object} bottle - The thrown bottle object.
-    * @param {Object} enemy - The Endboss that is hit by the bottle.
-    */
-
-    executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy) {
-        bottle.isBottleBroken = true;
-        enemy.isEndbossHurt = true;
-        bottle.playBottleBrokenAnimation();
-        enemy.hit();
-        if (this.isEndbossAlive(enemy)) {
-            this.animateHurtButStillAliveEndboss(enemy);
-        } else if (this.isEndbossDead(enemy)) {
-            this.setVariablesToPrepareDyingEndbossAnimation(enemy);
-        }
-    }
-
-    /**
-    * Checks if the Endboss is still alive based on its energy level.
-    * 
-    * @param {Object} enemy - The Endboss whose life status is being checked.
-    * @returns {boolean} - Returns true if the Endboss is still alive.
-    */
-
-    isEndbossAlive(enemy) {
-        return enemy.energy > 0;
-    }
-
-    /**
-    * Checks if the Endboss is dead based on its energy level.
-    * 
-    * @param {Object} enemy - The Endboss whose life status is being checked.
-    * @returns {boolean} - Returns true if the Endboss is dead.
-    */
-
-    isEndbossDead(enemy) {
-        return enemy.energy == 0;
     }
 
     /**
