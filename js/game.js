@@ -1,4 +1,4 @@
-// All Global Variables
+// All the global variables that are used to control the game
 
 let wasRandomKeyOncePressed = false;
 let isKeyPressed = false;
@@ -16,6 +16,9 @@ let soundIsMuted = false;
 let isGamePlaying = false;
 let soundOn = true;
 
+/**
+ * Checks the current screen orientation and manages fullscreen mode accordingly.
+ */
 
 function checkOrientation() {
     if (isChangingToFullscreenActivated()) {
@@ -27,6 +30,10 @@ function checkOrientation() {
     }
 }
 
+/**
+ * Manages the style and layout depending on whether the screen is in landscape mode.
+ */
+
 function manageStyleDependingOnLandscapeScreenActivated() {
     if (isLandscapeScreenActivated()) {
         stopGameAndShowTurnDeviceMessage();
@@ -36,6 +43,10 @@ function manageStyleDependingOnLandscapeScreenActivated() {
     }
 }
 
+/**
+ * Stops the game and displays a message instructing the user to turn the device.
+ */
+
 function stopGameAndShowTurnDeviceMessage() {
     activateMessageToTurnDevice();
     clearAllIntervals();
@@ -43,19 +54,28 @@ function stopGameAndShowTurnDeviceMessage() {
     changeStyleWhenIndependentOfWinningOrLosing();
 }
 
+/**
+ * Adds the control panel if the device is not a mobile device.
+ */
+
 function addControlPanelInCaseOfMobileDevice() {
-    if (isMobileDevice()) { //  || isTabletDevice()
-        console.log('test');
-        // document.getElementById('control-panel-everything').style.display = 'none';
-    } else {
+    if (!isMobileDevice()) {
         document.getElementById('control-panel-everything').style.display = 'flex';
     }
 }
+
+/**
+ * Shows the intro image and hides the "turn device" message.
+ */
 
 function showIntroImageAndDeactivateTurnDeviceMessage() {
     document.getElementById('message-to-turn-device').style.display = 'none';
     document.getElementById('intro-image').style.display = 'flex';
 }
+
+/**
+ * Activates and displays the "turn device" message.
+ */
 
 function activateMessageToTurnDevice() {
     document.getElementById('message-to-turn-device').style.display = 'flex';
@@ -63,19 +83,40 @@ function activateMessageToTurnDevice() {
     document.getElementById('canvas').style.display = 'none';
 }
 
+/**
+ * Checks if fullscreen mode was previously activated.
+ * 
+ * @returns {boolean} - Returns true if fullscreen mode was previously activated.
+ */
+
 function wasFullscreenActivated() {
     return !isFullscreenActivated;
 }
+
+/**
+ * Checks if the screen is currently transitioning to fullscreen mode.
+ * 
+ * @returns {boolean} - Returns true if the screen is not transitioning to fullscreen mode.
+ */
 
 function isChangingToFullscreenActivated() {
     return !isChangingToFullscreen;
 }
 
+/**
+ * Checks if the screen is in landscape orientation.
+ * 
+ * @returns {boolean} - Returns true if the screen width is greater than the screen height.
+ */
+
 function isLandscapeScreenActivated() {
-    return window.innerHeight > window.innerWidth;
+    // return window.innerHeight > window.innerWidth;
+    return window.innerWidth > window.innerHeight;
 }
 
-// Initialize Game
+/**
+ * Initializes the game, creating the world and setting up the canvas and context.
+ */
 
 function init() {
     if (world) {
@@ -88,6 +129,10 @@ function init() {
     checkIfEnemyOrCharacterIsDead();
 }
 
+/**
+ * Periodically checks if the character or enemies are dead and stops the game accordingly.
+ */
+
 function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         if (world.character.energy == 0) {
@@ -99,20 +144,39 @@ function checkIfEnemyOrCharacterIsDead() {
     }, 100);
 }
 
+/**
+ * Prevents event bubbling (propagation) for the given event.
+ * 
+ * @param {Event} event - The event object.
+ */
+
 function preventBubbling(event) {
     event.stopPropagation();
 }
 
-// Start-or-Stop Game Related Logic
+/**
+ * Checks if the user is using a mobile device.
+ * 
+ * @returns {boolean} - Returns true if the device is a mobile device.
+ */
 
 function isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
 }
 
+/**
+ * Checks if the user is using a tablet device.
+ * 
+ * @returns {boolean} - Returns true if the device is a tablet.
+ */
+
 function isTabletDevice() {
     return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
 }
 
+/**
+ * Starts the game, initializes necessary elements, and handles screen orientation.
+ */
 
 function startGame() {
     checkForMobileVersion();
@@ -120,6 +184,10 @@ function startGame() {
     isGamePlaying = true;
     init();
 }
+
+/**
+ * Checks the device type and adjusts the screen mode (fullscreen, control panel) accordingly.
+ */
 
 function checkForMobileVersion() {
     if (isMobileOrSmallDevice()) {
@@ -131,17 +199,41 @@ function checkForMobileVersion() {
     }
 }
 
+/**
+ * Checks if the device is a desktop.
+ * 
+ * @returns {boolean} - Returns true if the device is a desktop with a screen width greater than 1400px.
+ */
+
 function isDesktopDevice() {
     return window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice();
 }
+
+/**
+ * Checks if the device is a mobile or small device (screen width < 1000px).
+ * 
+ * @returns {boolean} - Returns true if the device is a mobile or small device.
+ */
 
 function isMobileOrSmallDevice() {
     return isMobileDevice() && window.innerWidth < 1000;
 }
 
+/**
+ * Checks if the device is a tablet or a device close to desktop size.
+ * 
+ * @returns {boolean} - Returns true if the device is a tablet or has a screen width between 1000px and 1400px.
+ */
+
 function isTabletOrCloseToDesktopSize() {
     return isTabletDevice() || (window.innerWidth > 1000 && window.innerWidth < 1400 && window.innerWidth > window.innerHeight);
 }
+
+/**
+ * Stops the game and manages the style based on the outcome (winning or losing).
+ * 
+ * @param {string} string - The outcome of the game, either 'winning' or 'losing'.
+ */
 
 function stopGame(string) {
     if (!isGamePlaying) return;
@@ -151,12 +243,22 @@ function stopGame(string) {
     }, 1000);
 }
 
+/**
+ * Resets the game, hiding the canvas and showing the intro image.
+ */
+
 function resetGame() {
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('intro-image').style.display = 'block';
     isGamePlaying = false;
     world = null;
 }
+
+/**
+ * Checks if the world object exists.
+ * 
+ * @returns {boolean} - Returns true if the world exists.
+ */
 
 function doesWorldExist() {
     if (world) {
@@ -166,6 +268,12 @@ function doesWorldExist() {
     }
 }
 
+/**
+ * Checks if the character exists in the world.
+ * 
+ * @returns {boolean} - Returns true if the character exists.
+ */
+
 function doesCharacterExistInWorld() {
     if (world.character) {
         return true;
@@ -173,6 +281,12 @@ function doesCharacterExistInWorld() {
         return false;
     }
 }
+
+/**
+ * Checks if throwable objects exist in the world.
+ * 
+ * @returns {boolean} - Returns true if throwable objects exist.
+ */
 
 function doThrowableObjectsExistInWorld() {
     if (world.throwableObject) {
@@ -182,6 +296,12 @@ function doThrowableObjectsExistInWorld() {
     }
 }
 
+/**
+ * Checks if enemies exist in the world.
+ * 
+ * @returns {boolean} - Returns true if enemies exist in the world.
+ */
+
 function doEnemiesExistInWorld() {
     if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
         return true;
@@ -190,22 +310,38 @@ function doEnemiesExistInWorld() {
     }
 }
 
+/**
+ * Clears all active intervals in the game.
+ */
+
 function clearAllIntervals() {
     for (let i = 1; i < 99999; i++) {
         window.clearInterval(i);
     }
 }
 
+/**
+ * Prepares the game to be played again, resetting the world and calling the function "settingUpStyleWhenPlayAgainButtonPressed()".
+ */
+
 function playAgain() {
-    document.getElementById('canvas-container').style.display = 'flex';
-    document.getElementById('canvas').style.display = 'block';
-    document.getElementById('losing-image').style.display = 'none';
-    document.getElementById('winning-image').style.display = 'none';
-    document.getElementById('main-title').style.display = 'none';
+    settingUpStyleWhenPlayAgainButtonPressed();
     world = new World(canvas, keyboard);
     hasGameStarted = false;
     checkIfEnemyOrCharacterIsDead();
     if (!isFullscreenActivated) {
         fullscreen();
     }
+}
+
+/**
+* Resets the necessary styling by hiding or showing certain containers when playAgain()-button is pressed.
+*/
+
+function settingUpStyleWhenPlayAgainButtonPressed() {
+    document.getElementById('canvas-container').style.display = 'flex';
+    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('losing-image').style.display = 'none';
+    document.getElementById('winning-image').style.display = 'none';
+    document.getElementById('main-title').style.display = 'none';
 }
