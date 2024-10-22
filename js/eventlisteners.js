@@ -1,3 +1,8 @@
+/**
+ * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
+ * Sets `keyboard.LEFT` to true and ensures that `rightForThrow` is false while `leftForThrow` is true.
+ */
+
 function prepareForThrowingLeft() {
     keyboard.LEFT = true;
     if (keyboard.rightForThrow == true) {
@@ -5,6 +10,11 @@ function prepareForThrowingLeft() {
     }
     keyboard.leftForThrow = true;
 }
+
+/**
+ * Prepares the player to throw an object to the right by setting the appropriate keyboard properties.
+ * Sets `keyboard.RIGHT` to true and ensures that `leftForThrow` is false while `rightForThrow` is true.
+ */
 
 function prepareForThrowingRight() {
     keyboard.RIGHT = true;
@@ -14,28 +24,72 @@ function prepareForThrowingRight() {
     keyboard.rightForThrow = true;
 }
 
+/**
+ * Checks if the play icon was not pressed.
+ * 
+ * @param {Event} event - The event object from the user interaction.
+ * @returns {boolean} - Returns true if the play icon was not pressed.
+ */
+
 function wasntPlayIconPressed(event) {
     return event.target !== document.getElementById('playIcon');
 }
+
+/**
+ * Checks if the left button was pressed.
+ * 
+ * @param {Event} event - The event object from the user interaction.
+ * @returns {boolean} - Returns true if the left button was pressed.
+ */
 
 function wasButtonLeftPressed(event) {
     return event.target == document.getElementById('buttonLeft');
 }
 
+/**
+ * Checks if the right button was pressed.
+ * 
+ * @param {Event} event - The event object from the user interaction.
+ * @returns {boolean} - Returns true if the right button was pressed.
+ */
+
 function wasButtonRightPressed(event) {
     return event.target == document.getElementById('buttonRight');
 }
+
+/**
+ * Checks if the up button was pressed.
+ * 
+ * @param {Event} event - The event object from the user interaction.
+ * @returns {boolean} - Returns true if the up button was pressed.
+ */
 
 function wasButtonUpPressed(event) {
     return event.target == document.getElementById('buttonUp');
 }
 
+/**
+ * Checks if the throw button was pressed.
+ * 
+ * @param {Event} event - The event object from the user interaction.
+ * @returns {boolean} - Returns true if the throw button was pressed.
+ */
+
 function wasButtonThrowPressed(event) {
     return event.target == document.getElementById('buttonThrow');
 }
 
+// Event listeners for orientation and screen resizing
+
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
+
+/**
+ * Handles the visibility of the control panel depending on screen resize and fullscreen mode.
+ * If the game is playing and fullscreen is not activated, the control panel is hidden.
+ * If fullscreen is activated, the control panel is displayed.
+ */
+
 window.addEventListener('resize', () => {
     if (isGamePlaying && !isFullscreenActivated) {
         document.getElementById('control-panel-everything').style.display = 'none';
@@ -43,6 +97,10 @@ window.addEventListener('resize', () => {
         document.getElementById('control-panel-everything').style.display = 'flex';
     }
 });
+
+/**
+ * Toggles fullscreen mode and handles the exit from fullscreen.
+ */
 
 document.addEventListener('fullscreenchange', () => {
     isFullscreenActivated = !!document.fullscreenElement;
@@ -53,6 +111,10 @@ document.addEventListener('fullscreenchange', () => {
     }
 });
 
+/**
+ * Sets global variables when a key or touch event is triggered.
+ */
+
 function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
     wasRandomKeyOncePressed = true;
     isKeyPressed = true;
@@ -62,12 +124,18 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
     world.character.isKeyStillPressed = isKeyPressed;
 }
 
+/**
+ * Sets global variables when a key or touch event ends.
+ */
+
 function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
     isKeyPressed = false;
     lastTimeKeyPressed = new Date().getTime();
     world.character.lastTimeKeyPressed = lastTimeKeyPressed;
     world.character.isKeyStillPressed = isKeyPressed;
 }
+
+// Event listener for touchstart events
 
 window.addEventListener('touchstart', (event) => {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
@@ -85,7 +153,9 @@ window.addEventListener('touchstart', (event) => {
             keyboard.keyD = true;
         }
     }
-})
+});
+
+// Event listener for touchend events
 
 window.addEventListener('touchend', (event) => {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
@@ -104,6 +174,8 @@ window.addEventListener('touchend', (event) => {
         }
     }
 });
+
+// Event listener for keydown events
 
 window.addEventListener('keydown', (event) => {
     settingGlobalVariablesInKeyDownOrTouchStartEvent();
@@ -126,6 +198,8 @@ window.addEventListener('keydown', (event) => {
         keyboard.keyD = true;
     }
 });
+
+// Event listener for keyup events
 
 window.addEventListener('keyup', (event) => {
     settingGlobalVariablesInKeyUpOrTouchEndEvent();
