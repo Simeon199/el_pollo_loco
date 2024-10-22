@@ -212,7 +212,8 @@ function manageStyleDependingOnWinndingOrLosing(string) {
         changeStyleWhenLosing(string);
     } else if (string === 'winning') {
         changeStyleWhenWinning(string);
-    } else {
+    }
+    else {
         resetGame();
     }
 }
@@ -278,4 +279,16 @@ function closeExplainGameContainer() {
     if (!explainGameContainer.classList.contains('d-none')) {
         explainGameContainer.classList.add('d-none');
     }
+}
+
+/**
+* Resets the necessary styling by hiding or showing certain containers when playAgain()-button is pressed.
+*/
+
+function settingUpStyleWhenPlayAgainButtonPressed() {
+    document.getElementById('canvas-container').style.display = 'flex';
+    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('losing-image').style.display = 'none';
+    document.getElementById('winning-image').style.display = 'none';
+    document.getElementById('main-title').style.display = 'none';
 }

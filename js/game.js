@@ -110,8 +110,7 @@ function isChangingToFullscreenActivated() {
  */
 
 function isLandscapeScreenActivated() {
-    // return window.innerHeight > window.innerWidth;
-    return window.innerWidth > window.innerHeight;
+    return window.innerHeight > window.innerWidth;
 }
 
 /**
@@ -134,12 +133,16 @@ function init() {
  */
 
 function checkIfEnemyOrCharacterIsDead() {
+    if (!isGamePlaying) {
+        return;
+    }
     setInterval(() => {
         if (world.character.energy == 0) {
             stopGame('losing');
             isGamePlaying = false;
-        } else if (world.enemiesNumber <= 0) {
+        } else if (world.level.enemies && world.level.enemies.filter(enemy => !enemy.isDead).length <= 0) {
             stopGame('winning');
+            isGamePlaying = false;
         }
     }, 100);
 }
@@ -236,7 +239,9 @@ function isTabletOrCloseToDesktopSize() {
  */
 
 function stopGame(string) {
-    if (!isGamePlaying) return;
+    // if (!isGamePlaying) {
+    //     return;
+    // }
     setTimeout(() => {
         manageStyleWhenGameIsStopped();
         manageStyleDependingOnWinndingOrLosing(string);
@@ -332,16 +337,7 @@ function playAgain() {
     if (!isFullscreenActivated) {
         fullscreen();
     }
-}
-
-/**
-* Resets the necessary styling by hiding or showing certain containers when playAgain()-button is pressed.
-*/
-
-function settingUpStyleWhenPlayAgainButtonPressed() {
-    document.getElementById('canvas-container').style.display = 'flex';
-    document.getElementById('canvas').style.display = 'block';
-    document.getElementById('losing-image').style.display = 'none';
-    document.getElementById('winning-image').style.display = 'none';
-    document.getElementById('main-title').style.display = 'none';
+    if (soundIsMuted == true) {
+        soundIsMuted = false;
+    }
 }

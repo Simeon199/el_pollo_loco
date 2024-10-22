@@ -199,7 +199,9 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.stopSpeedAccelerationAndHeightOfBottle();
             this.setLandingBottleDirection(direction);
-            this.bottleLanding.play();
+            if (this.landingWithoutSound == false) {
+                this.bottleLanding.play();
+            }
             clearInterval(this.intervalID);
         }
     }

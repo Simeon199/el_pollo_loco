@@ -31,8 +31,7 @@ class World {
     bellSound = new Audio('audio/bellSound.mp3');
 
     /**
-     * Constructor of the World class.
-     * Initializes the game canvas, level, audio, and game elements.
+     * Constructor of the World class. Initializes the game canvas, level, audio, and game elements.
      * 
      * @param {HTMLCanvasElement} canvas - The HTML canvas element to render the game world on.
      * @param {object} keyboard - The keyboard input object to control the game character.
@@ -72,16 +71,42 @@ class World {
     }
 
     /**
-     * Runs the main game loop, checking collisions, throwable objects, enemy movement, and playing background music.
-     * The loop runs at intervals of 100 ms.
+     * Runs the main game loop, checking collisions, throwable objects, enemy movement, and playing background music. The loop runs at intervals of 100 ms.
      */
 
     run() {
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
-            this.backgroundMusic.play();
+            this.playBackgroundMusic();
         }, 100);
+    }
+
+    /**
+    * Plays an audio file if it is not already playing. Stops the audio first if it is already playing.
+    * 
+    * @param {Audio} audioElement - The audio element to play.
+    */
+
+    playAudio(audioElement) {
+        if (!audioElement.paused) {
+            audioElement.pause();
+            audioElement.currentTime = 0; // Reset Time To Start
+        }
+        audioElement.play();
+    }
+
+    /**
+    * Plays an audio file if it is not already playing. Stops the audio first if it is already playing.
+    * 
+    * @param {Audio} audioElement - The audio element to play.
+    */
+
+    playBackgroundMusic() {
+        if (this.backgroundMusic.paused) {
+            this.backgroundMusic.loop = true;
+            this.backgroundMusic.play();
+        }
     }
 
     /**
@@ -111,8 +136,7 @@ class World {
     }
 
     /**
-    * Adjusts the coin bar when the character collects a coin.
-    * Updates the coin bar percentage based on the remaining number of coins in the game.
+    * Adjusts the coin bar when the character collects a coin. Updates the coin bar percentage based on the remaining number of coins in the game.
     */
 
     adjustCoinbarWhenCharacterCollectsCoin() {
@@ -125,8 +149,7 @@ class World {
     }
 
     /**
-    * Checks if a bottle is flying and hits the Endboss.
-    * Ensures the Endboss is alive and the bottle is not on the ground.
+    * Checks if a bottle is flying and hits the Endboss. Ensures the Endboss is alive and the bottle is not on the ground.
     * 
     * @param {Object} bottle - The thrown bottle object.
     * @param {Object} enemy - The Endboss.
@@ -161,8 +184,7 @@ class World {
     }
 
     /**
-    * Handles cases when the character is hit by an enemy.
-    * Determines if the enemy is defeated by being jumped on, or if the character takes damage.
+    * Handles cases when the character is hit by an enemy. Determines if the enemy is defeated by being jumped on, or if the character takes damage.
     * 
     * @param {Object} enemy - The enemy that collides with the character.
     */
@@ -173,13 +195,12 @@ class World {
         } else if (!enemy.isDead) {
             this.adjustStatusBarWhenCharacterGetsHit();
             this.applyKnockback(enemy);
-            this.punchAndOuch.play();
+            this.playAudio(this.punchAndOuch);
         }
     }
 
     /**
-    * Adjusts the status bar when the character gets hit.
-    * Decreases the character's energy and updates the status bar's percentage.
+    * Adjusts the status bar when the character gets hit. Decreases the character's energy and updates the status bar's percentage.
     */
 
     adjustStatusBarWhenCharacterGetsHit() {
@@ -200,8 +221,7 @@ class World {
     }
 
     /**
-    * Sets variables related to the Endboss when the character is knocked back.
-    * Marks the Endboss as having hit the character and stores the time of the hit.
+    * Sets variables related to the Endboss when the character is knocked back. Marks the Endboss as having hit the character and stores the time of the hit.
     * 
     * @param {Object} enemy - The Endboss that hits the character.
     */
@@ -235,8 +255,7 @@ class World {
     }
 
     /**
-    * Sets an interval to apply knockback movement to the character.
-    * Moves the character by the knockback speed until the total knockback distance is reached.
+    * Sets an interval to apply knockback movement to the character. Moves the character by the knockback speed until the total knockback distance is reached.
     * 
     * @param {number} knockbackDistance - The total distance of the knockback.
     * @param {number} knockbackSpeed - The speed at which the character is knocked back.
@@ -261,8 +280,7 @@ class World {
     }
 
     /**
-    * Applies knockback to the character when hit by an enemy.
-    * The knockback speed and distance are determined, and the knockback interval is set.
+    * Applies knockback to the character when hit by an enemy. The knockback speed and distance are determined, and the knockback interval is set.
     * 
     * @param {Object} enemy - The enemy that hits the character.
     */
@@ -298,16 +316,16 @@ class World {
     */
 
     enemyIsDefeatedByJump(enemy) {
+        // debugger;
         enemy.isDead = true;
         this.enemiesNumber -= 1;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
-        this.hit.play();
+        this.playAudio(this.hit);
     }
 
     /**
-    * Draws the game objects and background on the canvas.
-    * Clears the previous frame, translates the camera position, and adds all objects to the map.
+    * Draws the game objects and background on the canvas. Clears the previous frame, translates the camera position, and adds all objects to the map.
     */
 
     draw() {
@@ -360,8 +378,7 @@ class World {
     }
 
     /**
-    * Adds a single object to the canvas.
-    * If the object is facing the other direction, its image is flipped before drawing.
+    * Adds a single object to the canvas. If the object is facing the other direction, its image is flipped before drawing.
     * 
     * @param {Object} mo - The game object to add to the canvas.
     */
@@ -371,15 +388,13 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
     }
 
     /**
-    * Flips the image of a game object horizontally.
-    * Used when the object is facing the opposite direction.
+    * Flips the image of a game object horizontally. Used when the object is facing the opposite direction.
     * 
     * @param {Object} mo - The game object whose image will be flipped.
     */

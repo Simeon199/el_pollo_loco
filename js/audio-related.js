@@ -65,6 +65,7 @@ function setAllWorldAudioSound(bolean) {
     manageBackgroundMusic(bolean);
     manageAudioRelatedToHitting(bolean);
     manageAudioRelatedToCollectingItems(bolean);
+    setThrowableObjectsAudioSound(bolean);
 }
 
 /**
@@ -73,9 +74,13 @@ function setAllWorldAudioSound(bolean) {
  * @param {boolean} bolean - If true, mutes the background music; if false, unmutes it.
  */
 
-function manageBackgroundMusic(bolean) {
+function manageBackgroundMusic(mute) {
     if (world.backgroundMusic) {
-        world.backgroundMusic.muted = bolean;
+        world.backgroundMusic.muted = mute;
+        // Fortsetzen, wenn Musik pausiert wurde und nun nicht mehr stumm ist
+        if (!mute && world.backgroundMusic.paused) {
+            world.backgroundMusic.play();
+        }
     }
 }
 
@@ -85,17 +90,27 @@ function manageBackgroundMusic(bolean) {
  * @param {boolean} bolean - If true, mutes hit-related sounds; if false, unmutes them.
  */
 
-function manageAudioRelatedToHitting(bolean) {
+function manageAudioRelatedToHitting(mute) {
     if (world.hit) {
-        world.hit.muted = bolean;
+        world.hit.muted = mute;
+        if (!mute && world.hit.paused) {
+            world.hit.play();
+        }
     }
     if (world.punchAndOuch) {
-        world.punchAndOuch.muted = bolean;
+        world.punchAndOuch.muted = mute;
+        if (!mute && world.punchAndOuch.paused) {
+            world.punchAndOuch.play();
+        }
     }
     if (world.bottleHit) {
-        world.bottleHit.muted = bolean;
+        world.bottleHit.muted = mute;
+        if (!mute && world.bottleHit.paused) {
+            world.bottleHit.play();
+        }
     }
 }
+
 
 /**
  * Mutes or unmutes sounds related to collecting items in the game world.
@@ -103,12 +118,18 @@ function manageAudioRelatedToHitting(bolean) {
  * @param {boolean} bolean - If true, mutes item collection sounds; if false, unmutes them.
  */
 
-function manageAudioRelatedToCollectingItems(bolean) {
+function manageAudioRelatedToCollectingItems(mute) {
     if (world.loadingSound) {
-        world.loadingSound.muted = bolean;
+        world.loadingSound.muted = mute;
+        if (!mute && world.loadingSound.paused) {
+            world.loadingSound.play();
+        }
     }
     if (world.bellSound) {
-        world.bellSound.muted = bolean;
+        world.bellSound.muted = mute;
+        if (!mute && world.bellSound.paused) {
+            world.bellSound.play();
+        }
     }
 }
 
@@ -118,25 +139,36 @@ function manageAudioRelatedToCollectingItems(bolean) {
  * @param {boolean} bolean - If true, mutes character sounds; if false, unmutes them.
  */
 
-function setAllCharacterAudioSound(bolean) {
+function setAllCharacterAudioSound(mute) {
     if (world.character.walking_sound) {
-        world.character.walking_sound.muted = bolean;
+        world.character.walking_sound.muted = mute;
+        if (!mute && world.character.walking_sound.paused) {
+            world.character.walking_sound.play();
+        }
     }
     if (world.character.snorring_sound) {
-        world.character.snorring_sound.muted = bolean;
+        world.character.snorring_sound.muted = mute;
+        if (!mute && world.character.snorring_sound.paused) {
+            world.character.snorring_sound.play();
+        }
     }
 }
 
 /**
  * Mutes or unmutes sounds related to throwable objects in the game, such as the bottle landing sound.
  * 
- * @param {boolean} bolean - If true, mutes throwable object sounds; if false, unmutes them.
+ * @param {boolean} mute - If true, mutes throwable object sounds; if false, unmutes them.
  */
 
-function setThrowableObjectsAudioSound(bolean) {
-    world.throwableObjects.forEach(throwableObject => {
-        if (throwableObject.bottleLanding) {
-            throwableObject.bottleLanding.muted = bolean;
+
+function setThrowableObjectsAudioSound(mute) {
+    world.level.bottles.forEach(bottle => {
+        if (bottle.bottleLanding) {
+            bottle.landingWithoutSound = true;
+            bottle.bottleLanding.muted = mute;
+            if (!mute && bottle.bottleLanding.paused) {
+                bottle.bottleLanding.play();
+            }
         }
     });
 }
@@ -147,16 +179,25 @@ function setThrowableObjectsAudioSound(bolean) {
  * @param {boolean} bolean - If true, mutes enemy sounds; if false, unmutes them.
  */
 
-function setEnemiesAudioSound(bolean) {
+function setEnemiesAudioSound(mute) {
     world.level.enemies.forEach(enemy => {
         if (enemy.chickenSound) {
-            enemy.chickenSound.muted = bolean;
+            enemy.chickenSound.muted = mute;
+            if (!mute && enemy.chickenSound.paused) {
+                enemy.chickenSound.play();
+            }
         }
         if (enemy.chickenScream) {
-            enemy.chickenScream.muted = bolean;
+            enemy.chickenScream.muted = mute;
+            if (!mute && enemy.chickenScream.paused) {
+                enemy.chickenScream.play();
+            }
         }
         if (enemy.hitAndScream) {
-            enemy.hitAndScream.muted = bolean;
+            enemy.hitAndScream.muted = mute;
+            if (!mute && enemy.hitAndScream.paused) {
+                enemy.hitAndScream.play();
+            }
         }
     });
 }
@@ -168,17 +209,20 @@ function setEnemiesAudioSound(bolean) {
  * @param {boolean} bolean - If true, mutes all sounds; if false, unmutes them.
  */
 
-function muteUnmuteSound(bolean) {
+function muteUnmuteSound(mute) {
     if (doesWorldExist()) {
-        setAllWorldAudioSound(bolean);
+        setAllWorldAudioSound(mute);
         if (doesCharacterExistInWorld()) {
-            setAllCharacterAudioSound(bolean);
+            setAllCharacterAudioSound(mute);
         }
         if (doThrowableObjectsExistInWorld()) {
-            setThrowableObjectsAudioSound(bolean);
+            setThrowableObjectsAudioSound(mute);
         }
         if (doEnemiesExistInWorld()) {
-            setEnemiesAudioSound(bolean);
+            setEnemiesAudioSound(mute);
+        }
+        if (!mute && world.backgroundMusic.paused) {
+            world.backgroundMusic.play();
         }
     }
 }
