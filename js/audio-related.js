@@ -77,10 +77,6 @@ function setAllWorldAudioSound(bolean) {
 function manageBackgroundMusic(mute) {
     if (world.backgroundMusic) {
         world.backgroundMusic.muted = mute;
-        // Fortsetzen, wenn Musik pausiert wurde und nun nicht mehr stumm ist
-        if (!mute && world.backgroundMusic.paused) {
-            world.backgroundMusic.play();
-        }
     }
 }
 
@@ -93,24 +89,14 @@ function manageBackgroundMusic(mute) {
 function manageAudioRelatedToHitting(mute) {
     if (world.hit) {
         world.hit.muted = mute;
-        if (!mute && world.hit.paused) {
-            world.hit.play();
-        }
     }
     if (world.punchAndOuch) {
         world.punchAndOuch.muted = mute;
-        if (!mute && world.punchAndOuch.paused) {
-            world.punchAndOuch.play();
-        }
     }
     if (world.bottleHit) {
         world.bottleHit.muted = mute;
-        if (!mute && world.bottleHit.paused) {
-            world.bottleHit.play();
-        }
     }
 }
-
 
 /**
  * Mutes or unmutes sounds related to collecting items in the game world.
@@ -121,15 +107,9 @@ function manageAudioRelatedToHitting(mute) {
 function manageAudioRelatedToCollectingItems(mute) {
     if (world.loadingSound) {
         world.loadingSound.muted = mute;
-        if (!mute && world.loadingSound.paused) {
-            world.loadingSound.play();
-        }
     }
     if (world.bellSound) {
         world.bellSound.muted = mute;
-        if (!mute && world.bellSound.paused) {
-            world.bellSound.play();
-        }
     }
 }
 
@@ -142,15 +122,9 @@ function manageAudioRelatedToCollectingItems(mute) {
 function setAllCharacterAudioSound(mute) {
     if (world.character.walking_sound) {
         world.character.walking_sound.muted = mute;
-        if (!mute && world.character.walking_sound.paused) {
-            world.character.walking_sound.play();
-        }
     }
     if (world.character.snorring_sound) {
         world.character.snorring_sound.muted = mute;
-        if (!mute && world.character.snorring_sound.paused) {
-            world.character.snorring_sound.play();
-        }
     }
 }
 
@@ -164,11 +138,7 @@ function setAllCharacterAudioSound(mute) {
 function setThrowableObjectsAudioSound(mute) {
     world.level.bottles.forEach(bottle => {
         if (bottle.bottleLanding) {
-            bottle.landingWithoutSound = true;
             bottle.bottleLanding.muted = mute;
-            if (!mute && bottle.bottleLanding.paused) {
-                bottle.bottleLanding.play();
-            }
         }
     });
 }
@@ -183,21 +153,12 @@ function setEnemiesAudioSound(mute) {
     world.level.enemies.forEach(enemy => {
         if (enemy.chickenSound) {
             enemy.chickenSound.muted = mute;
-            if (!mute && enemy.chickenSound.paused) {
-                enemy.chickenSound.play();
-            }
         }
         if (enemy.chickenScream) {
             enemy.chickenScream.muted = mute;
-            if (!mute && enemy.chickenScream.paused) {
-                enemy.chickenScream.play();
-            }
         }
         if (enemy.hitAndScream) {
             enemy.hitAndScream.muted = mute;
-            if (!mute && enemy.hitAndScream.paused) {
-                enemy.hitAndScream.play();
-            }
         }
     });
 }

@@ -1,6 +1,5 @@
 /**
- * Represents the Endboss, a subclass of Chicken, with further animations and behaviors. 
- * The Endboss has specific attack, hurt, and dying animations and interacts with the main character.
+ * Represents the Endboss, a subclass of Chicken, with further animations and behaviors.  The Endboss has specific attack, hurt, and dying animations and interacts with the main character.
  */
 
 class Endboss extends Chicken {
@@ -256,8 +255,7 @@ class Endboss extends Chicken {
 
     /**
     * Checks if the main character is too close to the Endboss from the right side.
-    * The condition is met if the horizontal distance between the Endboss and the character
-    * is less than 400 pixels and the Endboss is positioned to the left of the character.
+    * The condition is met if the horizontal distance between the Endboss and the character is less than 400 pixels and the Endboss is positioned to the left of the character.
     * 
     * @returns {boolean} True if the main character is close from the right and the Endboss is still alive, false otherwise.
     */
@@ -270,8 +268,7 @@ class Endboss extends Chicken {
     }
 
     /**
-    * Checks if the main character is too close to the Endboss from the left side.
-    * The condition is met if the horizontal distance between the Endboss and the character
+    * Checks if the main character is too close to the Endboss from the left side. The condition is met if the horizontal distance between the Endboss and the character
     * is less than 400 pixels and the Endboss is positioned to the right of the character.
     * 
     * @returns {boolean} True if the main character is close from the left and the Endboss is still alive, false otherwise.

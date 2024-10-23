@@ -137,10 +137,11 @@ function checkIfEnemyOrCharacterIsDead() {
         return;
     }
     setInterval(() => {
+        console.log("Number of Enemies: ", world.enemiesNumber);
         if (world.character.energy == 0) {
             stopGame('losing');
             isGamePlaying = false;
-        } else if (world.level.enemies && world.level.enemies.filter(enemy => !enemy.isDead).length <= 0) {
+        } else if (world.enemiesNumber <= 0) {
             stopGame('winning');
             isGamePlaying = false;
         }
@@ -239,13 +240,15 @@ function isTabletOrCloseToDesktopSize() {
  */
 
 function stopGame(string) {
-    // if (!isGamePlaying) {
-    //     return;
-    // }
-    setTimeout(() => {
-        manageStyleWhenGameIsStopped();
-        manageStyleDependingOnWinndingOrLosing(string);
-    }, 1000);
+    if (!isGamePlaying) {
+        return;
+    }
+    manageStyleWhenGameIsStopped();
+    manageStyleDependingOnWinndingOrLosing(string);
+    // setTimeout(() => {
+    //     manageStyleWhenGameIsStopped();
+    //     manageStyleDependingOnWinndingOrLosing(string);
+    // }, 1000);
 }
 
 /**
@@ -334,10 +337,11 @@ function playAgain() {
     world = new World(canvas, keyboard);
     hasGameStarted = false;
     checkIfEnemyOrCharacterIsDead();
-    if (!isFullscreenActivated) {
+    if (!isFullscreenActivated && !isDesktopDevice()) {
         fullscreen();
     }
-    if (soundIsMuted == true) {
-        soundIsMuted = false;
-    }
+    // resetGame()
+    // if (soundIsMuted == true) {
+    //     soundIsMuted = false;
+    // }
 }

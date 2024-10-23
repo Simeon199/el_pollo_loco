@@ -78,35 +78,8 @@ class World {
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
-            this.playBackgroundMusic();
-        }, 100);
-    }
-
-    /**
-    * Plays an audio file if it is not already playing. Stops the audio first if it is already playing.
-    * 
-    * @param {Audio} audioElement - The audio element to play.
-    */
-
-    playAudio(audioElement) {
-        if (!audioElement.paused) {
-            audioElement.pause();
-            audioElement.currentTime = 0; // Reset Time To Start
-        }
-        audioElement.play();
-    }
-
-    /**
-    * Plays an audio file if it is not already playing. Stops the audio first if it is already playing.
-    * 
-    * @param {Audio} audioElement - The audio element to play.
-    */
-
-    playBackgroundMusic() {
-        if (this.backgroundMusic.paused) {
-            this.backgroundMusic.loop = true;
             this.backgroundMusic.play();
-        }
+        }, 100);
     }
 
     /**
@@ -195,7 +168,7 @@ class World {
         } else if (!enemy.isDead) {
             this.adjustStatusBarWhenCharacterGetsHit();
             this.applyKnockback(enemy);
-            this.playAudio(this.punchAndOuch);
+            this.punchAndOuch.play();
         }
     }
 
@@ -316,12 +289,11 @@ class World {
     */
 
     enemyIsDefeatedByJump(enemy) {
-        // debugger;
         enemy.isDead = true;
         this.enemiesNumber -= 1;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
-        this.playAudio(this.hit);
+        this.hit.play();
     }
 
     /**
