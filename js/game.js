@@ -120,12 +120,14 @@ function isLandscapeScreenActivated() {
 function init() {
     if (world) {
         world.reset();
+        soundIsMuted = false;
     } else {
         canvas = document.getElementById("canvas");
         world = new World(canvas, keyboard);
     }
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
+    hasGameStarted = true;
 }
 
 /**
@@ -139,9 +141,12 @@ function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         console.log("Number of Enemies: ", world.enemiesNumber);
         if (world.character.energy == 0) {
+            debugger;
+            console.log('Character is Dead now! Stop the Game');
             stopGame('losing');
             isGamePlaying = false;
         } else if (world.enemiesNumber <= 0) {
+            debugger;
             stopGame('winning');
             isGamePlaying = false;
         }
@@ -245,10 +250,6 @@ function stopGame(string) {
     }
     manageStyleWhenGameIsStopped();
     manageStyleDependingOnWinndingOrLosing(string);
-    // setTimeout(() => {
-    //     manageStyleWhenGameIsStopped();
-    //     manageStyleDependingOnWinndingOrLosing(string);
-    // }, 1000);
 }
 
 /**
@@ -333,15 +334,11 @@ function clearAllIntervals() {
  */
 
 function playAgain() {
+    // debugger;
     settingUpStyleWhenPlayAgainButtonPressed();
-    world = new World(canvas, keyboard);
     hasGameStarted = false;
-    checkIfEnemyOrCharacterIsDead();
-    if (!isFullscreenActivated && !isDesktopDevice()) {
+    if (!isDesktopDevice()) { // !isFullscreenActivated && 
         fullscreen();
     }
-    // resetGame()
-    // if (soundIsMuted == true) {
-    //     soundIsMuted = false;
-    // }
+    init();
 }
