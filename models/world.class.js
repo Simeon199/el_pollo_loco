@@ -62,12 +62,18 @@ class World {
         this.coinbar = new CoinBar();
         this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
         this.enemiesNumber = this.level.enemies.length;
+        hasGameStarted = false;
+        // isGameOver = false;
         this.throwableObjects = [];
         this.camera_x = 0;
         this.setWorld();
         this.bottlebar.bottleAmount = this.level.bottles.length;
         clearInterval(this.runInterval);
-        this.run();
+        this.backgroundMusic.currentTime = 0;
+        if (!this.hasGameStarted) {
+            this.run();
+            this.hasGameStarted = true;
+        }
     }
 
     /**

@@ -118,13 +118,15 @@ function isLandscapeScreenActivated() {
  */
 
 function init() {
-    if (world) {
-        world.reset();
-        soundIsMuted = false;
-    } else {
-        canvas = document.getElementById("canvas");
-        world = new World(canvas, keyboard);
-    }
+    // if (world) {
+    //     world.reset();
+    //     soundIsMuted = false;
+    // } else {
+    //     canvas = document.getElementById("canvas");
+    //     world = new World(canvas, keyboard);
+    // }
+    canvas = document.getElementById("canvas");
+    world = new World(canvas, keyboard);
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
     hasGameStarted = true;
@@ -141,14 +143,12 @@ function checkIfEnemyOrCharacterIsDead() {
     setInterval(() => {
         console.log("Number of Enemies: ", world.enemiesNumber);
         if (world.character.energy == 0) {
-            debugger;
+            // debugger;
             console.log('Character is Dead now! Stop the Game');
             stopGame('losing');
-            isGamePlaying = false;
         } else if (world.enemiesNumber <= 0) {
-            debugger;
+            // debugger;
             stopGame('winning');
-            isGamePlaying = false;
         }
     }, 100);
 }
@@ -329,16 +329,25 @@ function clearAllIntervals() {
     }
 }
 
+// Hier noch nach JSDoc-Standard dokumentieren!
+
+function setIsGamePlayingTrueIfFalse() {
+    if (isGamePlaying == false) {
+        isGamePlaying = true;
+    }
+}
+
 /**
  * Prepares the game to be played again, resetting the world and calling the function "settingUpStyleWhenPlayAgainButtonPressed()".
  */
 
 function playAgain() {
-    // debugger;
+    debugger;
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
-    if (!isDesktopDevice()) { // !isFullscreenActivated && 
+    if (!isDesktopDevice() && !isFullscreenActivated) {
         fullscreen();
     }
+    setIsGamePlayingTrueIfFalse();
     init();
 }

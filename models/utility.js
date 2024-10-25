@@ -77,7 +77,6 @@ class Utility {
             this.world.character.energy += 5;
             this.adjustStatusBarWhenCharacterGetsCoin();
         }
-        // this.world.playAudio(this.world.bellSound);
         this.world.bellSound.play();
     }
 
@@ -113,7 +112,6 @@ class Utility {
         this.world.bottlebar.bottlesCollected += 1;
         this.world.level.bottles.splice(index, 1);
         this.world.loadingSound.play();
-        // this.world.playAudio(this.world.loadingSound);
     }
 
     /**
@@ -206,7 +204,6 @@ class Utility {
             this.world.enemiesNumber -= 1;
             enemy.animate(this.world.level.enemies);
             bottle.playBottleBrokenAnimation();
-            // this.world.playAudio(this.world.bottleHit);
             this.world.bottleHit.play();
         }
     }
@@ -240,7 +237,6 @@ class Utility {
     animateHurtButStillAliveEndboss(enemy) {
         this.world.endbossbar.percentage -= 5;
         this.world.endbossbar.setPercentage(enemy.energy, this.world.endbossbar.IMAGES_DEAD_ENDBOSS);
-        // this.world.playAudio(this.world.bottleHit);
         this.world.bottleHit.play();
     }
 

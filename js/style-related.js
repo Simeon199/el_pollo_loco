@@ -71,19 +71,30 @@ function setSoundStylingForFullscreen() {
 function manageAddRemoveClassesWhenEnterFullscreen() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
-    if (isTabletOrCloseToDesktopSize()) {
+    if (isTabletOrCloseToDesktopSize() || isMobileDevice()) {
         document.getElementById('minimize-button').style.display = 'none';
-    } else {
+    } else if (isDesktopDevice()) {
         document.getElementById('minimize-button').style.display = 'flex';
     }
-    if (soundOn) {
+    controlMuteCondition();
+    setSoundStylingForFullscreen();
+}
+
+// Hier muss dann noch ein Kommentar rein (JSDoc)
+
+function controlMuteCondition() {
+    if (hasGameStarted) {
+        if (soundOn) {
+            document.getElementById('sound-off-icon').style.display = 'none';
+            document.getElementById('sound-on-icon').style.display = 'flex';
+        } else {
+            document.getElementById('sound-off-icon').style.display = 'flex';
+            document.getElementById('sound-on-icon').style.display = 'none';
+        }
+    } else {
         document.getElementById('sound-off-icon').style.display = 'none';
         document.getElementById('sound-on-icon').style.display = 'flex';
-    } else {
-        document.getElementById('sound-off-icon').style.display = 'flex';
-        document.getElementById('sound-on-icon').style.display = 'none';
     }
-    setSoundStylingForFullscreen();
 }
 
 /**
