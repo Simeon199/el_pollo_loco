@@ -84,19 +84,19 @@ function wasButtonThrowPressed(event) {
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
 
-/**
+/** Hier JSDoc-Kommentar anpassen!!!
  * Handles the visibility of the control panel depending on screen resize and fullscreen mode.
  * If the game is playing and fullscreen is not activated, the control panel is hidden.
  * If fullscreen is activated, the control panel is displayed.
  */
 
-window.addEventListener('resize', () => {
+function handleVisibilityOfControlPanelWhenResizing() {
     if (isGamePlaying && !isFullscreenActivated) {
         document.getElementById('control-panel-everything').style.display = 'none';
     } else if (isGamePlaying && isFullscreenActivated) {
         document.getElementById('control-panel-everything').style.display = 'flex';
     }
-});
+}
 
 /**
  * Toggles fullscreen mode and handles the exit from fullscreen.
@@ -135,9 +135,12 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
     world.character.isKeyStillPressed = isKeyPressed;
 }
 
+window.addEventListener('touchstart', touchStartHandler);
+window.addEventListener('touchend', touchEndHandler);
+
 // Event listener for touchstart events
 
-window.addEventListener('touchstart', (event) => {
+function touchStartHandler(event) {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
         settingGlobalVariablesInKeyDownOrTouchStartEvent();
         if (wasButtonLeftPressed(event)) {
@@ -153,11 +156,11 @@ window.addEventListener('touchstart', (event) => {
             keyboard.keyD = true;
         }
     }
-});
+}
 
 // Event listener for touchend events
 
-window.addEventListener('touchend', (event) => {
+function touchEndHandler(event) {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
         if (wasButtonLeftPressed(event)) {
@@ -173,11 +176,14 @@ window.addEventListener('touchend', (event) => {
             keyboard.keyD = false;
         }
     }
-});
+}
+
+window.addEventListener('keyup', keyUpHandler);
+window.addEventListener('keydown', keyDownHandler);
 
 // Event listener for keydown events
 
-window.addEventListener('keydown', (event) => {
+function keyDownHandler(event) {
     settingGlobalVariablesInKeyDownOrTouchStartEvent();
     if (event.keyCode == 39) {
         prepareForThrowingRight();
@@ -197,11 +203,11 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
     }
-});
+}
 
 // Event listener for keyup events
 
-window.addEventListener('keyup', (event) => {
+function keyUpHandler(event) {
     settingGlobalVariablesInKeyUpOrTouchEndEvent();
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
@@ -221,4 +227,26 @@ window.addEventListener('keyup', (event) => {
     if (event.keyCode == 68) {
         keyboard.keyD = false;
     }
-});
+}
+
+// Hier noch nach JSDoc-Standard zu dokumentieren!
+
+function addingAndRemovingClassesDependingOnFullscreenActivated() {
+    isFullscreenActivated = !!document.fullscreenElement;
+    if (!isFullscreenActivated) {
+        manageAddRemoveClassesWhenExitFullscreen();
+    } else {
+        isChangingToFullscreen = false;
+    }
+}
+
+// Hier noch nach JSDoc-Standard kommentieren
+
+function removeAllListeners() {
+    window.removeEventListener("orientationchange", checkOrientation);
+    window.removeEventListener("resize", checkOrientation);
+    window.removeEventListener("resize", handleVisibilityOfControlPanelWhenResizing);
+    document.removeEventListener("fullscreenchange", addingAndRemovingClassesDependingOnFullscreenActivated);
+    window.removeEventListener('touchstart', touchStartHandler);
+    window.removeEventListener('touchend', touchEndHandler);
+}

@@ -51,32 +51,6 @@ class World {
     }
 
     /**
-     * Resets the game state, restoring character, status bars, enemies, and other elements to their initial state.
-     */
-
-    reset() {
-        this.character = new Character();
-        this.statusbar = new StatusBar();
-        this.bottlebar = new BottleBar();
-        this.endbossbar = new EndbossBar();
-        this.coinbar = new CoinBar();
-        this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
-        this.enemiesNumber = this.level.enemies.length;
-        hasGameStarted = false;
-        // isGameOver = false;
-        this.throwableObjects = [];
-        this.camera_x = 0;
-        this.setWorld();
-        this.bottlebar.bottleAmount = this.level.bottles.length;
-        clearInterval(this.runInterval);
-        this.backgroundMusic.currentTime = 0;
-        if (!this.hasGameStarted) {
-            this.run();
-            this.hasGameStarted = true;
-        }
-    }
-
-    /**
      * Runs the main game loop, checking collisions, throwable objects, enemy movement, and playing background music. The loop runs at intervals of 100 ms.
      */
 

@@ -117,14 +117,31 @@ function isLandscapeScreenActivated() {
  * Initializes the game, creating the world and setting up the canvas and context.
  */
 
+
+// Hier fehlen überall die JSDoc-Kommentare
+
+function deleteWorldInstance() {
+    if (world) {
+        clearAllIntervals();
+        world = null;
+    }
+}
+
 function init() {
-    // if (world) {
-    //     world.reset();
-    //     soundIsMuted = false;
-    // } else {
-    //     canvas = document.getElementById("canvas");
-    //     world = new World(canvas, keyboard);
-    // }
+    deleteWorldInstance();
+    removeAllListeners();
+    addAllEventListenersWhenInitGame();
+    setRemainingObjectsAndVariablesWhenInitGame();
+}
+
+function addAllEventListenersWhenInitGame() {
+    window.addEventListener('keydown', keyDownHandler);
+    window.addEventListener('keyup', keyUpHandler);
+    window.addEventListener('touchstart', touchStartHandler);
+    window.addEventListener('touchend', touchEndHandler);
+}
+
+function setRemainingObjectsAndVariablesWhenInitGame() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     ctx = canvas.getContext('2d');
