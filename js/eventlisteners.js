@@ -84,9 +84,8 @@ function wasButtonThrowPressed(event) {
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
 
-/** Hier JSDoc-Kommentar anpassen!!!
- * Handles the visibility of the control panel depending on screen resize and fullscreen mode.
- * If the game is playing and fullscreen is not activated, the control panel is hidden.
+/** 
+ * Handles the visibility of the control panel. If the game is playing and fullscreen is not activated, the control panel is hidden.
  * If fullscreen is activated, the control panel is displayed.
  */
 
@@ -135,7 +134,16 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
     world.character.isKeyStillPressed = isKeyPressed;
 }
 
+/**
+ * Event listener for the 'touchstart' event. Invokes the touchStartHandler to handle touch-based controls.
+ */
+
 window.addEventListener('touchstart', touchStartHandler);
+
+/**
+ * Event listener for the 'touchend' event. Invokes the touchEndHandler to handle the end of touch interactions.
+ */
+
 window.addEventListener('touchend', touchEndHandler);
 
 // Event listener for touchstart events
@@ -178,10 +186,23 @@ function touchEndHandler(event) {
     }
 }
 
+/**
+ * Event listener for the 'keyup' event. Invokes keyUpHandler to handle keyboard key releases.
+ */
+
 window.addEventListener('keyup', keyUpHandler);
+
+/**
+ * Event listener for the 'keydown' event. Invokes keyDownHandler to handle keyboard key presses.
+ */
+
 window.addEventListener('keydown', keyDownHandler);
 
-// Event listener for keydown events
+/**
+ * Handles 'keydown' events by setting keyboard states based on key codes. Updates specific game actions based on the arrow keys, spacebar, and 'D' key.
+ *
+ * @param {KeyboardEvent} event - The keydown event containing key code data.
+ */
 
 function keyDownHandler(event) {
     settingGlobalVariablesInKeyDownOrTouchStartEvent();
@@ -205,7 +226,11 @@ function keyDownHandler(event) {
     }
 }
 
-// Event listener for keyup events
+/**
+ * Handles 'keyup' events by resetting keyboard states based on key codes. Stops specific game actions based on the arrow keys, spacebar, and 'D' key.
+ *
+ * @param {KeyboardEvent} event - The keyup event containing key code data.
+ */
 
 function keyUpHandler(event) {
     settingGlobalVariablesInKeyUpOrTouchEndEvent();
@@ -229,7 +254,9 @@ function keyUpHandler(event) {
     }
 }
 
-// Hier noch nach JSDoc-Standard zu dokumentieren!
+/**
+ * Adds or removes classes based on fullscreen activation status. Manages class changes when entering or exiting fullscreen mode.
+ */
 
 function addingAndRemovingClassesDependingOnFullscreenActivated() {
     isFullscreenActivated = !!document.fullscreenElement;
@@ -240,7 +267,9 @@ function addingAndRemovingClassesDependingOnFullscreenActivated() {
     }
 }
 
-// Hier noch nach JSDoc-Standard kommentieren
+/**
+ * Removes all previously attached event listeners from the window and document. Cleans up to prevent memory leaks and unwanted behavior when resetting the game.
+ */
 
 function removeAllListeners() {
     window.removeEventListener("orientationchange", checkOrientation);

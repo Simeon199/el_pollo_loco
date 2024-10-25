@@ -113,12 +113,10 @@ function isLandscapeScreenActivated() {
     return window.innerHeight > window.innerWidth;
 }
 
+
 /**
- * Initializes the game, creating the world and setting up the canvas and context.
+ * Deletes the current game world instance and clears all active intervals. Ensures no game logic persists from a previous game session.
  */
-
-
-// Hier fehlen überall die JSDoc-Kommentare
 
 function deleteWorldInstance() {
     if (world) {
@@ -127,6 +125,10 @@ function deleteWorldInstance() {
     }
 }
 
+/**
+ * Initializes the game by resetting all variables and listeners. Sets up a fresh game world and begins with default configurations.
+ */
+
 function init() {
     deleteWorldInstance();
     removeAllListeners();
@@ -134,12 +136,20 @@ function init() {
     setRemainingObjectsAndVariablesWhenInitGame();
 }
 
+/**
+ * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
+ */
+
 function addAllEventListenersWhenInitGame() {
     window.addEventListener('keydown', keyDownHandler);
     window.addEventListener('keyup', keyUpHandler);
     window.addEventListener('touchstart', touchStartHandler);
     window.addEventListener('touchend', touchEndHandler);
 }
+
+/**
+ * Sets up essential game objects and variables needed for game initialization. Creates the game world, sets the canvas context, and verifies character states.
+ */
 
 function setRemainingObjectsAndVariablesWhenInitGame() {
     canvas = document.getElementById("canvas");
@@ -346,7 +356,9 @@ function clearAllIntervals() {
     }
 }
 
-// Hier noch nach JSDoc-Standard dokumentieren!
+/**
+ * Sets the global variable `isGamePlaying` to true if it is currently false. Ensures that the game state reflects an active game session.
+ */
 
 function setIsGamePlayingTrueIfFalse() {
     if (isGamePlaying == false) {
@@ -359,7 +371,6 @@ function setIsGamePlayingTrueIfFalse() {
  */
 
 function playAgain() {
-    debugger;
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
     if (!isDesktopDevice() && !isFullscreenActivated) {
