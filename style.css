@@ -53,12 +53,6 @@ body {
     cursor: pointer;
 }
 
-/* .control-panel-everything {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-} */
-
 .style-container {
     padding: 4px;
     border: 4px solid black;
@@ -170,20 +164,19 @@ body {
 
 canvas {
     display: block;
+    width: 720px;
+    height: 480px;
     background-color: black;
     z-index: 1;
 }
 
 .sound-screen-control-container {
     display: flex;
-    flex: 1;
+    justify-content: center;
     z-index: 10001;
-    justify-content: flex-end;
     position: absolute;
-    gap: 8px;
-    top: 88%;
-    right: 1%;
-    width: 100%;
+    bottom: 0;
+    right: 0;
 }
 
 
@@ -248,21 +241,23 @@ canvas {
 /* All overlay sections */
 
 #overlay {
-    width: 100%;
+    height: 100dvh;
+    width: 100dvw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* #intro-image properties */
 
 #intro-image {
-    position: absolute;
+    position: relative;
     width: 720px;
     height: 480px;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 16px;
-    left: calc((100% - 720px)/2);
-    top: calc((100% - 480px)/2);
 }
 
 #intro-image img:nth-child(1) {
@@ -272,8 +267,8 @@ canvas {
 
 #intro-image img:nth-child(2) {
     position: absolute;
-    top: 88%;
-    right: 46%;
+    bottom: 2%;
+    right: calc((100% - 48px)/2);
     width: 48px;
     height: auto;
     cursor: pointer;
@@ -362,10 +357,10 @@ canvas {
     transform: scale(1.2);
 }
 
-#settings-image {
+/* #settings-image {
     width: 128px;
     cursor: pointer;
-}
+} */
 
 /* .explain-game-container properties as well as all sections below that */
 

@@ -3,10 +3,14 @@
  */
 
 function setCanvasElementsRightInCaseOfRightOrientation() {
+    document.getElementById('overlay').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('canvas-container').style.display = 'flex';
+    document.getElementById('canvas-container').style.justifyContent = 'center';
+    document.getElementById('canvas-container').style.alignItems = 'center';
 }
 
 /**
