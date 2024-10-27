@@ -76,11 +76,12 @@ function setSoundStylingForFullscreen() {
  */
 
 function manageAddRemoveClassesWhenEnterFullscreen() {
+    // debugger;
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
-    if (isTabletOrCloseToDesktopSize() || isMobileDevice()) {
+    if (isTabletOrCloseToDesktopSize() || (isMobileDevice() && window.innerWidth < 1400)) {
         document.getElementById('minimize-button').style.display = 'none';
-    } else if (isDesktopDevice()) {
+    } else if (isDesktopDevice() || window.innerWidth > 1400) {
         document.getElementById('minimize-button').style.display = 'flex';
     }
     controlMuteCondition();
