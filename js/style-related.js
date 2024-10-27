@@ -11,6 +11,9 @@ function setCanvasElementsRightInCaseOfRightOrientation() {
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas-container').style.justifyContent = 'center';
     document.getElementById('canvas-container').style.alignItems = 'center';
+    if (isDesktopDevice()) {
+        document.getElementById('fullscreen').style.display = 'flex';
+    }
 }
 
 /**

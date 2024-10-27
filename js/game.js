@@ -168,13 +168,9 @@ function checkIfEnemyOrCharacterIsDead() {
         return;
     }
     setInterval(() => {
-        console.log("Number of Enemies: ", world.enemiesNumber);
         if (world.character.energy == 0) {
-            // debugger;
-            console.log('Character is Dead now! Stop the Game');
             stopGame('losing');
         } else if (world.enemiesNumber <= 0) {
-            // debugger;
             stopGame('winning');
         }
     }, 100);
