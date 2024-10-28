@@ -83,6 +83,8 @@ function wasButtonThrowPressed(event) {
 
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
+window.addEventListener('resize', manageStyleDependingOnLandscapeScreenActivated);
+
 
 /** 
  * Handles the visibility of the control panel. If the game is playing and fullscreen is not activated, the control panel is hidden.

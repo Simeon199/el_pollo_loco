@@ -14,6 +14,7 @@ let isFullscreenActivated = false;
 let isChangingToFullscreen = false;
 let soundIsMuted = false;
 let isGamePlaying = false;
+let wasGameWon = null;
 let soundOn = true;
 
 /**
@@ -28,6 +29,12 @@ function checkOrientation() {
             exitFullscreen();
         }
     }
+    // if (string == 'winning') {
+    //     document.getElementById('winning-image').style.display = 'flex';
+    // }
+    // if (string == 'losing') {
+    //     document.getElementById('losing-image').style.display = 'flex';
+    // }
 }
 
 /**
@@ -35,7 +42,7 @@ function checkOrientation() {
  */
 
 function manageStyleDependingOnLandscapeScreenActivated() {
-    if (isLandscapeScreenActivated()) {
+    if (!isLandscapeScreenActivated()) {
         stopGameAndShowTurnDeviceMessage();
     } else {
         showIntroImageAndDeactivateTurnDeviceMessage();
@@ -51,7 +58,8 @@ function stopGameAndShowTurnDeviceMessage() {
     activateMessageToTurnDevice();
     clearAllIntervals();
     stopAllSounds();
-    changeStyleWhenIndependentOfWinningOrLosing();
+    showMessageToTurnDevice();
+    // changeStyleWhenIndependentOfWinningOrLosing();
 }
 
 /**
@@ -110,7 +118,7 @@ function isChangingToFullscreenActivated() {
  */
 
 function isLandscapeScreenActivated() {
-    return window.innerHeight > window.innerWidth;
+    return window.innerWidth > window.innerHeight;
 }
 
 
@@ -169,8 +177,10 @@ function checkIfEnemyOrCharacterIsDead() {
     }
     setInterval(() => {
         if (world.character.energy == 0) {
+            wasGameWon = false;
             stopGame('losing');
         } else if (world.enemiesNumber <= 0) {
+            wasGameWon = true;
             stopGame('winning');
         }
     }, 100);
@@ -367,6 +377,7 @@ function setIsGamePlayingTrueIfFalse() {
  */
 
 function playAgain() {
+    wasGameWon = null;
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
     if (!isDesktopDevice() && !isFullscreenActivated) {

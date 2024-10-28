@@ -139,6 +139,15 @@ function changeStyleWhenIndependentOfWinningOrLosing() {
     document.getElementById('canvas-container').style.display = 'none';
 }
 
+// JSDoc-Dokumentation muss noch ergänzt werden
+
+function showMessageToTurnDevice() {
+    document.getElementById('canvas-container').style.display = 'none';
+    document.getElementById('canvas').style.display = 'none';
+    document.getElementById('overlay').style.display = 'flex';
+    document.getElementById('message-to-turn-device').style.display = 'flex';
+}
+
 /**
  * Changes the style to display the losing screen.
  */
@@ -227,6 +236,7 @@ function manageStyleWhenGameIsStopped() {
  */
 
 function manageStyleDependingOnWinndingOrLosing(string) {
+    document.getElementById('overlay').style.display = 'flex';
     if (string === 'losing') {
         changeStyleWhenLosing(string);
     } else if (string === 'winning') {
@@ -305,6 +315,9 @@ function closeExplainGameContainer() {
 */
 
 function settingUpStyleWhenPlayAgainButtonPressed() {
+    if (document.getElementById('overlay').style.display !== 'none') {
+        document.getElementById('overlay').style.display = 'none';
+    }
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('losing-image').style.display = 'none';
