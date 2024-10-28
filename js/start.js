@@ -56,3 +56,47 @@ function closeAllIconsContainer() {
     }
     window.scrollBy(0, 200);
 }
+
+/**
+ * Opens the container displaying all icons in a minimized version.
+ */
+
+function openAllIconsContainer() {
+    let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
+    if (allIconsMiniVersionContainer.style.display !== 'flex') {
+        allIconsMiniVersionContainer.style.display = ' flex';
+    }
+}
+
+/**
+ * Closes the container displaying all icons in a minimized version.
+ */
+
+function closeAllIconsContainer() {
+    let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
+    if (allIconsMiniVersionContainer.style.display !== 'none') {
+        allIconsMiniVersionContainer.style.display = ' none';
+    }
+}
+
+/**
+ * Opens the settings section, explaining the game if it is hidden.
+ */
+
+function openSettingsFunction() {
+    let explainGameContainer = document.getElementById('explain-game-container');
+    if (explainGameContainer.classList.contains('d-none')) {
+        explainGameContainer.classList.remove('d-none');
+    }
+}
+
+/**
+ * Closes the settings section explaining the game if it is visible.
+ */
+
+function closeExplainGameContainer() {
+    let explainGameContainer = document.getElementById('explain-game-container');
+    if (!explainGameContainer.classList.contains('d-none')) {
+        explainGameContainer.classList.add('d-none');
+    }
+}

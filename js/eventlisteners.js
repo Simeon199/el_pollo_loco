@@ -81,10 +81,24 @@ function wasButtonThrowPressed(event) {
 
 // Event listeners for orientation and screen resizing
 
-window.addEventListener("orientationchange", checkOrientation);
-window.addEventListener('resize', testFunction);
+/**
+ * Listens for changes in screen orientation and triggers the `checkOrientation` function.
+ */
 
-function testFunction() {
+window.addEventListener("orientationchange", checkOrientation);
+
+/**
+ * Listens for window resize events to manage responsive styling by calling `manageResizeResponsiveStyling`.
+ */
+
+window.addEventListener('resize', manageResizeResponsiveStyling);
+
+/**
+ * Handles responsive styling adjustments when the screen is resized. Displays a message to turn the device if the screen is not in landscape mode, and hides
+ * this message when landscape orientation is activated.
+ */
+
+function manageResizeResponsiveStyling() {
     if (!isLandscapeScreenActivated()) {
         showMessageToTurnDevice();
     } else if (isLandscapeScreenActivated()) {

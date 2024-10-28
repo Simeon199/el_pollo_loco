@@ -3,6 +3,25 @@
  */
 
 function setCanvasElementsRightInCaseOfRightOrientation() {
+    prepareAllContainersStyleWhenRightOrientation();
+    toggleFullscreenInCaseOfDesktopDevice();
+}
+
+/**
+ * Changes the display of the fullscreen button on flex if the device is a desktop.
+ */
+
+function toggleFullscreenInCaseOfDesktopDevice() {
+    if (isDesktopDevice()) {
+        document.getElementById('fullscreen').style.display = 'flex';
+    }
+}
+
+/**
+ * Prepares and adjusts the style of all relevant HTML-containers when the device orientation is correct.
+ */
+
+function prepareAllContainersStyleWhenRightOrientation() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas').style.display = 'block';
@@ -11,9 +30,6 @@ function setCanvasElementsRightInCaseOfRightOrientation() {
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas-container').style.justifyContent = 'center';
     document.getElementById('canvas-container').style.alignItems = 'center';
-    if (isDesktopDevice()) {
-        document.getElementById('fullscreen').style.display = 'flex';
-    }
 }
 
 /**
@@ -76,31 +92,96 @@ function setSoundStylingForFullscreen() {
  */
 
 function manageAddRemoveClassesWhenEnterFullscreen() {
-    // debugger;
-    document.getElementById('canvas').classList.add('fullscreen-mode');
-    document.getElementById('fullscreen').style.display = 'none';
-    if (isTabletOrCloseToDesktopSize() || (isMobileDevice() && window.innerWidth < 1400)) {
-        document.getElementById('minimize-button').style.display = 'none';
-    } else if (isDesktopDevice() || window.innerWidth > 1400) {
-        document.getElementById('minimize-button').style.display = 'flex';
-    }
+    handleEnterFullscreenStylingClasses();
+    changeStyleDependingOfScreenSize();
     controlMuteCondition();
     setSoundStylingForFullscreen();
 }
 
-// Hier muss dann noch ein Kommentar rein (JSDoc)
+/**
+ * Adjusts the style of the minimize button depending on the screen size.
+ * Hides the minimize button on mobile and tablet devices or when the window width is under a certain size and vice versa if its above it.
+ */
+
+function changeStyleDependingOfScreenSize() {
+    if (isMobileTabletOrCertainWindowWidth()) {
+        document.getElementById('minimize-button').style.display = 'none';
+    } else if (isDesktopOrCertainWindowWidth()) {
+        document.getElementById('minimize-button').style.display = 'flex';
+    }
+}
+
+/**
+ * Applies styling classes to elements when entering fullscreen mode. Adds a class to the canvas for fullscreen mode and hides the fullscreen button.
+ */
+
+function handleEnterFullscreenStylingClasses() {
+    document.getElementById('canvas').classList.add('fullscreen-mode');
+    document.getElementById('fullscreen').style.display = 'none';
+}
+
+/**
+ * Determines if the device is a desktop or if the window width exceeds 1400 pixels.
+ * @returns {boolean} - True if the device is a desktop or the window width is greater than 1400 pixels.
+ */
+
+function isDesktopOrCertainWindowWidth() {
+    return isDesktopDevice() || window.innerWidth > 1400;
+}
+
+/**
+ * Determines if the device is a mobile or tablet or if the window width is below a certain size.
+ * @returns {boolean} - True if the device is a mobile or tablet, or the window width is less than 1400 pixels.
+ */
+
+function isMobileTabletOrCertainWindowWidth() {
+    return isTabletOrCloseToDesktopSize() || (isMobileDevice() && window.innerWidth < 1400);
+}
+
+/**
+ * Controls the mute state based on the game's start status.
+ * Mutes or unmutes sound depending on whether the game has started or is paused.
+ */
 
 function controlMuteCondition() {
     if (hasGameStarted) {
-        if (soundOn) {
-            document.getElementById('sound-off-icon').style.display = 'none';
-            document.getElementById('sound-on-icon').style.display = 'flex';
-        } else {
-            document.getElementById('sound-off-icon').style.display = 'flex';
-            document.getElementById('sound-on-icon').style.display = 'none';
-        }
+        manageLogicOfSoundOnOrSoundOff();
     } else {
+        manageSoundOnSoundOffWhenGameIsntPlaying();
+    }
+}
+
+/**
+ * Manages the display of sound icons when the game is not playing. Shows the sound-on icon and hides the sound-off icon.
+ */
+
+function manageSoundOnSoundOffWhenGameIsntPlaying() {
+    document.getElementById('sound-off-icon').style.display = 'none';
+    document.getElementById('sound-on-icon').style.display = 'flex';
+}
+
+/**
+ * Manages the display of sound icons based on the sound state when the game is playing. Shows or hides sound-on and sound-off icons depending on the value of `soundOn`.
+ */
+
+function manageLogicOfSoundOnOrSoundOff() {
+    if (soundOn) {
         document.getElementById('sound-off-icon').style.display = 'none';
+        document.getElementById('sound-on-icon').style.display = 'flex';
+    } else {
+        document.getElementById('sound-off-icon').style.display = 'flex';
+        document.getElementById('sound-on-icon').style.display = 'none';
+    }
+}
+
+/**
+ * Toggles the sound icon based on whether the sound is muted. Displays either the sound-on or sound-off icon depending on the `soundIsMuted` state.
+ */
+
+function toggleSoundIconBasedOnSoundIsMuted() {
+    if (soundIsMuted) {
+        document.getElementById('sound-off-icon').style.display = 'flex';
+    } else {
         document.getElementById('sound-on-icon').style.display = 'flex';
     }
 }
@@ -113,11 +194,7 @@ function manageAddRemoveClassesWhenExitFullscreen() {
     document.getElementById('canvas').classList.remove('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'block';
     document.getElementById('minimize-button').style.display = 'none';
-    if (soundIsMuted) {
-        document.getElementById('sound-off-icon').style.display = 'flex';
-    } else {
-        document.getElementById('sound-on-icon').style.display = 'flex';
-    }
+    toggleSoundIconBasedOnSoundIsMuted();
 }
 
 /**
@@ -139,12 +216,23 @@ function changeStyleWhenIndependentOfWinningOrLosing() {
     document.getElementById('canvas-container').style.display = 'none';
 }
 
-// JSDoc-Dokumentation muss noch ergänzt werden
+/**
+ * Displays a message prompting the user to turn their device for better viewing. Hides the canvas container and other elements, and displays a rotation message overlay.
+ */
 
 function showMessageToTurnDevice() {
     document.getElementById('overlay').style.display = 'flex';
     document.getElementById('canvas-container').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
+    makeContainersDisappearIfTheyAreStillThere();
+    document.getElementById('message-to-turn-device').style.display = 'flex';
+}
+
+/**
+ * Hides any remaining intro, winning, or losing image containers if they are visible. Ensures no unnecessary containers remain visible when displaying the turn device message.
+ */
+
+function makeContainersDisappearIfTheyAreStillThere() {
     if (document.getElementById('intro-image') !== 'none') {
         document.getElementById('intro-image').style.display = 'none';
     } else if (document.getElementById('winning-image') !== 'none') {
@@ -152,7 +240,6 @@ function showMessageToTurnDevice() {
     } else if (document.getElementById('losing-image') !== 'none') {
         document.getElementById('losing-image') = 'none';
     }
-    document.getElementById('message-to-turn-device').style.display = 'flex';
 }
 
 /**
@@ -193,6 +280,14 @@ function enterFullscreen(element) {
         isChangingToFullscreen = true;
         manageAddRemoveClassesWhenEnterFullscreen();
     }
+    requesFullscreenFunction(element);
+}
+
+/**
+ * Requests fullscreen mode for a specified element, accounting for browser compatibility.
+ */
+
+function requesFullscreenFunction(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
     } else if (element.msRequestFullscreen) {
@@ -249,10 +344,7 @@ function manageStyleWhenGameIsStopped(string) {
  */
 
 function manageStyleDependingOnWinndingOrLosing(string) {
-    document.getElementById('overlay').style.display = 'flex';
-    if (document.getElementById('intro-image').style.display !== 'none') {
-        document.getElementById('intro-image').style.display = 'none';
-    }
+    prepareDisplayWinningLosingStyle();
     if (string === 'losing') {
         changeStyleWhenLosing(string);
     } else if (string === 'winning') {
@@ -260,6 +352,17 @@ function manageStyleDependingOnWinndingOrLosing(string) {
     }
     else {
         resetGame();
+    }
+}
+
+/**
+ * Prepares the overlay and hides the intro image if it is visible, setting up for a "winning" or "losing" display style. Ensures the overlay is shown to provide visual feedback.
+ */
+
+function prepareDisplayWinningLosingStyle() {
+    document.getElementById('overlay').style.display = 'flex';
+    if (document.getElementById('intro-image').style.display !== 'none') {
+        document.getElementById('intro-image').style.display = 'none';
     }
 }
 
@@ -279,50 +382,6 @@ function setControlPanelStyle() {
     let controlPanel = document.getElementById('control-panel-everything');
     if (controlPanel.style.display == 'none') {
         controlPanel.style.display = 'flex';
-    }
-}
-
-/**
- * Opens the container displaying all icons in a minimized version.
- */
-
-function openAllIconsContainer() {
-    let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
-    if (allIconsMiniVersionContainer.style.display !== 'flex') {
-        allIconsMiniVersionContainer.style.display = ' flex';
-    }
-}
-
-/**
- * Closes the container displaying all icons in a minimized version.
- */
-
-function closeAllIconsContainer() {
-    let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
-    if (allIconsMiniVersionContainer.style.display !== 'none') {
-        allIconsMiniVersionContainer.style.display = ' none';
-    }
-}
-
-/**
- * Opens the settings section, explaining the game if it is hidden.
- */
-
-function openSettingsFunction() {
-    let explainGameContainer = document.getElementById('explain-game-container');
-    if (explainGameContainer.classList.contains('d-none')) {
-        explainGameContainer.classList.remove('d-none');
-    }
-}
-
-/**
- * Closes the settings section explaining the game if it is visible.
- */
-
-function closeExplainGameContainer() {
-    let explainGameContainer = document.getElementById('explain-game-container');
-    if (!explainGameContainer.classList.contains('d-none')) {
-        explainGameContainer.classList.add('d-none');
     }
 }
 
