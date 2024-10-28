@@ -83,7 +83,12 @@ function wasButtonThrowPressed(event) {
 
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener('resize', checkOrientation);
-window.addEventListener('resize', manageStyleDependingOnLandscapeScreenActivated);
+window.addEventListener('resize', () => {
+    if (wasGameWon || !wasGameWon) {
+        document.getElementById('intro-image').style.display = 'none';
+    }
+    manageStyleDependingOnLandscapeScreenActivated
+});
 
 
 /** 

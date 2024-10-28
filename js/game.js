@@ -29,12 +29,6 @@ function checkOrientation() {
             exitFullscreen();
         }
     }
-    // if (string == 'winning') {
-    //     document.getElementById('winning-image').style.display = 'flex';
-    // }
-    // if (string == 'losing') {
-    //     document.getElementById('losing-image').style.display = 'flex';
-    // }
 }
 
 /**
@@ -283,6 +277,7 @@ function stopGame(string) {
     }
     manageStyleWhenGameIsStopped();
     manageStyleDependingOnWinndingOrLosing(string);
+    isGamePlaying = false;
 }
 
 /**
@@ -292,7 +287,7 @@ function stopGame(string) {
 function resetGame() {
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('intro-image').style.display = 'block';
-    isGamePlaying = false;
+    // isGamePlaying = false;
     world = null;
 }
 
