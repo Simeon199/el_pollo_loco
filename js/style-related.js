@@ -142,9 +142,16 @@ function changeStyleWhenIndependentOfWinningOrLosing() {
 // JSDoc-Dokumentation muss noch ergänzt werden
 
 function showMessageToTurnDevice() {
+    document.getElementById('overlay').style.display = 'flex';
     document.getElementById('canvas-container').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
-    document.getElementById('overlay').style.display = 'flex';
+    if (document.getElementById('intro-image') !== 'none') {
+        document.getElementById('intro-image').style.display = 'none';
+    } else if (document.getElementById('winning-image') !== 'none') {
+        document.getElementById('winning-image').style.display = 'none';
+    } else if (document.getElementById('losing-image') !== 'none') {
+        document.getElementById('losing-image') = 'none';
+    }
     document.getElementById('message-to-turn-device').style.display = 'flex';
 }
 
@@ -153,6 +160,9 @@ function showMessageToTurnDevice() {
  */
 
 function changeStyleWhenLosing() {
+    if (document.getElementById('intro-image').style.display !== 'none') {
+        document.getElementById('intro-image').style.display = 'none';
+    }
     document.getElementById('losing-image').style.display = 'flex';
     document.getElementById('losing-image').classList.add('winning-image-properties');
     document.getElementById('main-title').style.display = 'none';
@@ -163,6 +173,9 @@ function changeStyleWhenLosing() {
  */
 
 function changeStyleWhenWinning() {
+    if (document.getElementById('intro-image').style.display !== 'none') {
+        document.getElementById('intro-image').style.display = 'none';
+    }
     document.getElementById('winning-image').style.display = 'flex';
     document.getElementById('winning-image').classList.add('winning-image-properties');
     document.getElementById('main-title').style.display = 'none';
@@ -220,12 +233,12 @@ function fullscreen() {
  * Stops all game intervals, sounds, and exits fullscreen mode.
  */
 
-function manageStyleWhenGameIsStopped() {
+function manageStyleWhenGameIsStopped(string) {
     clearAllIntervals();
     stopAllSounds();
     isGamePlaying = false;
     document.getElementById('canvas').style.display = 'none';
-    changeStyleWhenIndependentOfWinningOrLosing();
+    changeStyleWhenIndependentOfWinningOrLosing(string);
     exitFullscreen();
 }
 
@@ -237,6 +250,9 @@ function manageStyleWhenGameIsStopped() {
 
 function manageStyleDependingOnWinndingOrLosing(string) {
     document.getElementById('overlay').style.display = 'flex';
+    // if (document.getElementById('intro-image').style.display !== 'none') {
+    //     document.getElementById('intro-image').style.display = 'none';
+    // }
     if (string === 'losing') {
         changeStyleWhenLosing(string);
     } else if (string === 'winning') {

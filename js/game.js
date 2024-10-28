@@ -287,7 +287,7 @@ function stopGame(string) {
 function resetGame() {
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('intro-image').style.display = 'block';
-    // isGamePlaying = false;
+    isGamePlaying = false;
     world = null;
 }
 

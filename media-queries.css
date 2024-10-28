@@ -192,12 +192,30 @@
     }
 
     #losing-image {
+        /* --- Neue Änderung zu gap ---*/
+        gap: 8px;
         justify-content: center;
     }
 
     #winning-image {
+        /* --- Neue Änderung zu gap ---*/
+        gap: 8px;
         justify-content: center;
     }
+
+    /* --- Hier kommen neue Änderungen --- */
+
+    #winning-image img {
+        width: 30%;
+        height: auto;
+    }
+
+    #losing-image img {
+        width: 50%;
+        height: auto;
+    }
+
+    /* --- Hier enden die Änderungen ---*/
 }
 
 @media(max-width: 1400px) and (max-height: 1024px) and (orientation: landscape) {

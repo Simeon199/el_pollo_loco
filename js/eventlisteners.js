@@ -87,7 +87,7 @@ window.addEventListener('resize', () => {
     if (wasGameWon || !wasGameWon) {
         document.getElementById('intro-image').style.display = 'none';
     }
-    manageStyleDependingOnLandscapeScreenActivated
+    manageStyleDependingOnLandscapeScreenActivated();
 });
 
 
