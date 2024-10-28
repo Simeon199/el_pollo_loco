@@ -82,14 +82,15 @@ function wasButtonThrowPressed(event) {
 // Event listeners for orientation and screen resizing
 
 window.addEventListener("orientationchange", checkOrientation);
-window.addEventListener('resize', checkOrientation);
-window.addEventListener('resize', () => {
-    if (wasGameWon || !wasGameWon) {
-        document.getElementById('intro-image').style.display = 'none';
-    }
-    manageStyleDependingOnLandscapeScreenActivated();
-});
+window.addEventListener('resize', testFunction);
 
+function testFunction() {
+    if (!isLandscapeScreenActivated()) {
+        showMessageToTurnDevice();
+    } else if (isLandscapeScreenActivated()) {
+        document.getElementById('message-to-turn-device').style.display = 'none';
+    }
+}
 
 /** 
  * Handles the visibility of the control panel. If the game is playing and fullscreen is not activated, the control panel is hidden.

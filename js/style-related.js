@@ -250,9 +250,9 @@ function manageStyleWhenGameIsStopped(string) {
 
 function manageStyleDependingOnWinndingOrLosing(string) {
     document.getElementById('overlay').style.display = 'flex';
-    // if (document.getElementById('intro-image').style.display !== 'none') {
-    //     document.getElementById('intro-image').style.display = 'none';
-    // }
+    if (document.getElementById('intro-image').style.display !== 'none') {
+        document.getElementById('intro-image').style.display = 'none';
+    }
     if (string === 'losing') {
         changeStyleWhenLosing(string);
     } else if (string === 'winning') {

@@ -53,7 +53,6 @@ function stopGameAndShowTurnDeviceMessage() {
     clearAllIntervals();
     stopAllSounds();
     showMessageToTurnDevice();
-    // changeStyleWhenIndependentOfWinningOrLosing();
 }
 
 /**
@@ -177,7 +176,7 @@ function checkIfEnemyOrCharacterIsDead() {
             wasGameWon = true;
             stopGame('winning');
         }
-    }, 100);
+    }, 2000);
 }
 
 /**
