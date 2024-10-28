@@ -24,7 +24,7 @@ let soundOn = true;
 function checkOrientation() {
     if (isChangingToFullscreenActivated()) {
         if (wasFullscreenActivated()) {
-            manageStyleDependingOnLandscapeScreenActivated();
+            location.reload();
         } else {
             exitFullscreen();
         }
