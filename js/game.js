@@ -22,6 +22,9 @@ let soundOn = true;
  */
 
 function checkOrientation() {
+    if (proveIfBackgroundIsEmpty()) {
+        location.reload();
+    }
     if (isChangingToFullscreenActivated()) {
         if (wasFullscreenActivated()) {
             location.reload();

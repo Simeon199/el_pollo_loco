@@ -34,6 +34,7 @@ class ThrowableObject extends MovableObject {
 
     bottleLanding = new Audio('audio/soft_landing.mp3');
 
+
     /**
     * Constructor for the ThrowableObject class. It sets the initial position of the bottle,
     * loads the necessary images, and links the keyboard input for controlling the throw.
@@ -199,7 +200,11 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.stopSpeedAccelerationAndHeightOfBottle();
             this.setLandingBottleDirection(direction);
-            this.bottleLanding.play();
+            if (this.bottleLanding.muted) {
+                this.bottleLanding.play();
+            } else {
+                this.bottleLanding.pause();
+            }
             clearInterval(this.intervalID);
         }
     }

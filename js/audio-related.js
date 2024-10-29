@@ -138,6 +138,7 @@ function setAllCharacterAudioSound(mute) {
 function setThrowableObjectsAudioSound(mute) {
     world.level.bottles.forEach(bottle => {
         if (bottle.bottleLanding) {
+            console.log("Status of bottle landing: ", bottle.bottleLanding.muted);
             bottle.bottleLanding.muted = mute;
         }
     });

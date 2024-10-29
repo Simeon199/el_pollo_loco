@@ -85,7 +85,8 @@ function wasButtonThrowPressed(event) {
  * Listens for changes in screen orientation and triggers the `checkOrientation` function.
  */
 
-window.addEventListener("orientationchange", checkOrientation);
+screen.orientation.addEventListener("change", checkOrientation);
+
 
 /**
  * Listens for window resize events to manage responsive styling by calling `manageResizeResponsiveStyling`.
@@ -103,7 +104,26 @@ function manageResizeResponsiveStyling() {
         showMessageToTurnDevice();
     } else if (isLandscapeScreenActivated()) {
         document.getElementById('message-to-turn-device').style.display = 'none';
+        if (proveIfBackgroundIsEmpty()) {
+            location.reload();
+        }
     }
+}
+
+/**
+ * Checks if all background images in the document are hidden. Returns `true` if all specified images are hidden; otherwise, returns `false`.
+ *
+ * @returns {boolean} - `true` if all specified images ('winning-image', 'losing-image', 'intro-image') are hidden, `false` otherwise.
+ */
+
+function proveIfBackgroundIsEmpty() {
+    let winningImage = document.getElementById('winning-image');
+    let losingImage = document.getElementById('losing-image');
+    let introImage = document.getElementById('intro-image');
+    let boolean1 = winningImage.style.display == 'none';
+    let boolean2 = losingImage.style.display == 'none';
+    let boolean3 = introImage.style.display == 'none';
+    return totalBoolean = boolean1 && boolean2 && boolean3;
 }
 
 /** 
