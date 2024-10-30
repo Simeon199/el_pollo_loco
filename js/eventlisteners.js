@@ -228,6 +228,14 @@ function touchEndHandler(event) {
     }
 }
 
+// Diesen Code noch verschieben und kommentieren!
+
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+    });
+}
+
 /**
  * Event listener for the 'keyup' event. Invokes keyUpHandler to handle keyboard key releases.
  */

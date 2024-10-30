@@ -75,7 +75,6 @@
 }
 
 @media(min-width: 1400px) and (min-height: 1100px) {
-
     #intro-image {
         width: 50%;
         height: auto;
@@ -176,7 +175,6 @@
 }
 
 @media(min-width: 1400px) and (max-height: 1100px) {
-
     .all-icons-button-container {
         display: block;
     }
@@ -283,7 +281,6 @@
         width: 48px;
     }
 }
-
 
 @media(max-width: 1600px) and (max-height: 1000px) {
     .game-notification {
