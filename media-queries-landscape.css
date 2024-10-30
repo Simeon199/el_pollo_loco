@@ -1,3 +1,39 @@
+@media(pointer: coarse) and (hover: none) {
+    .all-icons-button-container {
+        display: none;
+    }
+
+    #intro-image {
+        height: unset;
+        width: unset;
+    }
+
+    #intro-image img:nth-child(1) {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    #winning-image {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    #losing-image {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    canvas {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    .control-panel-everything {
+        display: flex;
+        width: 100%;
+    }
+}
+
 @media(min-width: 2500px) and (min-height: 1100px) {
     .all-icons-container {
         font-size: 24px;
@@ -184,18 +220,14 @@
     }
 
     #losing-image {
-        /* --- Neue Änderung zu gap ---*/
         gap: 8px;
         justify-content: center;
     }
 
     #winning-image {
-        /* --- Neue Änderung zu gap ---*/
         gap: 8px;
         justify-content: center;
     }
-
-    /* --- Hier kommen neue Änderungen --- */
 
     #winning-image img {
         width: 30%;
@@ -206,8 +238,6 @@
         width: 50%;
         height: auto;
     }
-
-    /* --- Hier enden die Änderungen ---*/
 }
 
 @media(max-width: 1400px) and (max-height: 1024px) and (orientation: landscape) {
@@ -227,40 +257,6 @@
 
     .links-images {
         display: none;
-    }
-
-    /* .all-icons-button-container {
-        display: none;
-    } */
-
-    #intro-image {
-        height: unset;
-        width: unset;
-    }
-
-    #intro-image img:nth-child(1) {
-        height: 100dvh;
-        width: 100dvw;
-    }
-
-    #winning-image {
-        height: 100dvh;
-        width: 100dvw;
-    }
-
-    #losing-image {
-        height: 100dvh;
-        width: 100dvw;
-    }
-
-    canvas {
-        height: 100dvh;
-        width: 100dvw;
-    }
-
-    .control-panel-everything {
-        display: flex;
-        width: 100%;
     }
 
     .control-panel-everything button {
