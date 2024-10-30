@@ -192,6 +192,22 @@ function preventBubbling(event) {
     event.stopPropagation();
 }
 
+// Hier später nochmal ansetzen!
+
+// function preventPropagation(event) {
+//     console.log('Komme ich in diese Abfrage rein, teil 1?');
+//     let allIconsContainer = document.getElementById('all-icons-container-mini-version');
+//     if (event.target == allIconsContainer && isExplainContainerOpen == false) {
+//         console.log('Komme ich in diese Abfrage rein, teil 2?');
+//         openAllIconsContainer();
+//         event.stopPropagation();
+//     } else if (event.target !== allIconsContainer && isExplainContainerOpen == true) {
+//         console.log('Komme ich in diese Abfrage rein, teil 3?');
+//         // closeAllIconsContainer();
+//         event.stopPropagation();
+//     }
+// }
+
 /**
  * Checks if the user is using a mobile device.
  * 

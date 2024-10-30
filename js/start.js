@@ -1,3 +1,5 @@
+let isExplainContainerOpen = false;
+
 /**
  * Redirects the user to the play page.
  */
@@ -62,9 +64,9 @@ function closeAllIconsContainer() {
  */
 
 function openAllIconsContainer() {
-    let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
-    if (allIconsMiniVersionContainer.style.display !== 'flex') {
-        allIconsMiniVersionContainer.style.display = ' flex';
+    let allIconsOverlay = document.getElementById('all-icons-container-overlay');
+    if (allIconsOverlay.classList.contains('d-none')) {
+        allIconsOverlay.classList.remove('d-none');
     }
 }
 
@@ -73,9 +75,9 @@ function openAllIconsContainer() {
  */
 
 function closeAllIconsContainer() {
-    let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
-    if (allIconsMiniVersionContainer.style.display !== 'none') {
-        allIconsMiniVersionContainer.style.display = ' none';
+    let allIconsOverlay = document.getElementById('all-icons-container-overlay');
+    if (!allIconsOverlay.classList.contains('d-none')) {
+        allIconsOverlay.classList.add('d-none');
     }
 }
 

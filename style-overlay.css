@@ -117,6 +117,18 @@
     transform: scale(1.05);
 }
 
+/*all-icons-container and its overlay */
+
+.all-icons-container-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(110, 110, 110, 0.5);
+    z-index: 9999;
+}
+
 /* .explain-game-container properties as well as all sections below that */
 
 .explain-game-container {

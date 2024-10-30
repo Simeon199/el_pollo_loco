@@ -58,7 +58,9 @@ class World {
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
-            this.backgroundMusic.play();
+            if (this.backgroundMusic.pause) {
+                this.backgroundMusic.play();
+            }
         }, 100);
     }
 
