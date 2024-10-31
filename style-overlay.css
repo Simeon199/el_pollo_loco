@@ -2,7 +2,7 @@
 
 #overlay {
     height: 100dvh;
-    width: 100dvw;
+    /* width: 100dvw; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -237,7 +237,7 @@
 }
 
 .all-icons-button-container {
-    display: none;
+    /* display: none; */
     font-family: 'playpensans';
     font-size: 18px;
     position: fixed;

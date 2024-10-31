@@ -38,128 +38,151 @@
 </head>
 
 <body>
-    <div class="links-images">
-        <div class="main-title-properties" id="arrow-image-container" onclick="redirectToStart()">
-            <img src="assets/arrow_left.png" alt="left">
-            <h2>Back To Start</h2>
-        </div>
-        <h1 id="main-title">El Pollo Loco</h1>
-        <div class="main-title-properties" id="cartwheel-image-container" onclick="openSettingsFunction()">
-            <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image">
-            <h2>Settings</h2>
-        </div>
-    </div>
-    <div class="all-icons-button-container" onclick="openAllIconsContainer()">
-        <button id="all-icons-button">Show Icons Sources</button>
-    </div>
-    <div class="all-icons-container-overlay d-none" id="all-icons-container-overlay" onclick="closeAllIconsContainer()">
-        <div class="all-icons-container-mini-version" id="all-icons-container-mini-version"
-            onclick="preventBubbling(event)">
-            <img src="assets/close.png" alt="close" onclick="closeAllIconsContainer()">
-            <a href="https://www.flaticon.com/free-icons/chicken" title="chicken icons">Chicken icons created by Freepik
-                -
-                Flaticon
-            </a>
-            <a href="https://www.flaticon.com/free-icons/video" title="video icons">Video icons created by Bingge Liu -
-                Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/king-size" title="king size icons">King size icons created by
-                Prosymbols Premium - Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/exit-full-screen" title="exit full screen icons">Exit full
-                screen
-                icons created by Prosymbols Premium - Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/back" title="back icons">Back icons created by Roundicons -
-                Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/arrow" title="arrow icons">Arrow icons created by Roundicons -
-                Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/straight-arrow" title="straight arrow icons">Straight arrow
-                icons
-                created by ChilliColor - Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/letter-d" title="letter d icons">Letter d icons created by
-                Freepik
-                - Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/close" title="close icons">Close icons created by reussy -
-                Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/mute" title="mute icons">Mute icons created by HideMaru –
-                Flaticon</a>
-            <a href="https://www.flaticon.com/free-icons/volume" title="volume icons">Volume icons created by apien -
-                Flaticon</a>
-        </div>
-    </div>
-    <div class="canvas-container" id="canvas-container">
-        <canvas id="canvas" width="720" height="480"></canvas>
-        <div class="sound-screen-control-container" id="sound-screen-control-container">
-            <div class="sound-and-screen-icons" id="sound-and-screen-icons">
-                <div class="sound-container">
-                    <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
-                    <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
-                </div>
-                <div class="screen-container">
-                    <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
-                    <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
-                </div>
+    <div class="envelope-all-container">
+        <div class="links-images">
+            <div class="main-title-properties" id="arrow-image-container" onclick="redirectToStart()">
+                <img src="assets/arrow_left.png" alt="left">
+                <h2>Back To Start</h2>
             </div>
-            <div class="control-panel-everything" id="control-panel-everything">
-                <div class="control-panel-right-left" id="control-panel-right-left">
-                    <button><img src="assets/left_arrow.png" alt="left" id="buttonLeft"></button>
-                    <button><img src="assets/right_arrow.png" alt="right" id="buttonRight"></button>
-                </div>
-                <div class="control-panel-up-throw" id="control-panel-up-throw">
-                    <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button>
-                    <button><img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d"></button>
-                </div>
+            <h1 id="main-title">El Pollo Loco</h1>
+            <div class="main-title-properties" id="cartwheel-image-container" onclick="openSettingsFunction()">
+                <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image">
+                <h2>Settings</h2>
             </div>
         </div>
-    </div>
+        <div class="all-icons-button-container" onclick="openAllIconsContainer()">
+            <button id="all-icons-button">Show Icons Sources</button>
+        </div>
+        <div class="all-icons-container-overlay d-none" id="all-icons-container-overlay"
+            onclick="closeAllIconsContainer()">
+            <div class="all-icons-container-mini-version" id="all-icons-container-mini-version"
+                onclick="preventBubbling(event)">
+                <img src="assets/close.png" alt="close" onclick="closeAllIconsContainer()">
+                <a href="https://www.flaticon.com/free-icons/chicken" title="chicken icons" target="_blank">Chicken
+                    icons
+                    created by Freepik
+                    -
+                    Flaticon
+                </a>
+                <a href="https://www.flaticon.com/free-icons/video" title="video icons" target="_blank">Video icons
+                    created
+                    by Bingge Liu -
+                    Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/king-size" title="king size icons" target="_blank">King
+                    size
+                    icons created by
+                    Prosymbols Premium - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/exit-full-screen" title="exit full screen icons"
+                    target="_blank">Exit full
+                    screen
+                    icons created by Prosymbols Premium - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/back" title="back icons" target="_blank">Back icons created
+                    by
+                    Roundicons -
+                    Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/arrow" title="arrow icons" target="_blank">Arrow icons
+                    created
+                    by Roundicons -
+                    Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/straight-arrow" title="straight arrow icons"
+                    target="_blank">Straight arrow
+                    icons
+                    created by ChilliColor - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/letter-d" title="letter d icons" target="_blank">Letter d
+                    icons
+                    created by
+                    Freepik
+                    - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/close" title="close icons" target="_blank">Close icons
+                    created
+                    by reussy -
+                    Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/mute" title="mute icons" target="_blank">Mute icons created
+                    by
+                    HideMaru –
+                    Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/volume" title="volume icons" target="_blank">Volume icons
+                    created by apien -
+                    Flaticon</a>
+            </div>
+        </div>
+        <div class="canvas-container" id="canvas-container">
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <div class="sound-screen-control-container" id="sound-screen-control-container">
+                <div class="sound-and-screen-icons" id="sound-and-screen-icons">
+                    <div class="sound-container">
+                        <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon"
+                            onclick="turnSoundOnOrOff()">
+                        <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
+                    </div>
+                    <div class="screen-container">
+                        <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
+                        <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
+                    </div>
+                </div>
+                <div class="control-panel-everything" id="control-panel-everything">
+                    <div class="control-panel-right-left" id="control-panel-right-left">
+                        <button><img src="assets/left_arrow.png" alt="left" id="buttonLeft"></button>
+                        <button><img src="assets/right_arrow.png" alt="right" id="buttonRight"></button>
+                    </div>
+                    <div class="control-panel-up-throw" id="control-panel-up-throw">
+                        <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button>
+                        <button><img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="overlay" id="overlay">
-        <div id="intro-image">
-            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
-            <img src="assets/playIcon_2.png" alt="Play" onclick="startGame()" id="playIcon">
-        </div>
-        <div id="winning-image">
-            <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image">
-            <button onclick="playAgain()" class="button-style">Play Again</button>
-        </div>
-        <div id="losing-image">
-            <img src="img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Losing-Image">
-            <button onclick="playAgain()" class="button-style">Play Again</button>
-        </div>
-        <div id="message-to-turn-device">
-            <button>
-                Please Turn Your Device To Play The Game!
-            </button>
-        </div>
-    </div>
-    <div class="explain-game-container d-none" id="explain-game-container" onclick="closeExplainGameContainer()">
-        <div class="game-functions-container" id="game-functions-container" onclick="preventBubbling(event)">
-            <h2>Settings</h2>
-            <img src="assets/close.png" alt="close" onclick="closeExplainGameContainer()">
-            <div class="control-keys">
-                <div class="control-key-style">
-                    <img src="assets/top_arrow.png" alt="top arrow">
-                    <h3>Jump Up</h3>
-                </div>
-                <div class="control-key-style">
-                    <img src="assets/right_arrow.png" alt="right arrow">
-                    <h3>Move Right</h3>
-                </div>
-                <div class="control-key-style">
-                    <img src="assets/left_arrow.png" alt="left arrow">
-                    <h3>Move Left</h3>
-                </div>
-                <div class="control-key-style">
-                    <img src="assets/letter_d_white.png" alt="letter d">
-                    <h3>Throw Bottles</h3>
-                </div>
+        <div class="overlay" id="overlay">
+            <div id="intro-image">
+                <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
+                <img src="assets/playIcon_2.png" alt="Play" onclick="startGame()" id="playIcon">
             </div>
-            <div class="game-notification">
-                <h3> Explanation of the Game:</h3>
-                <p>Defeat the enemies by throwing bottles at them or jumping on them.
-                    Keep in mind that the game is only won when all enemies have been defeated.
-                    Be aware of the final boss. He will attack you and try to scare you away if you get too close.
-                    In any case, he will attack you when all the other enemies are defeated or when you
-                    attack him yourself. Have fun playing!
-                </p>
+            <div id="winning-image">
+                <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image">
+                <button onclick="playAgain()" class="button-style">Play Again</button>
+            </div>
+            <div id="losing-image">
+                <img src="img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Losing-Image">
+                <button onclick="playAgain()" class="button-style">Play Again</button>
+            </div>
+            <div id="message-to-turn-device">
+                <button>
+                    Please Turn Your Device To Play The Game!
+                </button>
+            </div>
+        </div>
+        <div class="explain-game-container d-none" id="explain-game-container" onclick="closeExplainGameContainer()">
+            <div class="game-functions-container" id="game-functions-container" onclick="preventBubbling(event)">
+                <h2>Settings</h2>
+                <img src="assets/close.png" alt="close" onclick="closeExplainGameContainer()">
+                <div class="control-keys">
+                    <div class="control-key-style">
+                        <img src="assets/top_arrow.png" alt="top arrow">
+                        <h3>Jump Up</h3>
+                    </div>
+                    <div class="control-key-style">
+                        <img src="assets/right_arrow.png" alt="right arrow">
+                        <h3>Move Right</h3>
+                    </div>
+                    <div class="control-key-style">
+                        <img src="assets/left_arrow.png" alt="left arrow">
+                        <h3>Move Left</h3>
+                    </div>
+                    <div class="control-key-style">
+                        <img src="assets/letter_d_white.png" alt="letter d">
+                        <h3>Throw Bottles</h3>
+                    </div>
+                </div>
+                <div class="game-notification">
+                    <h3> Explanation of the Game:</h3>
+                    <p>Defeat the enemies by throwing bottles at them or jumping on them.
+                        Keep in mind that the game is only won when all enemies have been defeated.
+                        Be aware of the final boss. He will attack you and try to scare you away if you get too close.
+                        In any case, he will attack you when all the other enemies are defeated or when you
+                        attack him yourself. Have fun playing!
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -43,6 +43,13 @@ body {
     font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
 }
 
+.envelope-all-container {
+    height: 100dvh;
+    width: 100dvw;
+    margin: 0 auto;
+    position: relative;
+}
+
 /* All sections HTML-Sections */
 
 #message-to-turn-device {
@@ -137,6 +144,7 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
 
 .all-icons-container-mini-version img {
     width: 24px;
