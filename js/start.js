@@ -17,14 +17,6 @@ function redirectToLegalNoticePage() {
 }
 
 /**
- * Redirects the user to the start page.
- */
-
-function redirectToStart() {
-    window.location.href = "start.html";
-}
-
-/**
  * Opens the mini-version of the icons container.
  * 
  * If the icons container is not currently displayed, it sets the display style to 'flex'
