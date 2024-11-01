@@ -8,6 +8,19 @@
     align-items: center;
 }
 
+.icon-and-settings-container {
+    display: none;
+}
+
+.all-icons-button-container-small-version button {
+    font-size: 18px;
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
 /* #intro-image properties */
 
 #intro-image {

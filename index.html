@@ -151,6 +151,18 @@
                     Please Turn Your Device To Play The Game!
                 </button>
             </div>
+            <div class="icon-and-settings-container" id="icon-and-settings-container">
+                <div class="all-icons-button-container-small-version" onclick="openAllIconsContainer()">
+                    <button id="all-icons-button-small-version">Show Icons Sources</button>
+                </div>
+                <div class="main-title-properties" onclick="redirectToLegalNoticePage()">
+                    <img src="assets/notice.png" alt="notice">
+                </div>
+                <div class="main-title-properties" id="cartwheel-image-container-small-version"
+                    onclick="openSettingsFunction()">
+                    <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image-small-version">
+                </div>
+            </div>
         </div>
         <div class="explain-game-container d-none" id="explain-game-container" onclick="closeExplainGameContainer()">
             <div class="game-functions-container" id="game-functions-container" onclick="preventBubbling(event)">

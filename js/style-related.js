@@ -27,7 +27,6 @@ function prepareAllContainersStyleWhenRightOrientation() {
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('canvas-container').style.justifyContent = 'center';
     document.getElementById('canvas-container').style.alignItems = 'center';
 }
@@ -79,12 +78,13 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
  */
 
 function setSoundStylingForFullscreen() {
-    document.getElementById('sound-on-icon').style.borderRadius = '16px';
-    document.getElementById('sound-on-icon').style.border = '4px solid black';
-    document.getElementById('sound-on-icon').style.padding = '6px';
-    document.getElementById('sound-off-icon').style.borderRadius = '16px';
-    document.getElementById('sound-off-icon').style.border = '4px solid black';
-    document.getElementById('sound-off-icon').style.padding = '6px';
+    console.log('nix');
+    // document.getElementById('sound-on-icon').style.borderRadius = '16px';
+    // document.getElementById('sound-on-icon').style.border = '4px solid black';
+    // document.getElementById('sound-on-icon').style.padding = '6px';
+    // document.getElementById('sound-off-icon').style.borderRadius = '16px';
+    // document.getElementById('sound-off-icon').style.border = '4px solid black';
+    // document.getElementById('sound-off-icon').style.padding = '6px';
 }
 
 /**
