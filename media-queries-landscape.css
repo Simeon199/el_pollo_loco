@@ -29,13 +29,15 @@
     }
 
     .icon-and-settings-container {
+        z-index: 1000;
         position: absolute;
         top: 0;
+        right: 1%;
         border: 4px solid black;
         border-radius: 16px;
         margin-top: 1%;
         padding: 1%;
-        background-color: burlywood;
+        background-color: rgb(236, 203, 103, 0.8);
         width: 100% 0;
         display: flex;
         align-items: center;
@@ -43,27 +45,52 @@
         flex-direction: row-reverse;
     }
 
-    /* .icon-and-settings-container {
-        position: absolute;
-        top: 0;
-        width: 100%0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row-reverse;
-    } */
-
     .game-functions-container {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-evenly;
         width: 100%;
         height: 100%;
     }
 
+    .game-functions-container h2 {
+        display: none;
+    }
+
+    .icon-and-settings-container-mini-version {
+        gap: unset;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .control-keys {
+        padding-left: 16px;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .control-keys img {
+        width: 60px;
+    }
+
+    .game-notification {
+        align-items: center;
+        justify-content: center;
+    }
+
     #all-icons-container-mini-version {
         width: 100%;
         height: 100%;
+        gap: 0;
+    }
+
+    .all-icons-button-container-small-version button {
+        font-size: 14px;
+    }
+
+    .main-title-properties img {
+        width: 48px;
     }
 }
 
@@ -223,7 +250,7 @@
     }
 }
 
-@media(max-width: 1400px) and (max-height: 900px) {
+/* @media(max-width: 1400px) and (max-height: 900px) {
     .main-title-properties h2 {
         display: none;
     }
@@ -235,7 +262,7 @@
     #main-title {
         font-size: 48px;
     }
-}
+} */
 
 /* @media(min-width: 1400px) and (max-height: 1100px) {
 

@@ -116,6 +116,10 @@
         display: none;
     }
 
+    .icon-and-settings-container {
+        display: none;
+    }
+
     #message-to-turn-device {
         display: flex;
         justify-content: center;

@@ -128,11 +128,13 @@ body {
     font-family: 'playpensans light';
     font-size: 16px;
     height: 100%;
-    gap: 6%;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     position: absolute;
     bottom: 0;
+    gap: 6%;
     left: 0;
     z-index: 20;
     text-align: center;

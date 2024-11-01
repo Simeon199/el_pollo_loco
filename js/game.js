@@ -82,6 +82,7 @@ function showIntroImageAndDeactivateTurnDeviceMessage() {
  */
 
 function activateMessageToTurnDevice() {
+    // document.getElementById('icon-and-settings-container').style.display = 'none';
     document.getElementById('message-to-turn-device').style.display = 'flex';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
