@@ -61,7 +61,7 @@
 
 #winning-image {
     display: none;
-    gap: 24px;
+    /* gap: 24px; */
     z-index: 11;
 }
 
