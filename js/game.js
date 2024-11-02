@@ -366,9 +366,18 @@ function playAgain() {
     wasGameWon = null;
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
-    if (!isDesktopDevice() && !isFullscreenActivated) {
+    if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
         fullscreen();
     }
     setIsGamePlayingTrueIfFalse();
     init();
+}
+
+/**
+ * Determines if fullscreen mode should be activated when playing button was pressed.
+ *
+ * @returns {boolean} - Returns `true` if all conditions are met and fullscreen should be activated, otherwise `false`.
+ */
+function checkIfFullscreenShouldBeActivatedWhenPlayAgain() {
+    return !isDesktopDevice() && !isFullscreenActivated && window.innerWidth < 1400;
 }
