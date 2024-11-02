@@ -70,6 +70,12 @@
     align-items: center;
 }
 
+.losing-image-properties {
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
 #winning-image img {
     margin-top: 42px;
     width: 720px;

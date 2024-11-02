@@ -251,7 +251,7 @@ function changeStyleWhenLosing() {
         document.getElementById('intro-image').style.display = 'none';
     }
     document.getElementById('losing-image').style.display = 'flex';
-    document.getElementById('losing-image').classList.add('winning-image-properties');
+    document.getElementById('losing-image').classList.add('losing-image-properties');
     document.getElementById('main-title').style.display = 'none';
 }
 
