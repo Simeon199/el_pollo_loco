@@ -32,8 +32,6 @@ class ThrowableObject extends MovableObject {
     STANDING_BOTTLE_LEFT_DIRECTION = ['img/6_salsa_bottle/1_salsa_bottle_on_ground.png'];
     STANDING_BOTTLE_RIGHT_DIRECTION = ['img/6_salsa_bottle/2_salsa_bottle_on_ground.png'];
 
-    // bottleLanding = new Audio('audio/soft_landing.mp3');
-
 
     /**
     * Constructor for the ThrowableObject class. It sets the initial position of the bottle,
@@ -200,11 +198,6 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.stopSpeedAccelerationAndHeightOfBottle();
             this.setLandingBottleDirection(direction);
-            // if (this.bottleLanding.muted) {
-            //     this.bottleLanding.play();
-            // } else {
-            //     this.bottleLanding.pause();
-            // }
             clearInterval(this.intervalID);
         }
     }

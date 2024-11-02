@@ -74,20 +74,6 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 }
 
 /**
- * Sets the styling for the sound icons when the game is in fullscreen mode.
- */
-
-function setSoundStylingForFullscreen() {
-    console.log('nix');
-    // document.getElementById('sound-on-icon').style.borderRadius = '16px';
-    // document.getElementById('sound-on-icon').style.border = '4px solid black';
-    // document.getElementById('sound-on-icon').style.padding = '6px';
-    // document.getElementById('sound-off-icon').style.borderRadius = '16px';
-    // document.getElementById('sound-off-icon').style.border = '4px solid black';
-    // document.getElementById('sound-off-icon').style.padding = '6px';
-}
-
-/**
  * Manages the addition and removal of classes and styles when entering fullscreen mode.
  */
 
@@ -95,7 +81,6 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
     handleEnterFullscreenStylingClasses();
     changeStyleDependingOfScreenSize();
     controlMuteCondition();
-    setSoundStylingForFullscreen();
 }
 
 /**
