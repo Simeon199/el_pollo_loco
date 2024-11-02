@@ -65,7 +65,6 @@ function setAllWorldAudioSound(bolean) {
     manageBackgroundMusic(bolean);
     manageAudioRelatedToHitting(bolean);
     manageAudioRelatedToCollectingItems(bolean);
-    setThrowableObjectsAudioSound(bolean);
 }
 
 /**
@@ -129,22 +128,6 @@ function setAllCharacterAudioSound(mute) {
 }
 
 /**
- * Mutes or unmutes sounds related to throwable objects in the game, such as the bottle landing sound.
- * 
- * @param {boolean} mute - If true, mutes throwable object sounds; if false, unmutes them.
- */
-
-
-function setThrowableObjectsAudioSound(mute) {
-    world.level.bottles.forEach(bottle => {
-        if (bottle.bottleLanding) {
-            console.log("Status of bottle landing: ", bottle.bottleLanding.muted);
-            bottle.bottleLanding.muted = mute;
-        }
-    });
-}
-
-/**
  * Mutes or unmutes sounds associated with enemies, such as chicken sounds and scream sounds.
  * 
  * @param {boolean} bolean - If true, mutes enemy sounds; if false, unmutes them.
@@ -166,7 +149,7 @@ function setEnemiesAudioSound(mute) {
 
 /**
  * Mutes or unmutes all game sounds depending on the boolean parameter.
- * This includes world, character, throwable objects, and enemies' sounds.
+ * This includes world, character and enemies' sounds.
  * 
  * @param {boolean} bolean - If true, mutes all sounds; if false, unmutes them.
  */
@@ -176,9 +159,6 @@ function muteUnmuteSound(mute) {
         setAllWorldAudioSound(mute);
         if (doesCharacterExistInWorld()) {
             setAllCharacterAudioSound(mute);
-        }
-        if (doThrowableObjectsExistInWorld()) {
-            setThrowableObjectsAudioSound(mute);
         }
         if (doEnemiesExistInWorld()) {
             setEnemiesAudioSound(mute);

@@ -82,7 +82,6 @@ function showIntroImageAndDeactivateTurnDeviceMessage() {
  */
 
 function activateMessageToTurnDevice() {
-    // document.getElementById('icon-and-settings-container').style.display = 'none';
     document.getElementById('message-to-turn-device').style.display = 'flex';
     document.getElementById('intro-image').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
@@ -324,19 +323,6 @@ function doesCharacterExistInWorld() {
     }
 }
 
-/**
- * Checks if throwable objects exist in the world.
- * 
- * @returns {boolean} - Returns true if throwable objects exist.
- */
-
-function doThrowableObjectsExistInWorld() {
-    if (world.throwableObject) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 /**
  * Checks if enemies exist in the world.
