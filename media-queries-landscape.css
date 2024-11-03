@@ -1,3 +1,9 @@
+@media (pointer: fine) and (hover: hover) and (min-width: 1500px) {
+    .icon-and-settings-container {
+        display: none;
+    }
+}
+
 @media(pointer: coarse) and (hover: none) and (max-width: 1500px) {
 
     #losing-image {
