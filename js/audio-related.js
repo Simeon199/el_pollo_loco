@@ -4,8 +4,8 @@
  */
 
 function stopAllSounds() {
-    if (world && world.backgroundMusic) {
-        world.backgroundMusic.pause();
+    if (world && world.audioManager) {
+        world.audioManager.pauseBackgroundMusic();
     }
     if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
         world.level.enemies.forEach(enemy => {
@@ -23,20 +23,7 @@ function stopAllSounds() {
 
 function turnSoundOnOrOff() {
     soundIsMuted = !soundIsMuted;
-    muteUnmuteSound(soundIsMuted);  // Nutze direkt das Flag, um den Status zu ändern
-
-    if (soundIsMuted) {
-        showTurningSoundOffIcon();
-    } else {
-        showTurningSoundOnIcon();
-    }
-}
-
-
-function turnSoundOnOrOff() {
-    soundIsMuted = !soundIsMuted;
-    muteUnmuteSound(soundIsMuted);  // Nutze direkt das Flag, um den Status zu ändern
-
+    muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {
         showTurningSoundOffIcon();
     } else {
@@ -70,13 +57,13 @@ function showTurningSoundOnIcon() {
  * Mutes or unmutes all sound in the game world, including background music, hit sounds,
  * and item collection sounds, based on the boolean parameter.
  * 
- * @param {boolean} bolean - If true, mutes all sounds; if false, unmutes all sounds.
+ * @param {boolean} mute - If true, mutes all sounds; if false, unmutes all sounds.
  */
 
-function setAllWorldAudioSound(bolean) {
-    manageBackgroundMusic(bolean);
-    manageAudioRelatedToHitting(bolean);
-    manageAudioRelatedToCollectingItems(bolean);
+function setAllWorldAudioSound(mute) {
+    world.audioManager.setBackgroundMusicMuted(mute);
+    world.audioManager.setHittingSoundsMuted(mute);
+    world.audioManager.setItemCollectionSoundsMuted(mute);
 }
 
 /**
@@ -86,8 +73,9 @@ function setAllWorldAudioSound(bolean) {
  */
 
 function manageBackgroundMusic(mute) {
-    if (world.backgroundMusic) {
-        world.backgroundMusic.muted = mute;
+    if (world.audioManager.sounds['backgroundMusic']) {
+        world.audioManager.sounds['backgroundMusic'].muted = mute;
+        // world.backgroundMusic.muted = mute;
     }
 }
 
@@ -98,14 +86,14 @@ function manageBackgroundMusic(mute) {
  */
 
 function manageAudioRelatedToHitting(mute) {
-    if (world.hit) {
-        world.hit.muted = mute;
+    if (world.audioManager.sounds['hit']) {
+        world.audioManager.sounds['hit'].muted = mute;
     }
-    if (world.punchAndOuch) {
-        world.punchAndOuch.muted = mute;
+    if (world.audioManager.sounds['punchAndOuch']) {
+        world.audioManager.sounds['punchAndOuch'].muted = mute;
     }
-    if (world.bottleHit) {
-        world.bottleHit.muted = mute;
+    if (world.audioManager.sounds['bottleHit']) {
+        world.audioManager.sounds['bottleHit'].muted = mute;
     }
 }
 
@@ -116,11 +104,11 @@ function manageAudioRelatedToHitting(mute) {
  */
 
 function manageAudioRelatedToCollectingItems(mute) {
-    if (world.loadingSound) {
-        world.loadingSound.muted = mute;
+    if (world.audioManager.sounds['loadingSound']) {
+        world.audioManager.sounds['loadingSound'].muted = mute;
     }
-    if (world.bellSound) {
-        world.bellSound.muted = mute;
+    if (world.audioManager.sounds['bellSound']) {
+        world.audioManager.sounds['bellSound'].muted = mute;
     }
 }
 
@@ -175,8 +163,8 @@ function muteUnmuteSound(mute) {
         if (doEnemiesExistInWorld()) {
             setEnemiesAudioSound(mute);
         }
-        if (!mute && world.backgroundMusic.paused) {
-            world.backgroundMusic.play();
+        if (!mute && world.audioManager.isBackgroundMusicPaused) {
+            world.audioManager.playBackgroundMusic();
         }
     }
 }

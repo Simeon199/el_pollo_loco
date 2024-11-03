@@ -21,15 +21,6 @@ class World {
     isGameOver = false;
     enemiesNumber = this.level.enemies.length;
 
-    // Audio-related properties
-
-    punchAndOuch = new Audio('audio/punch_and_ouch1.mp3');
-    bottleHit = new Audio('audio/bottle_hit.mp3');
-    hit = new Audio('audio/hit3.mp3');
-    backgroundMusic = new Audio('audio/laCucaracha.mp3');
-    loadingSound = new Audio('audio/loadingSound.mp3');
-    bellSound = new Audio('audio/bellSound.mp3');
-
     /**
      * Constructor of the World class. Initializes the game canvas, level, audio, and game elements.
      * 
@@ -41,12 +32,13 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.audioManager = new AudioManager();
+        this.audioManager.playBackgroundMusic();
         this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
         this.draw();
         this.setWorld();
         this.utilityClass = new Utility(this);
         this.bottlebar.bottleAmount = this.level.bottles.length;
-        this.backgroundMusic.volume = 0.25;
         this.run();
     }
 
@@ -58,9 +50,7 @@ class World {
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
-            if (this.backgroundMusic.pause) {
-                this.backgroundMusic.play();
-            }
+            this.audioManager.playBackgroundMusic();
         }, 100);
     }
 
@@ -151,7 +141,8 @@ class World {
             if (!this.character.isHurt()) {
                 this.applyKnockback(enemy);
                 this.adjustStatusBarWhenCharacterGetsHit();
-                this.punchAndOuch.play();
+                this.audioManager.playSound('punchAndOuch');
+                // this.punchAndOuch.play();
             }
         }
     }
@@ -276,7 +267,8 @@ class World {
         this.enemiesNumber -= 1;
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
-        this.hit.play();
+        this.audioManager.playSound('hit');
+        // this.hit.play();
     }
 
     /**

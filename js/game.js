@@ -117,7 +117,6 @@ function isLandscapeScreenActivated() {
     return window.innerWidth > window.innerHeight;
 }
 
-
 /**
  * Deletes the current game world instance and clears all active intervals. Ensures no game logic persists from a previous game session.
  */
