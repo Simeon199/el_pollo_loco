@@ -23,11 +23,23 @@ function stopAllSounds() {
 
 function turnSoundOnOrOff() {
     soundIsMuted = !soundIsMuted;
+    muteUnmuteSound(soundIsMuted);  // Nutze direkt das Flag, um den Status zu ändern
+
     if (soundIsMuted) {
-        muteUnmuteSound(true);
         showTurningSoundOffIcon();
     } else {
-        muteUnmuteSound(false);
+        showTurningSoundOnIcon();
+    }
+}
+
+
+function turnSoundOnOrOff() {
+    soundIsMuted = !soundIsMuted;
+    muteUnmuteSound(soundIsMuted);  // Nutze direkt das Flag, um den Status zu ändern
+
+    if (soundIsMuted) {
+        showTurningSoundOffIcon();
+    } else {
         showTurningSoundOnIcon();
     }
 }

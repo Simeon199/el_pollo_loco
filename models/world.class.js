@@ -148,12 +148,13 @@ class World {
         if (this.isEnemyChickenAndGetsJumpedOnByCharacter(enemy)) {
             this.enemyIsDefeatedByJump(enemy);
         } else if (!enemy.isDead) {
-            this.adjustStatusBarWhenCharacterGetsHit();
-            this.applyKnockback(enemy);
-            this.punchAndOuch.play();
+            if (!this.character.isHurt()) {
+                this.applyKnockback(enemy);
+                this.adjustStatusBarWhenCharacterGetsHit();
+                this.punchAndOuch.play();
+            }
         }
     }
-
     /**
     * Adjusts the status bar when the character gets hit. Decreases the character's energy and updates the status bar's percentage.
     */
@@ -244,8 +245,8 @@ class World {
         if (this.isEnemyEndboss(enemy)) {
             this.setEndbossVariablesForKnockbackOfCharacter(enemy);
         }
-        let knockbackDistance = 100;
-        let knockbackSpeed = 5;
+        let knockbackDistance = 400;
+        let knockbackSpeed = 10;
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;
         this.setKnockBackInterval(knockbackDistance, knockbackSpeed, direction, distanceMoved);

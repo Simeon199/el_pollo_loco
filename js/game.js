@@ -138,6 +138,17 @@ function init() {
     removeAllListeners();
     addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
+    muteUnmuteSound(soundIsMuted);
+}
+
+function muteGameSounds() {
+    soundOn = false;
+    soundIsMuted = true;
+}
+
+function unmuteGameSounds() {
+    soundOn = true;
+    soundIsMuted = false;
 }
 
 /**
@@ -323,7 +334,6 @@ function doesCharacterExistInWorld() {
     }
 }
 
-
 /**
  * Checks if enemies exist in the world.
  * 
@@ -366,10 +376,11 @@ function playAgain() {
     wasGameWon = null;
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
+    isGamePlaying = true;
     if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
         fullscreen();
     }
-    setIsGamePlayingTrueIfFalse();
+    muteUnmuteSound(soundIsMuted);
     init();
 }
 
