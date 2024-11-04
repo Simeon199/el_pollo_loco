@@ -138,6 +138,17 @@ function init() {
     addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
     muteUnmuteSound(soundIsMuted);
+    controlTurnOnTurnOffIcon();
+}
+
+// Hier noch JS-Doc!
+
+function controlTurnOnTurnOffIcon() {
+    if (soundIsMuted) {
+        showTurningSoundOffIcon();
+    } else {
+        showTurningSoundOnIcon();
+    }
 }
 
 function muteGameSounds() {
@@ -149,6 +160,8 @@ function unmuteGameSounds() {
     soundOn = true;
     soundIsMuted = false;
 }
+
+// Hier endet JS-Doc!
 
 /**
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.

@@ -133,7 +133,8 @@ function proveIfBackgroundIsEmpty() {
     let boolean1 = winningImage.style.display == 'none';
     let boolean2 = losingImage.style.display == 'none';
     let boolean3 = introImage.style.display == 'none';
-    return totalBoolean = boolean1 && boolean2 && boolean3;
+    let boolean4 = isGamePlaying == false;
+    return totalBoolean = boolean1 && boolean2 && boolean3 && boolean4;
 }
 
 /** 
