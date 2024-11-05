@@ -1,4 +1,6 @@
-@media(pointer: coarse) and (hover: none) and (max-width: 1000px) {
+@media(pointer: coarse) {
+
+    /* and (hover: none) and (max-width: 1000px) */
 
     #losing-image {
         width: 100dvw;
