@@ -1,0 +1,249 @@
+/* General Settings */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'damion';
+    src: url('fonts/Damion-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'sombrero';
+    src: url('fonts/SombreroLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans';
+    src: url('fonts/PlaypenSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans light';
+    src: url('fonts/PlaypenSans-Light.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('assets/desert_3.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
+}
+
+h1 {
+    padding-top: 16px;
+    font-size: 64px;
+}
+
+h2 {
+    font-family: 'damion';
+    font-size: 32px;
+}
+
+/* Start CSS-Block */
+
+.main-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.outer-image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 800px;
+    width: 100%;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    cursor: pointer;
+    transition: transform 500ms ease-in-out;
+}
+
+.image-container:hover {
+    transform: scale(1.05);
+}
+
+.image-container button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: gold;
+}
+
+.image-container button:hover {
+    background-color: rgb(95, 81, 3);
+}
+
+.image-container img {
+    width: 200px;
+}
+
+.outer-image-container .image-container:nth-child(2) img {
+    width: 296px;
+}
+
+a h2 {
+    font-family: 'damion', sans-serif;
+    color: dimgray;
+    font-size: 40px;
+    padding: 8px;
+}
+
+.all-icons-container {
+    font-size: 14px;
+    width: 100%;
+    gap: 18px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    border: 2px solid black;
+    padding: 8px;
+    background-color: rgba(236, 199, 148, 0.5);
+}
+
+#all-icons-container-mini-version {
+    font-family: 'playpensans light';
+    font-size: 12px;
+    width: 100%;
+    gap: 0px;
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    text-align: center;
+    border: 1px solid black;
+    padding: 8px;
+    background-color: rgba(236, 199, 148, 1);
+}
+
+#all-icons-container-mini-version a {
+    color: black;
+    text-decoration: none;
+}
+
+.all-icons-container-mini-version img {
+    width: 24px;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.all-icons-container a {
+    font-family: 'playpensans light';
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.all-icons-container h2 {
+    font-family: 'playpensans';
+    font-size: 24px;
+}
+
+.all-icons-button-container {
+    display: none;
+    font-family: 'playpensans';
+    font-size: 18px;
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+}
+
+.all-icons-button-container button {
+    font-size: 18px;
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.all-icons-button-container button:hover {
+    background-color: rgb(95, 81, 3);
+}
+
+
+@media(max-width: 1075px) {
+    h1 {
+        font-size: 40px;
+    }
+
+    .all-icons-container {
+        display: none;
+    }
+
+    .all-icons-button-container {
+        display: block;
+    }
+}
+
+@media(max-width: 850px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .outer-image-container {
+        min-width: 500px;
+    }
+
+    .image-container img {
+        width: 100px;
+    }
+
+    .outer-image-container .image-container:nth-child(2) img {
+        width: 180px;
+    }
+}
+
+@media(max-width: 700px) {
+    .all-icons-button-container button {
+        font-size: 13px;
+        padding: 4px;
+    }
+
+    #all-icons-container-mini-version {
+        font-size: 10px;
+    }
+
+    #all-icons-container-mini-version img {
+        width: 18px;
+    }
+}
+
+@media(max-width: 500px) {
+    .outer-image-container {
+        min-width: 300px;
+    }
+
+    .image-container img {
+        width: 80px;
+    }
+
+    .outer-image-container .image-container:nth-child(2) img {
+        width: 120px;
+    }
+
+    .image-container:hover {
+        transform: scale(1.05);
+    }
+}
