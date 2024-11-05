@@ -123,7 +123,9 @@ class Endboss extends Chicken {
      */
 
     handleAttackingEndbossAndHurtingEndbossAnimation() {
-        this.chickenScream.play();
+        if (this.chickenScream.volume == 0) {
+            this.chickenScream.volume = 0.25;
+        }
         if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
             this.playAnimation(this.IMAGES_HURT);
         } else {
@@ -136,8 +138,8 @@ class Endboss extends Chicken {
      */
 
     animateMovingAndAttackingEndboss() {
-        this.chickenScream.pause();
-        this.chickenSound.play();
+        this.chickenScream.volume = 0;
+        this.chickenSound.volume = 0.25;
         this.directEndbossIntoAttackDirectionAndCheckCollisions();
         this.playAnimation(this.IMAGES_ATTACK);
     }
@@ -286,7 +288,9 @@ class Endboss extends Chicken {
      */
 
     playAttackEndbossAnimation() {
-        this.chickenSound.play();
+        if (this.chickenSound.volume == 0) {
+            this.chickenSound.volume = 0.25;
+        }
         this.playAnimation(this.IMAGES_ATTACK);
         this.checkIfEndbossAlreadyHitCharacter();
     }
