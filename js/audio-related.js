@@ -33,6 +33,7 @@ function stopAllSounds() {
  */
 
 function turnSoundOnOrOff() {
+    // debugger;
     soundIsMuted = !soundIsMuted;
     muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {
@@ -84,10 +85,8 @@ function setAllWorldAudioSound(mute) {
  */
 
 function manageBackgroundMusic(mute) {
-    if (world.audioManager.sounds['backgroundMusic'] && mute == true) {
-        world.audioManager.sounds['backgroundMusic'].volume = 0;
-    } else if (world.audioManager.sounds['backgroundMusic'] && mute == false) {
-        world.audioManager.sounds['backgroundMusic'].volume = 0.25;
+    if (world.audioManager.sounds['backgroundMusic']) {
+        world.audioManager.setBackgroundMusicMuted(mute);
     }
 }
 
@@ -98,21 +97,7 @@ function manageBackgroundMusic(mute) {
  */
 
 function manageAudioRelatedToHitting(mute) {
-    if (world.audioManager.sounds['hit'] && mute == true) {
-        world.audioManager.sounds['hit'].volume = 0;
-    } else if (world.audioManager.sounds['hit'] && mute == false) {
-        world.audioManager.sounds['hit'].volume = 0.25;
-    }
-    if (world.audioManager.sounds['punchAndOuch'] && mute == true) {
-        world.audioManager.sounds['punchAndOuch'].volume = 0;
-    } else if (world.audioManager.sounds['punchAndOuch'] && mute == false) {
-        world.audioManager.sounds['punchAndOuch'].volume = 0.25;
-    }
-    if (world.audioManager.sounds['bottleHit'] && mute == true) {
-        world.audioManager.sounds['bottleHit'].volume = 0;
-    } else if (world.audioManager.sounds['bottleHit'] && mute == false) {
-        world.audioManager.sounds['bottleHit'].volume = 0.25;
-    }
+    world.audioManager.setHittingSoundsMuted(mute);
 }
 
 /**
@@ -122,16 +107,7 @@ function manageAudioRelatedToHitting(mute) {
  */
 
 function manageAudioRelatedToCollectingItems(mute) {
-    if (world.audioManager.sounds['loadingSound'] && mute == true) {
-        world.audioManager.sounds['loadingSound'].volume = 0;
-    } else if (world.audioManager.sounds['loadingSound'] && mute == false) {
-        world.audioManager.sounds['loadingSound'].volume = 0.25;
-    }
-    if (world.audioManager.sounds['bellSound'] && mute == true) {
-        world.audioManager.sounds['bellSound'].volume = 0;
-    } else if (world.audioManager.sounds['bellSound'] && mute == false) {
-        world.audioManager.sounds['bellSound'].volume = 0.25;
-    }
+    world.audioManager.setItemCollectionSoundsMuted(mute);
 }
 
 /**
@@ -141,15 +117,11 @@ function manageAudioRelatedToCollectingItems(mute) {
  */
 
 function setAllCharacterAudioSound(mute) {
-    if (world.character.walking_sound && mute == true) {
-        world.character.walking_sound.volume = 0;
-    } else if (world.character.walking_sound && mute == false) {
-        world.character.walking_sound.volume = 0.25;
+    if (world.character.walking_sound) {
+        world.character.walking_sound.muted = mute;
     }
-    if (world.character.snorring_sound && mute == true) {
-        world.character.snorring_sound.volume = 0;
-    } else if (world.character.snorring_sound && mute == false) {
-        world.character.snorring_sound.volume = 0.25;
+    if (world.character.snorring_sound) {
+        world.character.snorring_sound.muted = mute;
     }
 }
 
@@ -161,20 +133,14 @@ function setAllCharacterAudioSound(mute) {
 
 function setEnemiesAudioSound(mute) {
     world.level.enemies.forEach(enemy => {
-        if (enemy.chickenSound && mute == true) {
-            enemy.chickenSound.volume = 0;
-        } else if (enemy.chickenSound && mute == true) {
-            enemy.chickenSound.volume = 0.25;
+        if (enemy.chickenSound) {
+            enemy.chickenSound.muted = mute;
         }
-        if (enemy.chickenScream && mute == true) {
-            enemy.chickenScream.volume = 0;
-        } else if (enemy.chickenScream && mute == false) {
-            enemy.chickenScream.volume = 0.25;
+        if (enemy.chickenScream) {
+            enemy.chickenScream.muted = mute;
         }
-        if (enemy.hitAndScream && mute == true) {
-            enemy.hitAndScream.volume = 0;
-        } else if (enemy.hitAndScream && mute == false) {
-            enemy.hitAndScream.volume = 0.25;
+        if (enemy.hitAndScream) {
+            enemy.hitAndScream.muted = mute;
         }
     });
 }

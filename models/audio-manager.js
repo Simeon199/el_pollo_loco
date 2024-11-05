@@ -68,9 +68,6 @@ class AudioManager {
             if (this.sounds[sound].paused) {
                 this.sounds[sound].play();
             }
-            if (this.sounds[sound].volume == 0) {
-                this.sounds[sound].volume = 0.25;
-            }
         }
     }
 
@@ -80,12 +77,7 @@ class AudioManager {
      * @param {boolean} mute - If true, mutes the background music; if false, unmutes it.
      */
     setBackgroundMusicMuted(mute) {
-        if (mute == true) {
-            this.backgroundMusic.volume = 0;
-        } else {
-            this.backgroundMusic.volume = 0.25;
-        }
-        // this.backgroundMusic.muted = mute;
+        this.backgroundMusic.muted = mute;
     }
 
     /**
@@ -94,12 +86,12 @@ class AudioManager {
      * @param {boolean} mute - If true, mutes hit sounds; if false, unmutes them.
      */
     setHittingSoundsMuted(mute) {
-        const hittingSounds = ['punchAndOuch', 'bottleHit', 'hit'];
+        let hittingSounds = ['punchAndOuch', 'bottleHit', 'hit'];
         hittingSounds.forEach(soundKey => {
-            if (this.sounds[soundKey] && mute == true) {
-                // this.sounds[soundKey].muted = mute;
+            this.sounds[soundKey].muted = mute;
+            if (mute == true) {
                 this.sounds[soundKey].volume = 0;
-            } else if (this.sounds[soundKey] && mute == false) {
+            } else {
                 this.sounds[soundKey].volume = 0.25;
             }
         });
@@ -112,14 +104,9 @@ class AudioManager {
      */
 
     setItemCollectionSoundsMuted(mute) {
-        const itemSounds = ['loadingSound', 'bellSound'];
+        let itemSounds = ['loadingSound', 'bellSound'];
         itemSounds.forEach(soundKey => {
-            if (this.sounds[soundKey] && mute == true) {
-                // this.sounds[soundKey].muted = mute;
-                this.sounds[soundKey].volume = 0;
-            } else if (this.sounds[soundKey] && mute == false) {
-                this.sounds[soundKey].volume = 0.25;
-            }
+            this.sounds[soundKey].muted = mute;
         });
     }
 }
