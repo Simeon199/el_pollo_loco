@@ -1,7 +1,5 @@
 @media(pointer: coarse) {
 
-    /* and (hover: none) and (max-width: 1000px) */
-
     #losing-image {
         width: 100dvw;
         height: 100dvh;
@@ -164,7 +162,8 @@
     }
 }
 
-@media(pointer: coarse) and (hover: none) and (min-width: 1000px) {
+@media(pointer: coarse) and (min-width: 1000px) {
+
     .icon-and-settings-container {
         z-index: 1000;
         position: absolute;
@@ -210,6 +209,10 @@
 
     .game-functions-container h2 {
         display: none;
+    }
+
+    #all-icons-container-mini-version {
+        justify-content: space-between;
     }
 }
 
@@ -267,11 +270,22 @@
     #fullscreen {
         width: 56px;
     }
+
+    #all-icons-container-mini-version {
+        justify-content: space-between;
+    }
+
+    .explain-game-container {
+        left: unset;
+    }
+
+    .game-functions-container {
+        width: auto;
+    }
 }
 
 @media(min-width: 2000px) and (min-height: 1100px) {
 
-    /* and (pointer: fine) and (hover: hover)  */
     #winning-image img {
         width: 1000px;
         height: auto;
@@ -319,10 +333,21 @@
     .button-style {
         font-size: 72px;
     }
+
+    #all-icons-container-mini-version {
+        justify-content: space-between;
+    }
+
+    .explain-game-container {
+        left: unset;
+    }
+
+    .game-functions-container {
+        width: auto;
+    }
 }
 
 @media(min-width: 2500px) and (min-height: 1500px) {
-    /* and (pointer: fine) and (hover: hover)  */
 
     .envelope-all-container {
         width: 80%;
@@ -392,5 +417,17 @@
 
     #all-icons-container-mini-version {
         font-size: 20px;
+    }
+
+    #all-icons-container-mini-version {
+        justify-content: space-between;
+    }
+
+    .explain-game-container {
+        left: unset;
+    }
+
+    .game-functions-container {
+        width: auto;
     }
 }
