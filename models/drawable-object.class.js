@@ -31,7 +31,7 @@ class DrawableObject {
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-            this.drawFrame(ctx);
+            // this.drawFrame(ctx);
         } catch (e) {
             console.warn('Error loading image:', e);
             console.log("relevant imageCache:", this.imageCache);

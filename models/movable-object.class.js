@@ -71,13 +71,30 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the object is colliding with another movable object.
+     * Checks if the object is colliding from above with another movable object.
      * 
-     * @param {MovableObject} mo - The other movable object to check for collision.
-     * @returns {boolean} True if the objects are colliding; otherwise, false.
+     * @param {MovableObject} mo - The other movable object to check for collision from above.
+     * @returns {boolean} True if the object is colliding from above; otherwise, false.
      */
+    isCollidingFromAbove(mo) {
+        let tolerance = this.returnCorrectTolerance();
+        return this.y + this.height <= mo.y + tolerance && this.speedY > 0;
+    }
+
+
+    /**
+    * Checks if this object is colliding with another movable object. If a collision from above is detected (e.g., the character jumps on a target), 
+    * it returns `false` to ignore further checks, treating the collision as non-frontal.
+    * Otherwise, it applies a tolerance value to verify a general collision.
+    * 
+    * @param {MovableObject} mo - The other movable object to check for collision.
+    * @returns {boolean} True if this object is colliding with the other object; otherwise, false.
+    */
 
     isColliding(mo) {
+        if (this.isCollidingFromAbove(mo)) {
+            return false;
+        }
         let tolerance = this.returnCorrectTolerance();
         return this.x + this.width - tolerance > mo.x &&
             this.y + this.height - tolerance > mo.y &&
@@ -94,7 +111,7 @@ class MovableObject extends DrawableObject {
     returnCorrectTolerance() {
         let tolerance = 0;
         if (this.isCharacterAndAboveGround()) {
-            tolerance = 0;
+            tolerance = 5;
         } else if (this.isCharacterAndNotAboveGround()) {
             tolerance = 50;
         }
