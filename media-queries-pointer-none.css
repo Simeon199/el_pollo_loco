@@ -1,0 +1,215 @@
+@media(pointer: coarse) {
+    #losing-image {
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    #losing-image img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #winning-image img {
+        margin-top: unset;
+        width: 45%;
+        height: auto;
+    }
+
+    .button-style {
+        font-size: 32px;
+        position: absolute;
+        bottom: 5%;
+    }
+
+    #sound-on-icon {
+        width: 68px;
+    }
+
+    #sound-off-icon {
+        width: 68px;
+    }
+
+    #fullscreen {
+        display: none;
+    }
+
+    .control-panel-everything button {
+        border: 4px solid black;
+        border-radius: 16px;
+        padding: 6px;
+        background-color: wheat;
+    }
+
+    #control-panel-up-throw {
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+    }
+
+    #control-panel-right-left {
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+    }
+
+    .canvas-container img:nth-child(1) {
+        display: block;
+        width: 48px;
+    }
+
+    #intro-image {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    #intro-image img:nth-child(1) {
+        width: 100%;
+        height: 100%;
+    }
+
+    #intro-image img:nth-child(2) {
+        width: 60px;
+        right: calc((100% - 60px) / 2)
+    }
+
+    canvas {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    .control-panel-everything {
+        display: flex;
+        width: 100%;
+    }
+
+    .icon-and-settings-container {
+        z-index: 1000;
+        position: absolute;
+        top: 0;
+        right: 1%;
+        border: 4px solid black;
+        border-radius: 16px;
+        margin-top: 1%;
+        padding: 1%;
+        background-color: rgb(236, 203, 103, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+    }
+
+    .game-functions-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+        height: 100%;
+    }
+
+    .all-icons-button-container {
+        display: none;
+    }
+
+    .links-images {
+        display: none;
+    }
+
+    .game-functions-container h2 {
+        display: none;
+    }
+
+    .icon-and-settings-container-mini-version {
+        gap: unset;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .control-keys {
+        padding-left: 16px;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .control-keys img {
+        width: 60px;
+    }
+
+    .game-notification {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sound-screen-control-container {
+        width: 80%;
+        bottom: 1%;
+        right: unset;
+    }
+
+    #all-icons-container-mini-version {
+        width: 100%;
+        height: 100%;
+        gap: 0;
+    }
+
+    .all-icons-button-container-small-version button {
+        font-size: 20px;
+    }
+
+    .main-title-properties img {
+        width: 48px;
+    }
+}
+
+@media(pointer: coarse) and (min-width: 1000px) {
+    .icon-and-settings-container {
+        z-index: 1000;
+        position: absolute;
+        top: 0;
+        right: 1%;
+        border: 4px solid black;
+        border-radius: 16px;
+        margin-top: 1%;
+        padding: 1%;
+        background-color: rgb(236, 203, 103, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+    }
+
+    .main-title-properties img {
+        width: 80px;
+    }
+
+    #intro-image img:nth-child(2) {
+        width: 80px;
+        right: calc((100% - 80px) / 2)
+    }
+
+    #intro-image {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    #intro-image img:nth-child(1) {
+        width: 100%;
+        height: 100%;
+    }
+
+    .all-icons-button-container {
+        display: none;
+    }
+
+    .links-images {
+        display: none;
+    }
+
+    .game-functions-container h2 {
+        display: none;
+    }
+
+    #all-icons-container-mini-version {
+        justify-content: space-between;
+    }
+}
