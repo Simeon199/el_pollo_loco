@@ -33,7 +33,6 @@ function stopAllSounds() {
  */
 
 function turnSoundOnOrOff() {
-    // debugger;
     soundIsMuted = !soundIsMuted;
     muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {

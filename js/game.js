@@ -16,6 +16,7 @@ let soundIsMuted = false;
 let isGamePlaying = false;
 let wasGameWon = null;
 let soundOn = true;
+let stopGameInterval;
 
 /**
  * Checks the current screen orientation and manages fullscreen mode accordingly.
@@ -194,13 +195,18 @@ function checkIfEnemyOrCharacterIsDead() {
     if (!isGamePlaying) {
         return;
     }
-    setInterval(() => {
-        if (world.character.energy == 0) {
+    if (stopGameInterval) {
+        clearInterval(stopGameInterval);
+    }
+    stopGameInterval = setInterval(() => {
+        if (world.character.energy === 0) {
             wasGameWon = false;
             stopGame('losing');
+            clearInterval(stopGameInterval);
         } else if (world.enemiesNumber <= 0) {
             wasGameWon = true;
             stopGame('winning');
+            clearInterval(stopGameInterval);
         }
     }, 2000);
 }
