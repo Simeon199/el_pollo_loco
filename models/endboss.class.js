@@ -19,7 +19,6 @@ class Endboss extends Chicken {
     chickenScream = new Audio('audio/chicken_scream1.mp3');
     hitAndScream = new Audio('audio/punch_and_ouch1.mp3');
 
-
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -80,24 +79,52 @@ class Endboss extends Chicken {
         }, 100);
     }
 
+    // Überall JS-Doc nochmal kontrollieren!
+
     /**
     * Checks and handles different behaviors of the Endboss such as attacking, being hurt, or dying.
     */
 
     checkAndAnimateAllPossibleBehavioursOfEndboss() {
+        if (this.isEndbossInAttackMode()) return;
+        else if (this.isEndbossInDeathMode()) return;
+        else if (this.isEndbossInIdleMode()) return;
+    }
+
+    isEndbossInAttackMode() {
         if (this.wasEndbossProvokedByCharacter()) {
             this.handleAttackingEndbossAndHurtingEndbossAnimation();
-        } else if (this.isEndbossNotFinalEnemyButDead()) {
-            this.playDyingAnimationAndSetFixedDeadEndbossImage();
-        } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
-            this.setIsDeadAttributeAndplayDyingAnimation();
-        } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
-            this.playAttackingEndbossAndShowHimRunningLeft();
-        } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
-            this.playAttackingEndbossAndShowHimRunningRight();
-        } else if (this.isEndbossAliveAndWasNotAttacked()) {
-            this.playAnimation(this.IMAGES_WALKING);
+            return true;
         }
+        else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
+            this.playAttackingEndbossAndShowHimRunningLeft();
+            return true;
+        }
+        else if (this.isCharacterToCloseToEndbossFromTheRight()) {
+            this.playAttackingEndbossAndShowHimRunningRight();
+            return true;
+        }
+        return false;
+    }
+
+    isEndbossInDeathMode() {
+        if (this.isEndbossNotFinalEnemyButDead()) {
+            this.playDyingAnimationAndSetFixedDeadEndbossImage();
+            return true;
+        }
+        else if (this.isFinalEnemyEndbossAndIsHeDead()) {
+            this.setIsDeadAttributeAndplayDyingAnimation();
+            return true;
+        }
+        return false;
+    }
+
+    isEndbossInIdleMode() {
+        if (this.isEndbossAliveAndWasNotAttacked()) {
+            this.playAnimation(this.IMAGES_WALKING);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -115,6 +142,7 @@ class Endboss extends Chicken {
     */
 
     playAttackingEndbossAndShowHimRunningRight() {
+        this.chickenSound.play();
         this.playAttackEndbossAnimation();
         this.x += this.endbossSpeedX;
     }
@@ -125,6 +153,7 @@ class Endboss extends Chicken {
 
     handleAttackingEndbossAndHurtingEndbossAnimation() {
         this.chickenScream.play();
+        this.chickenSound.play();
         if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
             this.playAnimation(this.IMAGES_HURT);
         } else {
@@ -287,7 +316,6 @@ class Endboss extends Chicken {
      */
 
     playAttackEndbossAnimation() {
-        this.chickenSound.play();
         this.playAnimation(this.IMAGES_ATTACK);
         this.checkIfEndbossAlreadyHitCharacter();
     }
