@@ -1,4 +1,22 @@
 /**
+ * Plays the provided audio if it’s not already playing.
+ * Prevents AbortError by checking if a play promise exists and managing it.
+ * @param {Audio} sound - The audio element to play.
+ */
+function playSoundIfNotPlaying(sound) {
+    const soundPromise = sound.play();
+    if (soundPromise !== undefined) {
+        soundPromise.then(() => {
+            console.log("sound is playing successfully!");
+        }).catch(error => {
+            if (error.name !== "AbortError") {
+                console.error("Audio play error:", error);
+            }
+        });
+    }
+}
+
+/**
  * Stops all sounds in the game world, including background music and enemy sounds.
  * Pauses the background music and enemy-specific sounds if they are playing.
  */
@@ -11,21 +29,50 @@ function stopAllSounds() {
         world.level.enemies.forEach(enemy => {
             if (enemy.chickenSound) {
                 enemy.chickenSound.pause();
+                enemy.chickenSound.currentTime = 0;
             }
             if (enemy.chickenScream) {
                 enemy.chickenScream.pause();
+                enemy.chickenScream.currentTime = 0;
             }
         });
     }
     if (world && world.character) {
         if (world.character.walking_sound) {
             world.character.walking_sound.pause();
+            world.character.walking_sound.currentTime = 0;
         }
         if (world.character.snorring_sound) {
             world.character.snorring_sound.pause();
+            world.character.snorring_sound.currentTime = 0;
         }
     }
 }
+
+
+// function stopAllSounds() {
+//     if (world && world.audioManager) {
+//         world.audioManager.pauseBackgroundMusic();
+//     }
+//     if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
+//         world.level.enemies.forEach(enemy => {
+//             if (enemy.chickenSound) {
+//                 enemy.chickenSound.pause();
+//             }
+//             if (enemy.chickenScream) {
+//                 enemy.chickenScream.pause();
+//             }
+//         });
+//     }
+//     if (world && world.character) {
+//         if (world.character.walking_sound) {
+//             world.character.walking_sound.pause();
+//         }
+//         if (world.character.snorring_sound) {
+//             world.character.snorring_sound.pause();
+//         }
+//     }
+// }
 
 /**
  * Toggles the sound between on and off by muting or unmuting all sounds.
@@ -161,7 +208,8 @@ function muteUnmuteSound(mute) {
             setEnemiesAudioSound(mute);
         }
         if (!mute && world.audioManager.isBackgroundMusicPaused) {
-            world.audioManager.playBackgroundMusic();
+            playSoundIfNotPlaying(world.audioManager.backgroundMusic);
+            // world.audioManager.playBackgroundMusic();
         }
     }
 }

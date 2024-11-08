@@ -18,6 +18,14 @@ let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
 
+document.addEventListener('DOMContentLoaded', () => {
+    const playIcon = document.getElementById('playIcon');
+    playIcon.addEventListener('click', () => {
+        startGame();
+    });
+    console.log('DOM vollständig geladen, Event-Listener für Play-Icon hinzugefügt.');
+});
+
 /**
  * Checks the current screen orientation and manages fullscreen mode accordingly.
  */
@@ -246,6 +254,7 @@ function isTabletDevice() {
  */
 
 function startGame() {
+    console.log('Spiel startet...');
     checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
     isGamePlaying = true;

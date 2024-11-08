@@ -18,6 +18,7 @@ class AudioManager {
             loadingSound: new Audio('audio/loadingSound.mp3'),
             bellSound: new Audio('audio/bellSound.mp3')
         };
+        this.toggleTimeout = null;
     }
 
     /**
@@ -50,11 +51,16 @@ class AudioManager {
      */
 
     toggleBackgroundMusic() {
-        if (this.backgroundMusic.paused) {
-            this.playBackgroundMusic();
-        } else {
-            this.pauseBackgroundMusic();
+        if (this.toggleTimeout) {
+            clearTimeout(this.toggleTimeout);
         }
+        this.toggleTimeout = setTimeout(() => {
+            if (this.backgroundMusic.paused) {
+                this.playBackgroundMusic();
+            } else {
+                this.pauseBackgroundMusic();
+            }
+        }, 100);
     }
 
     /**
@@ -65,8 +71,13 @@ class AudioManager {
 
     playSound(sound) {
         if (this.sounds[sound]) {
-            if (this.sounds[sound].paused) {
-                this.sounds[sound].play();
+            let soundPromise = this.sounds[sound].play();
+            if (soundPromise !== undefined) {
+                soundPromise.then(() => {
+                    console.log("Sound wurde erfolgreich abgespielt!");
+                }).catch(error => {
+                    console.error("Fehler beim Abspielen des Sounds:", error);
+                });
             }
         }
     }

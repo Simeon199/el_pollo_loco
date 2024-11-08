@@ -100,13 +100,27 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    playSoundIfNotPlaying(sound) {
+        let soundPromise = sound.play();
+        if (soundPromise !== undefined) {
+            soundPromise.then(() => {
+                console.log("sound is playing successfully!");
+            }).catch(error => {
+                if (error.name !== "AbortError") {
+                    console.error("Audio play error:", error);
+                }
+            });
+        }
+    }
+
     /**
     * Plays the sleep animation with the snoring sound.
     */
 
     playSleepAnimationWithAudio() {
         this.playAnimation(this.IMAGES_SLEEP);
-        this.snorring_sound.play();
+        this.playSoundIfNotPlaying(this.snorring_sound);
+        // this.snorring_sound.play();
     }
 
     /**
@@ -116,7 +130,8 @@ class Character extends MovableObject {
     playMovingRightAnimationWithAudio() {
         this.moveRight();
         this.otherDirection = false;
-        this.walking_sound.play();
+        this.playSoundIfNotPlaying(this.walking_sound);
+        // this.walking_sound.play();
     }
 
     /**
@@ -126,7 +141,8 @@ class Character extends MovableObject {
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
-        this.walking_sound.play();
+        this.playSoundIfNotPlaying(this.walking_sound);
+        // this.walking_sound.play();
     }
 
     /**
@@ -138,8 +154,6 @@ class Character extends MovableObject {
         this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
         this.walking_sound.muted = true;
         this.snorring_sound.muted = true;
-        // this.walking_sound.volume = 0;
-        // this.snorring_sound.volume = 0;
     }
 
     /**
