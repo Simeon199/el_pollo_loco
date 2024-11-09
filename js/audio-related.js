@@ -19,7 +19,9 @@ function stopAllSounds() {
  */
 
 function turnSoundOnOrOff() {
+    console.log(soundIsMuted);
     soundIsMuted = !soundIsMuted;
+    console.log(soundIsMuted);
     muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {
         showTurningSoundOffIcon();
@@ -58,17 +60,12 @@ function showTurningSoundOnIcon() {
  */
 
 function setAllWorldAudioSound(mute) {
-    // world.audioManager.backgroundMusic = mute;
-    // for (let soundKey in world.audioManager.sounds) {
-    //     if (world.audioManager.sounds.hasOwnProperty(soundKey)) {
-    //         let audioElement = world.audioManager.sounds[soundKey];
-    //         console.log("value audioElement: ", audioElement);
-    //         audioElement.muted = mute;
-    //     }
-    // }
     world.audioManager.setBackgroundMusicMuted(mute);
     world.audioManager.setHittingSoundsMuted(mute);
     world.audioManager.setItemCollectionSoundsMuted(mute);
+    if (!mute && world.audioManager.isBackgroundMusicPaused) {
+        world.audioManager.playBackgroundMusic();
+    }
 }
 
 /**
@@ -143,7 +140,6 @@ function setEnemiesAudioSound(mute) {
  */
 
 function muteUnmuteSound(mute) {
-    // debugger;
     if (doesWorldExist()) {
         setAllWorldAudioSound(mute);
         if (doesCharacterExistInWorld()) {
@@ -152,7 +148,10 @@ function muteUnmuteSound(mute) {
         if (doEnemiesExistInWorld()) {
             setEnemiesAudioSound(mute);
         }
-        if (!mute && world.audioManager.isBackgroundMusicPaused) {
+        // if (!mute && world.audioManager.isBackgroundMusicPaused) {
+        //     world.audioManager.playBackgroundMusic();
+        // }
+        if (!mute) {
             world.audioManager.playBackgroundMusic();
         }
     }

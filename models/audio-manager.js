@@ -44,6 +44,7 @@ class AudioManager {
             console.log("Background music is already playing.");
             this.isBackgroundMusicPaused = false;
         }
+        this.isBackgroundMusicPaused = false;
     }
 
     /**
@@ -155,6 +156,21 @@ class AudioManager {
                         console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
                     });
                 }
+            }
+        });
+    }
+
+    setEndbossSoundsMuted(mute) {
+        let endbossSounds = ['chickenSound', 'chickenScream'];
+        endbossSounds.forEach(soundKey => {
+            let sound = this.sounds[soundKey];
+            if (sound) {
+                sound.muted = mute;
+                // if (!mute && sound.paused) {
+                //     sound.play().catch(error => {
+                //         console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
+                //     });
+                // }
             }
         });
     }
