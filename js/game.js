@@ -268,11 +268,9 @@ function startGame() {
 function checkForMobileVersion() {
     if (isMobileOrSmallDevice()) {
         setFullscreenStyle();
-    }
-    else if (isTabletOrCloseToDesktopSize()) {
+    } else if (isTabletOrCloseToDesktopSize()) {
         fullscreen();
-    }
-    else if (isDesktopDevice()) {
+    } else if (isDesktopDevice()) {
         setControlPanelStyle();
     }
 }
@@ -407,7 +405,7 @@ function playAgain() {
     if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
         fullscreen();
     }
-    muteUnmuteSound(soundIsMuted);
+    // muteUnmuteSound(soundIsMuted);
     init();
 }
 

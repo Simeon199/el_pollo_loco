@@ -80,8 +80,8 @@ class Character extends MovableObject {
     ];
 
     world;
-    walking_sound = new Audio('audio/running.mp3');
-    snorring_sound = new Audio('audio/snor.mp3');
+    // walking_sound = new Audio('audio/running.mp3');
+    // snorring_sound = new Audio('audio/snor.mp3');
     bottle;
 
     /**
@@ -100,27 +100,13 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    playSoundIfNotPlaying(sound) {
-        let soundPromise = sound.play();
-        if (soundPromise !== undefined) {
-            soundPromise.then(() => {
-                console.log("sound is playing successfully!");
-            }).catch(error => {
-                if (error.name !== "AbortError") {
-                    console.error("Audio play error:", error);
-                }
-            });
-        }
-    }
-
     /**
     * Plays the sleep animation with the snoring sound.
     */
 
     playSleepAnimationWithAudio() {
         this.playAnimation(this.IMAGES_SLEEP);
-        this.playSoundIfNotPlaying(this.snorring_sound);
-        // this.snorring_sound.play();
+        this.world.audioManager.playSound('snorring_sound');
     }
 
     /**
@@ -130,8 +116,8 @@ class Character extends MovableObject {
     playMovingRightAnimationWithAudio() {
         this.moveRight();
         this.otherDirection = false;
-        this.playSoundIfNotPlaying(this.walking_sound);
-        // this.walking_sound.play();
+        this.world.audioManager.playSound('walking_sound');
+        // this.playSoundIfNotPlaying(this.walking_sound);
     }
 
     /**
@@ -141,8 +127,7 @@ class Character extends MovableObject {
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
-        this.playSoundIfNotPlaying(this.walking_sound);
-        // this.walking_sound.play();
+        this.world.audioManager.playSound('walking_sound');
     }
 
     /**
@@ -152,8 +137,8 @@ class Character extends MovableObject {
     setRelevantGlobalVariablesForMovingCharacter() {
         this.fixDate = new Date().getTime();
         this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
-        this.walking_sound.muted = true;
-        this.snorring_sound.muted = true;
+        this.world.audioManager.muteSound(true, 'walking_sound');
+        this.world.audioManager.muteSound(true, 'snorring_sound');
     }
 
     /**

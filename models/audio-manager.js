@@ -16,7 +16,11 @@ class AudioManager {
             bottleHit: new Audio('audio/bottle_hit.mp3'),
             hit: new Audio('audio/hit3.mp3'),
             loadingSound: new Audio('audio/loadingSound.mp3'),
-            bellSound: new Audio('audio/bellSound.mp3')
+            bellSound: new Audio('audio/bellSound.mp3'),
+            chickenSound: new Audio('audio/chicken_sound1.mp3'),
+            chickenScream: new Audio('audio/chicken_scream1.mp3'),
+            walking_sound: new Audio('audio/running.mp3'),
+            snorring_sound: new Audio('audio/snor.mp3')
         };
         this.toggleTimeout = null;
     }
@@ -27,9 +31,17 @@ class AudioManager {
 
     playBackgroundMusic() {
         if (this.backgroundMusic.paused) {
-            this.backgroundMusic.play();
-        }
-        if (this.isBackgroundMusicPaused == true) {
+            let playPromise = this.backgroundMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Background music is now playing.");
+                    this.isBackgroundMusicPaused = false;
+                }).catch(error => {
+                    console.error("Error while playing background music:", error);
+                });
+            }
+        } else {
+            console.log("Background music is already playing.");
             this.isBackgroundMusicPaused = false;
         }
     }
@@ -82,13 +94,27 @@ class AudioManager {
         }
     }
 
+    muteSound(mute, sound) {
+        if (this.sounds[sound]) {
+            this.sounds[sound].muted = mute;
+        } else {
+            console.warn(`Sound ${this.sounds[sound]} existiert nicht`);
+        }
+    }
+
     /**
      * Mutes or unmutes the background music.
      * 
      * @param {boolean} mute - If true, mutes the background music; if false, unmutes it.
      */
+
     setBackgroundMusicMuted(mute) {
         this.backgroundMusic.muted = mute;
+        if (!mute && this.backgroundMusic.paused) {
+            this.backgroundMusic.play().catch(error => {
+                console.error("Fehler beim Abspielen der Hintergrundmusik:", error);
+            });
+        }
     }
 
     /**
@@ -96,14 +122,18 @@ class AudioManager {
      * 
      * @param {boolean} mute - If true, mutes hit sounds; if false, unmutes them.
      */
+
     setHittingSoundsMuted(mute) {
         let hittingSounds = ['punchAndOuch', 'bottleHit', 'hit'];
         hittingSounds.forEach(soundKey => {
-            this.sounds[soundKey].muted = mute;
-            if (mute == true) {
-                this.sounds[soundKey].volume = 0;
-            } else {
-                this.sounds[soundKey].volume = 0.25;
+            let sound = this.sounds[soundKey];
+            if (sound) {
+                sound.muted = mute;
+                if (!mute && sound.paused) {
+                    sound.play().catch(error => {
+                        console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
+                    });
+                }
             }
         });
     }
@@ -117,7 +147,15 @@ class AudioManager {
     setItemCollectionSoundsMuted(mute) {
         let itemSounds = ['loadingSound', 'bellSound'];
         itemSounds.forEach(soundKey => {
-            this.sounds[soundKey].muted = mute;
+            let sound = this.sounds[soundKey];
+            if (sound) {
+                sound.muted = mute;
+                if (!mute && sound.paused) {
+                    sound.play().catch(error => {
+                        console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
+                    });
+                }
+            }
         });
     }
 }

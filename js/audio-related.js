@@ -1,78 +1,17 @@
 /**
- * Plays the provided audio if it’s not already playing.
- * Prevents AbortError by checking if a play promise exists and managing it.
- * @param {Audio} sound - The audio element to play.
- */
-function playSoundIfNotPlaying(sound) {
-    const soundPromise = sound.play();
-    if (soundPromise !== undefined) {
-        soundPromise.then(() => {
-            console.log("sound is playing successfully!");
-        }).catch(error => {
-            if (error.name !== "AbortError") {
-                console.error("Audio play error:", error);
-            }
-        });
-    }
-}
-
-/**
  * Stops all sounds in the game world, including background music and enemy sounds.
  * Pauses the background music and enemy-specific sounds if they are playing.
  */
 
 function stopAllSounds() {
-    if (world && world.audioManager) {
-        world.audioManager.pauseBackgroundMusic();
-    }
-    if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
-        world.level.enemies.forEach(enemy => {
-            if (enemy.chickenSound) {
-                enemy.chickenSound.pause();
-                enemy.chickenSound.currentTime = 0;
-            }
-            if (enemy.chickenScream) {
-                enemy.chickenScream.pause();
-                enemy.chickenScream.currentTime = 0;
-            }
-        });
-    }
-    if (world && world.character) {
-        if (world.character.walking_sound) {
-            world.character.walking_sound.pause();
-            world.character.walking_sound.currentTime = 0;
-        }
-        if (world.character.snorring_sound) {
-            world.character.snorring_sound.pause();
-            world.character.snorring_sound.currentTime = 0;
+    world.audioManager.pauseBackgroundMusic();
+    for (let soundKey in world.audioManager.sounds) {
+        if (world.audioManager.sounds.hasOwnProperty(soundKey)) {
+            let audioElement = world.audioManager.sounds[soundKey];
+            audioElement.pause();
         }
     }
 }
-
-
-// function stopAllSounds() {
-//     if (world && world.audioManager) {
-//         world.audioManager.pauseBackgroundMusic();
-//     }
-//     if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
-//         world.level.enemies.forEach(enemy => {
-//             if (enemy.chickenSound) {
-//                 enemy.chickenSound.pause();
-//             }
-//             if (enemy.chickenScream) {
-//                 enemy.chickenScream.pause();
-//             }
-//         });
-//     }
-//     if (world && world.character) {
-//         if (world.character.walking_sound) {
-//             world.character.walking_sound.pause();
-//         }
-//         if (world.character.snorring_sound) {
-//             world.character.snorring_sound.pause();
-//         }
-//     }
-// }
 
 /**
  * Toggles the sound between on and off by muting or unmuting all sounds.
@@ -119,6 +58,14 @@ function showTurningSoundOnIcon() {
  */
 
 function setAllWorldAudioSound(mute) {
+    // world.audioManager.backgroundMusic = mute;
+    // for (let soundKey in world.audioManager.sounds) {
+    //     if (world.audioManager.sounds.hasOwnProperty(soundKey)) {
+    //         let audioElement = world.audioManager.sounds[soundKey];
+    //         console.log("value audioElement: ", audioElement);
+    //         audioElement.muted = mute;
+    //     }
+    // }
     world.audioManager.setBackgroundMusicMuted(mute);
     world.audioManager.setHittingSoundsMuted(mute);
     world.audioManager.setItemCollectionSoundsMuted(mute);
@@ -163,11 +110,11 @@ function manageAudioRelatedToCollectingItems(mute) {
  */
 
 function setAllCharacterAudioSound(mute) {
-    if (world.character.walking_sound) {
-        world.character.walking_sound.muted = mute;
+    if (world.audioManager.walking_sound) {
+        world.audioManager.walking_sound.muted = mute;
     }
-    if (world.character.snorring_sound) {
-        world.character.snorring_sound.muted = mute;
+    if (world.audioManager.snorring_sound) {
+        world.audioManager.snorring_sound.muted = mute;
     }
 }
 
@@ -179,14 +126,11 @@ function setAllCharacterAudioSound(mute) {
 
 function setEnemiesAudioSound(mute) {
     world.level.enemies.forEach(enemy => {
-        if (enemy.chickenSound) {
-            enemy.chickenSound.muted = mute;
+        if (enemy.world.audioManager.chickenSound) {
+            enemy.world.audioManager.chickenSound.muted = mute;
         }
-        if (enemy.chickenScream) {
-            enemy.chickenScream.muted = mute;
-        }
-        if (enemy.hitAndScream) {
-            enemy.hitAndScream.muted = mute;
+        if (enemy.world.audioManager.chickenScream) {
+            enemy.world.audioManager.chickenScream.muted = mute;
         }
     });
 }
@@ -199,6 +143,7 @@ function setEnemiesAudioSound(mute) {
  */
 
 function muteUnmuteSound(mute) {
+    // debugger;
     if (doesWorldExist()) {
         setAllWorldAudioSound(mute);
         if (doesCharacterExistInWorld()) {
@@ -208,8 +153,7 @@ function muteUnmuteSound(mute) {
             setEnemiesAudioSound(mute);
         }
         if (!mute && world.audioManager.isBackgroundMusicPaused) {
-            playSoundIfNotPlaying(world.audioManager.backgroundMusic);
-            // world.audioManager.playBackgroundMusic();
+            world.audioManager.playBackgroundMusic();
         }
     }
 }

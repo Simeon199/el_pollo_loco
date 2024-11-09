@@ -55,7 +55,7 @@ class World {
     }
 
     /**
-     * Sets references to the game world in different game elements like the character, status bars, and level.
+     * Sets references to the game world in different game elements like the character, enemies, status bars, and level.
      */
 
     setWorld() {
@@ -64,6 +64,9 @@ class World {
         this.endbossbar.world = this;
         this.coinbar.world = this;
         this.level.world = this;
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
+        });
     }
 
     /**

@@ -14,43 +14,15 @@ class Endboss extends Chicken {
     height = 400;
     width = 250;
     y = 55;
+    world;
 
-    chickenSound = new Audio('audio/chicken_sound1.mp3');
-    chickenScream = new Audio('audio/chicken_scream1.mp3');
-    hitAndScream = new Audio('audio/punch_and_ouch1.mp3');
+    IMAGES_WALKING = ['img/4_enemie_boss_chicken/2_alert/G5.png', 'img/4_enemie_boss_chicken/2_alert/G7.png', 'img/4_enemie_boss_chicken/2_alert/G8.png', 'img/4_enemie_boss_chicken/2_alert/G9.png', 'img/4_enemie_boss_chicken/2_alert/G10.png', 'img/4_enemie_boss_chicken/2_alert/G11.png', 'img/4_enemie_boss_chicken/2_alert/G12.png'];
 
-    IMAGES_WALKING = [
-        'img/4_enemie_boss_chicken/2_alert/G5.png',
-        'img/4_enemie_boss_chicken/2_alert/G7.png',
-        'img/4_enemie_boss_chicken/2_alert/G8.png',
-        'img/4_enemie_boss_chicken/2_alert/G9.png',
-        'img/4_enemie_boss_chicken/2_alert/G10.png',
-        'img/4_enemie_boss_chicken/2_alert/G11.png',
-        'img/4_enemie_boss_chicken/2_alert/G12.png'
-    ];
+    IMAGES_HURT = ['img/4_enemie_boss_chicken/4_hurt/G21.png', 'img/4_enemie_boss_chicken/4_hurt/G22.png', 'img/4_enemie_boss_chicken/4_hurt/G23.png'];
 
-    IMAGES_HURT = [
-        'img/4_enemie_boss_chicken/4_hurt/G21.png',
-        'img/4_enemie_boss_chicken/4_hurt/G22.png',
-        'img/4_enemie_boss_chicken/4_hurt/G23.png'
-    ];
+    IMAGES_DEAD = ['img/4_enemie_boss_chicken/5_dead/G24.png', 'img/4_enemie_boss_chicken/5_dead/G25.png', 'img/4_enemie_boss_chicken/5_dead/G26.png'];
 
-    IMAGES_DEAD = [
-        'img/4_enemie_boss_chicken/5_dead/G24.png',
-        'img/4_enemie_boss_chicken/5_dead/G25.png',
-        'img/4_enemie_boss_chicken/5_dead/G26.png'
-    ];
-
-    IMAGES_ATTACK = [
-        'img/4_enemie_boss_chicken/3_attack/G13.png',
-        'img/4_enemie_boss_chicken/3_attack/G14.png',
-        'img/4_enemie_boss_chicken/3_attack/G15.png',
-        'img/4_enemie_boss_chicken/3_attack/G16.png',
-        'img/4_enemie_boss_chicken/3_attack/G17.png',
-        'img/4_enemie_boss_chicken/3_attack/G18.png',
-        'img/4_enemie_boss_chicken/3_attack/G19.png',
-        'img/4_enemie_boss_chicken/3_attack/G20.png'
-    ];
+    IMAGES_ATTACK = ['img/4_enemie_boss_chicken/3_attack/G13.png', 'img/4_enemie_boss_chicken/3_attack/G14.png', 'img/4_enemie_boss_chicken/3_attack/G15.png', 'img/4_enemie_boss_chicken/3_attack/G16.png', 'img/4_enemie_boss_chicken/3_attack/G17.png', 'img/4_enemie_boss_chicken/3_attack/G18.png', 'img/4_enemie_boss_chicken/3_attack/G19.png', 'img/4_enemie_boss_chicken/3_attack/G20.png'];
 
     /**
      * Constructs an Endboss instance, initializing its position, loading all images and starts the animation function.
@@ -66,32 +38,6 @@ class Endboss extends Chicken {
         this.loadImages(this.IMAGES_ATTACK);
         this.x = 1700;
         this.animate();
-    }
-
-    // playSoundIfNotPlaying(audioElement) {
-    //     if (audioElement.paused) {
-    //         let soundPromise = audioElement.play();
-    //         if (soundPromise !== undefined) {
-    //             soundPromise.catch(error => {
-    //                 console.warn("Failed to play sound: ", error);
-    //             }).then(() => {
-    //                 console.log("sound was successfully played!");
-    //             });
-    //         }
-    //     }
-    // }
-
-    playSoundIfNotPlaying(audioElement) {
-        if (audioElement.paused) {
-            let soundPromise = audioElement.play();
-            if (soundPromise !== undefined) {
-                soundPromise.then(() => {
-                    console.log("sound was successfully played!");
-                }).catch(() => {
-                    console.warn("Failed to play sound: ", error);
-                });
-            }
-        }
     }
 
     /**
@@ -121,12 +67,10 @@ class Endboss extends Chicken {
         if (this.wasEndbossProvokedByCharacter()) {
             this.handleAttackingEndbossAndHurtingEndbossAnimation();
             return true;
-        }
-        else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
+        } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
             this.playAttackingEndbossAndShowHimRunningLeft();
             return true;
-        }
-        else if (this.isCharacterToCloseToEndbossFromTheRight()) {
+        } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
             this.playAttackingEndbossAndShowHimRunningRight();
             return true;
         }
@@ -137,8 +81,7 @@ class Endboss extends Chicken {
         if (this.isEndbossNotFinalEnemyButDead()) {
             this.playDyingAnimationAndSetFixedDeadEndbossImage();
             return true;
-        }
-        else if (this.isFinalEnemyEndbossAndIsHeDead()) {
+        } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
             this.setIsDeadAttributeAndplayDyingAnimation();
             return true;
         }
@@ -158,8 +101,7 @@ class Endboss extends Chicken {
     */
 
     playAttackingEndbossAndShowHimRunningLeft() {
-        this.playSoundIfNotPlaying(this.chickenSound);
-        // this.chickenSoundPromise = this.chickenSound.play();
+        this.world.audioManager.playSound('chickenSound');
         this.playAttackEndbossAnimation();
         this.x -= this.endbossSpeedX;
     }
@@ -169,8 +111,7 @@ class Endboss extends Chicken {
     */
 
     playAttackingEndbossAndShowHimRunningRight() {
-        this.playSoundIfNotPlaying(this.chickenSound);
-        // this.chickenSoundPromise = this.chickenSound.play();
+        this.world.audioManager.playSound('chickenSound');
         this.playAttackEndbossAnimation();
         this.x += this.endbossSpeedX;
     }
@@ -180,10 +121,8 @@ class Endboss extends Chicken {
      */
 
     handleAttackingEndbossAndHurtingEndbossAnimation() {
-        // this.playSoundIfNotPlaying(this.chickenScream);
-        // this.playSoundIfNotPlaying(this.chickenSound);
-        this.chickenScreamPromise = this.chickenScream.play();
-        this.chickenSoundPromise = this.chickenSound.play();
+        this.world.audioManager.playSound('chickenScream');
+        this.world.audioManager.playSound('chickenSound');
         if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
             this.playAnimation(this.IMAGES_HURT);
         } else {
@@ -196,30 +135,11 @@ class Endboss extends Chicken {
      */
 
     animateMovingAndAttackingEndboss() {
-        this.playSoundIfNotPlaying(this.chickenScream);
-        this.chickenScream.onended = () => {
-            this.chickenScream.pause();
-            this.chickenScream.currentTime = 0;
-        };
-        this.playSoundIfNotPlaying(this.chickenSound);
+        this.world.audioManager.playSound('chickenScream');
+        this.world.audioManager.playSound('chickenSound');
         this.directEndbossIntoAttackDirectionAndCheckCollisions();
         this.playAnimation(this.IMAGES_ATTACK);
     }
-
-
-    // animateMovingAndAttackingEndboss() {
-    //     let chickenScreamPromise = this.chickenScream.play();
-    //     if (chickenScreamPromise !== undefined) {
-    //         this.chickenScreamPromise.then(function () {
-    //             this.chickenScream.pause();
-    //             this.chickenScream.currentTime = 0;
-    //         });
-    //     }
-    //     this.chickenScream.pause();
-    //     this.playSoundIfNotPlaying(this.chickenSound);
-    //     this.directEndbossIntoAttackDirectionAndCheckCollisions();
-    //     this.playAnimation(this.IMAGES_ATTACK);
-    // }
 
     /**
      * Directs the Endboss towards the main character and checks for collisions.
@@ -305,9 +225,7 @@ class Endboss extends Chicken {
     */
 
     isEndbossNotFinalEnemyButDead() {
-        return this.wasEndbossHit() &&
-            this.isEndbossFinalEnemy == false &&
-            this.energy == 0;
+        return this.wasEndbossHit() && this.isEndbossFinalEnemy == false && this.energy == 0;
     }
 
     /**
@@ -327,9 +245,7 @@ class Endboss extends Chicken {
     */
 
     isEndbossAliveAndWasNotAttacked() {
-        return this.isDead == false &&
-            this.energy > 0 &&
-            !(this.wasEndbossHit());
+        return this.isDead == false && this.energy > 0 && !(this.wasEndbossHit());
     }
 
     /**
@@ -340,10 +256,7 @@ class Endboss extends Chicken {
     */
 
     isCharacterToCloseToEndbossFromTheRight() {
-        return this.x - this.mainCharacterPosition &&
-            Math.abs(this.x - this.mainCharacterPosition) < 400 &&
-            this.x < this.mainCharacterPosition &&
-            this.energy > 0;
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0;
     }
 
     /**
@@ -354,10 +267,7 @@ class Endboss extends Chicken {
     */
 
     isCharacterToCloseToEndbossFromTheLeft() {
-        return this.x - this.mainCharacterPosition &&
-            Math.abs(this.x - this.mainCharacterPosition) < 400 &&
-            this.x > this.mainCharacterPosition &&
-            this.energy > 0;
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0;
     }
 
     /**
@@ -432,8 +342,7 @@ class Endboss extends Chicken {
     */
 
     isEndbossHurtAndTimeSinceLastHitIsBelowTimeLimit() {
-        return this.isEndbossHurt &&
-            (new Date().getTime() - this.lastHit < this.timePassedLimit * 1000);
+        return this.isEndbossHurt && (new Date().getTime() - this.lastHit < this.timePassedLimit * 1000);
     }
 
     /**
