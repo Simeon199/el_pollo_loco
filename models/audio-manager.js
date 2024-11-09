@@ -130,11 +130,6 @@ class AudioManager {
             let sound = this.sounds[soundKey];
             if (sound) {
                 sound.muted = mute;
-                if (!mute && sound.paused) {
-                    sound.play().catch(error => {
-                        console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
-                    });
-                }
             }
         });
     }
@@ -151,11 +146,6 @@ class AudioManager {
             let sound = this.sounds[soundKey];
             if (sound) {
                 sound.muted = mute;
-                if (!mute && sound.paused) {
-                    sound.play().catch(error => {
-                        console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
-                    });
-                }
             }
         });
     }
@@ -166,11 +156,6 @@ class AudioManager {
             let sound = this.sounds[soundKey];
             if (sound) {
                 sound.muted = mute;
-                // if (!mute && sound.paused) {
-                //     sound.play().catch(error => {
-                //         console.error(`Fehler beim Abspielen des Sounds ${soundKey}:`, error);
-                //     });
-                // }
             }
         });
     }

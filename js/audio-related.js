@@ -63,6 +63,7 @@ function setAllWorldAudioSound(mute) {
     world.audioManager.setBackgroundMusicMuted(mute);
     world.audioManager.setHittingSoundsMuted(mute);
     world.audioManager.setItemCollectionSoundsMuted(mute);
+    world.audioManager.setEndbossSoundsMuted(mute);
     if (!mute && world.audioManager.isBackgroundMusicPaused) {
         world.audioManager.playBackgroundMusic();
     }
@@ -148,9 +149,6 @@ function muteUnmuteSound(mute) {
         if (doEnemiesExistInWorld()) {
             setEnemiesAudioSound(mute);
         }
-        // if (!mute && world.audioManager.isBackgroundMusicPaused) {
-        //     world.audioManager.playBackgroundMusic();
-        // }
         if (!mute) {
             world.audioManager.playBackgroundMusic();
         }
