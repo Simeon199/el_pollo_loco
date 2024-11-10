@@ -14,7 +14,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 5;
+    speed = 10;
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -249,7 +249,7 @@ class Character extends MovableObject {
      */
 
     keyRightWasPressed() {
-        return this.world.keyboard.RIGHT && this.x < world.level.level_end_x;
+        return this.world.keyboard.RIGHT && this.x < world.level.level_end_x + 100;
     }
 
     /**
@@ -258,7 +258,7 @@ class Character extends MovableObject {
      */
 
     keyLeftWasPressed() {
-        return this.world.keyboard.LEFT && this.x > -719;
+        return this.world.keyboard.LEFT && this.x > -719 - 100;
     }
 
     /**
