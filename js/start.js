@@ -86,3 +86,13 @@ function closeExplainGameContainer() {
         explainGameContainer.classList.add('d-none');
     }
 }
+
+/**
+ * Prevents event bubbling (propagation) for the given event.
+ * 
+ * @param {Event} event - The event object.
+ */
+
+function preventBubbling(event) {
+    event.stopPropagation();
+}

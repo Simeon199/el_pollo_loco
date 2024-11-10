@@ -380,3 +380,26 @@ function settingUpStyleWhenPlayAgainButtonPressed() {
     document.getElementById('winning-image').style.display = 'none';
     document.getElementById('main-title').style.display = 'none';
 }
+
+/**
+ * Manages the style and layout depending on whether the screen is in landscape mode.
+ */
+
+function manageStyleDependingOnLandscapeScreenActivated() {
+    if (!isLandscapeScreenActivated()) {
+        stopGameAndShowTurnDeviceMessage();
+    } else {
+        showIntroImageAndDeactivateTurnDeviceMessage();
+        addControlPanelInCaseOfMobileDevice();
+    }
+}
+
+/**
+ * Adds the control panel if the device is not a mobile device.
+ */
+
+function addControlPanelInCaseOfMobileDevice() {
+    if (!isMobileDevice()) {
+        document.getElementById('control-panel-everything').style.display = 'flex';
+    }
+}

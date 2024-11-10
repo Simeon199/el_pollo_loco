@@ -19,24 +19,6 @@ let soundOn = true;
 let stopGameInterval;
 
 /**
- * Initializes event listeners once the DOM content is fully loaded.
- * Sets up a click event on the 'playIcon' element to start the game.
- * 
- * @event DOMContentLoaded - Triggered when the initial HTML document is fully loaded and parsed.
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-    const playIcon = document.getElementById('playIcon');
-    playIcon.addEventListener('click', () => {
-        startGame();
-    });
-});
-
-/**
- * Checks the current screen orientation and manages fullscreen mode accordingly.
- */
-
-/**
  * Checks the current screen orientation and background state, 
  * and reloads the page or exits fullscreen mode based on conditions.
  */
@@ -55,19 +37,6 @@ function checkOrientation() {
 }
 
 /**
- * Manages the style and layout depending on whether the screen is in landscape mode.
- */
-
-function manageStyleDependingOnLandscapeScreenActivated() {
-    if (!isLandscapeScreenActivated()) {
-        stopGameAndShowTurnDeviceMessage();
-    } else {
-        showIntroImageAndDeactivateTurnDeviceMessage();
-        addControlPanelInCaseOfMobileDevice();
-    }
-}
-
-/**
  * Stops the game and displays a message instructing the user to turn the device.
  */
 
@@ -76,16 +45,6 @@ function stopGameAndShowTurnDeviceMessage() {
     clearAllIntervals();
     stopAllSounds();
     showMessageToTurnDevice();
-}
-
-/**
- * Adds the control panel if the device is not a mobile device.
- */
-
-function addControlPanelInCaseOfMobileDevice() {
-    if (!isMobileDevice()) {
-        document.getElementById('control-panel-everything').style.display = 'flex';
-    }
 }
 
 /**
@@ -195,17 +154,6 @@ function unmuteGameSounds() {
 }
 
 /**
- * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
- */
-
-function addAllEventListenersWhenInitGame() {
-    window.addEventListener('keydown', keyDownHandler);
-    window.addEventListener('keyup', keyUpHandler);
-    window.addEventListener('touchstart', touchStartHandler);
-    window.addEventListener('touchend', touchEndHandler);
-}
-
-/**
  * Sets up essential game objects and variables needed for game initialization. Creates the game world, sets the canvas context, and verifies character states.
  */
 
@@ -248,16 +196,6 @@ function manageStopGameInterval() {
             clearInterval(stopGameInterval);
         }
     }, 2000);
-}
-
-/**
- * Prevents event bubbling (propagation) for the given event.
- * 
- * @param {Event} event - The event object.
- */
-
-function preventBubbling(event) {
-    event.stopPropagation();
 }
 
 /**

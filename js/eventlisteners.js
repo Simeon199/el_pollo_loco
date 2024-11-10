@@ -188,6 +188,17 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
 }
 
 /**
+ * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
+ */
+
+function addAllEventListenersWhenInitGame() {
+    window.addEventListener('keydown', keyDownHandler);
+    window.addEventListener('keyup', keyUpHandler);
+    window.addEventListener('touchstart', touchStartHandler);
+    window.addEventListener('touchend', touchEndHandler);
+}
+
+/**
  * Event listener for the 'touchstart' event. Invokes the touchStartHandler to handle touch-based controls.
  */
 
@@ -306,6 +317,20 @@ function keyUpHandler(event) {
         keyboard.keyD = false;
     }
 }
+
+/**
+ * Initializes event listeners once the DOM content is fully loaded.
+ * Sets up a click event on the 'playIcon' element to start the game.
+ * 
+ * @event DOMContentLoaded - Triggered when the initial HTML document is fully loaded and parsed.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const playIcon = document.getElementById('playIcon');
+    playIcon.addEventListener('click', () => {
+        startGame();
+    });
+});
 
 /**
  * Adds or removes classes based on fullscreen activation status. Manages class changes when entering or exiting fullscreen mode.
