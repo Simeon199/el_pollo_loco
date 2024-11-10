@@ -17,33 +17,6 @@ function redirectToLegalNoticePage() {
 }
 
 /**
- * Opens the mini-version of the icons container. If the icons container is not currently displayed, it hides the button that opens this container.
- */
-// function openAllIconsContainer() {
-//     let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
-//     let allIconsButton = document.getElementById('all-icons-button');
-//     if (allIconsMiniVersionContainer.style.display !== 'flex') {
-//         allIconsMiniVersionContainer.style.display = ' flex';
-//         allIconsButton.style.display = 'none';
-//     }
-//     window.scrollBy(0, 200);
-// }
-
-/**
- * Closes the mini-version of the icons container. If the icons container is currently displayed, it shows the button that opens this container.
- */
-
-// function closeAllIconsContainer() {
-//     let allIconsMiniVersionContainer = document.getElementById('all-icons-container-mini-version');
-//     let allIconsButton = document.getElementById('all-icons-button');
-//     if (allIconsMiniVersionContainer.style.display !== 'none') {
-//         allIconsMiniVersionContainer.style.display = ' none';
-//         allIconsButton.style.display = 'block';
-//     }
-//     window.scrollBy(0, 200);
-// }
-
-/**
  * Opens the container displaying all icons in a minimized version.
  */
 
