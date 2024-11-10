@@ -86,7 +86,7 @@ class AudioManager {
             if (soundPromise !== undefined) {
                 soundPromise.then(() => {
                 }).catch(error => {
-                    console.error("Fehler beim Abspielen des Sounds:", error);
+                    console.error(`Fehler beim Abspielen des Sounds des Sounds ${soundPromise}:`, error);
                 });
             }
         }
