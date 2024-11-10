@@ -123,7 +123,7 @@ function manageResizeResponsiveStyling() {
 /**
  * Checks if all background images in the document are hidden. Returns `true` if all specified images are hidden; otherwise, returns `false`.
  *
- * @returns {boolean} - `true` if all specified images ('winning-image', 'losing-image', 'intro-image') are hidden, `false` otherwise.
+ * @returns {boolean} - `true` if all specified images ('winning-image', 'losing-image', 'intro-image') are hidden and variable isGamePlaying is false. 
  */
 
 function proveIfBackgroundIsEmpty() {

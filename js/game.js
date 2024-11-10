@@ -18,6 +18,13 @@ let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
 
+/**
+ * Initializes event listeners once the DOM content is fully loaded.
+ * Sets up a click event on the 'playIcon' element to start the game.
+ * 
+ * @event DOMContentLoaded - Triggered when the initial HTML document is fully loaded and parsed.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const playIcon = document.getElementById('playIcon');
     playIcon.addEventListener('click', () => {
@@ -27,6 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Checks the current screen orientation and manages fullscreen mode accordingly.
+ */
+
+/**
+ * Checks the current screen orientation and background state, 
+ * and reloads the page or exits fullscreen mode based on conditions.
  */
 
 function checkOrientation() {
@@ -149,7 +161,10 @@ function init() {
     controlTurnOnTurnOffIcon();
 }
 
-// Hier noch JS-Doc!
+/**
+ * Controls the display of the sound icon based on the current mute state. If the sound is muted, it displays the "sound off" icon.
+ * If the sound is unmuted, it displays the "sound on" icon.
+ */
 
 function controlTurnOnTurnOffIcon() {
     if (soundIsMuted) {
@@ -159,17 +174,25 @@ function controlTurnOnTurnOffIcon() {
     }
 }
 
+/**
+ * Mutes all game sounds by updating the sound state variables. Sets `soundOn` to `false` and `soundIsMuted` to `true` to reflect
+ * that the game sounds are turned off.
+ */
+
 function muteGameSounds() {
     soundOn = false;
     soundIsMuted = true;
 }
 
+/**
+ * Unmutes all game sounds by updating the sound state variables. Sets `soundOn` to `true` and `soundIsMuted` to `false` to reflect
+ * that the game sounds are turned on.
+ */
+
 function unmuteGameSounds() {
     soundOn = true;
     soundIsMuted = false;
 }
-
-// Hier endet JS-Doc!
 
 /**
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
@@ -195,13 +218,22 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
 }
 
 /**
- * Periodically checks if the character or enemies are dead and stops the game accordingly.
+ * If the game is not currently playing (`isGamePlaying` is `false`), the function exits early. If the game is playing, it calls 
+ * `manageStopGameInterval()` to handle any necessary game interval adjustments.
  */
 
 function checkIfEnemyOrCharacterIsDead() {
     if (!isGamePlaying) {
         return;
     }
+    manageStopGameInterval();
+}
+
+/**
+ * Periodically checks if the character or enemies are dead and stops the game accordingly.
+ */
+
+function manageStopGameInterval() {
     if (stopGameInterval) {
         clearInterval(stopGameInterval);
     }
@@ -332,7 +364,7 @@ function resetGame() {
 /**
  * Checks if the world object exists.
  * 
- * @returns {boolean} - Returns true if the world exists.
+ * @returns {boolean} - Returns true if the world exists, else false.
  */
 
 function doesWorldExist() {
@@ -346,7 +378,7 @@ function doesWorldExist() {
 /**
  * Checks if the character exists in the world.
  * 
- * @returns {boolean} - Returns true if the character exists.
+ * @returns {boolean} - Returns true if the character exists, else false.
  */
 
 function doesCharacterExistInWorld() {
@@ -360,7 +392,7 @@ function doesCharacterExistInWorld() {
 /**
  * Checks if enemies exist in the world.
  * 
- * @returns {boolean} - Returns true if enemies exist in the world.
+ * @returns {boolean} - Returns true if enemies exist in the world, else false.
  */
 
 function doEnemiesExistInWorld() {
@@ -392,7 +424,7 @@ function setIsGamePlayingTrueIfFalse() {
 }
 
 /**
- * Prepares the game to be played again, resetting the world and calling the function "settingUpStyleWhenPlayAgainButtonPressed()".
+ * Resets the game state to allow the player to start a new game. Invokes the init()-method which starts a new game session.
  */
 
 function playAgain() {

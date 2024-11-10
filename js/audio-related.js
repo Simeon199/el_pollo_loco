@@ -51,7 +51,7 @@ function showTurningSoundOnIcon() {
 }
 
 /**
- * Mutes or unmutes all sound in the game world, including background music, hit sounds,
+ * Mutes or unmutes all sound in the game world, including background music, hit sounds, endboss sounds
  * and item collection sounds, based on the boolean parameter.
  * 
  * @param {boolean} mute - If true, mutes all sounds; if false, unmutes all sounds.

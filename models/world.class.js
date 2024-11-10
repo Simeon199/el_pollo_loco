@@ -145,7 +145,6 @@ class World {
                 this.applyKnockback(enemy);
                 this.adjustStatusBarWhenCharacterGetsHit();
                 this.audioManager.playSound('punchAndOuch');
-                // this.punchAndOuch.play();
             }
         }
     }
@@ -271,7 +270,6 @@ class World {
         enemy.animateDeadChickenWhenItGetsJumpedOn();
         this.character.bounce();
         this.audioManager.playSound('hit');
-        // this.hit.play();
     }
 
     /**

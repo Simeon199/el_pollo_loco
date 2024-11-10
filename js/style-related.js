@@ -84,7 +84,7 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
 }
 
 /**
- * Adjusts the style of the minimize button depending on the screen size.
+ * Adjusts the style of the minimize button depending on the screen size. 
  * Hides the minimize button on mobile and tablet devices or when the window width is under a certain size and vice versa if its above it.
  */
 
@@ -124,8 +124,7 @@ function isMobileTabletOrCertainWindowWidth() {
 }
 
 /**
- * Controls the mute state based on the game's start status.
- * Mutes or unmutes sound depending on whether the game has started or is paused.
+ * Controls the mute state based on the game's start status. Mutes or unmutes sound depending on whether the game has started or is paused.
  */
 
 function controlMuteCondition() {
@@ -193,8 +192,7 @@ function addNormalClassAndStyleCanvasModeAndRemoveFullscreenMode() {
 }
 
 /**
- * Adds the 'normal-mode' class and the 'canvas-style' class to the canvas.
- * Removes the 'fullscreen-mode' class.
+ * Adds the 'normal-mode' class and the 'canvas-style' class to the canvas. Removes the 'fullscreen-mode' class.
  */
 
 function changeStyleWhenIndependentOfWinningOrLosing() {
@@ -295,8 +293,7 @@ function exitFullscreen() {
 }
 
 /**
- * Toggles fullscreen mode for the canvas container. 
- * Enters or exits fullscreen depending on the current state.
+ * Toggles fullscreen mode for the canvas container. Enters or exits fullscreen depending on the current state.
  */
 
 function fullscreen() {
@@ -309,8 +306,7 @@ function fullscreen() {
 }
 
 /**
- * Manages the style and layout when the game is stopped.
- * Stops all game intervals, sounds, and exits fullscreen mode.
+ * Manages the style and layout when the game is stopped. Stops all game intervals, sounds, and exits fullscreen mode.
  */
 
 function manageStyleWhenGameIsStopped(string) {
