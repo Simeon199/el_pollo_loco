@@ -81,10 +81,9 @@ class MovableObject extends DrawableObject {
      */
 
     isCollidingFromAbove(mo) {
-        let tolerance = this.returnCorrectTolerance();
-        return this.y + this.height <= mo.y + tolerance && this.speedY > 0;
+        let tolerance = 10;
+        return this.y + this.height <= mo.y + tolerance && this.y + this.height >= mo.y - tolerance && this.speedY > 0;
     }
-
 
     /**
     * Checks if this object is colliding with another movable object. If a collision from above is detected (e.g., the character jumps on a target), 
@@ -147,7 +146,7 @@ class MovableObject extends DrawableObject {
 
     substractCorrectEnergyAmountWhenGetHit() {
         if (this.isEndboss()) {
-            this.energy -= 10;
+            this.energy -= 2;
         } else {
             this.energy -= 5;
         }
