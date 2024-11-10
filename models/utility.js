@@ -47,10 +47,10 @@ class Utility {
     checkMovingDirectionOfEnemies() {
         this.world.level.enemies.forEach(enemy => {
             if (!(enemy instanceof Endboss) && (enemy instanceof Chicken)) {
-                if (enemy.x <= -500) {
+                if (enemy.x <= -1300) {
                     enemy.movingDirection = 'right';
                     enemy.otherDirection = true;
-                } else if (enemy.x >= 500) {
+                } else if (enemy.x >= 1300) {
                     enemy.otherDirection = false;
                     enemy.movingDirection = 'left';
                 }
