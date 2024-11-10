@@ -34,14 +34,12 @@ class AudioManager {
             let playPromise = this.backgroundMusic.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    console.log("Background music is now playing.");
                     this.isBackgroundMusicPaused = false;
                 }).catch(error => {
                     console.error("Error while playing background music:", error);
                 });
             }
         } else {
-            console.log("Background music is already playing.");
             this.isBackgroundMusicPaused = false;
         }
         this.isBackgroundMusicPaused = false;
@@ -87,7 +85,6 @@ class AudioManager {
             let soundPromise = this.sounds[sound].play();
             if (soundPromise !== undefined) {
                 soundPromise.then(() => {
-                    console.log("Sound wurde erfolgreich abgespielt!");
                 }).catch(error => {
                     console.error("Fehler beim Abspielen des Sounds:", error);
                 });

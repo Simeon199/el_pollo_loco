@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     playIcon.addEventListener('click', () => {
         startGame();
     });
-    console.log('DOM vollständig geladen, Event-Listener für Play-Icon hinzugefügt.');
 });
 
 /**
@@ -254,7 +253,6 @@ function isTabletDevice() {
  */
 
 function startGame() {
-    console.log('Spiel startet...');
     checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
     isGamePlaying = true;
@@ -405,7 +403,6 @@ function playAgain() {
     if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
         fullscreen();
     }
-    // muteUnmuteSound(soundIsMuted);
     init();
 }
 

@@ -19,9 +19,7 @@ function stopAllSounds() {
  */
 
 function turnSoundOnOrOff() {
-    console.log(soundIsMuted);
     soundIsMuted = !soundIsMuted;
-    console.log(soundIsMuted);
     muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {
         showTurningSoundOffIcon();
