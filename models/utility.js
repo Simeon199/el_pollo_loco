@@ -1,9 +1,34 @@
+/**
+ * Contains all the necessary methods to make the game work properly (e.g checkCollisions methods along with other functions).
+ */
+
 class Utility {
     world;
+
+    /**
+     * Initializes the Utility class with the game world instance.
+     * 
+     * @param {Object} world - The game world instance to be used by utility functions.
+     */
 
     constructor(world) {
         this.world = world;
     }
+
+    /**
+    * Executes a series of utility functions that handle core game interactions and checks.
+    * 
+    * Specifically, this method:
+    * - Checks for collisions with enemies and coins.
+    * - Checks for collisions with bottles (both collectible and throwable).
+    * - Manages the throwing action for bottles.
+    * - Detects collisions between throwable objects and enemies.
+    * - Calibrates the distance between the main character and the end boss.
+    * - Adjusts enemy movement direction when they reach certain boundaries.
+    * 
+    * This method consolidates all major utility actions, making it easy to update and trigger
+    * all necessary checks and actions in a single function call.
+    */
 
     playUtilityFunctions() {
         this.checkCollisions();

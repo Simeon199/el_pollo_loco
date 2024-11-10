@@ -11,8 +11,6 @@ class Bottle extends ThrowableObject {
     y = 300;
     x = -2 * 700 + Math.random() * 2876;
 
-    // bottleLanding = new Audio('audio/soft_landing.mp3');
-
     BOTTLE_ROTATION_IMAGES = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',

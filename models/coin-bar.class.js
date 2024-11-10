@@ -19,6 +19,11 @@ class CoinBar extends StatusBar {
     percentage = 0;
     energy = 0;
 
+    /**
+     * Constructs a new `CoinBar` instance. Initializes the starting image, loads the array of coin bar images, 
+     * and sets the initial position on the game screen.
+     */
+
     constructor() {
         super();
         this.loadImage(this.COIN_BAR_IMAGES[0]);

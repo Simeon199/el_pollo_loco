@@ -47,9 +47,12 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Determines if the object is above the ground level.
+     * Determines if the object is above ground level.
      * 
-     * @returns {boolean} True if the object is above ground; otherwise, false.
+     * - Returns `true` if the object is an instance of a throwable object, assuming throwable objects are always above ground.
+     * - Otherwise, checks if the `y` coordinate is less than 135, which indicates the object is above a specific ground threshold.
+     * 
+     * @returns {boolean} `true` if the object is above ground level; otherwise, `false`.
      */
 
     isAboveGround() {
@@ -76,6 +79,7 @@ class MovableObject extends DrawableObject {
      * @param {MovableObject} mo - The other movable object to check for collision from above.
      * @returns {boolean} True if the object is colliding from above; otherwise, false.
      */
+
     isCollidingFromAbove(mo) {
         let tolerance = this.returnCorrectTolerance();
         return this.y + this.height <= mo.y + tolerance && this.speedY > 0;
@@ -84,8 +88,7 @@ class MovableObject extends DrawableObject {
 
     /**
     * Checks if this object is colliding with another movable object. If a collision from above is detected (e.g., the character jumps on a target), 
-    * it returns `false` to ignore further checks, treating the collision as non-frontal.
-    * Otherwise, it applies a tolerance value to verify a general collision.
+    * it returns `false` to ignore further checks, treating the collision as non-frontal. Otherwise, it applies a tolerance value to verify a general collision.
     * 
     * @param {MovableObject} mo - The other movable object to check for collision.
     * @returns {boolean} True if this object is colliding with the other object; otherwise, false.
@@ -187,7 +190,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the object's energy is depleted.
+     * Checks if the object's energy is empty.
      * 
      * @returns {boolean} True if the object is dead (energy == 0); otherwise, false.
      */

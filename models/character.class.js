@@ -80,12 +80,11 @@ class Character extends MovableObject {
     ];
 
     world;
-    // walking_sound = new Audio('audio/running.mp3');
-    // snorring_sound = new Audio('audio/snor.mp3');
     bottle;
 
     /**
-     * Creates an instance of Character and initializes its properties along with loading images for various animations and applies artificial gravity.
+     * Creates an instance of Character and initializes its properties along with loading images for various animations and applies artificial gravity. 
+     * Invokes the animate() function.
      */
 
     constructor() {
@@ -117,7 +116,6 @@ class Character extends MovableObject {
         this.moveRight();
         this.otherDirection = false;
         this.world.audioManager.playSound('walking_sound');
-        // this.playSoundIfNotPlaying(this.walking_sound);
     }
 
     /**
@@ -131,7 +129,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Sets all the global variables that are related to the character's movement state.
+     * Sets all the global variables that are related to the character's movement state. Also mutes walking and snorring sounds.
      */
 
     setRelevantGlobalVariablesForMovingCharacter() {

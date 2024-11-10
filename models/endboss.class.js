@@ -51,8 +51,6 @@ class Endboss extends Chicken {
         }, 100);
     }
 
-    // Überall JS-Doc nochmal kontrollieren!
-
     /**
     * Checks and handles different behaviors of the Endboss such as attacking, being hurt, or dying.
     */
@@ -62,6 +60,12 @@ class Endboss extends Chicken {
         else if (this.isEndbossInDeathMode()) return;
         else if (this.isEndbossInIdleMode()) return;
     }
+
+    /**
+     * Determines if the end boss is in attack mode based on the character's position and actions.
+     * 
+     * @returns {boolean} `true` if the end boss is in attack mode; otherwise, `false`.
+     */
 
     isEndbossInAttackMode() {
         if (this.wasEndbossProvokedByCharacter()) {
@@ -77,6 +81,12 @@ class Endboss extends Chicken {
         return false;
     }
 
+    /**
+     * Determines if the end boss is in death mode based on whether it is dead and its status as the final enemy.
+     * 
+     * @returns {boolean} `true` if the end boss is in death mode; otherwise, `false`.
+     */
+
     isEndbossInDeathMode() {
         if (this.isEndbossNotFinalEnemyButDead()) {
             this.playDyingAnimationAndSetFixedDeadEndbossImage();
@@ -87,6 +97,12 @@ class Endboss extends Chicken {
         }
         return false;
     }
+
+    /**
+     * Determines if the end boss is in idle mode, showing a walking animation if alive and unprovoked.
+     * 
+     * @returns {boolean} `true` if the end boss is in idle mode; otherwise, `false`.
+     */
 
     isEndbossInIdleMode() {
         if (this.isEndbossAliveAndWasNotAttacked()) {
