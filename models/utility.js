@@ -160,13 +160,17 @@ class Utility {
     */
 
     checkThrowObjects() {
-        if (this.world.keyboard.keyD && this.world.bottlebar.bottlesCollected > 0) {
-            this.world.bottlebar.bottlesCollected -= 1;
-            this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
-            let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
-            this.world.throwableObjects.push(bottle);
-            bottle.throwObjectsArray = this.world.throwableObjects;
-            bottle.throw();
+        if (this.world.keyboard.keyD == true && this.world.bottlebar.bottlesCollected > 0) {
+            setTimeout(() => {
+                if (this.world.keyboard.keyD == false) {
+                    this.world.bottlebar.bottlesCollected -= 1;
+                    this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
+                    let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
+                    this.world.throwableObjects.push(bottle);
+                    bottle.throwObjectsArray = this.world.throwableObjects;
+                    bottle.throw();
+                }
+            }, 50);
         }
     }
 

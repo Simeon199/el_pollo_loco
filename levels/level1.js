@@ -52,7 +52,7 @@ function generateCoinsArray() {
 
 function generateEnemies() {
     let enemies = [];
-    for (i = 0; i < 7; i++) {
+    for (i = 0; i < 5; i++) {
         enemies.push(new Chicken(i));
     }
     for (j = 0; j < 5; j++) {

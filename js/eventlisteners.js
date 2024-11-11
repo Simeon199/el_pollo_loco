@@ -226,6 +226,7 @@ function touchStartHandler(event) {
         }
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = true;
+            timeWhenKeyDWasPressed = new Date().getTime();
         }
     }
 }
@@ -287,6 +288,7 @@ function keyDownHandler(event) {
     }
     if (event.keyCode == 68) {
         keyboard.keyD = true;
+        timeWhenKeyDWasPressed = new Date().getTime();
     }
 }
 
