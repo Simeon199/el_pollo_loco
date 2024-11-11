@@ -42,7 +42,7 @@ class ThrowableObject extends MovableObject {
     * @param {object} z - The keyboard control object for handling user input
     */
 
-    constructor(x, y, z) {
+    constructor(x, y, z, audiomanager) {
         super();
         this.loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
         this.loadImages(this.STANDING_BOTTLE_LEFT_DIRECTION);
@@ -52,6 +52,7 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
+        this.audiomanager = audiomanager;
     }
 
     /**

@@ -170,7 +170,7 @@ class Utility {
                     bottle.throwObjectsArray = this.world.throwableObjects;
                     bottle.throw();
                 }
-            }, 50);
+            }, 100);
         }
     }
 

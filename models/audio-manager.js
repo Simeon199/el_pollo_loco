@@ -16,6 +16,7 @@ class AudioManager {
             bottleHit: new Audio('audio/bottle_hit.mp3'),
             hit: new Audio('audio/hit3.mp3'),
             loadingSound: new Audio('audio/loadingSound.mp3'),
+            bottleLanding: new Audio('audio/soft_landing.mp3'),
             bellSound: new Audio('audio/bellSound.mp3'),
             chickenSound: new Audio('audio/chicken_sound1.mp3'),
             chickenScream: new Audio('audio/chicken_scream1.mp3'),

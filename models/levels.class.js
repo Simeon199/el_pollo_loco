@@ -3,6 +3,7 @@
  */
 
 class Level {
+    audiomanager;
     world;
     keyboard;
     enemies;

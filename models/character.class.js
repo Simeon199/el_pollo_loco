@@ -88,7 +88,7 @@ class Character extends MovableObject {
      */
 
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('img/2_character_pepe/3_jump/J-31.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_CHILL);
         this.loadImages(this.IMAGES_SLEEP);
@@ -200,10 +200,10 @@ class Character extends MovableObject {
             this.setRelevantGlobalVariablesForMovingCharacter();
             this.characterIsEitherSleepingOrChilling();
             this.characterIsJumpingOrMoving();
-        }, 1000 / 60);
+        }, 35);
         setInterval(() => {
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 100);
+        }, 50);
     };
 
     /**
@@ -225,7 +225,7 @@ class Character extends MovableObject {
 
     keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
         return this.timePassedWhenKeyPressed < 5000 &&
-            this.timePassedWhenKeyPressed > 1000 &&
+            this.timePassedWhenKeyPressed > 100 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&
             !this.isAboveGround() &&
@@ -238,7 +238,7 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedForLessThanTwoSeconds() {
-        this.timePassedWhenKeyPressed < 1000 &&
+        this.timePassedWhenKeyPressed < 100 &&
             !this.isAboveGround() &&
             !this.isHurt();
     }

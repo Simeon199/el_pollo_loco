@@ -209,6 +209,13 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+        // if (this instanceof Character && images == this.IMAGES_JUMPING) {
+        //     if (this.y < 135) {
+        //         setTimeout(() => {
+        //             this.loadImage('img/2_character_pepe/3_jump/J-31.png');
+        //         }, 1000);
+        //     }
+        // }
     }
 
     /**
@@ -245,6 +252,9 @@ class MovableObject extends DrawableObject {
         } else {
             this.speedY = 30;
         }
+        // if (this instanceof Character && this.y < 135) {
+        //     this.playAnimation(this.IMAGES_JUMPING[1]);
+        // }
     }
 
     /**
