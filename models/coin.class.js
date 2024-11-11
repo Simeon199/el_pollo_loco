@@ -7,6 +7,10 @@
 class Coin extends DrawableObject {
     height = 100;
     width = 100;
+    offsetRight = 0;
+    offsetLeft = 0;
+    offsetTop = 0;
+    offsetBottom = 0;
 
     /**
     * Creates an instance of the Coin class. Loads the coin image and sets a random position for the coin on the screen.

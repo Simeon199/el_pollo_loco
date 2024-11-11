@@ -195,7 +195,7 @@ function manageStopGameInterval() {
             stopGame('winning');
             clearInterval(stopGameInterval);
         }
-    }, 1000);
+    }, 2000);
 }
 
 /**

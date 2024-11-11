@@ -13,6 +13,10 @@ class MovableObject extends DrawableObject {
     timePassedLimit = 1;
     timePassedVariable = 0;
     lastHit = 0;
+    offsetRight = 0;
+    offsetLeft = 0;
+    offsetTop = 0;
+    offsetBottom = 0;
 
     /**
      * Creates an instance of the MovableObject class.
@@ -81,43 +85,43 @@ class MovableObject extends DrawableObject {
      */
 
     isCollidingFromAbove(mo) {
-        let tolerance = 20;
+        let tolerance = 10;
         return this.y + this.height <= mo.y + tolerance && this.y + this.height >= mo.y - tolerance && this.speedY > 0;
     }
 
     /**
-    * Checks if this object is colliding with another movable object. If a collision from above is detected (e.g., the character jumps on a target), 
-    * it returns `false` to ignore further checks, treating the collision as non-frontal. Otherwise, it applies a tolerance value to verify a general collision.
+    * Checks if this object is colliding with another movable object. It applies offset values to verify a general collision.
     * 
     * @param {MovableObject} mo - The other movable object to check for collision.
     * @returns {boolean} True if this object is colliding with the other object; otherwise, false.
     */
 
     isColliding(mo) {
-        if (this.isCollidingFromAbove(mo)) {
-            return false;
-        }
-        let tolerance = this.returnCorrectTolerance();
-        return this.x + this.width - tolerance > mo.x &&
-            this.y + this.height - tolerance > mo.y &&
-            this.x + tolerance < mo.x + mo.width &&
-            this.y + tolerance < mo.y + mo.height;
+        this.returnCorrectTolerance();
+        return this.x + this.width - this.offsetRight > mo.x + mo.offsetLeft &&
+            this.y + this.height - this.offsetBottom > mo.y + mo.offsetTop &&
+            this.x + this.offsetLeft < mo.x + mo.width - mo.offsetRight &&
+            this.y + this.offsetTop < mo.y + mo.height - mo.offsetBottom;
     }
 
     /**
-    * Returns the correct tolerance value for collision detection based on the object's state.
+    * Returns the correct offset values for collision detection based on the object's state.
     * 
     * @returns {number} The appropriate tolerance value for the object.
     */
 
     returnCorrectTolerance() {
-        let tolerance = 0;
         if (this.isCharacterAndAboveGround()) {
-            tolerance = 20;
+            this.offsetRight = 50;
+            this.offsetLeft = 50;
+            this.offsetTop = -50;
+            this.offsetBottom = -10;
         } else if (this.isCharacterAndNotAboveGround()) {
-            tolerance = 50;
+            this.offsetRight = 50;
+            this.offsetLeft = 50;
+            this.offsetTop = 0;
+            this.offsetBottom = 0;
         }
-        return tolerance;
     }
 
     /**
@@ -147,9 +151,13 @@ class MovableObject extends DrawableObject {
     substractCorrectEnergyAmountWhenGetHit() {
         if (this.isEndboss()) {
             this.energy -= 2;
-        } else {
+        } else if (this.isCharacter()) {
             this.energy -= 10;
         }
+    }
+
+    isCharacter() {
+        return this instanceof Character;
     }
 
     /**

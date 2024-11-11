@@ -14,6 +14,10 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
+    // offsetRight = 0;
+    // offsetLeft = 0;
+    // offsetTop = 0;
+    // offsetBottom = 0;
     speed = 10;
 
     IMAGES_WALKING = [
