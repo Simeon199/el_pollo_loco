@@ -81,7 +81,7 @@ class MovableObject extends DrawableObject {
      */
 
     isCollidingFromAbove(mo) {
-        let tolerance = 10;
+        let tolerance = 20;
         return this.y + this.height <= mo.y + tolerance && this.y + this.height >= mo.y - tolerance && this.speedY > 0;
     }
 
@@ -113,7 +113,7 @@ class MovableObject extends DrawableObject {
     returnCorrectTolerance() {
         let tolerance = 0;
         if (this.isCharacterAndAboveGround()) {
-            tolerance = 5;
+            tolerance = 20;
         } else if (this.isCharacterAndNotAboveGround()) {
             tolerance = 50;
         }
@@ -209,13 +209,6 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-        // if (this instanceof Character && images == this.IMAGES_JUMPING) {
-        //     if (this.y < 135) {
-        //         setTimeout(() => {
-        //             this.loadImage('img/2_character_pepe/3_jump/J-31.png');
-        //         }, 1000);
-        //     }
-        // }
     }
 
     /**
@@ -252,9 +245,6 @@ class MovableObject extends DrawableObject {
         } else {
             this.speedY = 30;
         }
-        // if (this instanceof Character && this.y < 135) {
-        //     this.playAnimation(this.IMAGES_JUMPING[1]);
-        // }
     }
 
     /**
