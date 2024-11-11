@@ -148,7 +148,7 @@ class MovableObject extends DrawableObject {
         if (this.isEndboss()) {
             this.energy -= 2;
         } else {
-            this.energy -= 5;
+            this.energy -= 10;
         }
     }
 

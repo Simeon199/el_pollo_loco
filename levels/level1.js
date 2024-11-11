@@ -35,7 +35,7 @@ function generateRandomBottles() {
 function generateCoinsArray() {
     let coinsArray = [];
     let i = 0;
-    for (let j = 0; j < 10; j++) {
+    for (let j = 0; j < 15; j++) {
         if (i < j) {
             coinsArray.push(new Coin());
             i++;

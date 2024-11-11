@@ -203,7 +203,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
         setInterval(() => {
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 50);
+        }, 100);
     };
 
     /**
