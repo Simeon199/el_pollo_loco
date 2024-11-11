@@ -78,18 +78,6 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the object is colliding from above with another movable object.
-     * 
-     * @param {MovableObject} mo - The other movable object to check for collision from above.
-     * @returns {boolean} True if the object is colliding from above; otherwise, false.
-     */
-
-    isCollidingFromAbove(mo) {
-        let tolerance = 10;
-        return this.y + this.height <= mo.y + tolerance && this.y + this.height >= mo.y - tolerance && this.speedY > 0;
-    }
-
-    /**
     * Checks if this object is colliding with another movable object. It applies offset values to verify a general collision.
     * 
     * @param {MovableObject} mo - The other movable object to check for collision.

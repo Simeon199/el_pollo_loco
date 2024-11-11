@@ -93,6 +93,13 @@ class AudioManager {
         }
     }
 
+    /**
+     * Mutes or unmutes the given sound.
+     * 
+     * @param {boolean} mute - If true, mutes the given sound; if false, unmutes it.
+     * @param {string} sound - The sound to be muted.
+     */
+
     muteSound(mute, sound) {
         if (this.sounds[sound]) {
             this.sounds[sound].muted = mute;
@@ -147,6 +154,12 @@ class AudioManager {
             }
         });
     }
+
+    /**
+     * Mutes or unmutes all sounds related to the chickensounds.
+     * 
+     * @param {boolean} mute - If true, mutes chicken collection sounds; if false, unmutes them.
+     */
 
     setEndbossSoundsMuted(mute) {
         let endbossSounds = ['chickenSound', 'chickenScream'];
