@@ -20,6 +20,7 @@ class World {
     hasGameStarted = false;
     isGameOver = false;
     enemiesNumber = this.level.enemies.length;
+    timePointWhenCharacterGetsHit = 0;
 
     /**
      * Constructor of the World class. Initializes the game canvas, level, audio, and game elements.
@@ -141,7 +142,7 @@ class World {
         if (this.isEnemyChickenAndGetsJumpedOnByCharacter(enemy)) {
             this.enemyIsDefeatedByJump(enemy);
         } else if (!enemy.isDead) {
-            if (!this.character.isHurt()) {
+            if (!this.character.isHurt() && !this.character.characterGotHurtButEnjoysProtection()) {
                 this.applyKnockback(enemy);
                 this.adjustStatusBarWhenCharacterGetsHit();
                 this.audioManager.playSound('punchAndOuch');
@@ -154,6 +155,7 @@ class World {
 
     adjustStatusBarWhenCharacterGetsHit() {
         this.character.hit();
+        this.timePointWhenCharacterGetsHit = new Date().getTime();
         this.statusbar.percentage -= 5;
         this.statusbar.setPercentage(this.character.energy);
     }
@@ -238,6 +240,10 @@ class World {
         if (this.isEnemyEndboss(enemy)) {
             this.setEndbossVariablesForKnockbackOfCharacter(enemy);
         }
+        this.setVariablesAndKnockBackInterval(enemy);
+    }
+
+    setVariablesAndKnockBackInterval(enemy) {
         let knockbackDistance = 400;
         let knockbackSpeed = 10;
         let direction = this.character.x < enemy.x ? -1 : 1;

@@ -24,7 +24,7 @@ class BabyChicken extends Chicken {
 
     constructor() {
         super();
-        this.speed = 2 + Math.random() * 1.5;
+        this.speed = 0.5 + Math.random() * 0.5;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD_CHICKEN);
         this.x = 800 + Math.random() * 1000;

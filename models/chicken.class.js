@@ -42,7 +42,7 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGE_DEAD_CHICKEN);
         this.enemyArrayIndex = enemyArrayIndex;
         this.x = 500 + Math.random() * 1000;
-        this.speed = 1 + Math.random() * 1;
+        this.speed = 0.25 + Math.random() * 1;
         this.animate();
     }
 
@@ -59,7 +59,7 @@ class Chicken extends MovableObject {
             this.clearAllRelevantIntervalsWhenChickenDies();
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-            }, 100);
+            }, 150);
             this.stopPlayingDeadAnimation();
         }
     };

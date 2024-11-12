@@ -109,11 +109,18 @@ class Character extends MovableObject {
             this.setRelevantGlobalVariablesForMovingCharacter();
             this.characterIsEitherSleepingOrChilling();
             this.characterIsJumpingOrMoving();
-        }, 35);
-        setInterval(() => {
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 50);
+        }, 35);
     };
+
+    characterGotHurtButEnjoysProtection() {
+        let currentTime = new Date().getTime();
+        if (currentTime - this.world.timePointWhenCharacterGetsHit < 5000) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Checks if the current time is within 200 milliseconds of the game initialization time.

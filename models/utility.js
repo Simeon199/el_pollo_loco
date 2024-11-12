@@ -74,11 +74,13 @@ class Utility {
      */
 
     checkCollisions() {
-        this.world.level.enemies.forEach(enemy => {
-            if (this.world.character.isColliding(enemy)) {
-                this.world.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
-            }
-        });
+        if (this.world.character.characterGotHurtButEnjoysProtection() == false) {
+            this.world.level.enemies.forEach(enemy => {
+                if (this.world.character.isColliding(enemy)) {
+                    this.world.checkCasesThatCanOccurWhenCharacterGetsHit(enemy);
+                }
+            });
+        }
         this.world.level.coins.forEach(coin => {
             if (this.world.character.isColliding(coin)) {
                 this.collectCoins(coin);
@@ -160,18 +162,31 @@ class Utility {
     */
 
     checkThrowObjects() {
+        let timeWhenkeyDWasPressed = 0;
+        let timeWhenKeyDWasReleased = 0;
         if (this.world.keyboard.keyD == true && this.world.bottlebar.bottlesCollected > 0) {
-            setTimeout(() => {
+            timeWhenkeyDWasPressed = new Date().getTime();
+            let noNameInterval = setInterval(() => {
                 if (this.world.keyboard.keyD == false) {
-                    this.world.bottlebar.bottlesCollected -= 1;
-                    this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
-                    let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
-                    this.world.throwableObjects.push(bottle);
-                    bottle.throwObjectsArray = this.world.throwableObjects;
-                    bottle.throw();
+                    timeWhenKeyDWasReleased = new Date().getTime();
+                    if (timeWhenKeyDWasReleased - timeWhenkeyDWasPressed < 100) {
+                        this.world.bottlebar.bottlesCollected -= 1;
+                        this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
+                        let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
+                        this.world.throwableObjects.push(bottle);
+                        bottle.throwObjectsArray = this.world.throwableObjects;
+                        bottle.throw();
+                        timeWhenkeyDWasPressed = 0;
+                        timeWhenKeyDWasReleased = 0;
+                        clearNoNameInterval(noNameInterval);
+                    }
                 }
-            }, 100);
+            }, 25);
         }
+    }
+
+    clearNoNameInterval(interval) {
+        clearInterval(interval);
     }
 
     /**

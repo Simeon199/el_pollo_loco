@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
-    timePassedLimit = 1;
+    timePassedLimit = 1.5;
     timePassedVariable = 0;
     lastHit = 0;
     offsetRight = 0;
@@ -102,11 +102,11 @@ class MovableObject extends DrawableObject {
         if (this.isCharacterAndAboveGround()) {
             this.offsetRight = 50;
             this.offsetLeft = 50;
-            this.offsetTop = -50;
+            this.offsetTop = -100;
             this.offsetBottom = -10;
         } else if (this.isCharacterAndNotAboveGround()) {
-            this.offsetRight = 50;
-            this.offsetLeft = 50;
+            this.offsetRight = 40;
+            this.offsetLeft = 40;
             this.offsetTop = 0;
             this.offsetBottom = 0;
         }
