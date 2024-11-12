@@ -161,33 +161,47 @@ class Utility {
     * When a bottle is thrown, it is added to the throwable objects array.
     */
 
+    // checkThrowObjects() {
+    //     let timeWhenkeyDWasPressed = 0;
+    //     let timeWhenKeyDWasReleased = 0;
+    //     if (this.world.keyboard.keyD == true && this.world.bottlebar.bottlesCollected > 0) {
+    //         timeWhenkeyDWasPressed = new Date().getTime();
+    //         let noNameInterval = setInterval(() => {
+    //             if (this.world.keyboard.keyD == false) {
+    //                 timeWhenKeyDWasReleased = new Date().getTime();
+    //                 if (timeWhenKeyDWasReleased - timeWhenkeyDWasPressed < 100) {
+    //                     this.world.bottlebar.bottlesCollected -= 1;
+    //                     this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
+    //                     let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
+    //                     this.world.throwableObjects.push(bottle);
+    //                     bottle.throwObjectsArray = this.world.throwableObjects;
+    //                     bottle.throw();
+    //                     timeWhenkeyDWasPressed = 0;
+    //                     timeWhenKeyDWasReleased = 0;
+    //                     clearNoNameInterval(noNameInterval);
+    //                 }
+    //             }
+    //         }, 25);
+    //     }
+    // }
+
     checkThrowObjects() {
-        let timeWhenkeyDWasPressed = 0;
-        let timeWhenKeyDWasReleased = 0;
-        if (this.world.keyboard.keyD == true && this.world.bottlebar.bottlesCollected > 0) {
-            timeWhenkeyDWasPressed = new Date().getTime();
-            let noNameInterval = setInterval(() => {
-                if (this.world.keyboard.keyD == false) {
-                    timeWhenKeyDWasReleased = new Date().getTime();
-                    if (timeWhenKeyDWasReleased - timeWhenkeyDWasPressed < 100) {
-                        this.world.bottlebar.bottlesCollected -= 1;
-                        this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
-                        let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
-                        this.world.throwableObjects.push(bottle);
-                        bottle.throwObjectsArray = this.world.throwableObjects;
-                        bottle.throw();
-                        timeWhenkeyDWasPressed = 0;
-                        timeWhenKeyDWasReleased = 0;
-                        clearNoNameInterval(noNameInterval);
-                    }
+        if (this.world.keyboard.keyD == false) {
+            if (timeWhenKeyDWasPressed > 0 && timeWhenKeyDWasReleased > 0 && this.world.bottlebar.bottlesCollected > 0) {
+                if ((timeWhenKeyDWasReleased - timeWhenKeyDWasPressed < 1000) && (new Date().getTime() - timeWhenKeyDWasReleased > 1000)) {
+                    this.world.bottlebar.bottlesCollected -= 1;
+                    this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
+                    let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
+                    this.world.throwableObjects.push(bottle);
+                    bottle.throwObjectsArray = this.world.throwableObjects;
+                    bottle.throw();
+                    timeWhenKeyDWasPressed = 0;
+                    timeWhenKeyDWasReleased = 0;
                 }
-            }, 25);
+            }
         }
     }
 
-    clearNoNameInterval(interval) {
-        clearInterval(interval);
-    }
 
     /**
     * Checks for collisions between throwable bottles and enemies.

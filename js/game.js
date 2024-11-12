@@ -5,6 +5,8 @@ let wasRandomKeyOncePressed = false;
 let isKeyPressed = false;
 let someKeyWasPressedAgain = 0;
 let lastTimeKeyPressed = 0;
+let timeWhenKeyDWasPressed = 0;
+let timeWhenKeyDWasReleased = 0;
 let canvas;
 let ctx;
 let world;
