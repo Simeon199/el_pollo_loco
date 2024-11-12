@@ -1,5 +1,6 @@
 // All the global variables that are used to control the game
 
+let timePointWhenGameInitialized = 0;
 let wasRandomKeyOncePressed = false;
 let isKeyPressed = false;
 let someKeyWasPressedAgain = 0;
@@ -118,6 +119,7 @@ function init() {
     setRemainingObjectsAndVariablesWhenInitGame();
     muteUnmuteSound(soundIsMuted);
     controlTurnOnTurnOffIcon();
+    timePointWhenGameInitialized = new Date().getTime();
 }
 
 /**

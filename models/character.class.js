@@ -4,6 +4,7 @@
  */
 
 class Character extends MovableObject {
+    rightNow = 0;
     fixDate = 0;
     isJumping = false;
     wasRandomKeyOncePressed = false;
@@ -14,10 +15,6 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    // offsetRight = 0;
-    // offsetLeft = 0;
-    // offsetTop = 0;
-    // offsetBottom = 0;
     speed = 10;
 
     IMAGES_WALKING = [
@@ -104,6 +101,36 @@ class Character extends MovableObject {
     }
 
     /**
+     * Starts the animation cycle for the character. Calls different checks for movement, sleeping, and other states at defined intervals.
+     */
+
+    animate() {
+        setInterval(() => {
+            this.setRelevantGlobalVariablesForMovingCharacter();
+            this.characterIsEitherSleepingOrChilling();
+            this.characterIsJumpingOrMoving();
+        }, 35);
+        setInterval(() => {
+            this.characterIsDyingGetsHurtIsJumpingOrWalking();
+        }, 50);
+    };
+
+    /**
+     * Checks if the current time is within 200 milliseconds of the game initialization time.
+     *
+     * @returns {boolean} - Returns `true` if the current time is within 200 milliseconds of the game initialization point (`timePointWhenGameInitialized`), otherwise returns `false`.
+     */
+
+    callTimer() {
+        this.rightNow = new Date().getTime();
+        if (this.rightNow - timePointWhenGameInitialized < 200) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
     * Plays the sleep animation with the snoring sound.
     */
 
@@ -154,6 +181,9 @@ class Character extends MovableObject {
         if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
             this.playAnimation(this.IMAGES_CHILL);
         }
+        if (this.wasRandomKeyOncePressed == false && this.callTimer() == false) {
+            this.playAnimation(this.IMAGES_CHILL);
+        }
     }
 
     /**
@@ -194,21 +224,6 @@ class Character extends MovableObject {
             }
         }
     }
-
-    /**
-     * Starts the animation cycle for the character. Calls different checks for movement, sleeping, and other states at defined intervals.
-     */
-
-    animate() {
-        setInterval(() => {
-            this.setRelevantGlobalVariablesForMovingCharacter();
-            this.characterIsEitherSleepingOrChilling();
-            this.characterIsJumpingOrMoving();
-        }, 35);
-        setInterval(() => {
-            this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 50);
-    };
 
     /**
      * Checks if no key was pressed for more than 5 seconds (inactivity check).
