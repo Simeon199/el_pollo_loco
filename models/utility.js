@@ -161,11 +161,13 @@ class Utility {
         if (this.world.keyboard.keyD == true) {
             setTimeout(() => {
                 if (this.world.keyboard.keyD == false) {
-                    if (permissionToThrow == true && timeDifferenceBetweenKeyDPressedReleased > 0) {
+                    if (permissionToThrow == true) {
                         this.checkThrowObjects();
                     }
                 }
-            }, 200);
+            }, 150);
+        } else {
+            return;
         }
     }
 

@@ -184,13 +184,15 @@ class Character extends MovableObject {
     characterIsEitherSleepingOrChilling() {
         if (this.keyWasntPressedForMoreThanFiveSeconds()) {
             this.playSleepAnimationWithAudio();
-        }
-        if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
+        } else {
             this.playAnimation(this.IMAGES_CHILL);
         }
-        if (this.wasRandomKeyOncePressed == false && this.callTimer() == false) {
-            this.playAnimation(this.IMAGES_CHILL);
-        }
+        // if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
+        //     this.playAnimation(this.IMAGES_CHILL);
+        // }
+        // if (this.wasRandomKeyOncePressed == false && this.callTimer() == false) {
+        //     this.playAnimation(this.IMAGES_CHILL);
+        // }
     }
 
     /**
@@ -249,14 +251,14 @@ class Character extends MovableObject {
      * @returns {boolean} True if the condition is met, false otherwise.
      */
 
-    keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed < 5000 &&
-            this.timePassedWhenKeyPressed > 100 &&
-            this.wasRandomKeyOncePressed == true &&
-            this.isKeyStillPressed == false &&
-            !this.isAboveGround() &&
-            !this.isHurt();
-    }
+    // keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
+    //     return this.timePassedWhenKeyPressed < 5000 &&
+    //         this.timePassedWhenKeyPressed > 100 &&
+    //         this.wasRandomKeyOncePressed == true &&
+    //         this.isKeyStillPressed == false &&
+    //         !this.isAboveGround() &&
+    //         !this.isHurt();
+    // }
 
     /**
      * Checks if no key was pressed for less than 2 seconds.
