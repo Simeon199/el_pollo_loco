@@ -115,7 +115,7 @@ class Character extends MovableObject {
 
     characterGotHurtButEnjoysProtection() {
         let currentTime = new Date().getTime();
-        if (currentTime - this.world.timePointWhenCharacterGetsHit < 5000) {
+        if (currentTime - this.world.timePointWhenCharacterGetsHit < 2000) {
             return true;
         } else {
             return false;

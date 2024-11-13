@@ -1,3 +1,7 @@
+let timeDifferenceBetweenKeyDPressedReleased = 0;
+let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
+permissionToThrow = true;
+
 /**
  * Disables the context menu on touch-enabled devices.
  */
@@ -248,6 +252,7 @@ function touchEndHandler(event) {
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = false;
             timeWhenKeyDWasReleased = new Date().getTime();
+            timeDifferenceBetweenKeyDPressedReleased = timeWhenKeyDWasReleased - timeWhenKeyDWasPressed;
         }
     }
 }
@@ -290,6 +295,14 @@ function keyDownHandler(event) {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
         timeWhenKeyDWasPressed = new Date().getTime();
+        if (timeWhenKeyDWasReleased > 0) {
+            timeDifferenceBetweenKeyDReleasedAndLaterPressed = Math.abs(timeWhenKeyDWasPressed - timeWhenKeyDWasReleased);
+            if (timeDifferenceBetweenKeyDReleasedAndLaterPressed > 1000) {
+                permissionToThrow = true;
+            } else {
+                permissionToThrow = false;
+            }
+        }
     }
 }
 
@@ -319,6 +332,7 @@ function keyUpHandler(event) {
     if (event.keyCode == 68) {
         keyboard.keyD = false;
         timeWhenKeyDWasReleased = new Date().getTime();
+        timeDifferenceBetweenKeyDPressedReleased = Math.abs(timeWhenKeyDWasReleased - timeWhenKeyDWasPressed);
     }
 }
 
