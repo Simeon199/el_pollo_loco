@@ -110,8 +110,14 @@ class Character extends MovableObject {
             this.characterIsEitherSleepingOrChilling();
             this.characterIsJumpingOrMoving();
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 35);
+        }, 50);
     };
+
+    /**
+     * Determines if the character was recently hit but is still within a protected time window.
+     *
+     * @returns {boolean} - `true` if the character is within the protection window, `false` otherwise.
+     */
 
     characterGotHurtButEnjoysProtection() {
         let currentTime = new Date().getTime();
@@ -187,12 +193,6 @@ class Character extends MovableObject {
         } else {
             this.playAnimation(this.IMAGES_CHILL);
         }
-        // if (this.keyWasntPressedForMoreThanTwoButLessThanFiveSeconds()) {
-        //     this.playAnimation(this.IMAGES_CHILL);
-        // }
-        // if (this.wasRandomKeyOncePressed == false && this.callTimer() == false) {
-        //     this.playAnimation(this.IMAGES_CHILL);
-        // }
     }
 
     /**
@@ -245,20 +245,6 @@ class Character extends MovableObject {
             this.isKeyStillPressed == false &&
             !this.isHurt();
     }
-
-    /**
-     * Checks if no key was pressed for more than 2 seconds but less than 5 seconds.
-     * @returns {boolean} True if the condition is met, false otherwise.
-     */
-
-    // keyWasntPressedForMoreThanTwoButLessThanFiveSeconds() {
-    //     return this.timePassedWhenKeyPressed < 5000 &&
-    //         this.timePassedWhenKeyPressed > 100 &&
-    //         this.wasRandomKeyOncePressed == true &&
-    //         this.isKeyStillPressed == false &&
-    //         !this.isAboveGround() &&
-    //         !this.isHurt();
-    // }
 
     /**
      * Checks if no key was pressed for less than 2 seconds.

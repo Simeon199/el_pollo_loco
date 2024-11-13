@@ -33,8 +33,7 @@ class Utility {
     playUtilityFunctions() {
         this.checkCollisions();
         this.checkCollisionsWithBottles();
-        this.proveWhetherCheckThrowObjectsShouldBeInvoked()
-        // this.checkThrowObjects();
+        this.proveWhetherCheckThrowObjectsShouldBeInvoked();
         this.checkThrowableObjectsCollision();
         this.calibrateDistanceBetweenCharacterAndEndboss();
         this.checkMovingDirectionOfEnemies();
@@ -157,6 +156,13 @@ class Utility {
         this.world.throwableObjects.splice(index, 1);
     }
 
+    /**
+     * Determines if the `checkThrowObjects` function should be invoked based on the "D" key status.
+     * This function checks if the "D" key is currently pressed. If it is, a 125-millisecond delay is set.
+     * After the delay, it checks if the "D" key has been released and if `permissionToThrow` is `true`.
+     * If both conditions are met, it invokes the `checkThrowObjects` function.
+     */
+
     proveWhetherCheckThrowObjectsShouldBeInvoked() {
         if (this.world.keyboard.keyD == true) {
             setTimeout(() => {
@@ -165,7 +171,7 @@ class Utility {
                         this.checkThrowObjects();
                     }
                 }
-            }, 150);
+            }, 90);
         } else {
             return;
         }

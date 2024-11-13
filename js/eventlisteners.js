@@ -231,6 +231,7 @@ function touchStartHandler(event) {
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = true;
             timeWhenKeyDWasPressed = new Date().getTime();
+            giveOrDenyPermissionToThrow();
         }
     }
 }
@@ -252,7 +253,7 @@ function touchEndHandler(event) {
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = false;
             timeWhenKeyDWasReleased = new Date().getTime();
-            timeDifferenceBetweenKeyDPressedReleased = timeWhenKeyDWasReleased - timeWhenKeyDWasPressed;
+            timeDifferenceBetweenKeyDPressedReleased = Math.abs(timeWhenKeyDWasReleased - timeWhenKeyDWasPressed);
         }
     }
 }
@@ -295,13 +296,22 @@ function keyDownHandler(event) {
     if (event.keyCode == 68) {
         keyboard.keyD = true;
         timeWhenKeyDWasPressed = new Date().getTime();
-        if (timeWhenKeyDWasReleased > 0) {
-            timeDifferenceBetweenKeyDReleasedAndLaterPressed = Math.abs(timeWhenKeyDWasPressed - timeWhenKeyDWasReleased);
-            if (timeDifferenceBetweenKeyDReleasedAndLaterPressed > 1000) {
-                permissionToThrow = true;
-            } else {
-                permissionToThrow = false;
-            }
+        giveOrDenyPermissionToThrow();
+    }
+}
+
+/**
+ * Grants or denies permission to throw an object based on the timing of key "D" actions.
+ *
+ */
+
+function giveOrDenyPermissionToThrow() {
+    if (timeWhenKeyDWasReleased > 0) {
+        timeDifferenceBetweenKeyDReleasedAndLaterPressed = Math.abs(timeWhenKeyDWasPressed - timeWhenKeyDWasReleased);
+        if (timeDifferenceBetweenKeyDReleasedAndLaterPressed > 500) {
+            permissionToThrow = true;
+        } else {
+            permissionToThrow = false;
         }
     }
 }
