@@ -188,23 +188,23 @@ class Chicken extends MovableObject {
         }
     }
 
-    isNearOtherChickens(range = 50) {
-        return this.world.level.enemies.some(enemy => {
-            enemy !== this && Math.abs(this.x - enemy.x) < range
-        });
-    }
+    // isNearOtherChickens(range = 50) {
+    //     return this.world.level.enemies.some(enemy => {
+    //         enemy !== this && Math.abs(this.x - enemy.x) < range
+    //     });
+    // }
 
-    filterAllNearChickens(range = 50) {
-        return this.world.level.enemies.filter(enemy => {
-            enemy !== this && Math.abs(this.x - enemy.x) < range
-        });
-    }
+    // filterAllNearChickens(range = 50) {
+    //     return this.world.level.enemies.filter(enemy => {
+    //         enemy !== this && Math.abs(this.x - enemy.x) < range
+    //     });
+    // }
 
-    filterNearestChicken(array) {
-        let interimArray = [];
-        array.forEach(enemy => {
-            interimArray.push(Math.abs(enemy.x - this.world.character.x));
-        });
-        return array[array.indexOf(Math.min(...interimArray))];
-    }
+    // filterNearestChicken(array) {
+    //     let interimArray = [];
+    //     array.forEach(enemy => {
+    //         interimArray.push(Math.abs(enemy.x - this.world.character.x));
+    //     });
+    //     return array[array.indexOf(Math.min(...interimArray))];
+    // }
 }

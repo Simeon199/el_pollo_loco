@@ -140,13 +140,15 @@ class World {
 
     checkCasesThatCanOccurWhenCharacterGetsHit(enemy) {
         if (this.isEnemyChickenAndGetsJumpedOnByCharacter(enemy)) {
-            if (enemy.isNearOtherChickens()) {
-                let nearChickensArray = enemy.filterAllNearChickens();
-                let nearestEnemy = enemy.filterNearestChicken(nearChickensArray);
-                this.enemyIsDefeatedByJump(nearestEnemy);
-            } else {
-                this.enemyIsDefeatedByJump(enemy);
-            }
+            // if (enemy.isNearOtherChickens()) {
+            //     let nearChickensArray = enemy.filterAllNearChickens();
+            //     let nearestEnemy = enemy.filterNearestChicken(nearChickensArray);
+            //     this.enemyIsDefeatedByJump(nearestEnemy);
+            // } else {
+            //     this.enemyIsDefeatedByJump(enemy);
+            // }
+            this.enemyIsDefeatedByJump(enemy);
+            return;
         }
         else if (this.isEnemyAliveEndbossOrCharacterOnGround(enemy)) {
             if (this.characterLacksProtection() && !enemy.isDead) {
