@@ -42,8 +42,17 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGE_DEAD_CHICKEN);
         this.enemyArrayIndex = enemyArrayIndex;
         this.x = 500 + Math.random() * 1000;
-        this.speed = 0.25 + Math.random() * 1;
+        this.scatterSpeedValues();
         this.animate();
+    }
+
+    scatterSpeedValues() {
+        let randomNumber = Math.random();
+        if (randomNumber > 0.5) {
+            this.speed = 0.25 + Math.random() * 1.5;
+        } else if (randomNumber <= 0.5) {
+            this.speed = 1.5 - Math.random() * 0.75;
+        }
     }
 
     /**
@@ -177,5 +186,25 @@ class Chicken extends MovableObject {
                 this.playingDeadEnemyId = null;
             }, 100);
         }
+    }
+
+    isNearOtherChickens(range = 50) {
+        return this.world.level.enemies.some(enemy => {
+            enemy !== this && Math.abs(this.x - enemy.x) < range
+        });
+    }
+
+    filterAllNearChickens(range = 50) {
+        return this.world.level.enemies.filter(enemy => {
+            enemy !== this && Math.abs(this.x - enemy.x) < range
+        });
+    }
+
+    filterNearestChicken(array) {
+        let interimArray = [];
+        array.forEach(enemy => {
+            interimArray.push(Math.abs(enemy.x - this.world.character.x));
+        });
+        return array[array.indexOf(Math.min(...interimArray))];
     }
 }

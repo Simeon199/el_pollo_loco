@@ -129,7 +129,7 @@ class World {
     */
 
     isEnemyChickenAndGetsJumpedOnByCharacter(enemy) {
-        return this.characterFallsOnEnemy(enemy) && !enemy.isDead && !(enemy instanceof Endboss);
+        return this.characterFallsOnEnemy(enemy) && this.character.isAboveGround() && !enemy.isDead && !(enemy instanceof Endboss);
     }
 
     /**
@@ -140,14 +140,46 @@ class World {
 
     checkCasesThatCanOccurWhenCharacterGetsHit(enemy) {
         if (this.isEnemyChickenAndGetsJumpedOnByCharacter(enemy)) {
-            this.enemyIsDefeatedByJump(enemy);
-        } else if (!enemy.isDead) {
-            if (!this.character.isHurt() && !this.character.characterGotHurtButEnjoysProtection()) {
+            if (enemy.isNearOtherChickens()) {
+                let nearChickensArray = enemy.filterAllNearChickens();
+                let nearestEnemy = enemy.filterNearestChicken(nearChickensArray);
+                this.enemyIsDefeatedByJump(nearestEnemy);
+            } else {
+                this.enemyIsDefeatedByJump(enemy);
+            }
+        }
+        else if (this.isEnemyAliveEndbossOrCharacterOnGround(enemy)) {
+            if (this.characterLacksProtection() && !enemy.isDead) {
                 this.applyKnockback(enemy);
                 this.adjustStatusBarWhenCharacterGetsHit();
                 this.audioManager.playSound('punchAndOuch');
             }
         }
+    }
+
+    isEnemyAliveEndbossOrCharacterOnGround(enemy) {
+        return this.enemyIsAlive && (!this.character.isAboveGround() || enemy instanceof Endboss);
+    }
+
+    enemyIsAlive(enemy) {
+        return !enemy.isDead;
+    }
+
+    /**
+    * Checks if the character falls on an enemy, which can result in the enemy's defeat.
+    * 
+    * @param {Object} enemy - The enemy that the character may fall on.
+    * @returns {boolean} - Returns true if the character falls on the enemy.
+    */
+
+    characterFallsOnEnemy(enemy) {
+        let toleranceY = 0;
+        return this.character.y + this.character.height >= enemy.y + toleranceY &&
+            this.character.y + this.character.height > enemy.y;
+    }
+
+    characterLacksProtection() {
+        return !this.character.isHurt() && !this.character.characterGotHurtButEnjoysProtection();
     }
     /**
     * Adjusts the status bar when the character gets hit. Decreases the character's energy and updates the status bar's percentage.
@@ -249,19 +281,6 @@ class World {
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;
         this.setKnockBackInterval(knockbackDistance, knockbackSpeed, direction, distanceMoved);
-    }
-
-    /**
-    * Checks if the character falls on an enemy, which can result in the enemy's defeat.
-    * 
-    * @param {Object} enemy - The enemy that the character may fall on.
-    * @returns {boolean} - Returns true if the character falls on the enemy.
-    */
-
-    characterFallsOnEnemy(enemy) {
-        return this.character.speedY < 0 &&
-            this.character.y + this.character.height <= enemy.y + enemy.height * 0.75 &&
-            this.character.y + this.character.height > enemy.y;
     }
 
     /**

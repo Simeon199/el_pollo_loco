@@ -100,13 +100,13 @@ class MovableObject extends DrawableObject {
 
     returnCorrectTolerance() {
         if (this.isCharacterAndAboveGround()) {
-            this.offsetRight = 50;
-            this.offsetLeft = 50;
-            this.offsetTop = -100;
-            this.offsetBottom = -10;
-        } else if (this.isCharacterAndNotAboveGround()) {
             this.offsetRight = 40;
             this.offsetLeft = 40;
+            this.offsetTop = -50;
+            this.offsetBottom = -10;
+        } else if (this.isCharacterAndNotAboveGround()) {
+            this.offsetRight = 30;
+            this.offsetLeft = 30;
             this.offsetTop = 0;
             this.offsetBottom = 0;
         }
