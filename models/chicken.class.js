@@ -46,6 +46,14 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Assigns a random speed value to the object based on a randomized logic.
+     * 
+     * This function generates a random number to determine the speed of an object:
+     * - If the random number is greater than 0.5, the speed is set to a value between 0.25 and 1.75.
+     * - If the random number is less than or equal to 0.5, the speed is set to a value between 1.5 and 0.75.
+     */
+
     scatterSpeedValues() {
         let randomNumber = Math.random();
         if (randomNumber > 0.5) {
@@ -187,24 +195,4 @@ class Chicken extends MovableObject {
             }, 100);
         }
     }
-
-    // isNearOtherChickens(range = 50) {
-    //     return this.world.level.enemies.some(enemy => {
-    //         enemy !== this && Math.abs(this.x - enemy.x) < range
-    //     });
-    // }
-
-    // filterAllNearChickens(range = 50) {
-    //     return this.world.level.enemies.filter(enemy => {
-    //         enemy !== this && Math.abs(this.x - enemy.x) < range
-    //     });
-    // }
-
-    // filterNearestChicken(array) {
-    //     let interimArray = [];
-    //     array.forEach(enemy => {
-    //         interimArray.push(Math.abs(enemy.x - this.world.character.x));
-    //     });
-    //     return array[array.indexOf(Math.min(...interimArray))];
-    // }
 }

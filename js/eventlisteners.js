@@ -302,7 +302,6 @@ function keyDownHandler(event) {
 
 /**
  * Grants or denies permission to throw an object based on the timing of key "D" actions.
- *
  */
 
 function giveOrDenyPermissionToThrow() {

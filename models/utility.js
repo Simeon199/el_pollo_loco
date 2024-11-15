@@ -257,11 +257,11 @@ class Utility {
     }
 
     /**
-   * Animates the Endboss either being hurt or killed depending on its energy level after being hit by a bottle.
-   * 
-   * @param {Object} bottle - The thrown bottle object.
-   * @param {Object} enemy - The Endboss that is hit by the bottle.
-   */
+    * Animates the Endboss either being hurt or killed depending on its energy level after being hit by a bottle.
+    * 
+    * @param {Object} bottle - The thrown bottle object.
+    * @param {Object} enemy - The Endboss that is hit by the bottle.
+    */
 
     executeFunctionsToAnimateHurtOrDeadEndboss(bottle, enemy) {
         bottle.isBottleBroken = true;

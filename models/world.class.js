@@ -140,13 +140,6 @@ class World {
 
     checkCasesThatCanOccurWhenCharacterGetsHit(enemy) {
         if (this.isEnemyChickenAndGetsJumpedOnByCharacter(enemy)) {
-            // if (enemy.isNearOtherChickens()) {
-            //     let nearChickensArray = enemy.filterAllNearChickens();
-            //     let nearestEnemy = enemy.filterNearestChicken(nearChickensArray);
-            //     this.enemyIsDefeatedByJump(nearestEnemy);
-            // } else {
-            //     this.enemyIsDefeatedByJump(enemy);
-            // }
             this.enemyIsDefeatedByJump(enemy);
             return;
         }
@@ -159,9 +152,23 @@ class World {
         }
     }
 
+    /**
+     * Checks if the enemy is alive and if either the character is on the ground or the enemy is an Endboss.
+     * 
+     * @param {Object} enemy - The enemy object to check.
+     * @returns {boolean} `true` if the enemy is alive and the character is on the ground or the enemy is an Endboss; otherwise, `false`.
+     */
+
     isEnemyAliveEndbossOrCharacterOnGround(enemy) {
         return this.enemyIsAlive && (!this.character.isAboveGround() || enemy instanceof Endboss);
     }
+
+    /**
+     * Determines whether the specified enemy is alive.
+     * 
+     * @param {Object} enemy - The enemy object to check.
+     * @returns {boolean} `true` if the enemy is alive (not dead); otherwise, `false`.
+     */
 
     enemyIsAlive(enemy) {
         return !enemy.isDead;
@@ -180,9 +187,17 @@ class World {
             this.character.y + this.character.height > enemy.y;
     }
 
+    /**
+     * This function evaluates whether the character is currently not hurt 
+     * and is not enjoying temporary protection after being hurt.
+     * 
+     * @returns {boolean} `true` if the character is not hurt and does not have protection; otherwise, `false`.
+     */
+
     characterLacksProtection() {
         return !this.character.isHurt() && !this.character.characterGotHurtButEnjoysProtection();
     }
+
     /**
     * Adjusts the status bar when the character gets hit. Decreases the character's energy and updates the status bar's percentage.
     */

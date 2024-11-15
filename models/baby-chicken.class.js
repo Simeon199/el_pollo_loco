@@ -31,6 +31,14 @@ class BabyChicken extends Chicken {
         this.animate();
     }
 
+    /**
+     * Assigns a random speed value to the object based on a randomized logic.
+     * 
+     * This function generates a random number to determine the speed of an object:
+     * - If the random number is greater than 0.5, the speed is set to a value between 0.25 and 2.25.
+     * - If the random number is less than or equal to 0.5, the speed is set to a value between 1.5 and 2.
+     */
+
     scatterSpeedValues() {
         let randomNumber = Math.random();
         if (randomNumber > 0.5) {
