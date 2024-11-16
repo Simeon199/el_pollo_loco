@@ -110,7 +110,7 @@ class Character extends MovableObject {
             this.characterIsEitherSleepingOrChilling();
             this.characterIsJumpingOrMoving();
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 50);
+        }, 100);
     };
 
     /**
@@ -206,11 +206,11 @@ class Character extends MovableObject {
         if (this.keyRightWasPressed()) {
             this.playMovingRightAnimationWithAudio();
         }
-        this.world.camera_x = this.x + 100;
+        this.world.camera_x = this.x + 200;
         if (this.keyLeftWasPressed()) {
             this.playMovingLeftAnimationWithAudio();
         }
-        this.world.camera_x = -this.x + 100;
+        this.world.camera_x = -this.x + 200;
         if (this.keySpaceWasPressed()) {
             this.jump();
         }

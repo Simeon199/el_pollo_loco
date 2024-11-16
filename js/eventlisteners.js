@@ -6,11 +6,11 @@ permissionToThrow = true;
  * Disables the context menu on touch-enabled devices.
  */
 
-if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-    });
-}
+// if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+//     document.addEventListener('contextmenu', function (event) {
+//         event.preventDefault();
+//     });
+// }
 
 /**
  * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
@@ -106,23 +106,23 @@ screen.orientation.addEventListener("change", checkOrientation);
  * Listens for window resize events to manage responsive styling by calling `manageResizeResponsiveStyling`.
  */
 
-window.addEventListener('resize', manageResizeResponsiveStyling);
+// window.addEventListener('resize', manageResizeResponsiveStyling);
 
 /**
  * Handles responsive styling adjustments when the screen is resized. Displays a message to turn the device if the screen is not in landscape mode, and hides
  * this message when landscape orientation is activated.
  */
 
-function manageResizeResponsiveStyling() {
-    if (!isLandscapeScreenActivated()) {
-        showMessageToTurnDevice();
-    } else if (isLandscapeScreenActivated()) {
-        document.getElementById('message-to-turn-device').style.display = 'none';
-        if (proveIfBackgroundIsEmpty()) {
-            location.reload();
-        }
-    }
-}
+// function manageResizeResponsiveStyling() {
+//     if (!isLandscapeScreenActivated()) {
+//         showMessageToTurnDevice();
+//     } else if (isLandscapeScreenActivated()) {
+//         document.getElementById('message-to-turn-device').style.display = 'none';
+//         if (proveIfBackgroundIsEmpty()) {
+//             location.reload();
+//         }
+//     }
+// }
 
 /**
  * Checks if all background images in the document are hidden. Returns `true` if all specified images are hidden; otherwise, returns `false`.

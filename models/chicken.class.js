@@ -59,7 +59,7 @@ class Chicken extends MovableObject {
         if (randomNumber > 0.5) {
             this.speed = 0.25 + Math.random() * 1.5;
         } else if (randomNumber <= 0.5) {
-            this.speed = 1.5 - Math.random() * 0.75;
+            this.speed = 1 - Math.random() * 0.75;
         }
     }
 

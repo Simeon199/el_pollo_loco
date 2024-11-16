@@ -42,9 +42,9 @@ class BabyChicken extends Chicken {
     scatterSpeedValues() {
         let randomNumber = Math.random();
         if (randomNumber > 0.5) {
-            this.speed = 0.25 + Math.random() * 2;
+            this.speed = 0.25 + Math.random() * 1;
         } else if (randomNumber <= 0.5) {
-            this.speed = 2 - Math.random() * 0.5;
+            this.speed = 1 - Math.random() * 0.5;
         }
     }
 }

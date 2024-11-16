@@ -105,7 +105,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 16px;
+    /* padding-top: 16px; */
     padding-right: 16px;
     padding-left: 16px;
 }
@@ -285,7 +285,7 @@
 
 h1 {
     font-size: 60px;
-    padding-top: 24px;
+    /* padding-top: 24px; */
 }
 
 a h2 {

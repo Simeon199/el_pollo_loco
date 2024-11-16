@@ -64,9 +64,11 @@ function showIntroImageAndDeactivateTurnDeviceMessage() {
  */
 
 function activateMessageToTurnDevice() {
-    document.getElementById('message-to-turn-device').style.display = 'flex';
-    document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('canvas').style.display = 'none';
+    if (window.innerWidth < 1300 && window.innerHeight < 800) {
+        document.getElementById('message-to-turn-device').style.display = 'flex';
+        document.getElementById('intro-image').style.display = 'none';
+        document.getElementById('canvas').style.display = 'none';
+    }
 }
 
 /**
@@ -96,7 +98,7 @@ function isChangingToFullscreenActivated() {
  */
 
 function isLandscapeScreenActivated() {
-    return window.innerWidth > window.innerHeight;
+    return (window.innerWidth > window.innerHeight);
 }
 
 /**
@@ -227,7 +229,7 @@ function isTabletDevice() {
  */
 
 function startGame() {
-    checkForMobileVersion();
+    // checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
     isGamePlaying = true;
     init();
@@ -237,15 +239,15 @@ function startGame() {
  * Checks the device type and adjusts the screen mode (fullscreen, control panel) accordingly.
  */
 
-function checkForMobileVersion() {
-    if (isMobileOrSmallDevice()) {
-        setFullscreenStyle();
-    } else if (isTabletOrCloseToDesktopSize()) {
-        fullscreen();
-    } else if (isDesktopDevice()) {
-        setControlPanelStyle();
-    }
-}
+// function checkForMobileVersion() {
+//     if (isMobileOrSmallDevice()) {
+//         setFullscreenStyle();
+//     } else if (isTabletOrCloseToDesktopSize()) {
+//         fullscreen();
+//     } else if (isDesktopDevice()) {
+//         setControlPanelStyle();
+//     }
+// }
 
 /**
  * Checks if the device is a desktop.
@@ -374,9 +376,9 @@ function playAgain() {
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
     isGamePlaying = true;
-    if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
-        fullscreen();
-    }
+    // if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
+    //     fullscreen();
+    // }
     init();
 }
 

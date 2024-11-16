@@ -324,7 +324,7 @@ class Endboss extends Chicken {
             this.endbossSpeedX = 0;
         } else {
             setTimeout(() => {
-                this.endbossSpeedX = 20;
+                this.endbossSpeedX = 10;
             }, 100);
         }
     }

@@ -1,4 +1,4 @@
-@media(min-height: 1400px) {
+@media(min-height: 1400px) and (pointer: fine) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
@@ -6,7 +6,7 @@
     }
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (pointer: fine) {
     .game-functions-container {
         display: none;
     }
