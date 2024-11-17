@@ -84,6 +84,32 @@
         justify-content: center;
         align-items: center;
     }
+
+    /* Neu hinzugefügt */
+
+    #intro-image {
+        width: 100%;
+        height: auto;
+        justify-content: center;
+    }
+
+    #intro-image img:nth-child(1) {
+        width: 45%;
+        height: auto;
+    }
+
+    #intro-image img:nth-child(2) {
+        bottom: 2%;
+        /* bottom: 10%; */
+    }
+
+    #overlay {
+        height: 100dvh;
+        width: 100dvw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 @media(min-width: 1500px) and (min-height: 1100px) and (max-height: 1400px) and (pointer: fine) {

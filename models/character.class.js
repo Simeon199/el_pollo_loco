@@ -110,7 +110,7 @@ class Character extends MovableObject {
             this.characterIsEitherSleepingOrChilling();
             this.characterIsJumpingOrMoving();
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 100);
+        }, 50);
     };
 
     /**

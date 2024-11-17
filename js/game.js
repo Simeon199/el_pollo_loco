@@ -229,25 +229,10 @@ function isTabletDevice() {
  */
 
 function startGame() {
-    // checkForMobileVersion();
     setCanvasElementsRightInCaseOfRightOrientation();
     isGamePlaying = true;
     init();
 }
-
-/**
- * Checks the device type and adjusts the screen mode (fullscreen, control panel) accordingly.
- */
-
-// function checkForMobileVersion() {
-//     if (isMobileOrSmallDevice()) {
-//         setFullscreenStyle();
-//     } else if (isTabletOrCloseToDesktopSize()) {
-//         fullscreen();
-//     } else if (isDesktopDevice()) {
-//         setControlPanelStyle();
-//     }
-// }
 
 /**
  * Checks if the device is a desktop.
@@ -257,26 +242,6 @@ function startGame() {
 
 function isDesktopDevice() {
     return window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice();
-}
-
-/**
- * Checks if the device is a mobile or small device (screen width < 1000px).
- * 
- * @returns {boolean} - Returns true if the device is a mobile or small device.
- */
-
-function isMobileOrSmallDevice() {
-    return isMobileDevice() && window.innerWidth < 1000;
-}
-
-/**
- * Checks if the device is a tablet or a device close to desktop size.
- * 
- * @returns {boolean} - Returns true if the device is a tablet or has a screen width between 1000px and 1400px.
- */
-
-function isTabletOrCloseToDesktopSize() {
-    return isTabletDevice() || (window.innerWidth > 1000 && window.innerWidth < 1400 && window.innerWidth > window.innerHeight);
 }
 
 /**
@@ -376,9 +341,6 @@ function playAgain() {
     settingUpStyleWhenPlayAgainButtonPressed();
     hasGameStarted = false;
     isGamePlaying = true;
-    // if (checkIfFullscreenShouldBeActivatedWhenPlayAgain()) {
-    //     fullscreen();
-    // }
     init();
 }
 

@@ -3,7 +3,6 @@
  */
 
 class World {
-    // Game-related properties and objects
     runInterval = null;
     character = new Character();
     statusbar = new StatusBar();
@@ -52,7 +51,7 @@ class World {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-        }, 150);
+        }, 50);
     }
 
     /**
@@ -276,7 +275,7 @@ class World {
                 }
             }
             clearInterval(knockbackInterval);
-        }, 100); // 1000 / 60
+        }, 1000 / 60);
     }
 
     /**

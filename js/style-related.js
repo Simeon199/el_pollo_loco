@@ -4,7 +4,6 @@
 
 function setCanvasElementsRightInCaseOfRightOrientation() {
     prepareAllContainersStyleWhenRightOrientation();
-    toggleFullscreenInCaseOfDesktopDevice();
 }
 
 /**
@@ -12,9 +11,7 @@ function setCanvasElementsRightInCaseOfRightOrientation() {
  */
 
 function toggleFullscreenInCaseOfDesktopDevice() {
-    if (isDesktopDevice()) {
-        document.getElementById('fullscreen').style.display = 'flex';
-    }
+    document.getElementById('fullscreen').style.display = 'flex';
 }
 
 /**
@@ -79,21 +76,7 @@ function addFullscreenModeClassAndRemoveAllTheOtherClassesFromCanvas() {
 
 function manageAddRemoveClassesWhenEnterFullscreen() {
     handleEnterFullscreenStylingClasses();
-    changeStyleDependingOfScreenSize();
     controlMuteCondition();
-}
-
-/**
- * Adjusts the style of the minimize button depending on the screen size. 
- * Hides the minimize button on mobile and tablet devices or when the window width is under a certain size and vice versa if its above it.
- */
-
-function changeStyleDependingOfScreenSize() {
-    if (isMobileTabletOrCertainWindowWidth()) {
-        document.getElementById('minimize-button').style.display = 'none';
-    } else if (isDesktopOrCertainWindowWidth()) {
-        document.getElementById('minimize-button').style.display = 'flex';
-    }
 }
 
 /**
@@ -103,24 +86,7 @@ function changeStyleDependingOfScreenSize() {
 function handleEnterFullscreenStylingClasses() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
-}
-
-/**
- * Determines if the device is a desktop or if the window width exceeds 1400 pixels.
- * @returns {boolean} - True if the device is a desktop or the window width is greater than 1400 pixels.
- */
-
-function isDesktopOrCertainWindowWidth() {
-    return isDesktopDevice() || window.innerWidth > 1400;
-}
-
-/**
- * Determines if the device is a mobile or tablet or if the window width is below a certain size.
- * @returns {boolean} - True if the device is a mobile or tablet, or the window width is less than 1400 pixels.
- */
-
-function isMobileTabletOrCertainWindowWidth() {
-    return isTabletOrCloseToDesktopSize() || (isMobileDevice() && window.innerWidth < 1400);
+    document.getElementById('minimize-button').style.display = 'block';
 }
 
 /**
@@ -355,16 +321,6 @@ function setFullscreenStyle() {
     document.getElementById('fullscreen').style.display = 'none';
 }
 
-/**
- * Toggles the visibility of the control panel.
- */
-
-function setControlPanelStyle() {
-    let controlPanel = document.getElementById('control-panel-everything');
-    if (controlPanel.style.display == 'none') {
-        controlPanel.style.display = 'flex';
-    }
-}
 
 /**
 * Resets the necessary styling by hiding or showing certain containers when playAgain()-button is pressed.
@@ -390,16 +346,5 @@ function manageStyleDependingOnLandscapeScreenActivated() {
         stopGameAndShowTurnDeviceMessage();
     } else {
         showIntroImageAndDeactivateTurnDeviceMessage();
-        addControlPanelInCaseOfMobileDevice();
-    }
-}
-
-/**
- * Adds the control panel if the device is not a mobile device.
- */
-
-function addControlPanelInCaseOfMobileDevice() {
-    if (!isMobileDevice()) {
-        document.getElementById('control-panel-everything').style.display = 'flex';
     }
 }
