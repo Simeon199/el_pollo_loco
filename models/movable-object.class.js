@@ -138,7 +138,7 @@ class MovableObject extends DrawableObject {
 
     substractCorrectEnergyAmountWhenGetHit() {
         if (this.isEndboss()) {
-            this.energy -= 1.5;
+            this.energy -= 2;
         } else if (this.isCharacter()) {
             this.energy -= 10;
         }

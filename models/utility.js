@@ -37,6 +37,7 @@ class Utility {
         this.checkThrowableObjectsCollision();
         this.calibrateDistanceBetweenCharacterAndEndboss();
         this.checkMovingDirectionOfEnemies();
+        this.world.bottlebar.updateBottleBar();
     }
 
     /**
@@ -116,13 +117,11 @@ class Utility {
         this.world.level.bottles.forEach(bottle => {
             if (this.world.character.isColliding(bottle)) {
                 this.collectBottles(bottle);
-                this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
             }
         });
         this.world.throwableObjects.forEach(bottle => {
             if (this.world.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
                 this.collectGroundBottles(bottle);
-                this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
             }
         });
     }
@@ -136,9 +135,10 @@ class Utility {
 
     collectBottles(bottle) {
         let index = this.world.level.bottles.indexOf(bottle);
-        this.world.bottlebar.bottlesCollected += 1;
+        // this.world.bottlebar.increaseBottlesCollected();
         this.world.level.bottles.splice(index, 1);
         this.world.audioManager.playSound('loadingSound');
+        this.world.bottlebar.bottlesCollected = this.world.bottlebar.bottleAmount - this.world.throwableObjects.length;
     }
 
     /**
@@ -150,10 +150,11 @@ class Utility {
 
     collectGroundBottles(bottle) {
         let index = this.world.throwableObjects.indexOf(bottle);
-        this.world.bottlebar.bottlesCollected += 1;
+        // this.world.bottlebar.increaseBottlesCollected();
         bottle.img.scr = '';
         this.world.level.bottles.push(this.world.throwableObjects[index]);
         this.world.throwableObjects.splice(index, 1);
+        this.world.bottlebar.bottlesCollected = this.world.bottlebar.bottleAmount - this.world.throwableObjects.length;
     }
 
     /**
@@ -184,8 +185,12 @@ class Utility {
 
     checkThrowObjects() {
         if (this.world.bottlebar.bottlesCollected > 0) {
-            this.world.bottlebar.bottlesCollected -= 1;
-            this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
+            this.world.bottlebar.reduceBottlesCollected();
+
+            // console.log('number of collected bottles: ', this.world.bottlebar.bottlesCollected);
+            // this.world.bottlebar.updateBottleBar();
+
+            // this.world.bottlebar.updateBottleBar(this.world.bottlebar.bottleAmount);
             let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
             this.world.throwableObjects.push(bottle);
             bottle.throwObjectsArray = this.world.throwableObjects;
@@ -199,7 +204,8 @@ class Utility {
     */
 
     checkThrowableObjectsCollision() {
-        this.world.throwableObjects.forEach(bottle => {
+        console.log(this.world.throwableObjects);
+        this.world.throwableObjects.forEach(bottle => { // Dieses Array ist leer!
             this.proveIfBottleIsCollidingWithEnemy(bottle);
         })
     }
@@ -214,7 +220,15 @@ class Utility {
 
     proveIfBottleIsCollidingWithEnemy(bottle) {
         this.world.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy)) {
+            if (bottle.isColliding(enemy) && !bottle.isBottleBroken) {
+                debugger;
+                // this.world.bottlebar.reduceBottleAmount();
+                // this.world.bottlebar.bottleAmount -= 1;
+                // this.world.bottlebar.updateBottleBar();
+                // console.log('bottles amount: ', this.world.bottlebar.bottleAmount);
+                let index = this.world.throwableObjects.indexOf(bottle);
+                this.world.throwableObjects.splice(index, 1);
+                this.world.bottlebar.bottleAmount = this.world.throwableObjects.length;
                 this.enemyEitherDiesOrGetsHurt(enemy, bottle);
                 return true;
             }

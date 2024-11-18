@@ -52,6 +52,10 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
+        this.offsetRight = 50;
+        this.offsetLeft = 50;
+        this.offsetTop = 0;
+        this.offsetBottom = 0;
         this.audiomanager = audiomanager;
     }
 

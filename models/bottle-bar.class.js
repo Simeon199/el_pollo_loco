@@ -7,7 +7,7 @@
 
 class BottleBar extends StatusBar {
     bottlesCollected = 0;
-    bottleAmount = 0;
+    bottleAmount;
     bottleRatio = 0;
     BOTTLE_IMAGES = [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -34,14 +34,26 @@ class BottleBar extends StatusBar {
         this.y = 50;
     }
 
+    reduceBottleAmount() {
+        this.bottleAmount -= 1;
+    }
+
+    reduceBottlesCollected() {
+        this.bottlesCollected -= 1;
+    }
+
+    increaseBottlesCollected() {
+        this.bottlesCollected += 1;
+    }
+
     /**
     * Updates the bottle status bar based on the current bottle ratio.
     * 
     * @param {number} bottleRatio - The current ratio of collected bottles.
     */
 
-    updateBottleBar(bottleRatio) {
-        this.bottleRatio = bottleRatio;
+    updateBottleBar() { // bottleRatio
+        // this.bottleRatio = bottleRatio;
         let path = this.BOTTLE_IMAGES[this.resolveBottleBarIndex()];
         this.img = this.imageCache[path];
     }
@@ -65,8 +77,11 @@ class BottleBar extends StatusBar {
     */
 
     resolveBottleBarIndex() {
+        console.log('bottlesCollected: ', this.bottlesCollected);
+        console.log('bottleAmount: ', this.bottleAmount);
         this.bottleRatio = this.bottlesCollected / this.bottleAmount;
-        if (this.bottleRatio == 0.95) {
+        console.log('bottleRatio: ', this.bottleRatio);
+        if (this.bottleRatio > 0.95) {
             return 5;
         } else if (this.isBottleRatioOfCertainSize(0.75, 0.95)) {
             return 4;
