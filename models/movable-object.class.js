@@ -37,7 +37,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);
+        }, 50); // 1000 /25
     }
 
     /**
@@ -138,7 +138,7 @@ class MovableObject extends DrawableObject {
 
     substractCorrectEnergyAmountWhenGetHit() {
         if (this.isEndboss()) {
-            this.energy -= 2;
+            this.energy -= 1.5;
         } else if (this.isCharacter()) {
             this.energy -= 10;
         }
@@ -239,7 +239,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else {
-            this.speedY = 30;
+            this.speedY = 25;
         }
     }
 

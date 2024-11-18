@@ -210,9 +210,9 @@ function manageStopGameInterval() {
  * @returns {boolean} - Returns true if the device is a mobile device.
  */
 
-function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-}
+// function isMobileDevice() {
+//     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+// }
 
 /**
  * Checks if the user is using a tablet device.
@@ -220,9 +220,9 @@ function isMobileDevice() {
  * @returns {boolean} - Returns true if the device is a tablet.
  */
 
-function isTabletDevice() {
-    return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
-}
+// function isTabletDevice() {
+//     return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
+// }
 
 /**
  * Starts the game, initializes necessary elements, and handles screen orientation.
@@ -240,9 +240,9 @@ function startGame() {
  * @returns {boolean} - Returns true if the device is a desktop with a screen width greater than 1400px.
  */
 
-function isDesktopDevice() {
-    return window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice();
-}
+// function isDesktopDevice() {
+//     return window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice();
+// }
 
 /**
  * Stops the game and manages the style based on the outcome (winning or losing).
@@ -350,5 +350,6 @@ function playAgain() {
  * @returns {boolean} - Returns `true` if all conditions are met and fullscreen should be activated, otherwise `false`.
  */
 function checkIfFullscreenShouldBeActivatedWhenPlayAgain() {
-    return !isDesktopDevice() && !isFullscreenActivated && window.innerWidth < 1400;
+    // return !isDesktopDevice() && !isFullscreenActivated && window.innerWidth < 1400;
+    return !isFullscreenActivated && window.innerWidth < 1300;
 }

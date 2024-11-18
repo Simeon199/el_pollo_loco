@@ -49,7 +49,7 @@ class Endboss extends Chicken {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
             this.checkAndAnimateAllPossibleBehavioursOfEndboss();
-        }, 100);
+        }, 150);
     }
 
     /**
@@ -324,7 +324,7 @@ class Endboss extends Chicken {
             this.endbossSpeedX = 0;
         } else {
             setTimeout(() => {
-                this.endbossSpeedX = 5;
+                this.endbossSpeedX = 7;
             }, 100);
         }
     }

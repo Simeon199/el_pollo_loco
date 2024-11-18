@@ -66,7 +66,7 @@ class BottleBar extends StatusBar {
 
     resolveBottleBarIndex() {
         this.bottleRatio = this.bottlesCollected / this.bottleAmount;
-        if (this.bottleRatio > 0.95) {
+        if (this.bottleRatio == 0.95) {
             return 5;
         } else if (this.isBottleRatioOfCertainSize(0.75, 0.95)) {
             return 4;

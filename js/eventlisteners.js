@@ -6,11 +6,11 @@ permissionToThrow = true;
  * Disables the context menu on touch-enabled devices.
  */
 
-// if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-//     document.addEventListener('contextmenu', function (event) {
-//         event.preventDefault();
-//     });
-// }
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+    });
+}
 
 /**
  * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
