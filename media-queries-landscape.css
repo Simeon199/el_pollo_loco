@@ -10,6 +10,16 @@
         height: auto;
     }
 
+    /* .canvas-container {
+        width: 100%;
+        height: auto;
+    }
+
+    canvas {
+        width: 45%;
+        height: auto;
+    } */
+
     #intro-image img:nth-child(2) {
         bottom: 2%;
     }

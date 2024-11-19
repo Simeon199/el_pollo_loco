@@ -28,14 +28,21 @@ let stopGameInterval;
 
 function checkOrientation() {
     if (proveIfBackgroundIsEmpty()) {
+        // debugger;
         location.reload();
     }
     if (isChangingToFullscreenActivated()) {
+        // debugger;
+        activateMessageToTurnDevice();
         if (wasFullscreenActivated()) {
+            // activateMessageToTurnDevice();
             location.reload();
         } else {
             exitFullscreen();
         }
+    }
+    if (isMobileDevice() || isTabletDevice()) {
+        activateMessageToTurnDevice();
     }
 }
 
@@ -64,7 +71,8 @@ function showIntroImageAndDeactivateTurnDeviceMessage() {
  */
 
 function activateMessageToTurnDevice() {
-    if (window.innerWidth < 1300 && window.innerHeight < 800) {
+    if ((window.innerWidth < 1300 || window.innerHeight < 800) && window.innerWidth > window.innerHeight) {
+        // debugger;
         document.getElementById('message-to-turn-device').style.display = 'flex';
         document.getElementById('intro-image').style.display = 'none';
         document.getElementById('canvas').style.display = 'none';
@@ -210,9 +218,9 @@ function manageStopGameInterval() {
  * @returns {boolean} - Returns true if the device is a mobile device.
  */
 
-// function isMobileDevice() {
-//     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-// }
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+}
 
 /**
  * Checks if the user is using a tablet device.
@@ -220,9 +228,9 @@ function manageStopGameInterval() {
  * @returns {boolean} - Returns true if the device is a tablet.
  */
 
-// function isTabletDevice() {
-//     return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
-// }
+function isTabletDevice() {
+    return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
+}
 
 /**
  * Starts the game, initializes necessary elements, and handles screen orientation.

@@ -164,6 +164,7 @@ function addAllEventListenersWhenInitGame() {
     window.addEventListener('keyup', keyUpHandler);
     window.addEventListener('touchstart', touchStartHandler);
     window.addEventListener('touchend', touchEndHandler);
+    // window.addEventListener('resize', activateMessageToTurnDevice);
 }
 
 /**
@@ -343,6 +344,7 @@ function addingAndRemovingClassesDependingOnFullscreenActivated() {
 function removeAllListeners() {
     window.removeEventListener("orientationchange", checkOrientation);
     window.removeEventListener("resize", checkOrientation);
+    // window.removeEventListener('resize', activateMessageToTurnDevice);
     document.removeEventListener("fullscreenchange", addingAndRemovingClassesDependingOnFullscreenActivated);
     window.removeEventListener('touchstart', touchStartHandler);
     window.removeEventListener('touchend', touchEndHandler);
