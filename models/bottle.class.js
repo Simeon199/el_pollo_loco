@@ -5,6 +5,7 @@
  */
 
 class Bottle extends ThrowableObject {
+    wasAlreadyCollected = false;
     landingWithoutSound = false;
     height = 60;
     width = 60 * 1.2;

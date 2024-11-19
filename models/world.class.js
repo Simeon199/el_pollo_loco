@@ -59,6 +59,7 @@ class World {
      */
 
     setWorld() {
+        // debugger;
         this.character.world = this;
         this.bottlebar.world = this;
         this.endbossbar.world = this;

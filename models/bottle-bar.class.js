@@ -6,9 +6,11 @@
  */
 
 class BottleBar extends StatusBar {
-    bottlesCollected = 0;
     bottleAmount;
-    bottleRatio = 0;
+    // bottleAmount = this.world.level.bottles.length;
+    collectedBottlesArray = [];
+    bottlesCollected = this.collectedBottlesArray.legth;
+    bottleRatio;
     BOTTLE_IMAGES = [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
@@ -34,16 +36,25 @@ class BottleBar extends StatusBar {
         this.y = 50;
     }
 
-    reduceBottleAmount() {
-        this.bottleAmount -= 1;
+    updateThrowObjectsArray(string, bottle) {
+        if (string == 'increase') {
+            this.collectedBottlesArray.push(bottle);
+        } else if (string == "decrease") {
+            let index = this.collectedBottlesArray.indexOf(bottle);
+            this.collectedBottlesArray.splice(index, 1);
+        }
+        this.updateBottlesCollectedNumber();
+        // this.updateTotalNumberOfBottles();
     }
 
-    reduceBottlesCollected() {
-        this.bottlesCollected -= 1;
+    updateBottlesCollectedNumber() {
+        this.bottlesCollected = this.collectedBottlesArray.length;
     }
 
-    increaseBottlesCollected() {
-        this.bottlesCollected += 1;
+    updateTotalNumberOfBottles() {
+        if (this.bottleAmount > 0) {
+            this.bottleAmount -= 1;
+        }
     }
 
     /**

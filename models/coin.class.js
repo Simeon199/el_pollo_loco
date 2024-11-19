@@ -7,8 +7,8 @@
 class Coin extends DrawableObject {
     height = 100;
     width = 100;
-    offsetRight = 0;
-    offsetLeft = 0;
+    offsetRight = 50;
+    offsetLeft = 50;
     offsetTop = 0;
     offsetBottom = 0;
 
