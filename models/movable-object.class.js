@@ -37,7 +37,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 50); // 1000 /25
+        }, 80); // 1000 /25
     }
 
     /**
@@ -102,13 +102,13 @@ class MovableObject extends DrawableObject {
         if (this.isCharacterAndAboveGround()) {
             this.offsetRight = 40;
             this.offsetLeft = 40;
-            this.offsetTop = -50;
-            this.offsetBottom = -10;
+            this.offsetTop = -40;
+            this.offsetBottom = -20;
         } else if (this.isCharacterAndNotAboveGround()) {
-            this.offsetRight = 30;
-            this.offsetLeft = 30;
-            this.offsetTop = 0;
-            this.offsetBottom = 0;
+            this.offsetRight = 40;
+            this.offsetLeft = 40;
+            this.offsetTop = -10;
+            this.offsetBottom = -10;
         }
     }
 
@@ -138,7 +138,7 @@ class MovableObject extends DrawableObject {
 
     substractCorrectEnergyAmountWhenGetHit() {
         if (this.isEndboss()) {
-            this.energy -= 2;
+            this.energy -= 10;
         } else if (this.isCharacter()) {
             this.energy -= 10;
         }

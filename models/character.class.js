@@ -224,7 +224,11 @@ class Character extends MovableObject {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
         } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
+            if (this.speedY > 0) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else {
+                this.playAnimation([this.IMAGES_JUMPING[3]]); // this.IMAGES_JUMPING[2] war sehr gut !!!
+            }
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
         } else {

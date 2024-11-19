@@ -286,7 +286,7 @@ class Utility {
     */
 
     animateHurtButStillAliveEndboss(enemy) {
-        this.world.endbossbar.percentage -= 10;
+        this.world.endbossbar.percentage -= 20;
         this.world.endbossbar.setPercentage(enemy.energy, this.world.endbossbar.IMAGES_DEAD_ENDBOSS);
         this.world.audioManager.playSound('bottleHit');
     }
