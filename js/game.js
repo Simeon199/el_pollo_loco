@@ -27,24 +27,32 @@ let stopGameInterval;
  */
 
 function checkOrientation() {
-    if (proveIfBackgroundIsEmpty()) {
-        // debugger;
-        location.reload();
-    }
-    if (isChangingToFullscreenActivated()) {
-        // debugger;
-        activateMessageToTurnDevice();
-        if (wasFullscreenActivated()) {
-            // activateMessageToTurnDevice();
+    if (window.innerHeight > window.innerWidth) {
+        if (hasGameStarted) {
             location.reload();
-        } else {
-            exitFullscreen();
         }
     }
-    if (isMobileDevice() || isTabletDevice()) {
-        activateMessageToTurnDevice();
-    }
 }
+
+// function checkOrientation() {
+//     activateMessageToTurnDevice();
+
+//     if (proveIfBackgroundIsEmpty()) {
+//         location.reload();
+//     }
+//     if (isChangingToFullscreenActivated()) {
+//         activateMessageToTurnDevice();
+//         if (wasFullscreenActivated()) {
+//             location.reload();
+//         } 
+//         else {
+//             exitFullscreen();
+//         }
+//     }
+//     if (isMobileDevice() || isTabletDevice()) {
+//         activateMessageToTurnDevice();
+//     }
+// }
 
 /**
  * Stops the game and displays a message instructing the user to turn the device.

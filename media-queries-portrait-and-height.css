@@ -6,7 +6,9 @@
     }
 }
 
-@media (orientation: portrait) and (pointer: fine) {
+@media (orientation: portrait) {
+
+    /*  and (pointer: fine)  */
     .game-functions-container {
         display: none;
     }
@@ -55,6 +57,14 @@
         font-family: 'damion';
         font-size: 60px;
         width: 90%;
+    }
+
+    #winning-image {
+        display: none !important;
+    }
+
+    #losing-image {
+        display: none !important;
     }
 
     @media(max-width: 700px) {

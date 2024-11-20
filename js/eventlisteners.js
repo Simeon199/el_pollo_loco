@@ -6,11 +6,11 @@ permissionToThrow = true;
  * Disables the context menu on touch-enabled devices.
  */
 
-if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-    });
-}
+// if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+//     document.addEventListener('contextmenu', function (event) {
+//         event.preventDefault();
+//     });
+// }
 
 /**
  * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
@@ -99,7 +99,10 @@ function wasButtonThrowPressed(event) {
  * Listens for changes in screen orientation and triggers the `checkOrientation` function.
  */
 
-screen.orientation.addEventListener("change", checkOrientation);
+// screen.orientation.addEventListener("change", checkOrientation);
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
 
 /**
  * Checks if all background images in the document are hidden. Returns `true` if all specified images are hidden; otherwise, returns `false`.
@@ -342,9 +345,9 @@ function addingAndRemovingClassesDependingOnFullscreenActivated() {
  */
 
 function removeAllListeners() {
-    window.removeEventListener("orientationchange", checkOrientation);
-    window.removeEventListener("resize", checkOrientation);
-    // window.removeEventListener('resize', activateMessageToTurnDevice);
+    // window.removeEventListener("orientationchange", checkOrientation);
+    // window.removeEventListener("resize", checkOrientation);
+    // window.removeEventListener('orientationchange', checkOrientation);
     document.removeEventListener("fullscreenchange", addingAndRemovingClassesDependingOnFullscreenActivated);
     window.removeEventListener('touchstart', touchStartHandler);
     window.removeEventListener('touchend', touchEndHandler);
