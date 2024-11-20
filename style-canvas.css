@@ -261,6 +261,8 @@ canvas {
 }
 
 .normal-mode {
+    /* aspect-ratio: 720 / 480;
+    width: 45%; */
     height: 480px;
     width: 720px;
 }

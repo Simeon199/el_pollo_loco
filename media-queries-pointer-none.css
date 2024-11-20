@@ -159,4 +159,8 @@
     .main-title-properties img {
         width: 48px;
     }
+
+    :fullscreen #minimize-button {
+        display: none;
+    }
 }

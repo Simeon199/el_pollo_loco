@@ -25,7 +25,7 @@
 
 #intro-image {
     position: relative;
-    width: 100%;
+    /* width: 100%; */
     height: auto;
     /* width: 720px;
     height: 480px; */
@@ -37,6 +37,7 @@
 
 #intro-image img:nth-child(1) {
     width: 60%;
+    /* aspect-ratio: 720 / 480; */
     height: auto;
     /* width: 720px;
     height: 480px; */
@@ -292,7 +293,6 @@
 
 h1 {
     font-size: 60px;
-    /* padding-top: 24px; */
 }
 
 a h2 {

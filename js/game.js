@@ -256,9 +256,9 @@ function startGame() {
  * @returns {boolean} - Returns true if the device is a desktop with a screen width greater than 1400px.
  */
 
-// function isDesktopDevice() {
-//     return window.innerWidth > window.innerHeight && window.innerWidth > 1400 && !isTabletDevice() && !isMobileDevice();
-// }
+function isDesktopDevice() {
+    return window.innerWidth > window.innerHeight && window.innerWidth > 1300 && !isTabletDevice() && !isMobileDevice();
+}
 
 /**
  * Stops the game and manages the style based on the outcome (winning or losing).
