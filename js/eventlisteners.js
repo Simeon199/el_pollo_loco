@@ -102,6 +102,8 @@ function wasButtonThrowPressed(event) {
 // screen.orientation.addEventListener("change", checkOrientation);
 
 window.addEventListener("resize", checkOrientation);
+
+
 window.addEventListener("orientationchange", checkOrientation);
 
 /**

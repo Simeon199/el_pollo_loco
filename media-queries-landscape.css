@@ -5,6 +5,16 @@
         justify-content: center;
     }
 
+    .canvas-container {
+        width: 100%;
+        height: auto;
+    }
+
+    canvas {
+        width: 45%;
+        height: auto;
+    }
+
     #intro-image img:nth-child(1) {
         width: 45%;
         height: auto;
@@ -30,6 +40,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .sound-screen-control-container {
+        display: flex;
+        justify-content: center;
+        z-index: 10001;
+        position: absolute;
+        bottom: 1%;
+        right: 28%;
+    }
+
+    :fullscreen .sound-screen-control-container {
+        bottom: 1% !important;
+        right: 1% !important;
     }
 }
 
