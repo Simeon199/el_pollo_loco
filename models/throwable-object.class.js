@@ -209,7 +209,6 @@ class ThrowableObject extends MovableObject {
 
     stopBottleMotionOnceItLands(direction) {
         if (!this.isBottleBroken) {
-            // debugger;
             this.stopSpeedAccelerationAndHeightOfBottle();
             this.setLandingBottleDirection(direction);
             this.world.audioManager.playSound('bottleLanding');

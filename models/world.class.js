@@ -67,10 +67,6 @@ class World {
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
-        // debugger;
-        // this.level.bottles.forEach(throwableObject => {
-        //     throwableObject.world = this;
-        // })
     }
 
     /**
@@ -279,7 +275,7 @@ class World {
                 }
             }
             clearInterval(knockbackInterval);
-        }, 100); // 1000 / 60
+        }, 100);
     }
 
     /**

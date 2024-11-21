@@ -249,12 +249,17 @@ window.addEventListener('keydown', keyDownHandler);
 function keyDownHandler(event) {
     settingGlobalVariablesInKeyDownOrTouchStartEvent();
     if (event.keyCode == 39) {
+        // world.audioManager.muteSound(false, 'walking_sound');
+        // world.audioManager.playSound('walking_sound');
         prepareForThrowingRight();
     }
     if (event.keyCode == 37) {
+        // world.audioManager.muteSound(false, 'walking_sound');
+        // world.audioManager.playSound('walking_sound');
         prepareForThrowingLeft();
     }
     if (event.keyCode == 38) {
+        world.audioManager.muteSound(false, 'walking_sound');
         keyboard.UP = true;
     }
     if (event.keyCode == 40) {
@@ -295,9 +300,11 @@ function keyUpHandler(event) {
     settingGlobalVariablesInKeyUpOrTouchEndEvent();
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
+        world.audioManager.muteSound(true, 'walking_sound');
     }
     if (event.keyCode == 37) {
         keyboard.LEFT = false;
+        world.audioManager.muteSound(true, 'walking_sound');
     }
     if (event.keyCode == 38) {
         keyboard.UP = false;

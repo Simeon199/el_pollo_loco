@@ -62,10 +62,17 @@ function setAllWorldAudioSound(mute) {
     world.audioManager.setHittingSoundsMuted(mute);
     world.audioManager.setItemCollectionSoundsMuted(mute);
     world.audioManager.setEndbossSoundsMuted(mute);
-    world.audioManager.muteSound(mute, 'bottleLanding');
+    // setAllCharacterAudioSound(mute);
+    muteRemainingSounds(mute);
     if (!mute && world.audioManager.isBackgroundMusicPaused) {
         world.audioManager.playBackgroundMusic();
     }
+}
+
+function muteRemainingSounds(mute) {
+    world.audioManager.muteSound(mute, 'bottleLanding');
+    world.audioManager.muteSound(true, 'snorring_sound');
+    world.audioManager.muteSound(true, 'walking_sound');
 }
 
 /**

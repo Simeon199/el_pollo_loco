@@ -149,6 +149,7 @@ class Character extends MovableObject {
 
     playSleepAnimationWithAudio() {
         this.playAnimation(this.IMAGES_SLEEP);
+        this.world.audioManager.muteSound(false, 'snorring_sound');
         this.world.audioManager.playSound('snorring_sound');
     }
 
@@ -159,7 +160,13 @@ class Character extends MovableObject {
     playMovingRightAnimationWithAudio() {
         this.moveRight();
         this.otherDirection = false;
-        this.world.audioManager.playSound('walking_sound');
+        if (this.world.audioManager.isSoundMuted('walking_sound') && !this.isAboveGround() && soundOn == true) {
+            if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
+                this.world.audioManager.muteSound(true, 'snorring_sound');
+            }
+            this.world.audioManager.muteSound(false, 'walking_sound');
+            this.world.audioManager.playSound('walking_sound');
+        }
     }
 
     /**
@@ -169,7 +176,13 @@ class Character extends MovableObject {
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
-        this.world.audioManager.playSound('walking_sound');
+        if (this.world.audioManager.isSoundMuted('walking_sound') && !this.isAboveGround() && soundOn == true) {
+            if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
+                this.world.audioManager.muteSound(true, 'snorring_sound');
+            }
+            this.world.audioManager.muteSound(false, 'walking_sound');
+            this.world.audioManager.playSound('walking_sound');
+        }
     }
 
     /**
@@ -179,8 +192,8 @@ class Character extends MovableObject {
     setRelevantGlobalVariablesForMovingCharacter() {
         this.fixDate = new Date().getTime();
         this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
-        this.world.audioManager.muteSound(true, 'walking_sound');
-        this.world.audioManager.muteSound(true, 'snorring_sound');
+        // this.world.audioManager.muteSound(true, 'walking_sound');
+        // this.world.audioManager.muteSound(true, 'snorring_sound');
     }
 
     /**
@@ -188,7 +201,7 @@ class Character extends MovableObject {
      */
 
     characterIsEitherSleepingOrChilling() {
-        if (this.keyWasntPressedForMoreThanFiveSeconds()) {
+        if (this.keyWasntPressedForMoreThanFiveSeconds()) { // hier noch nach Variable abfragen, wann Character letztes mal angegriffen wurde
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
@@ -212,6 +225,9 @@ class Character extends MovableObject {
         }
         this.world.camera_x = -this.x + 200;
         if (this.keySpaceWasPressed()) {
+            if (!this.world.audioManager.isSoundMuted('walking_sound')) {
+                this.world.audioManager.muteSound(true, 'walking_sound');
+            }
             this.jump();
         }
     }

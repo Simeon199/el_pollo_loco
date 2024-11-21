@@ -93,6 +93,10 @@ class AudioManager {
         }
     }
 
+    isSoundMuted(sound) {
+        return this.sounds[sound].muted == true;
+    }
+
     /**
      * Mutes or unmutes the given sound.
      * 
