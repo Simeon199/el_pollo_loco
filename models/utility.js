@@ -190,6 +190,7 @@ class Utility {
         if (this.world.bottlebar.bottlesCollected > 0) {
             this.world.bottlebar.updateThrowObjectsArray('decrease', this.world.bottlebar.collectedBottlesArray[0]);
             let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100, this.world.keyboard);
+            bottle.world = this.world;
             this.world.throwableObjects.push(bottle);
             bottle.throw();
         }

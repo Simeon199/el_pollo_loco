@@ -59,7 +59,6 @@ class World {
      */
 
     setWorld() {
-        // debugger;
         this.character.world = this;
         this.bottlebar.world = this;
         this.endbossbar.world = this;
@@ -68,6 +67,10 @@ class World {
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
+        // debugger;
+        // this.level.bottles.forEach(throwableObject => {
+        //     throwableObject.world = this;
+        // })
     }
 
     /**

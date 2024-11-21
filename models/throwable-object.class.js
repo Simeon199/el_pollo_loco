@@ -12,6 +12,7 @@ class ThrowableObject extends MovableObject {
     width = 60 * 1.2;
     spliceable = false;
     keyboard;
+    world;
 
     BOTTLE_ROTATE_IMAGES = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -42,7 +43,7 @@ class ThrowableObject extends MovableObject {
     * @param {object} z - The keyboard control object for handling user input
     */
 
-    constructor(x, y, z, audiomanager) {
+    constructor(x, y, z) { // audiomanager
         super();
         this.loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
         this.loadImages(this.STANDING_BOTTLE_LEFT_DIRECTION);
@@ -56,7 +57,14 @@ class ThrowableObject extends MovableObject {
         this.offsetLeft = 50;
         this.offsetTop = 0;
         this.offsetBottom = 0;
-        this.audiomanager = audiomanager;
+        // this.audiomanager = audiomanager;
+        // this.invokeRelevantObject();
+    }
+
+    invokeRelevantObject() {
+        setInterval(() => {
+            console.log("value of world: ", this.world);
+        }, 100);
     }
 
     /**
@@ -163,7 +171,7 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
                 this.checkWhetherBottleIsFlyingInTheAirOrLanding(direction)
-            }, 25);
+            }, 50);
         } else if (this.isBottleBroken) {
             this.playBottleBrokenAnimation();
         }
@@ -201,8 +209,10 @@ class ThrowableObject extends MovableObject {
 
     stopBottleMotionOnceItLands(direction) {
         if (!this.isBottleBroken) {
+            // debugger;
             this.stopSpeedAccelerationAndHeightOfBottle();
             this.setLandingBottleDirection(direction);
+            this.world.audioManager.playSound('bottleLanding');
             clearInterval(this.intervalID);
         }
     }
