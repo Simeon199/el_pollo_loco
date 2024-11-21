@@ -233,6 +233,7 @@
 }
 
 @media(min-width: 2000px) and (min-height: 1100px) and (pointer: fine) {
+
     #winning-image img {
         width: 1000px;
         height: auto;

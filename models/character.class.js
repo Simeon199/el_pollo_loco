@@ -6,6 +6,7 @@
 class Character extends MovableObject {
     rightNow = 0;
     fixDate = 0;
+    timeDifference = 0;
     isJumping = false;
     wasRandomKeyOncePressed = false;
     isKeyStillPressed = false;
@@ -263,6 +264,7 @@ class Character extends MovableObject {
         return this.timePassedWhenKeyPressed > 5000 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&
+            this.timeDifference > 5000 &&
             !this.isHurt();
     }
 

@@ -141,6 +141,7 @@ document.addEventListener('fullscreenchange', () => {
  */
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
+    // debugger;
     wasRandomKeyOncePressed = true;
     isKeyPressed = true;
     someKeyWasPressedAgain = new Date().getTime();
@@ -154,6 +155,7 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
  */
 
 function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
+    // debugger;
     isKeyPressed = false;
     lastTimeKeyPressed = new Date().getTime();
     world.character.lastTimeKeyPressed = lastTimeKeyPressed;
@@ -169,7 +171,6 @@ function addAllEventListenersWhenInitGame() {
     window.addEventListener('keyup', keyUpHandler);
     window.addEventListener('touchstart', touchStartHandler);
     window.addEventListener('touchend', touchEndHandler);
-    // window.addEventListener('resize', activateMessageToTurnDevice);
 }
 
 /**
@@ -249,13 +250,9 @@ window.addEventListener('keydown', keyDownHandler);
 function keyDownHandler(event) {
     settingGlobalVariablesInKeyDownOrTouchStartEvent();
     if (event.keyCode == 39) {
-        // world.audioManager.muteSound(false, 'walking_sound');
-        // world.audioManager.playSound('walking_sound');
         prepareForThrowingRight();
     }
     if (event.keyCode == 37) {
-        // world.audioManager.muteSound(false, 'walking_sound');
-        // world.audioManager.playSound('walking_sound');
         prepareForThrowingLeft();
     }
     if (event.keyCode == 38) {
@@ -354,9 +351,6 @@ function addingAndRemovingClassesDependingOnFullscreenActivated() {
  */
 
 function removeAllListeners() {
-    // window.removeEventListener("orientationchange", checkOrientation);
-    // window.removeEventListener("resize", checkOrientation);
-    // window.removeEventListener('orientationchange', checkOrientation);
     document.removeEventListener("fullscreenchange", addingAndRemovingClassesDependingOnFullscreenActivated);
     window.removeEventListener('touchstart', touchStartHandler);
     window.removeEventListener('touchend', touchEndHandler);
