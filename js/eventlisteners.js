@@ -141,7 +141,6 @@ document.addEventListener('fullscreenchange', () => {
  */
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
-    // debugger;
     wasRandomKeyOncePressed = true;
     isKeyPressed = true;
     someKeyWasPressedAgain = new Date().getTime();
@@ -155,7 +154,6 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
  */
 
 function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
-    // debugger;
     isKeyPressed = false;
     lastTimeKeyPressed = new Date().getTime();
     world.character.lastTimeKeyPressed = lastTimeKeyPressed;

@@ -193,8 +193,6 @@ class Character extends MovableObject {
     setRelevantGlobalVariablesForMovingCharacter() {
         this.fixDate = new Date().getTime();
         this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
-        // this.world.audioManager.muteSound(true, 'walking_sound');
-        // this.world.audioManager.muteSound(true, 'snorring_sound');
     }
 
     /**

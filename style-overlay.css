@@ -24,11 +24,9 @@
 /* #intro-image properties */
 
 #intro-image {
+    width: 100%;
     position: relative;
-    /* width: 100%; */
     height: auto;
-    /* width: 720px;
-    height: 480px; */
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -36,11 +34,8 @@
 }
 
 #intro-image img:nth-child(1) {
-    width: 60%;
-    /* aspect-ratio: 720 / 480; */
-    height: auto;
-    /* width: 720px;
-    height: 480px; */
+    width: 720px;
+    height: 480px;
 }
 
 #intro-image img:nth-child(2) {
