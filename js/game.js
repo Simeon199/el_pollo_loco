@@ -34,26 +34,6 @@ function checkOrientation() {
     }
 }
 
-// function checkOrientation() {
-//     activateMessageToTurnDevice();
-
-//     if (proveIfBackgroundIsEmpty()) {
-//         location.reload();
-//     }
-//     if (isChangingToFullscreenActivated()) {
-//         activateMessageToTurnDevice();
-//         if (wasFullscreenActivated()) {
-//             location.reload();
-//         } 
-//         else {
-//             exitFullscreen();
-//         }
-//     }
-//     if (isMobileDevice() || isTabletDevice()) {
-//         activateMessageToTurnDevice();
-//     }
-// }
-
 /**
  * Stops the game and displays a message instructing the user to turn the device.
  */
@@ -80,7 +60,6 @@ function showIntroImageAndDeactivateTurnDeviceMessage() {
 
 function activateMessageToTurnDevice() {
     if ((window.innerWidth < 1300 || window.innerHeight < 800) && window.innerWidth > window.innerHeight) {
-        // debugger;
         document.getElementById('message-to-turn-device').style.display = 'flex';
         document.getElementById('intro-image').style.display = 'none';
         document.getElementById('canvas').style.display = 'none';

@@ -238,7 +238,7 @@ class World {
     */
 
     isNewCharacterPositionNotAtTheEdgeOfCanvas(newXPosition) {
-        return -this.level.level_end_x + 100 <= newXPosition && newXPosition <= this.level.level_end_x + 100;
+        return -this.level.level_end_x + 200 <= newXPosition && newXPosition <= this.level.level_end_x + 200;
     }
 
     /**

@@ -83,6 +83,7 @@ class AudioManager {
 
     playSound(sound) {
         if (this.sounds[sound]) {
+            // this.sounds[sound].currentTime = 0;
             let soundPromise = this.sounds[sound].play();
             if (soundPromise !== undefined) {
                 soundPromise.then(() => {

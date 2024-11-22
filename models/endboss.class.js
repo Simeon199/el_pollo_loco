@@ -218,9 +218,9 @@ class Endboss extends Chicken {
 
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
-        if (this.checkTimeDifferenceSinceLastTimeHit() < 1000) {
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 200) { // ehemals 1000
             this.playAnimation(this.IMAGES_DEAD);
-        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 1000) {
+        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) { // ehemals 1000
             this.showDefeatedEndbossAndPositionCharacter();
         }
     }
@@ -319,13 +319,18 @@ class Endboss extends Chicken {
 
     checkIfEndbossAlreadyHitCharacter() {
         let date = new Date().getTime();
+        let randomNumber = Math.random();
         let timeDifference = date - this.endbossHitCharacterAtTime;
         this.world.character.timeDifference = timeDifference;
         if (timeDifference < 200) {
             this.endbossSpeedX = 0;
+        } else if (timeDifference >= 200 && this.energy > randomNumber * 70) {
+            setTimeout(() => {
+                this.endbossSpeedX = 8;
+            }, 100);
         } else {
             setTimeout(() => {
-                this.endbossSpeedX = 7;
+                this.endbossSpeedX = 15;
             }, 100);
         }
     }

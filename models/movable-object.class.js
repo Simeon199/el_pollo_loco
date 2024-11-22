@@ -239,7 +239,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else {
-            this.speedY = 25;
+            this.speedY = 18;
         }
     }
 

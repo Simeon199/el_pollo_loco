@@ -165,6 +165,7 @@ class Character extends MovableObject {
             if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
                 this.world.audioManager.muteSound(true, 'snorring_sound');
             }
+            this.world.audioManager.sounds['walking_sound'].currentTime = 0;
             this.world.audioManager.muteSound(false, 'walking_sound');
             this.world.audioManager.playSound('walking_sound');
         }
@@ -181,6 +182,7 @@ class Character extends MovableObject {
             if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
                 this.world.audioManager.muteSound(true, 'snorring_sound');
             }
+            this.world.audioManager.sounds['walking_sound'].currentTime = 0;
             this.world.audioManager.muteSound(false, 'walking_sound');
             this.world.audioManager.playSound('walking_sound');
         }
@@ -318,6 +320,6 @@ class Character extends MovableObject {
      */
 
     bounce() {
-        this.speedY = 20;
+        this.speedY = 15;
     }
 }
