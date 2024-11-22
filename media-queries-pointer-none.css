@@ -1,4 +1,6 @@
-@media(pointer: coarse) {
+@media(hover: none) {
+
+    /* ehemals pointer: coarse */
     #losing-image {
         width: 100dvw;
         height: 100dvh;
