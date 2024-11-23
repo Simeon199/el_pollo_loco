@@ -13,6 +13,8 @@ class Character extends MovableObject {
     someKeyWasPressedAgain = 0;
     lastTimeKeyPressed = 0;
     timePassedWhenKeyPressed;
+    isAttacked = false;
+    timeSinceCharacterExists = 0;
     height = 280;
     width = 130;
     y = 20;
@@ -98,7 +100,12 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
+        this.setTimeSinceCharacterExists();
         this.animate();
+    }
+
+    setTimeSinceCharacterExists() {
+        this.timeSinceCharacterExists = new Date().getTime();
     }
 
     /**
@@ -203,7 +210,11 @@ class Character extends MovableObject {
      */
 
     characterIsEitherSleepingOrChilling() {
-        if (this.keyWasntPressedForMoreThanFiveSeconds()) {
+        let currentTime = new Date().getTime();
+        let timeFrameSinceCharacterExists = currentTime - this.timeSinceCharacterExists;
+        if (this.keyWasntPressedForMoreThanFiveSeconds() && this.isAttacked == false) {
+            this.playSleepAnimationWithAudio();
+        } else if (timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isAttacked == false) {
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
@@ -261,10 +272,11 @@ class Character extends MovableObject {
      * @returns {boolean} True if the condition is met, false otherwise.
      */
 
-    keyWasntPressedForMoreThanFiveSeconds() { // rausgenommener Wert: this.timeDifference > 5000 
+    keyWasntPressedForMoreThanFiveSeconds() {
         return this.timePassedWhenKeyPressed > 5000 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&
+            // this.timeDifference > 5000 &&
             !this.isHurt();
     }
 

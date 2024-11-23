@@ -66,6 +66,8 @@ class World {
         this.level.world = this;
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
+            // console.log("enemy type: ", enemy);
+            // console.log("enemy type world: ", enemy.world);
         });
     }
 
@@ -289,6 +291,7 @@ class World {
             this.setEndbossVariablesForKnockbackOfCharacter(enemy);
         }
         this.setVariablesAndKnockBackInterval(enemy);
+        this.character.isAttacked = true;
     }
 
     setVariablesAndKnockBackInterval(enemy) {

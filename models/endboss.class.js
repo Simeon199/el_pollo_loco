@@ -319,18 +319,13 @@ class Endboss extends Chicken {
 
     checkIfEndbossAlreadyHitCharacter() {
         let date = new Date().getTime();
-        let randomNumber = Math.random();
         let timeDifference = date - this.endbossHitCharacterAtTime;
         this.world.character.timeDifference = timeDifference;
         if (timeDifference < 200) {
             this.endbossSpeedX = 0;
-        } else if (timeDifference >= 200 && this.energy > randomNumber * 70) {
+        } else if (timeDifference >= 200) {
             setTimeout(() => {
-                this.endbossSpeedX = 8;
-            }, 100);
-        } else {
-            setTimeout(() => {
-                this.endbossSpeedX = 15;
+                this.endbossSpeedX = 10;
             }, 100);
         }
     }
