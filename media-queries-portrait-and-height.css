@@ -1,8 +1,38 @@
-@media(min-height: 1400px) and (pointer: fine) {
+@media(min-width: 2500px) and (hover: hover) {
+    .game-functions-container {
+        width: 100%;
+    }
+
+    .game-functions-container h2 {
+        font-size: 60px;
+    }
+
+    .control-key-style {
+        min-width: 400px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .control-key-style img {
+        width: 112px;
+    }
+
+    .control-key-style h3 {
+        font-size: 36px;
+    }
+
+    .game-notification {
+        font-size: 36px;
+    }
+}
+
+@media(min-height: 1400px) and (hover: hover) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        width: 100%;
     }
 }
 

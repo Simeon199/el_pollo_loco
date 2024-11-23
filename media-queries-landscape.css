@@ -12,12 +12,14 @@
 
     canvas {
         width: 45%;
-        height: auto;
+        aspect-ratio: 720 / 480;
+        /* height: auto; */
     }
 
     #intro-image img:nth-child(1) {
         width: 45%;
-        height: auto;
+        aspect-ratio: 720 / 480;
+        /* height: auto; */
     }
 
     #intro-image img:nth-child(2) {
@@ -306,7 +308,8 @@
 
     #intro-image {
         width: 1200px;
-        height: auto;
+        aspect-ratio: 720 / 480;
+        /* height: auto; */
     }
 
     #intro-image img:nth-child(1) {
@@ -458,6 +461,7 @@
 
     #intro-image {
         max-width: 1500px;
+        aspect-ratio: 720 / 480;
     }
 
     #sound-on-icon {
