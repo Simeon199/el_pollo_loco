@@ -62,7 +62,7 @@ function setAllWorldAudioSound(mute) {
     world.audioManager.setHittingSoundsMuted(mute);
     world.audioManager.setItemCollectionSoundsMuted(mute);
     world.audioManager.setEndbossSoundsMuted(mute);
-    // setAllCharacterAudioSound(mute);
+    setAllCharacterAudioSound(mute);
     muteRemainingSounds(mute);
     if (!mute && world.audioManager.isBackgroundMusicPaused) {
         world.audioManager.playBackgroundMusic();
@@ -71,8 +71,6 @@ function setAllWorldAudioSound(mute) {
 
 function muteRemainingSounds(mute) {
     world.audioManager.muteSound(mute, 'bottleLanding');
-    world.audioManager.muteSound(true, 'snorring_sound');
-    world.audioManager.muteSound(true, 'walking_sound');
 }
 
 /**

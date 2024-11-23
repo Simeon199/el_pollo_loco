@@ -150,8 +150,10 @@ class Character extends MovableObject {
 
     playSleepAnimationWithAudio() {
         this.playAnimation(this.IMAGES_SLEEP);
-        this.world.audioManager.muteSound(false, 'snorring_sound');
-        this.world.audioManager.playSound('snorring_sound');
+        if (this.world.audioManager.isSoundMuted('snorring_sound')) {
+            this.world.audioManager.muteSound(false, 'snorring_sound');
+            this.world.audioManager.playSound('snorring_sound');
+        }
     }
 
     /**
@@ -161,14 +163,7 @@ class Character extends MovableObject {
     playMovingRightAnimationWithAudio() {
         this.moveRight();
         this.otherDirection = false;
-        if (this.world.audioManager.isSoundMuted('walking_sound') && !this.isAboveGround() && soundOn == true) {
-            if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
-                this.world.audioManager.muteSound(true, 'snorring_sound');
-            }
-            this.world.audioManager.sounds['walking_sound'].currentTime = 0;
-            this.world.audioManager.muteSound(false, 'walking_sound');
-            this.world.audioManager.playSound('walking_sound');
-        }
+        this.toggleMovingSoundsWhileRunning();
     }
 
     /**
@@ -178,12 +173,18 @@ class Character extends MovableObject {
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
+        this.toggleMovingSoundsWhileRunning();
+    }
+
+    toggleMovingSoundsWhileRunning() {
         if (this.world.audioManager.isSoundMuted('walking_sound') && !this.isAboveGround() && soundOn == true) {
             if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
                 this.world.audioManager.muteSound(true, 'snorring_sound');
             }
-            this.world.audioManager.sounds['walking_sound'].currentTime = 0;
             this.world.audioManager.muteSound(false, 'walking_sound');
+            this.world.audioManager.playSound('walking_sound');
+        } else if (this.world.audioManager.sounds['walking_sound'].ended || this.world.audioManager.sounds['walking_sound'].currentTime == 0) {
+            this.world.audioManager.sounds['walking_sound'].currentTime = 0;
             this.world.audioManager.playSound('walking_sound');
         }
     }
@@ -202,7 +203,7 @@ class Character extends MovableObject {
      */
 
     characterIsEitherSleepingOrChilling() {
-        if (this.keyWasntPressedForMoreThanFiveSeconds()) { // hier noch nach Variable abfragen, wann Character letztes mal angegriffen wurde
+        if (this.keyWasntPressedForMoreThanFiveSeconds()) {
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
@@ -260,11 +261,10 @@ class Character extends MovableObject {
      * @returns {boolean} True if the condition is met, false otherwise.
      */
 
-    keyWasntPressedForMoreThanFiveSeconds() {
+    keyWasntPressedForMoreThanFiveSeconds() { // rausgenommener Wert: this.timeDifference > 5000 
         return this.timePassedWhenKeyPressed > 5000 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&
-            this.timeDifference > 5000 &&
             !this.isHurt();
     }
 
@@ -316,7 +316,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Makes the character bounce by setting the vertical speed to 30.
+     * Makes the character bounce by setting the vertical speed to 15.
      */
 
     bounce() {
