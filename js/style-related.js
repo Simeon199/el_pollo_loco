@@ -86,7 +86,6 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
 function handleEnterFullscreenStylingClasses() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'none';
-    // document.getElementById('minimize-button').style.display = 'block';
 }
 
 /**
@@ -143,7 +142,6 @@ function toggleSoundIconBasedOnSoundIsMuted() {
 function manageAddRemoveClassesWhenExitFullscreen() {
     document.getElementById('canvas').classList.remove('fullscreen-mode');
     document.getElementById('fullscreen').style.display = 'block';
-    // document.getElementById('minimize-button').style.display = 'none';
     toggleSoundIconBasedOnSoundIsMuted();
 }
 
@@ -317,9 +315,9 @@ function prepareDisplayWinningLosingStyle() {
  * Hides the fullscreen button.
  */
 
-function setFullscreenStyle() {
-    document.getElementById('fullscreen').style.display = 'none';
-}
+// function setFullscreenStyle() {
+//     document.getElementById('fullscreen').style.display = 'none';
+// }
 
 
 /**
