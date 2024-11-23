@@ -250,6 +250,10 @@ canvas {
     cursor: pointer;
 }
 
+:fullscreen #minimize-button {
+    display: block;
+}
+
 /* fullscreen and minimize-button properties */
 
 .fullscreen-mode {

@@ -312,15 +312,6 @@ function prepareDisplayWinningLosingStyle() {
 }
 
 /**
- * Hides the fullscreen button.
- */
-
-// function setFullscreenStyle() {
-//     document.getElementById('fullscreen').style.display = 'none';
-// }
-
-
-/**
 * Resets the necessary styling by hiding or showing certain containers when playAgain()-button is pressed.
 */
 
