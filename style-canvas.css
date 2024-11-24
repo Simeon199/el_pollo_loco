@@ -174,8 +174,8 @@ canvas {
     justify-content: center;
     z-index: 10001;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 2%;
+    right: 1%;
 }
 
 #sound-on-icon {

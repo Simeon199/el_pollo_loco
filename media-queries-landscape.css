@@ -37,13 +37,8 @@
         justify-content: center;
         z-index: 10001;
         position: absolute;
-        bottom: 1%;
+        bottom: 2%;
         right: 28%;
-    }
-
-    :fullscreen .sound-screen-control-container {
-        bottom: 1% !important;
-        right: 1% !important;
     }
 }
 
@@ -228,6 +223,10 @@
     #losing-image img {
         width: 100%;
         height: 100%;
+    }
+
+    .sound-screen-container {
+        right: 28%;
     }
 }
 
@@ -439,6 +438,10 @@
     #intro-image {
         max-width: 1500px;
         aspect-ratio: 720 / 480;
+    }
+
+    .sound-screen-control-container {
+        right: 13%;
     }
 
     #sound-on-icon {
