@@ -10,9 +10,9 @@ function setCanvasElementsRightInCaseOfRightOrientation() {
  * Changes the display of the fullscreen button on flex if the device is a desktop.
  */
 
-function toggleFullscreenInCaseOfDesktopDevice() {
-    document.getElementById('fullscreen').style.display = 'flex';
-}
+// function toggleFullscreenInCaseOfDesktopDevice() {
+//     document.getElementById('fullscreen').style.display = 'flex';
+// }
 
 /**
  * Prepares and adjusts the style of all relevant HTML-containers when the device orientation is correct.
@@ -85,7 +85,7 @@ function manageAddRemoveClassesWhenEnterFullscreen() {
 
 function handleEnterFullscreenStylingClasses() {
     document.getElementById('canvas').classList.add('fullscreen-mode');
-    document.getElementById('fullscreen').style.display = 'none';
+    // document.getElementById('fullscreen').style.display = 'none';
 }
 
 /**
@@ -141,7 +141,7 @@ function toggleSoundIconBasedOnSoundIsMuted() {
 
 function manageAddRemoveClassesWhenExitFullscreen() {
     document.getElementById('canvas').classList.remove('fullscreen-mode');
-    document.getElementById('fullscreen').style.display = 'block';
+    // document.getElementById('fullscreen').style.display = 'block';
     toggleSoundIconBasedOnSoundIsMuted();
 }
 

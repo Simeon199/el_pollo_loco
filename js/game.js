@@ -345,6 +345,5 @@ function playAgain() {
  * @returns {boolean} - Returns `true` if all conditions are met and fullscreen should be activated, otherwise `false`.
  */
 function checkIfFullscreenShouldBeActivatedWhenPlayAgain() {
-    // return !isDesktopDevice() && !isFullscreenActivated && window.innerWidth < 1400;
     return !isFullscreenActivated && window.innerWidth < 1300;
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style-canvas.css">
     <link rel="stylesheet" href="style-overlay.css">
-    <!-- <link rel="stylesheet" href="media-queries-pointer-none.css"> -->
+    <link rel="stylesheet" href="media-queries-pointer-none.css">
     <link rel="stylesheet" href="media-queries-landscape.css">
     <link rel="stylesheet" href="media-queries-portrait-and-height.css">
     <script src="models/drawable-object.class.js"></script>
@@ -111,7 +111,11 @@
         <div class="canvas-container" id="canvas-container">
             <canvas id="canvas" width="720" height="480"></canvas>
             <div class="sound-screen-control-container" id="sound-screen-control-container">
-                <div class="sound-and-screen-icons" id="sound-and-screen-icons">
+                <div class="sound-container">
+                    <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
+                    <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
+                </div>
+                <!-- <div class="sound-and-screen-icons" id="sound-and-screen-icons">
                     <div class="sound-container">
                         <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon"
                             onclick="turnSoundOnOrOff()">
@@ -121,15 +125,17 @@
                         <img src="assets/minimize.png" alt="minimize" id="minimize-button" onclick="fullscreen()">
                         <img src="assets/full-screen.png" alt="full-screen" id="fullscreen" onclick="fullscreen()">
                     </div>
-                </div>
+                </div> -->
                 <div class="control-panel-everything" id="control-panel-everything">
-                    <div class="control-panel-right-left" id="control-panel-right-left">
+                    <div class="control-panel-left-jump" id="control-panel-left-jump">
                         <button><img src="assets/left_arrow.png" alt="left" id="buttonLeft"></button>
-                        <button><img src="assets/right_arrow.png" alt="right" id="buttonRight"></button>
-                    </div>
-                    <div class="control-panel-up-throw" id="control-panel-up-throw">
                         <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button>
+                        <!-- <button><img src="assets/right_arrow.png" alt="right" id="buttonRight"></button> -->
+                    </div>
+                    <div class="control-panel-throw-right" id="control-panel-throw-right">
+                        <!-- <button><img src="assets/top_arrow.png" id="buttonUp" alt="top"></button> -->
                         <button><img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d"></button>
+                        <button><img src="assets/right_arrow.png" alt="right" id="buttonRight"></button>
                     </div>
                 </div>
             </div>
