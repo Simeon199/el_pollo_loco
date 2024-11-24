@@ -112,11 +112,11 @@ function manageAudioRelatedToCollectingItems(mute) {
  */
 
 function setAllCharacterAudioSound(mute) {
-    if (world.audioManager.walking_sound) {
-        world.audioManager.walking_sound.muted = mute;
+    if (world.audioManager.sounds['walking_sound']) {
+        world.audioManager.sounds['walking_sound'].muted = mute;
     }
-    if (world.audioManager.snorring_sound) {
-        world.audioManager.snorring_sound.muted = mute;
+    if (world.audioManager.sounds['snorring_sound']) {
+        world.audioManager.sounds['snorring_sound'].muted = mute;
     }
 }
 
