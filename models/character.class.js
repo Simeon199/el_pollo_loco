@@ -159,6 +159,8 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_SLEEP);
         if (this.world.audioManager.isSoundMuted('snorring_sound')) {
             this.world.audioManager.muteSound(false, 'snorring_sound');
+        }
+        if (soundOn == true) {
             this.world.audioManager.playSound('snorring_sound');
         }
     }
@@ -212,13 +214,28 @@ class Character extends MovableObject {
     characterIsEitherSleepingOrChilling() {
         let currentTime = new Date().getTime();
         let timeFrameSinceCharacterExists = currentTime - this.timeSinceCharacterExists;
-        if (this.keyWasntPressedForMoreThanFiveSeconds() && this.isAttacked == false) {
+        if (this.keyWasntPressedForMoreThanFiveSeconds()) {
+            this.playSleepAnimationWithAudio();
+        } else if (this.timeDifference > 5000 && this.timePassedWhenKeyPressed > 5000 && this.isKeyStillPressed == false && this.isAttacked == false) {
             this.playSleepAnimationWithAudio();
         } else if (timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isAttacked == false) {
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
         }
+    }
+
+    /**
+     * Checks if no key was pressed for more than 5 seconds (inactivity check).
+     * @returns {boolean} True if the condition is met, false otherwise.
+     */
+
+    keyWasntPressedForMoreThanFiveSeconds() {
+        return this.timePassedWhenKeyPressed > 5000 &&
+            this.wasRandomKeyOncePressed == true &&
+            this.isKeyStillPressed == false &&
+            this.isAttacked == false &&
+            !this.isHurt();
     }
 
     /**
@@ -265,19 +282,6 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }
-    }
-
-    /**
-     * Checks if no key was pressed for more than 5 seconds (inactivity check).
-     * @returns {boolean} True if the condition is met, false otherwise.
-     */
-
-    keyWasntPressedForMoreThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed > 5000 &&
-            this.wasRandomKeyOncePressed == true &&
-            this.isKeyStillPressed == false &&
-            // this.timeDifference > 5000 &&
-            !this.isHurt();
     }
 
     /**
