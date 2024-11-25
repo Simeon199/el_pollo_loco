@@ -1,6 +1,6 @@
 /**
  * Represents a character in the game that can move, jump, get hurt, die, and play various animations.
- * Extends the MovableObject class.
+ * Extends the MovableObject class ('./characterImages.js').
  */
 
 class Character extends MovableObject {
@@ -20,69 +20,6 @@ class Character extends MovableObject {
     y = 20;
     speed = 12;
 
-    IMAGES_WALKING = [
-        'img/2_character_pepe/2_walk/W-21.png',
-        'img/2_character_pepe/2_walk/W-22.png',
-        'img/2_character_pepe/2_walk/W-23.png',
-        'img/2_character_pepe/2_walk/W-24.png',
-        'img/2_character_pepe/2_walk/W-25.png',
-        'img/2_character_pepe/2_walk/W-26.png'
-    ];
-
-    IMAGES_CHILL = [
-        'img/2_character_pepe/1_idle/idle/I-1.png',
-        'img/2_character_pepe/1_idle/idle/I-2.png',
-        'img/2_character_pepe/1_idle/idle/I-3.png',
-        'img/2_character_pepe/1_idle/idle/I-4.png',
-        'img/2_character_pepe/1_idle/idle/I-5.png',
-        'img/2_character_pepe/1_idle/idle/I-6.png',
-        'img/2_character_pepe/1_idle/idle/I-7.png',
-        'img/2_character_pepe/1_idle/idle/I-8.png',
-        'img/2_character_pepe/1_idle/idle/I-9.png',
-        'img/2_character_pepe/1_idle/idle/I-10.png'
-    ]
-
-    IMAGES_SLEEP = [
-        'img/2_character_pepe/1_idle/long_idle/I-11.png',
-        'img/2_character_pepe/1_idle/long_idle/I-12.png',
-        'img/2_character_pepe/1_idle/long_idle/I-13.png',
-        'img/2_character_pepe/1_idle/long_idle/I-14.png',
-        'img/2_character_pepe/1_idle/long_idle/I-15.png',
-        'img/2_character_pepe/1_idle/long_idle/I-16.png',
-        'img/2_character_pepe/1_idle/long_idle/I-17.png',
-        'img/2_character_pepe/1_idle/long_idle/I-18.png',
-        'img/2_character_pepe/1_idle/long_idle/I-19.png',
-        'img/2_character_pepe/1_idle/long_idle/I-20.png'
-    ];
-
-    IMAGES_JUMPING = [
-        'img/2_character_pepe/3_jump/J-31.png',
-        'img/2_character_pepe/3_jump/J-32.png',
-        'img/2_character_pepe/3_jump/J-33.png',
-        'img/2_character_pepe/3_jump/J-34.png',
-        'img/2_character_pepe/3_jump/J-35.png',
-        'img/2_character_pepe/3_jump/J-36.png',
-        'img/2_character_pepe/3_jump/J-37.png',
-        'img/2_character_pepe/3_jump/J-38.png',
-        'img/2_character_pepe/3_jump/J-39.png'
-    ];
-
-    IMAGES_HURT = [
-        'img/2_character_pepe/4_hurt/H-41.png',
-        'img/2_character_pepe/4_hurt/H-42.png',
-        'img/2_character_pepe/4_hurt/H-43.png'
-    ];
-
-    IMAGES_DEAD = [
-        'img/2_character_pepe/5_dead/D-51.png',
-        'img/2_character_pepe/5_dead/D-52.png',
-        'img/2_character_pepe/5_dead/D-53.png',
-        'img/2_character_pepe/5_dead/D-54.png',
-        'img/2_character_pepe/5_dead/D-55.png',
-        'img/2_character_pepe/5_dead/D-56.png',
-        'img/2_character_pepe/5_dead/D-57.png'
-    ];
-
     world;
     bottle;
 
@@ -93,6 +30,13 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/2_character_pepe/3_jump/J-31.png');
+        let images = new window.CharacterImages();
+        this.IMAGES_WALKING = images.IMAGES_WALKING;
+        this.IMAGES_CHILL = images.IMAGES_CHILL;
+        this.IMAGES_SLEEP = images.IMAGES_SLEEP;
+        this.IMAGES_JUMPING = images.IMAGES_JUMPING;
+        this.IMAGES_DEAD = images.IMAGES_DEAD;
+        this.IMAGES_HURT = images.IMAGES_HURT;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_CHILL);
         this.loadImages(this.IMAGES_SLEEP);
@@ -103,6 +47,10 @@ class Character extends MovableObject {
         this.setTimeSinceCharacterExists();
         this.animate();
     }
+
+    /**
+    * Sets the timestamp indicating when the character was created.
+    */
 
     setTimeSinceCharacterExists() {
         this.timeSinceCharacterExists = new Date().getTime();
@@ -136,9 +84,20 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Determines whether less than 2 seconds have passed since the character was last hit.
+    * @param {number} currentTime - The current timestamp.
+    * @returns {boolean} True if less than 2 seconds have passed since the character was hit, false otherwise.
+    */
+
     timePassedBetweenNowAndLastHitAgainstCharacter(currentTime) {
         return currentTime - this.world.timePointWhenCharacterGetsHit < 2000;
     }
+
+    /**
+    * Checks if less than 200 milliseconds have passed since the game was initialized.
+    * @returns {boolean} True if less than 200 milliseconds have passed, false otherwise.
+    */
 
     timePassedBetweenNowAndTimePointWhenGameInitialized() {
         return this.rightNow - timePointWhenGameInitialized < 200;
@@ -147,7 +106,8 @@ class Character extends MovableObject {
     /**
      * Checks if the current time is within 200 milliseconds of the game initialization time.
      *
-     * @returns {boolean} - Returns `true` if the current time is within 200 milliseconds of the game initialization point (`timePointWhenGameInitialized`), otherwise returns `false`.
+     * @returns {boolean} - Returns `true` if the current time is within 200 milliseconds of the game initialization point (`timePointWhenGameInitialized`), 
+     * otherwise returns `false`.
      */
 
     callTimer() {
@@ -173,6 +133,11 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Checks if the sound is not muted, sound is enabled, and no key is currently pressed.
+    * @returns {boolean} True if sound is enabled and no key is pressed, false otherwise.
+    */
+
     soundIsntMutedAndKeyIsntPressed() {
         return soundIsMuted == false && soundOn == true && isKeyPressed == false;
     }
@@ -197,6 +162,11 @@ class Character extends MovableObject {
         this.toggleMovingSoundsWhileRunning();
     }
 
+    /**
+    * Toggles moving sounds based on the character's running state. If the walking sound is muted and conditions are met, it unmutes the walking sound.
+    * If the walking sound has ended, it restarts the sound.
+    */
+
     toggleMovingSoundsWhileRunning() {
         if (this.isWalkingSoundMutedCharacterInTheAirAndSoundOn()) {
             this.muteSnorringSoundIfNecessary();
@@ -206,13 +176,27 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Checks if the walking sound is muted, the character is on the ground, and sound is enabled.
+    * @returns {boolean} True if all conditions are met, false otherwise.
+    */
+
     isWalkingSoundMutedCharacterInTheAirAndSoundOn() {
         return this.world.audioManager.isSoundMuted('walking_sound') && !this.isAboveGround() && soundOn == true;
     }
 
+    /**
+    * Checks if the walking sound has ended or its playback time is at the beginning.
+    * @returns {boolean} True if the sound has ended or is at the beginning, false otherwise.
+    */
+
     hasWalkingSoundEnded() {
         return this.world.audioManager.sounds['walking_sound'].ended || this.world.audioManager.sounds['walking_sound'].currentTime == 0;
     }
+
+    /**
+    * Mutes the snoring sound if it is currently unmuted.
+    */
 
     muteSnorringSoundIfNecessary() {
         if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
@@ -220,10 +204,18 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Unmutes the walking sound and starts playing it from the beginning.
+    */
+
     unmuteWalkingSoundAndPlayIt() {
         this.world.audioManager.muteSound(false, 'walking_sound');
         this.playWalkingSoundFromBeginning();
     }
+
+    /**
+    * Starts playing the walking sound from the beginning if the right or left key is pressed.
+    */
 
     playWalkingSoundFromBeginning() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -259,9 +251,20 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Checks if more than 5 seconds have passed without any key press or attack on the character.
+    * @returns {boolean} True if conditions are met, false otherwise.
+    */
+
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         return this.timeDifference > 5000 && this.timePassedWhenKeyPressed > 5000 && this.isKeyStillPressed == false && this.isAttacked == false;
     }
+
+    /**
+    * Checks if the character has existed for more than 5 seconds and no random key was pressed or attack occurred.
+    * @param {number} timeFrameSinceCharacterExists - Time elapsed since the character's creation.
+    * @returns {boolean} True if conditions are met, false otherwise.
+    */
 
     characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists) {
         return timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isAttacked == false;
@@ -301,6 +304,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Executes the logic for jumping, including muting the walking sound and triggering the jump action.
+    */
+
     executeJumpLogic() {
         if (!this.world.audioManager.isSoundMuted('walking_sound')) {
             this.world.audioManager.muteSound(true, 'walking_sound');
@@ -324,6 +331,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Plays the appropriate animation logic when the character is in the air. Displays jumping animations based on the vertical speed of the character.
+    */
+
     playCharacterIsInTheAirLogic() {
         if (this.speedY > 0) {
             this.playAnimation(this.IMAGES_JUMPING);
@@ -331,6 +342,10 @@ class Character extends MovableObject {
             this.playAnimation([this.IMAGES_JUMPING[3]]);
         }
     }
+
+    /**
+    * Plays the walking animation logic if the right or left key is pressed.
+    */
 
     playWalkingLogic() {
         if (this.wasRightOrLeftKeyPressed()) {

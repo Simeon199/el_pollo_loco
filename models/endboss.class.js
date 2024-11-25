@@ -16,27 +16,24 @@ class Endboss extends Chicken {
     y = 55;
     world;
 
-    IMAGES_WALKING = ['img/4_enemie_boss_chicken/2_alert/G5.png', 'img/4_enemie_boss_chicken/2_alert/G7.png', 'img/4_enemie_boss_chicken/2_alert/G8.png', 'img/4_enemie_boss_chicken/2_alert/G9.png', 'img/4_enemie_boss_chicken/2_alert/G10.png', 'img/4_enemie_boss_chicken/2_alert/G11.png', 'img/4_enemie_boss_chicken/2_alert/G12.png'];
-
-    IMAGES_HURT = ['img/4_enemie_boss_chicken/4_hurt/G21.png', 'img/4_enemie_boss_chicken/4_hurt/G22.png', 'img/4_enemie_boss_chicken/4_hurt/G23.png'];
-
-    IMAGES_DEAD = ['img/4_enemie_boss_chicken/5_dead/G24.png', 'img/4_enemie_boss_chicken/5_dead/G25.png', 'img/4_enemie_boss_chicken/5_dead/G26.png'];
-
-    IMAGES_ATTACK = ['img/4_enemie_boss_chicken/3_attack/G13.png', 'img/4_enemie_boss_chicken/3_attack/G14.png', 'img/4_enemie_boss_chicken/3_attack/G15.png', 'img/4_enemie_boss_chicken/3_attack/G16.png', 'img/4_enemie_boss_chicken/3_attack/G17.png', 'img/4_enemie_boss_chicken/3_attack/G18.png', 'img/4_enemie_boss_chicken/3_attack/G19.png', 'img/4_enemie_boss_chicken/3_attack/G20.png'];
-
     /**
      * Constructs an Endboss instance, initializing its position, loading all images and starts the animation function.
      */
 
     constructor() {
         super();
+        let endbossImages = new window.EndbossImages();
+        this.IMAGES_WALKING_ENDBOSS = endbossImages.IMAGES_WALKING_ENDBOSS;
+        this.IMAGES_HURT_ENDBOSS = endbossImages.IMAGES_HURT_ENDBOSS;
+        this.IMAGES_DEAD_ENDBOSS = endbossImages.IMAGES_DEAD_ENDBOSS;
+        this.IMAGES_ATTACK_ENDBOSS = endbossImages.IMAGES_ATTACK_ENDBOSS;
         this.speed = 1.5;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImage('img/3_enemies_chicken/chicken_normal/2_dead/dead.png')
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_WALKING_ENDBOSS);
+        this.loadImages(this.IMAGES_HURT_ENDBOSS);
+        this.loadImages(this.IMAGES_DEAD_ENDBOSS);
+        this.loadImages(this.IMAGES_ATTACK_ENDBOSS);
         this.x = 1700;
         this.animate();
     }
@@ -107,7 +104,7 @@ class Endboss extends Chicken {
 
     isEndbossInIdleMode() {
         if (this.isEndbossAliveAndWasNotAttacked()) {
-            this.playAnimation(this.IMAGES_WALKING);
+            this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
             return true;
         }
         return false;
@@ -141,7 +138,7 @@ class Endboss extends Chicken {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
         if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
-            this.playAnimation(this.IMAGES_HURT);
+            this.playAnimation(this.IMAGES_HURT_ENDBOSS);
         } else {
             this.animateMovingAndAttackingEndboss();
         }
@@ -155,7 +152,7 @@ class Endboss extends Chicken {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
         this.directEndbossIntoAttackDirectionAndCheckCollisions();
-        this.playAnimation(this.IMAGES_ATTACK);
+        this.playAnimation(this.IMAGES_ATTACK_ENDBOSS);
     }
 
     /**
@@ -219,7 +216,7 @@ class Endboss extends Chicken {
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
         if (this.checkTimeDifferenceSinceLastTimeHit() < 200) { // ehemals 1000
-            this.playAnimation(this.IMAGES_DEAD);
+            this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
         } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) { // ehemals 1000
             this.showDefeatedEndbossAndPositionCharacter();
         }
@@ -292,7 +289,7 @@ class Endboss extends Chicken {
      */
 
     playAttackEndbossAnimation() {
-        this.playAnimation(this.IMAGES_ATTACK);
+        this.playAnimation(this.IMAGES_ATTACK_ENDBOSS);
         this.checkIfEndbossAlreadyHitCharacter();
     }
 
@@ -302,7 +299,7 @@ class Endboss extends Chicken {
 
     setIsDeadAttributeAndplayDyingAnimation() {
         this.isDead == true;
-        this.playAnimation(this.IMAGES_DEAD);
+        this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
     }
 
     /**
