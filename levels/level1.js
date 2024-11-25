@@ -20,7 +20,7 @@ function generateCloud() {
 
 function generateRandomBottles() {
     let bottles = [];
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 15; i++) {
         bottles.push(new ThrowableObject(- 1 * 700 + Math.random() * 1000, 300, this.Keyboard));
     }
     return bottles;
@@ -35,7 +35,7 @@ function generateRandomBottles() {
 function generateCoinsArray() {
     let coinsArray = [];
     let i = 0;
-    for (let j = 0; j < 15; j++) {
+    for (let j = 0; j < 10; j++) {
         if (i < j) {
             coinsArray.push(new Coin());
             i++;

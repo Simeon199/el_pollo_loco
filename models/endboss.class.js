@@ -322,7 +322,7 @@ class Endboss extends Chicken {
             this.endbossSpeedX = 0;
         } else if (timeDifference >= 200) {
             setTimeout(() => {
-                this.endbossSpeedX = 10;
+                this.endbossSpeedX = 9;
             }, 100);
         }
     }

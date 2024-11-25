@@ -102,8 +102,8 @@ class MovableObject extends DrawableObject {
         if (this.isCharacterAndAboveGround()) {
             this.offsetRight = 40;
             this.offsetLeft = 40;
-            this.offsetTop = -40;
-            this.offsetBottom = -20;
+            this.offsetTop = 40;
+            this.offsetBottom = 40;
         } else if (this.isCharacterAndNotAboveGround()) {
             this.offsetRight = 40;
             this.offsetLeft = 40;
@@ -140,7 +140,7 @@ class MovableObject extends DrawableObject {
         if (this.isEndboss()) {
             this.energy -= 10;
         } else if (this.isCharacter()) {
-            this.energy -= 10;
+            this.energy -= 20;
         }
     }
 
