@@ -12,11 +12,13 @@
 
     canvas {
         width: 45%;
+        height: auto;
         aspect-ratio: 720 / 480;
     }
 
     #intro-image img:nth-child(1) {
         width: 45%;
+        height: auto;
         aspect-ratio: 720 / 480;
     }
 
@@ -199,9 +201,9 @@
         width: 48px;
     }
 
-    :fullscreen #minimize-button {
+    /* :fullscreen #minimize-button {
         display: none;
-    }
+    } */
 }
 
 @media(min-width: 1500px) and (max-height: 1100px) and (hover: hover) {
@@ -297,6 +299,7 @@
 
     #intro-image {
         width: 1200px;
+        height: auto;
         aspect-ratio: 720 / 480;
     }
 
@@ -318,6 +321,7 @@
     canvas {
         width: 1200px;
         height: auto;
+        aspect-ratio: 720 / 480;
     }
 
     #sound-on-icon {
@@ -437,6 +441,7 @@
 
     #intro-image {
         max-width: 1500px;
+        height: auto;
         aspect-ratio: 720 / 480;
     }
 
@@ -455,6 +460,7 @@
     canvas {
         width: 1500px;
         height: auto;
+        aspect-ratio: 720 / 480;
     }
 
     #all-icons-container-mini-version {

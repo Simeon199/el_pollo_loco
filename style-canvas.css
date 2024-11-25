@@ -68,10 +68,11 @@ body {
     border-radius: 16px;
 }
 
-.control-panel-everything button {
+.control-panel-everything img {
+    width: 60px;
+    padding: 6px;
     border: 4px solid black;
     border-radius: 8px;
-    padding: 6px;
     background-color: wheat;
 }
 
@@ -186,7 +187,6 @@ canvas {
     border-radius: 8px;
     padding: 4px;
     background-color: wheat;
-    width: 40px;
 }
 
 #sound-off-icon {
@@ -197,7 +197,6 @@ canvas {
     border-radius: 8px;
     padding: 4px;
     background-color: wheat;
-    width: 40px;
 }
 
 /* fullscreen and minimize-button properties */

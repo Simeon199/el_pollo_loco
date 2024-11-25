@@ -93,10 +93,16 @@ function wasButtonThrowPressed(event) {
     return event.target == document.getElementById('buttonThrow');
 }
 
-// Event listeners for orientation and screen resizing
+/**
+ *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
+ */
+
 
 window.addEventListener("resize", checkOrientation);
 
+/**
+ *  Event listener for screen orientation. In the case of a orientationchange the checkOrientation is invoked.
+ */
 
 window.addEventListener("orientationchange", checkOrientation);
 
@@ -177,6 +183,18 @@ window.addEventListener('touchstart', touchStartHandler);
 
 window.addEventListener('touchend', touchEndHandler);
 
+/**
+ * This function checks the current mute status of the snoring sound in the audio manager. If the snoring sound is not muted, it will
+ * mute the sound by invoking the `muteSound` method of the `audioManager`.
+ */
+
+function muteSnorringSoundIfNecessary() {
+    let snorring_sound = world.audioManager.sounds['snorring_sound'];
+    if (snorring_sound.muted == false) {
+        world.audioManager.muteSound(true, 'snorring_sound');
+    }
+}
+
 // Event listener for touchstart events
 
 function touchStartHandler(event) {
@@ -184,9 +202,11 @@ function touchStartHandler(event) {
         settingGlobalVariablesInKeyDownOrTouchStartEvent();
         if (wasButtonLeftPressed(event)) {
             prepareForThrowingLeft();
+            world.audioManager.muteSound(true, 'snorring_sound');
         }
         if (wasButtonRightPressed(event)) {
             prepareForThrowingRight();
+            world.audioManager.muteSound(true, 'snorring_sound');
         }
         if (wasButtonUpPressed(event)) {
             keyboard.SPACE = true;
@@ -206,9 +226,11 @@ function touchEndHandler(event) {
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
         if (wasButtonLeftPressed(event)) {
             keyboard.LEFT = false;
+            world.audioManager.muteSound(true, 'walking_sound');
         }
         if (wasButtonRightPressed(event)) {
             keyboard.RIGHT = false;
+            world.audioManager.muteSound(true, 'walking_sound');
         }
         if (wasButtonUpPressed(event)) {
             keyboard.SPACE = false;
@@ -243,9 +265,12 @@ function keyDownHandler(event) {
     settingGlobalVariablesInKeyDownOrTouchStartEvent();
     if (event.keyCode == 39) {
         prepareForThrowingRight();
+        muteSnorringSoundIfNecessary();
+        // world.audioManager.muteSound(true, 'snorring_sound');
     }
     if (event.keyCode == 37) {
         prepareForThrowingLeft();
+        muteSnorringSoundIfNecessary();
     }
     if (event.keyCode == 38) {
         world.audioManager.muteSound(false, 'walking_sound');

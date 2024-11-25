@@ -37,7 +37,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 80); // 1000 /25
+        }, 80);
     }
 
     /**
@@ -100,8 +100,8 @@ class MovableObject extends DrawableObject {
 
     returnCorrectTolerance() {
         if (this.isCharacterAndAboveGround()) {
-            this.offsetRight = 40;
-            this.offsetLeft = 40;
+            this.offsetRight = 60;
+            this.offsetLeft = 60;
             this.offsetTop = 40;
             this.offsetBottom = 40;
         } else if (this.isCharacterAndNotAboveGround()) {

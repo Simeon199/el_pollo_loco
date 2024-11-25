@@ -313,7 +313,9 @@ function settingUpStyleWhenPlayAgainButtonPressed() {
     document.getElementById('canvas').style.display = 'block';
     document.getElementById('losing-image').style.display = 'none';
     document.getElementById('winning-image').style.display = 'none';
-    document.getElementById('main-title').style.display = 'none';
+    if (isDesktopDevice()) {
+        document.getElementById('main-title').style.display = 'block';
+    }
 }
 
 /**
