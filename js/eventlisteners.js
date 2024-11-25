@@ -95,12 +95,6 @@ function wasButtonThrowPressed(event) {
 
 // Event listeners for orientation and screen resizing
 
-/**
- * Listens for changes in screen orientation and triggers the `checkOrientation` function.
- */
-
-// screen.orientation.addEventListener("change", checkOrientation);
-
 window.addEventListener("resize", checkOrientation);
 
 

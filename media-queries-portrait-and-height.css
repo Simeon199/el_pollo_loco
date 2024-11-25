@@ -37,8 +37,6 @@
 }
 
 @media (orientation: portrait) {
-
-    /*  and (pointer: fine)  */
     .game-functions-container {
         display: none;
     }

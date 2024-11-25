@@ -29,28 +29,12 @@
         width: 68px;
     }
 
-    /* #fullscreen {
-        display: none;
-    } */
-
     .control-panel-everything button {
         border: 4px solid black;
         border-radius: 8px;
         padding: 6px;
         background-color: wheat;
     }
-
-    /* #control-panel-up-throw {
-        display: flex;
-        justify-content: space-around;
-        width: 50%;
-    } */
-
-    /* #control-panel-right-left {
-        display: flex;
-        justify-content: space-around;
-        width: 50%;
-    } */
 
     #control-panel-throw-right {
         display: flex;
@@ -171,8 +155,4 @@
     .main-title-properties img {
         width: 48px;
     }
-
-    /* :fullscreen #minimize-button {
-        display: none;
-    } */
 }
