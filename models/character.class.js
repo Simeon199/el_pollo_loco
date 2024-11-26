@@ -19,7 +19,6 @@ class Character extends MovableObject {
     width = 130;
     y = 20;
     speed = 12;
-
     world;
     bottle;
 

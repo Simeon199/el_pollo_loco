@@ -51,7 +51,7 @@ class BottleBar extends StatusBar {
 
     updateTotalNumberOfBottles() {
         if (this.bottleAmount > 0) {
-            this.bottleAmount = 10;
+            this.bottleAmount = 15;
             // this.bottleAmount -= 1;
         }
     }
