@@ -6,7 +6,7 @@ permissionToThrow = true;
  * Disables the context menu on touch-enabled devices.
  */
 
-if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+if ('ontouchstart' in window) { // || navigator.maxTouchPoints > 0
     document.addEventListener('contextmenu', function (event) {
         event.preventDefault();
     });

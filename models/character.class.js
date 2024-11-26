@@ -149,7 +149,9 @@ class Character extends MovableObject {
     playMovingRightAnimationWithAudio() {
         this.moveRight();
         this.otherDirection = false;
-        this.toggleMovingSoundsWhileRunning();
+        if (soundOn) {
+            this.toggleMovingSoundsWhileRunning();
+        }
     }
 
     /**
@@ -159,7 +161,9 @@ class Character extends MovableObject {
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
-        this.toggleMovingSoundsWhileRunning();
+        if (soundOn) {
+            this.toggleMovingSoundsWhileRunning();
+        }
     }
 
     /**
