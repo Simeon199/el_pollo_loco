@@ -111,7 +111,7 @@ function manageAudioRelatedToCollectingItems(mute) {
  * @param {boolean} bolean - If true, mutes character sounds; if false, unmutes them.
  */
 
-function setAllCharacterAudioSound() { // ehemals mit Variable mute
+function setAllCharacterAudioSound() {
     if (world.audioManager.sounds['walking_sound']) {
         world.character.characterIsJumpingOrMoving();
     }
@@ -148,7 +148,7 @@ function muteUnmuteSound(mute) {
     if (doesWorldExist()) {
         setAllWorldAudioSound(mute);
         if (doesCharacterExistInWorld()) {
-            setAllCharacterAudioSound(); // ehemals mit Variable mute
+            setAllCharacterAudioSound();
         }
         if (doEnemiesExistInWorld()) {
             setEnemiesAudioSound(mute);

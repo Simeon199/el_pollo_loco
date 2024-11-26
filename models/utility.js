@@ -102,7 +102,7 @@ class Utility {
         this.world.adjustCoinbarWhenCharacterCollectsCoin();
         this.world.level.coins.splice(index, 1);
         if (this.world.character.energy <= 95) {
-            this.world.character.energy += 5;
+            this.world.character.energy += 10;
             this.adjustStatusBarWhenCharacterGetsCoin();
         }
         this.world.audioManager.playSound('bellSound');

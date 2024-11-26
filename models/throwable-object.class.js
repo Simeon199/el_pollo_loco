@@ -43,7 +43,7 @@ class ThrowableObject extends MovableObject {
     * @param {object} z - The keyboard control object for handling user input
     */
 
-    constructor(x, y, z) { // audiomanager
+    constructor(x, y, z) {
         super();
         this.loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
         this.loadImages(this.STANDING_BOTTLE_LEFT_DIRECTION);
@@ -53,18 +53,10 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
-        this.offsetRight = 50;
-        this.offsetLeft = 50;
+        this.offsetRight = 30;
+        this.offsetLeft = 30;
         this.offsetTop = 0;
         this.offsetBottom = 0;
-        // this.audiomanager = audiomanager;
-        // this.invokeRelevantObject();
-    }
-
-    invokeRelevantObject() {
-        setInterval(() => {
-            console.log("value of world: ", this.world);
-        }, 100);
     }
 
     /**
