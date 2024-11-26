@@ -3,14 +3,18 @@ let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
 permissionToThrow = true;
 
 /**
- * Disables the context menu on touch-enabled devices.
+ * Disables the default browser context menu and prevents event propagation.
+ *
+ * @param {MouseEvent} event - The contextmenu event triggered by the user.
+ * @returns {boolean} Always returns `false` to explicitly signal no further handling.
  */
 
-if ('ontouchstart' in window) { // || navigator.maxTouchPoints > 0
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-    });
-}
+window.oncontextmenu = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    return false;
+};
 
 /**
  * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
