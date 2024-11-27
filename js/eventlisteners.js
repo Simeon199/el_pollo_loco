@@ -1,3 +1,4 @@
+let timePassedWhenKeyReleased;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
 permissionToThrow = true;
