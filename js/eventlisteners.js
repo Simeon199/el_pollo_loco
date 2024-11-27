@@ -3,18 +3,33 @@ let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
 permissionToThrow = true;
 
 /**
- * Disables the default browser context menu and prevents event propagation.
- *
- * @param {MouseEvent} event - The contextmenu event triggered by the user.
- * @returns {boolean} Always returns `false` to explicitly signal no further handling.
+ * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
 
-window.oncontextmenu = function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    return false;
-};
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    /**
+     * Listens for the `pointerdown` event and checks if the pointer type is `touch`.
+     * 
+     * @param {PointerEvent} event - The event object that provides information about the pointer interaction.
+     */
+    document.addEventListener('pointerdown', function (event) {
+        if (event.pointerType === 'touch') {
+            /**
+            * Prevents the default context menu from appearing. Stops event propagation to avoid conflicts with other event listeners.
+            * This listener is applied only once per touch interaction.
+            * 
+            * @param {Event} event - The context menu event triggered by a long press.
+            * @returns {boolean} - Always returns `false` to prevent further event handling.
+            */
+            document.addEventListener('contextmenu', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                return false;
+            }, { once: true });
+        }
+    });
+}
 
 /**
  * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
@@ -144,13 +159,21 @@ document.addEventListener('fullscreenchange', () => {
  * Sets global variables when a key or touch event is triggered.
  */
 
-function settingGlobalVariablesInKeyDownOrTouchStartEvent() {
-    wasRandomKeyOncePressed = true;
-    isKeyPressed = true;
+function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
+    excludeCertainEvents(event);
     someKeyWasPressedAgain = new Date().getTime();
     world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
     world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
     world.character.isKeyStillPressed = isKeyPressed;
+}
+
+function excludeCertainEvents(event) {
+    let excludedIds = ["sound-off-icon", "sound-on-icon"];
+    let targetElement = event.target;
+    if (!excludedIds.includes(targetElement.id)) {
+        wasRandomKeyOncePressed = true;
+        isKeyPressed = true;
+    }
 }
 
 /**
@@ -203,7 +226,7 @@ function muteSnorringSoundIfNecessary() {
 
 function touchStartHandler(event) {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
-        settingGlobalVariablesInKeyDownOrTouchStartEvent();
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
         if (wasButtonLeftPressed(event)) {
             prepareForThrowingLeft();
             world.audioManager.muteSound(true, 'snorring_sound');
@@ -266,11 +289,10 @@ window.addEventListener('keydown', keyDownHandler);
  */
 
 function keyDownHandler(event) {
-    settingGlobalVariablesInKeyDownOrTouchStartEvent();
+    settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
     if (event.keyCode == 39) {
         prepareForThrowingRight();
         muteSnorringSoundIfNecessary();
-        // world.audioManager.muteSound(true, 'snorring_sound');
     }
     if (event.keyCode == 37) {
         prepareForThrowingLeft();

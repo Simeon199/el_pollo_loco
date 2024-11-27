@@ -14,6 +14,7 @@ class Character extends MovableObject {
     lastTimeKeyPressed = 0;
     timePassedWhenKeyPressed;
     isAttacked = false;
+    muteValue = false;
     timeSinceCharacterExists = 0;
     height = 280;
     width = 130;
@@ -119,26 +120,12 @@ class Character extends MovableObject {
     }
 
     /**
-    * Plays the sleep animation with the snoring sound.
-    */
-
-    playSleepAnimationWithAudio() {
-        this.playAnimation(this.IMAGES_SLEEP);
-        if (this.soundIsntMutedAndKeyIsntPressed()) {
-            if (this.world.audioManager.isSoundMuted('snorring_sound')) {
-                this.world.audioManager.muteSound(false, 'snorring_sound');
-            }
-            this.world.audioManager.playSound('snorring_sound');
-        }
-    }
-
-    /**
     * Checks if the sound is not muted, sound is enabled, and no key is currently pressed.
     * @returns {boolean} True if sound is enabled and no key is pressed, false otherwise.
     */
 
     soundIsntMutedAndKeyIsntPressed() {
-        return soundIsMuted == false && soundOn == true && isKeyPressed == false;
+        return soundIsMuted == false && soundOn == true && this.isKeyStillPressed == false;
     }
 
     /**
@@ -237,17 +224,31 @@ class Character extends MovableObject {
     }
 
     /**
+    * Plays the sleep animation with the snoring sound.
+    */
+
+    playSleepAnimationWithAudio() {
+        this.playAnimation(this.IMAGES_SLEEP);
+        if (this.soundIsntMutedAndKeyIsntPressed()) {
+            if (this.world.audioManager.isSoundMuted('snorring_sound')) {
+                this.world.audioManager.muteSound(false, 'snorring_sound');
+            }
+            this.world.audioManager.playSound('snorring_sound');
+        }
+    }
+
+    /**
      * Checks if the character should play the sleep or chill animation based on inactivity.
      */
 
     characterIsEitherSleepingOrChilling() {
         let currentTime = new Date().getTime();
         let timeFrameSinceCharacterExists = currentTime - this.timeSinceCharacterExists;
-        if (this.keyWasntPressedForMoreThanFiveSeconds()) {
+        if (this.characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists)) {
+            this.playSleepAnimationWithAudio();
+        } else if (this.keyWasntPressedForMoreThanFiveSeconds()) {
             this.playSleepAnimationWithAudio();
         } else if (this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds()) {
-            this.playSleepAnimationWithAudio();
-        } else if (this.characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists)) {
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
@@ -260,7 +261,7 @@ class Character extends MovableObject {
     */
 
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
-        return this.timeDifference > 5000 && this.timePassedWhenKeyPressed > 5000 && this.isKeyStillPressed == false && this.isAttacked == false;
+        return this.timeDifference > 5000 && this.timePassedWhenKeyPressed > 5000 && this.isKeyStillPressed == false && this.isAttacked == false && !this.isHurt();
     }
 
     /**
@@ -270,7 +271,7 @@ class Character extends MovableObject {
     */
 
     characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists) {
-        return timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isAttacked == false;
+        return timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isKeyStillPressed == false && this.isAttacked == false && !this.isHurt();
     }
 
     /**
@@ -278,7 +279,7 @@ class Character extends MovableObject {
      * @returns {boolean} True if the condition is met, false otherwise.
      */
 
-    keyWasntPressedForMoreThanFiveSeconds() {
+    keyWasntPressedForMoreThanFiveSeconds() { // this.wasRandomKeyOncePressed == true &&
         return this.timePassedWhenKeyPressed > 5000 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&

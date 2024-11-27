@@ -20,12 +20,14 @@ function stopAllSounds() {
 
 function turnSoundOnOrOff() {
     soundIsMuted = !soundIsMuted;
-    muteUnmuteSound(soundIsMuted);
+    // muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {
+        // debugger;
         showTurningSoundOffIcon();
     } else {
         showTurningSoundOnIcon();
     }
+    muteUnmuteSound(soundIsMuted);
 }
 
 /**
@@ -111,12 +113,13 @@ function manageAudioRelatedToCollectingItems(mute) {
  * @param {boolean} bolean - If true, mutes character sounds; if false, unmutes them.
  */
 
-function setAllCharacterAudioSound() {
+function setAllCharacterAudioSound(mute) {
     if (world.audioManager.sounds['walking_sound']) {
         world.character.characterIsJumpingOrMoving();
     }
     if (world.audioManager.sounds['snorring_sound']) {
-        world.character.characterIsEitherSleepingOrChilling()
+        // debugger;
+        world.audioManager.muteSound(mute, 'snorring_sound');
     }
 }
 
@@ -148,7 +151,7 @@ function muteUnmuteSound(mute) {
     if (doesWorldExist()) {
         setAllWorldAudioSound(mute);
         if (doesCharacterExistInWorld()) {
-            setAllCharacterAudioSound();
+            setAllCharacterAudioSound(mute);
         }
         if (doEnemiesExistInWorld()) {
             setEnemiesAudioSound(mute);
