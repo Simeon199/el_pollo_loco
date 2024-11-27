@@ -260,12 +260,11 @@ class Character extends MovableObject {
     * @returns {boolean} True if conditions are met, false otherwise.
     */
 
-    keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() { // this.timePassedWhenKeyPressed
+    keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         if (this.lastTimeKeyPressed !== 0) {
             let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
             return this.timeDifference > 5000 && timePassedWhenKeyReleased > 5000 && this.isKeyStillPressed == false && this.isAttacked == false && !this.isHurt();
         } else {
-            console.log('last time Key Pressed: ', this.lastTimeKeyPressed);
             return false;
         }
     }

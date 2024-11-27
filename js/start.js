@@ -13,7 +13,7 @@ function redirectToPlayPage() {
  */
 
 function redirectToLegalNoticePage() {
-    window.location.href = "../legal_notice/legal_notice.html";
+    window.location.href = "./legal_notice/legal_notice.html";
 }
 
 /**
