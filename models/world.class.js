@@ -66,8 +66,6 @@ class World {
         this.level.world = this;
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
-            // console.log("enemy type: ", enemy);
-            // console.log("enemy type world: ", enemy.world);
         });
     }
 
@@ -299,7 +297,7 @@ class World {
         let knockbackSpeed = 20;
         if (enemy instanceof Endboss) {
             knockbackDistance = 200;
-            knockbackSpeed = 30;
+            knockbackSpeed = 20;
         }
         let direction = this.character.x < enemy.x ? -1 : 1;
         let distanceMoved = 0;

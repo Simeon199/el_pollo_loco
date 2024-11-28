@@ -36,8 +36,10 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGroundOrUpwardSpeedPositive()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            } else {
+                this.y = 145;
             }
-        }, 80);
+        }, 100);
     }
 
     /**
@@ -62,8 +64,9 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if (this.isInstanceOfThrowableObject()) {
             return true;
-        } else {
-            return this.y < 135;
+        }
+        else {
+            return this.y < 145;
         }
     }
 
@@ -102,8 +105,8 @@ class MovableObject extends DrawableObject {
         if (this.isCharacterAndAboveGround()) {
             this.offsetRight = 60;
             this.offsetLeft = 60;
-            this.offsetTop = 40;
-            this.offsetBottom = 40;
+            this.offsetTop = 20;
+            this.offsetBottom = 10;
         } else if (this.isCharacterAndNotAboveGround()) {
             this.offsetRight = 40;
             this.offsetLeft = 40;
@@ -239,7 +242,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else {
-            this.speedY = 18;
+            this.speedY = 20;
         }
     }
 

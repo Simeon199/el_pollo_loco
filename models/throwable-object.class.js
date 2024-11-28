@@ -85,8 +85,10 @@ class ThrowableObject extends MovableObject {
 
     throw() {
         if (this.pepeIsWatchingRight()) {
+            this.x -= 40;
             this.applyThrowingSetInterval('right');
         } else if (this.pepeIsWatchingLeft()) {
+            this.x -= 80;
             this.applyThrowingSetInterval('left');
         }
         this.handleSpeedAndGravityOfThrowedBottle();
