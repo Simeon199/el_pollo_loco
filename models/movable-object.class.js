@@ -62,10 +62,9 @@ class MovableObject extends DrawableObject {
      */
 
     isAboveGround() {
-        if (this.isInstanceOfThrowableObject()) {
+        if (this.isInstanceOfThrowableObject() && this.isBottleBroken == false) {
             return true;
-        }
-        else {
+        } else {
             return this.y < 145;
         }
     }

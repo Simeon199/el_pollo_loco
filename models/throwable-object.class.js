@@ -64,7 +64,7 @@ class ThrowableObject extends MovableObject {
     */
 
     checkIfBottleIsAlreadyBroken() {
-        if (this.isBottleBroken == true) {
+        if (this.isBottleBroken == true && this.isAboveGround()) {
             this.img.src = '';
         }
     }
@@ -83,13 +83,14 @@ class ThrowableObject extends MovableObject {
     * Initiates the bottle throwing action. Determines the direction (left or right) based on the character's position and handles speed and gravity of the throw.
     */
 
-    throw() {
+    throw(throwableObjects) {
+        console.log("Array from throwable object class content: ", throwableObjects);
         if (this.pepeIsWatchingRight()) {
             this.x -= 40;
-            this.applyThrowingSetInterval('right');
+            this.applyThrowingSetInterval('right', throwableObjects);
         } else if (this.pepeIsWatchingLeft()) {
             this.x -= 80;
-            this.applyThrowingSetInterval('left');
+            this.applyThrowingSetInterval('left', throwableObjects);
         }
         this.handleSpeedAndGravityOfThrowedBottle();
     }
@@ -109,8 +110,8 @@ class ThrowableObject extends MovableObject {
     * @param {string} direction - The direction of the throw, either 'left' or 'right'.
     */
 
-    applyThrowingSetInterval(direction) {
-        this.throwBottleFunction(direction);
+    applyThrowingSetInterval(direction, throwableObjects) {
+        this.throwBottleFunction(direction, throwableObjects);
     }
 
     /**
@@ -160,7 +161,8 @@ class ThrowableObject extends MovableObject {
     * @param {string} direction - The direction the bottle is moving.
     */
 
-    throwBottleFunction(direction) {
+    throwBottleFunction(direction, throwableObjects) {
+        console.log('is throwable Objects Array still there: ', throwableObjects);
         this.clearIntervalIDFunction();
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
@@ -241,10 +243,12 @@ class ThrowableObject extends MovableObject {
 
     setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval) {
         this.bottleBrokenIntervalId = setInterval(() => {
+            this.checkIfBottleIsAlreadyBroken();
             this.img.src = this.BOTTLE_BROKEN_IMAGES[this.currentImage];
             this.currentImage++;
             if (this.currentImage >= totalFrames) {
                 clearInterval(this.bottleBrokenIntervalId);
+                console.log('image value: ', this.img.src);
                 this.img.src = '';
             }
         }, animationInterval);
