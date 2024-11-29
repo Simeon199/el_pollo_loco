@@ -60,16 +60,6 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
-    * Checks if the bottle is already broken. If the bottle is broken, the image source is cleared.
-    */
-
-    checkIfBottleIsAlreadyBroken() {
-        if (this.isBottleBroken == true && this.isAboveGround()) {
-            this.img.src = '';
-        }
-    }
-
-    /**
     * Checks whether the bottle has landed on the ground.
     * 
     * @returns {boolean} True if the bottle's y-position is greater than or equal to 360 (ground-level).
@@ -83,14 +73,13 @@ class ThrowableObject extends MovableObject {
     * Initiates the bottle throwing action. Determines the direction (left or right) based on the character's position and handles speed and gravity of the throw.
     */
 
-    throw(throwableObjects) {
-        console.log("Array from throwable object class content: ", throwableObjects);
+    throw() {
         if (this.pepeIsWatchingRight()) {
             this.x -= 40;
-            this.applyThrowingSetInterval('right', throwableObjects);
+            this.applyThrowingSetInterval('right');
         } else if (this.pepeIsWatchingLeft()) {
             this.x -= 80;
-            this.applyThrowingSetInterval('left', throwableObjects);
+            this.applyThrowingSetInterval('left');
         }
         this.handleSpeedAndGravityOfThrowedBottle();
     }
@@ -110,8 +99,8 @@ class ThrowableObject extends MovableObject {
     * @param {string} direction - The direction of the throw, either 'left' or 'right'.
     */
 
-    applyThrowingSetInterval(direction, throwableObjects) {
-        this.throwBottleFunction(direction, throwableObjects);
+    applyThrowingSetInterval(direction) {
+        this.throwBottleFunction(direction);
     }
 
     /**
@@ -146,11 +135,18 @@ class ThrowableObject extends MovableObject {
     */
 
     checkWhetherBottleIsFlyingInTheAirOrLanding(direction) {
-        if (this.y >= 350) {
-            this.stopBottleMotionOnceItLands(direction);
+        if (!this.isBottleBroken) {
+            if (this.y >= 350) {
+                this.stopBottleMotionOnceItLands(direction);
+            } else {
+                this.checkDirectionLeftOrRightMovingBottle(direction);
+                this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
+            }
         } else {
-            this.checkDirectionLeftOrRightMovingBottle(direction);
-            this.playAnimation(this.BOTTLE_ROTATE_IMAGES);
+            setTimeout(() => {
+                clearInterval(this.intervalID);
+                this.img.src = '';
+            }, 100);
         }
     }
 
@@ -161,16 +157,31 @@ class ThrowableObject extends MovableObject {
     * @param {string} direction - The direction the bottle is moving.
     */
 
-    throwBottleFunction(direction, throwableObjects) {
-        console.log('is throwable Objects Array still there: ', throwableObjects);
+    throwBottleFunction(direction) {
         this.clearIntervalIDFunction();
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
                 this.checkWhetherBottleIsFlyingInTheAirOrLanding(direction)
-            }, 50);
+            }, 75);
         } else if (this.isBottleBroken) {
-            this.playBottleBrokenAnimation();
+            this.clearBottleBrokenIntervalIfItsExist();
+            this.bottleBrokenIntervalId = setInterval(() => {
+                this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
+            }, 50);
         }
+    }
+
+    clearBottleBrokenIntervalIfItsExist() {
+        if (this.bottleBrokenIntervalId) {
+            clearInterval(this.bottleBrokenIntervalId);
+        }
+    }
+
+    playBottleBrokenAnimation() {
+        if (this.bottleBrokenIntervalId) {
+            clearInterval(this.bottleBrokenIntervalId);
+        }
+        this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
     }
 
     /**
@@ -241,33 +252,30 @@ class ThrowableObject extends MovableObject {
     * @param {number} animationInterval - The time in milliseconds between each frame.
     */
 
-    setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval) {
-        this.bottleBrokenIntervalId = setInterval(() => {
-            this.checkIfBottleIsAlreadyBroken();
-            this.img.src = this.BOTTLE_BROKEN_IMAGES[this.currentImage];
-            this.currentImage++;
-            if (this.currentImage >= totalFrames) {
-                clearInterval(this.bottleBrokenIntervalId);
-                console.log('image value: ', this.img.src);
-                this.img.src = '';
-            }
-        }, animationInterval);
-    }
+    // setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval) {
+    //     this.bottleBrokenIntervalId = setInterval(() => {
+    //         this.img.src = this.BOTTLE_BROKEN_IMAGES[this.currentImage];
+    //         this.currentImage++;
+    //         if (this.currentImage >= totalFrames) {
+    //             clearInterval(this.bottleBrokenIntervalId);
+    //         }
+    //     }, animationInterval);
+    // }
 
     /**
     * Plays the bottle breaking animation by cycling through the frames of the bottle broken image sequence.
     * If an interval for the animation already exists, it will be cleared before starting a new one.
     */
 
-    playBottleBrokenAnimation() {
-        this.currentImage = 0;
-        let animationInterval = 50;
-        let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
-        if (this.bottleBrokenIntervalId) {
-            clearInterval(this.bottleBrokenIntervalId);
-        }
-        if (this.isBottleBroken) {
-            this.setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval);
-        }
-    }
+    // playBottleBrokenAnimation() {
+    //     this.currentImage = 0;
+    //     let animationInterval = 50;
+    //     let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
+    //     if (this.bottleBrokenIntervalId) {
+    //         clearInterval(this.bottleBrokenIntervalId);
+    //     }
+    //     if (this.isBottleBroken) {
+    //         this.setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval);
+    //     }
+    // }
 }

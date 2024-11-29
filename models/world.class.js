@@ -410,4 +410,6 @@ class World {
         mo.x = mo.x * -1
         this.ctx.restore();
     }
+
+    // Neu hinzugefügte Methoden zum entfernen von Objekten
 }
