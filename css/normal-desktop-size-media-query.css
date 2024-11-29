@@ -44,7 +44,7 @@
     }
 }
 
-@media(max-width: 1500px) and (max-height: 1100px) and (hover: hover) {
+@media(max-width: 1300px) and (max-height: 1100px) and (hover: hover) {
     #losing-image {
         width: 100dvw;
         height: 100dvh;
@@ -68,11 +68,11 @@
     }
 
     #sound-on-icon {
-        width: 68px;
+        width: 60px;
     }
 
     #sound-off-icon {
-        width: 68px;
+        width: 60px;
     }
 
     #fullscreen {
@@ -200,13 +200,9 @@
     .main-title-properties img {
         width: 48px;
     }
-
-    /* :fullscreen #minimize-button {
-        display: none;
-    } */
 }
 
-@media(min-width: 1500px) and (max-height: 1100px) and (hover: hover) {
+@media(min-width: 1300px) and (max-height: 1100px) and (hover: hover) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
@@ -230,9 +226,17 @@
     .sound-screen-container {
         right: 28%;
     }
+
+    #sound-on-icon {
+        width: 40px;
+    }
+
+    #sound-off-icon {
+        width: 40px;
+    }
 }
 
-@media(min-width: 1500px) and (min-height: 1100px) and (max-height: 1400px) and (hover: hover) {
+@media(min-width: 1300px) and (min-height: 1100px) and (max-height: 1400px) and (hover: hover) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
@@ -260,9 +264,17 @@
         width: 100%;
         height: 100%;
     }
+
+    #sound-on-icon {
+        width: 40px;
+    }
+
+    #sound-off-icon {
+        width: 40px;
+    }
 }
 
-@media(min-width: 1500px) and (min-height: 1400px) and (hover: hover) {
+@media(min-width: 1300px) and (min-height: 1400px) and (hover: hover) {
     .all-icons-button-container {
         display: flex;
     }

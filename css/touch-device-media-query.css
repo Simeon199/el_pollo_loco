@@ -144,17 +144,3 @@
         width: 48px;
     }
 }
-
-@media(hover: none) and (min-width: 800px) and (min-height: 600px) {
-    .control-panel-everything img {
-        width: 76px;
-    }
-
-    #sound-on-icon {
-        width: 76px;
-    }
-
-    #sound-off-icon {
-        width: 76px;
-    }
-}
