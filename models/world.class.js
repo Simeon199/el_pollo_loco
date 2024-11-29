@@ -51,7 +51,7 @@ class World {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-        }, 100);
+        }, 125);
     }
 
     /**
@@ -410,6 +410,4 @@ class World {
         mo.x = mo.x * -1
         this.ctx.restore();
     }
-
-    // Neu hinzugefügte Methoden zum entfernen von Objekten
 }

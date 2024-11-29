@@ -146,7 +146,7 @@ class ThrowableObject extends MovableObject {
             setTimeout(() => {
                 clearInterval(this.intervalID);
                 this.img.src = '';
-            }, 100);
+            }, 25);
         }
     }
 

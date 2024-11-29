@@ -245,10 +245,13 @@ class Character extends MovableObject {
         let currentTime = new Date().getTime();
         let timeFrameSinceCharacterExists = currentTime - this.timeSinceCharacterExists;
         if (this.characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists)) {
+            console.log('characterExistsMoreThanFiveSecondsButNoButtonWasPressed');
             this.playSleepAnimationWithAudio();
         } else if (this.keyWasntPressedForMoreThanFiveSeconds()) {
+            console.log('keyWasntPressedForMoreThanFiveSeconds');
             this.playSleepAnimationWithAudio();
         } else if (this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds()) {
+            console.log('keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds');
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
@@ -281,7 +284,11 @@ class Character extends MovableObject {
     */
 
     characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists) {
-        return timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isKeyStillPressed == false && this.isAttacked == false && !this.isHurt();
+        return timeFrameSinceCharacterExists > 5000
+            && this.wasRandomKeyOncePressed == false
+            && this.isKeyStillPressed == false
+            && this.isAttacked == false
+            && !this.isHurt();
     }
 
     /**
@@ -289,7 +296,7 @@ class Character extends MovableObject {
      * @returns {boolean} True if the condition is met, false otherwise.
      */
 
-    keyWasntPressedForMoreThanFiveSeconds() { // this.wasRandomKeyOncePressed == true &&
+    keyWasntPressedForMoreThanFiveSeconds() {
         return this.timePassedWhenKeyPressed > 5000 &&
             this.wasRandomKeyOncePressed == true &&
             this.isKeyStillPressed == false &&
