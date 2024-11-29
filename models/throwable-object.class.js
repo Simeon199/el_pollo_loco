@@ -89,7 +89,7 @@ class ThrowableObject extends MovableObject {
     */
 
     handleSpeedAndGravityOfThrowedBottle() {
-        this.speedY = 30;
+        this.speedY = 25;
         this.applyGravity();
     }
 
