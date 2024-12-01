@@ -12,6 +12,10 @@ class Endboss extends Chicken {
     height = 400;
     width = 250;
     y = 55;
+    offsetBottom = 0;
+    offsetTop = 0;
+    offsetRight = 50;
+    offsetLeft = 50;
     world;
 
     /**
