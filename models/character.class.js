@@ -7,14 +7,12 @@ class Character extends MovableObject {
     rightNow = 0;
     fixDate = 0;
     timeDifference = 0;
-    isJumping = false;
     wasRandomKeyOncePressed = false;
     isKeyStillPressed = false;
     someKeyWasPressedAgain = 0;
     lastTimeKeyPressed = 0;
     timePassedWhenKeyPressed;
     isAttacked = false;
-    muteValue = false;
     timeSinceCharacterExists = 0;
     height = 280;
     width = 130;
@@ -245,13 +243,10 @@ class Character extends MovableObject {
         let currentTime = new Date().getTime();
         let timeFrameSinceCharacterExists = currentTime - this.timeSinceCharacterExists;
         if (this.characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists)) {
-            console.log('characterExistsMoreThanFiveSecondsButNoButtonWasPressed');
             this.playSleepAnimationWithAudio();
         } else if (this.keyWasntPressedForMoreThanFiveSeconds()) {
-            console.log('keyWasntPressedForMoreThanFiveSeconds');
             this.playSleepAnimationWithAudio();
         } else if (this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds()) {
-            console.log('keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds');
             this.playSleepAnimationWithAudio();
         } else {
             this.playAnimation(this.IMAGES_CHILL);
@@ -266,12 +261,8 @@ class Character extends MovableObject {
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         if (this.lastTimeKeyPressed !== 0) {
             let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
-            return this.timeDifference > 5000
-                && timePassedWhenKeyReleased > 5000
-                && this.timePassedWhenKeyPressed > 5000
-                && this.isKeyStillPressed == false
-                && this.isAttacked == false
-                && !this.isHurt();
+            return this.timeDifference > 5000 && timePassedWhenKeyReleased > 5000 && this.timePassedWhenKeyPressed > 5000 && this.isKeyStillPressed == false &&
+                this.isAttacked == false && !this.isHurt();
         } else {
             return false;
         }
@@ -284,11 +275,7 @@ class Character extends MovableObject {
     */
 
     characterExistsMoreThanFiveSecondsButNoButtonWasPressed(timeFrameSinceCharacterExists) {
-        return timeFrameSinceCharacterExists > 5000
-            && this.wasRandomKeyOncePressed == false
-            && this.isKeyStillPressed == false
-            && this.isAttacked == false
-            && !this.isHurt();
+        return timeFrameSinceCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.isKeyStillPressed == false && this.isAttacked == false && !this.isHurt();
     }
 
     /**
@@ -297,11 +284,7 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedForMoreThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed > 5000 &&
-            this.wasRandomKeyOncePressed == true &&
-            this.isKeyStillPressed == false &&
-            this.isAttacked == false &&
-            !this.isHurt();
+        return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.isKeyStillPressed == false && this.isAttacked == false && !this.isHurt();
     }
 
     /**
@@ -309,7 +292,7 @@ class Character extends MovableObject {
      */
 
     characterIsJumpingOrMoving() {
-        if (this.keyWasntPressedForLessThanTwoSeconds()) {
+        if (this.keyWasntPressedForLessThanHundredMiliSeconds()) {
             this.playAnimation([this.IMAGES_JUMPING[1]]);
         }
         if (this.keyRightWasPressed()) {
@@ -375,14 +358,12 @@ class Character extends MovableObject {
     }
 
     /**
-     * Checks if no key was pressed for less than 2 seconds.
+     * Checks if no key was pressed for less than 100 miliseconds.
      * @returns {boolean} True if the condition is met, false otherwise.
      */
 
-    keyWasntPressedForLessThanTwoSeconds() {
-        this.timePassedWhenKeyPressed < 100 &&
-            !this.isAboveGround() &&
-            !this.isHurt();
+    keyWasntPressedForLessThanHundredMiliSeconds() {
+        this.timePassedWhenKeyPressed < 100 && !this.isAboveGround() && !this.isHurt();
     }
 
     /**

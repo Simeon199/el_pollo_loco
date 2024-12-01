@@ -20,9 +20,7 @@ function stopAllSounds() {
 
 function turnSoundOnOrOff() {
     soundIsMuted = !soundIsMuted;
-    // muteUnmuteSound(soundIsMuted);
     if (soundIsMuted) {
-        // debugger;
         showTurningSoundOffIcon();
     } else {
         showTurningSoundOnIcon();
@@ -118,7 +116,6 @@ function setAllCharacterAudioSound(mute) {
         world.character.characterIsJumpingOrMoving();
     }
     if (world.audioManager.sounds['snorring_sound']) {
-        // debugger;
         world.audioManager.muteSound(mute, 'snorring_sound');
     }
 }

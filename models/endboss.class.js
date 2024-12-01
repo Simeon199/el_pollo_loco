@@ -3,11 +3,9 @@
  */
 
 class Endboss extends Chicken {
-    endbossHitCharacter = false;
     endbossHitCharacterAtTime = 0;
     endbossSpeedX = 20;
     mainCharacterPosition = null;
-    hurtAnimationEnd = 0;
     timePassedLimit = 5;
     animateInterval = -1;
     isEndbossHurt = false;
@@ -264,7 +262,6 @@ class Endboss extends Chicken {
 
     /**
     * Checks if the main character is too close to the Endboss from the right side.
-    * The condition is met if the horizontal distance between the Endboss and the character is less than 400 pixels and the Endboss is positioned to the left of the character.
     * 
     * @returns {boolean} True if the main character is close from the right and the Endboss is still alive, false otherwise.
     */
@@ -274,8 +271,7 @@ class Endboss extends Chicken {
     }
 
     /**
-    * Checks if the main character is too close to the Endboss from the left side. The condition is met if the horizontal distance between the Endboss and the character
-    * is less than 400 pixels and the Endboss is positioned to the right of the character.
+    * Checks if the main character is too close to the Endboss from the left side.
     * 
     * @returns {boolean} True if the main character is close from the left and the Endboss is still alive, false otherwise.
     */
@@ -350,8 +346,7 @@ class Endboss extends Chicken {
     }
 
     /**
-    * Checks if the Endboss is hurt and if the time passed since the last hit is below the defined time limit. 
-    * The time limit (`this.timePassedLimit`) is multiplied by 1000 to convert seconds into milliseconds.
+    * Checks if the Endboss is hurt and if the time passed since the last hit is below the defined time limit.
     * 
     * @returns {boolean} True if the Endboss is hurt and the time since the last hit is less than the time limit, false otherwise.
     */
