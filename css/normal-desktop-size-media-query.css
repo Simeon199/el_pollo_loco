@@ -1,6 +1,6 @@
 @media(hover: hover) {
     #intro-image {
-        width: 100%;
+        /* width: 100%; */
         height: auto;
         justify-content: center;
     }
@@ -10,7 +10,7 @@
         height: auto;
     }
 
-    canvas {
+    /* canvas {
         width: 45%;
         height: auto;
         aspect-ratio: 720 / 480;
@@ -20,7 +20,7 @@
         width: 45%;
         height: auto;
         aspect-ratio: 720 / 480;
-    }
+    } */
 
     #intro-image img:nth-child(2) {
         bottom: 2%;
@@ -44,7 +44,7 @@
     }
 }
 
-@media(max-width: 1300px) and (max-height: 1100px) and (hover: hover) {
+@media(max-width: 1000px) and (max-height: 1000px) and (hover: hover) {
     #losing-image {
         width: 100dvw;
         height: 100dvh;
@@ -202,12 +202,24 @@
     }
 }
 
-@media(min-width: 1300px) and (max-height: 1100px) and (hover: hover) {
+@media(min-width: 1000px) and (max-height: 1000px) and (hover: hover) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    #main-title {
+        font-size: 50px;
+    }
+
+    .main-title-properties h2 {
+        display: none;
+    }
+
+    .main-title-properties img {
+        width: 80px;
     }
 
     .game-functions-container h2 {
@@ -236,7 +248,7 @@
     }
 }
 
-@media(min-width: 1300px) and (min-height: 1100px) and (max-height: 1400px) and (hover: hover) {
+@media(min-width: 1400px) and (min-height: 1000px) and (max-height: 1400px) and (hover: hover) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
@@ -274,7 +286,7 @@
     }
 }
 
-@media(min-width: 1300px) and (min-height: 1400px) and (hover: hover) {
+@media(min-width: 1400px) and (min-height: 1400px) and (hover: hover) {
     .all-icons-button-container {
         display: flex;
     }

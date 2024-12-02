@@ -21,10 +21,14 @@
     cursor: pointer;
 }
 
+#icon-and-settings-container-in-intro-image {
+    display: none;
+}
+
 /* #intro-image properties */
 
 #intro-image {
-    width: 100%;
+    /* width: 100%; */
     position: relative;
     height: auto;
     display: flex;
