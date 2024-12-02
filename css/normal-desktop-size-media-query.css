@@ -1,26 +1,8 @@
 @media(hover: hover) {
     #intro-image {
-        /* width: 100%; */
         height: auto;
         justify-content: center;
     }
-
-    /* .canvas-container {
-        width: 100%;
-        height: auto;
-    } */
-
-    /* canvas {
-        width: 45%;
-        height: auto;
-        aspect-ratio: 720 / 480;
-    }
-
-    #intro-image img:nth-child(1) {
-        width: 45%;
-        height: auto;
-        aspect-ratio: 720 / 480;
-    } */
 
     #intro-image img:nth-child(2) {
         bottom: 2%;
@@ -206,10 +188,18 @@
     .game-functions-container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         width: 100%;
         height: 100%;
+    }
+
+    .game-notification {
+        font-size: 24px;
+    }
+
+    .control-keys h3 {
+        font-size: 24px;
     }
 
     #main-title {
