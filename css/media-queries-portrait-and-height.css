@@ -141,4 +141,73 @@
         width: 40px;
         height: auto;
     }
+
+    #all-icons-container-mini-version {
+        gap: unset;
+        width: 100%;
+        height: 100%;
+    }
+
+    .game-functions-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+        height: 100%;
+    }
+
+    .control-keys {
+        padding-left: 16px;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .control-keys img {
+        width: 60px;
+    }
+}
+
+@media(max-width: 700px) and (hover: hover) {
+    #all-icons-container-mini-version a {
+        font-size: 12px;
+    }
+
+    .game-notification {
+        display: none;
+    }
+
+    .control-key-style {
+        min-width: 200px;
+    }
+
+    .control-keys img {
+        width: 40px;
+    }
+
+    .control-keys h3 {
+        font-size: 16px;
+    }
+
+    .game-functions-container img:nth-child(2) {
+        width: 24px;
+    }
+}
+
+@media(max-width: 500px) and (hover: hover) {
+    .main-title-properties img {
+        width: 32px;
+    }
+
+    .all-icons-button-container-small-version button {
+        font-size: 12px;
+    }
+
+    #intro-image img:nth-child(2) {
+        width: 40px;
+        right: unset;
+    }
+
+    #all-icons-container-mini-version a {
+        font-size: 11px;
+    }
 }

@@ -144,3 +144,52 @@
         width: 48px;
     }
 }
+
+@media(max-width: 700px) and (hover: none) {
+    #all-icons-container-mini-version a {
+        font-size: 12px;
+    }
+
+    .game-notification {
+        display: none;
+    }
+
+    .control-key-style {
+        min-width: 200px;
+    }
+
+    .control-keys img {
+        width: 40px;
+    }
+
+    .control-keys h3 {
+        font-size: 16px;
+    }
+
+    .game-functions-container img:nth-child(2) {
+        width: 24px;
+    }
+}
+
+@media(max-width: 500px) and (hover: none) {
+    .main-title-properties img {
+        width: 32px;
+    }
+
+    .all-icons-button-container-small-version button {
+        font-size: 12px;
+    }
+
+    #intro-image img:nth-child(2) {
+        width: 40px;
+        right: unset;
+    }
+
+    #all-icons-container-mini-version a {
+        font-size: 11px;
+    }
+
+    /* .game-notification {
+        display: none;
+    } */
+}
