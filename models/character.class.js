@@ -342,8 +342,6 @@ class Character extends MovableObject {
     playCharacterIsInTheAirLogic() {
         if (this.speedY > 0) {
             this.playAnimation(this.IMAGES_JUMPING);
-        } else {
-            this.playAnimation([this.IMAGES_JUMPING[3]]);
         }
     }
 
