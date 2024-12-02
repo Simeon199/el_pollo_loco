@@ -5,10 +5,10 @@
         justify-content: center;
     }
 
-    .canvas-container {
+    /* .canvas-container {
         width: 100%;
         height: auto;
-    }
+    } */
 
     /* canvas {
         width: 45%;
@@ -40,7 +40,7 @@
         z-index: 10001;
         position: absolute;
         bottom: 2%;
-        right: 28%;
+        right: 1%;
     }
 }
 
