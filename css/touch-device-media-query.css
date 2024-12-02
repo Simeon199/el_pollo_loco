@@ -146,6 +146,27 @@
 }
 
 @media(max-width: 700px) and (hover: none) {
+    .control-panel-everything img {
+        width: 48px;
+        padding: 4px;
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+
+    #sound-on-icon {
+        width: 48px;
+        padding: 4px;
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+
+    #sound-off-icon {
+        width: 48px;
+        padding: 4px;
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+
     #all-icons-container-mini-version a {
         font-size: 12px;
     }
@@ -188,8 +209,4 @@
     #all-icons-container-mini-version a {
         font-size: 11px;
     }
-
-    /* .game-notification {
-        display: none;
-    } */
 }
