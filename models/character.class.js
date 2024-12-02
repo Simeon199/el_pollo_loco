@@ -340,8 +340,14 @@ class Character extends MovableObject {
     */
 
     playCharacterIsInTheAirLogic() {
-        if (this.speedY > 0) {
-            this.playAnimation(this.IMAGES_JUMPING);
+        console.log(this.currentImage);
+        if (this.currentImage <= this.IMAGES_JUMPING.length) {
+            if (this.speedY > 0) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            }
+        }
+        else if (this.currentImage > this.IMAGES_JUMPING.length) {
+            this.currentImage = 0;
         }
     }
 
