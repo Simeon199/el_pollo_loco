@@ -40,7 +40,7 @@ class MovableObject extends DrawableObject {
                 this.y = 145;
                 this.isJumping = false;
             }
-        }, 80);
+        }, 100);
     }
 
     /**
@@ -242,7 +242,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else {
-            this.speedY = 20;
+            this.speedY = 18;
         }
     }
 

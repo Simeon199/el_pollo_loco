@@ -66,29 +66,42 @@ class Character extends MovableObject {
             this.characterIsJumpingOrMoving();
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
             this.isCharacterInTheAir();
-            this.updateCameraPosition();
-        }, 175);
+            // this.updateCameraPosition();
+        }, 200);
 
         // setInterval(() => {
-        //     if (this.keyRightWasPressed()) { }
-        //     this.world.camera_x = this.x + 200;
-        //     if (this.keyLeftWasPressed()) { }
-        //     this.world.camera_x = -this.x + 200;
-        // }, 1000 / 60);
+        //     this.characterIsJumping();
+        //     this.isCharacterInTheAir();
+        // }, 500);
+
+        setInterval(() => {
+            if (this.keyRightWasPressed()) {
+                console.log('key right was pressed!');
+            }
+            this.world.camera_x = this.x + 200;
+            if (this.keyLeftWasPressed()) {
+                console.log('key left was pressed');
+            }
+            this.world.camera_x = -this.x + 200;
+        }, 50);
     };
 
     isCharacterInTheAir() {
-        if (this.isAboveGround()) { // || this.speedY > 0
+        if (this.isAboveGround()) {
             this.playCharacterIsInTheAirLogic();
         }
     }
 
-    updateCameraPosition() {
-        if (this.keyRightWasPressed()) { }
-        this.world.camera_x = this.x + 200;
-        if (this.keyLeftWasPressed()) { }
-        this.world.camera_x = -this.x + 200;
-    }
+    // updateCameraPosition() {
+    //     if (this.keyRightWasPressed()) {
+    //         console.log('key right was pressed!');
+    //     }
+    //     this.world.camera_x = this.x + 200;
+    //     if (this.keyLeftWasPressed()) {
+    //         console.log('key left was pressed');
+    //     }
+    //     this.world.camera_x = -this.x + 200;
+    // }
 
     /**
      * Determines if the character was recently hit but is still within a protected time window.
@@ -320,11 +333,9 @@ class Character extends MovableObject {
         if (this.keyRightWasPressed()) {
             this.playMovingRightAnimationWithAudio();
         }
-        // this.world.camera_x = this.x + 200;
         if (this.keyLeftWasPressed()) {
             this.playMovingLeftAnimationWithAudio();
         }
-        // this.world.camera_x = -this.x + 200;
         if (this.keySpaceWasPressed()) {
             this.executeJumpLogic();
         }
@@ -340,9 +351,25 @@ class Character extends MovableObject {
         }
         if (!this.isJumping) {
             this.isJumping = true;
-            this.playAnimation(this.IMAGES_JUMPING);
+            // this.playAnimation(this.IMAGES_JUMPING);
         }
         this.jump();
+        // this.playCharacterIsInTheAirLogic();
+    }
+
+    /**
+    * Plays the appropriate animation logic when the character is in the air. Displays jumping animations based on the vertical speed of the character.
+    */
+
+    playCharacterIsInTheAirLogic() {
+        if (this.isJumping) {
+            if (this.currentImage < this.IMAGES_JUMPING.length) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            }
+            else {
+                this.currentImage = 0;
+            }
+        }
     }
 
     /**
@@ -356,28 +383,6 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_HURT);
         }
     }
-
-    /**
-    * Plays the appropriate animation logic when the character is in the air. Displays jumping animations based on the vertical speed of the character.
-    */
-
-    playCharacterIsInTheAirLogic() {
-        if (this.isJumping) {
-            if (this.currentImage < this.IMAGES_JUMPING.length) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                this.currentImage = 0;
-            }
-        }
-    }
-
-    // playCharacterIsInTheAirLogic() {
-    //     if (this.currentImage <= this.IMAGES_JUMPING.length) {
-    //         this.playAnimation(this.IMAGES_JUMPING);
-    //     } else {
-    //         this.currentImage = 0;
-    //     }
-    // }
 
     /**
     * Plays the walking animation logic if the right or left key is pressed.
