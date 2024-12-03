@@ -38,8 +38,9 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else {
                 this.y = 145;
+                this.isJumping = false;
             }
-        }, 100);
+        }, 80);
     }
 
     /**

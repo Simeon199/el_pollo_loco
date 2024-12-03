@@ -13,6 +13,7 @@ class Character extends MovableObject {
     lastTimeKeyPressed = 0;
     timePassedWhenKeyPressed;
     isAttacked = false;
+    isJumping = false;
     timeSinceCharacterExists = 0;
     height = 280;
     width = 130;
@@ -64,8 +65,30 @@ class Character extends MovableObject {
             this.characterIsEitherSleepingOrChilling();
             this.characterIsJumpingOrMoving();
             this.characterIsDyingGetsHurtIsJumpingOrWalking();
-        }, 100);
+            this.isCharacterInTheAir();
+            this.updateCameraPosition();
+        }, 175);
+
+        // setInterval(() => {
+        //     if (this.keyRightWasPressed()) { }
+        //     this.world.camera_x = this.x + 200;
+        //     if (this.keyLeftWasPressed()) { }
+        //     this.world.camera_x = -this.x + 200;
+        // }, 1000 / 60);
     };
+
+    isCharacterInTheAir() {
+        if (this.isAboveGround()) { // || this.speedY > 0
+            this.playCharacterIsInTheAirLogic();
+        }
+    }
+
+    updateCameraPosition() {
+        if (this.keyRightWasPressed()) { }
+        this.world.camera_x = this.x + 200;
+        if (this.keyLeftWasPressed()) { }
+        this.world.camera_x = -this.x + 200;
+    }
 
     /**
      * Determines if the character was recently hit but is still within a protected time window.
@@ -133,6 +156,7 @@ class Character extends MovableObject {
     playMovingRightAnimationWithAudio() {
         this.moveRight();
         this.otherDirection = false;
+        this.playWalkingLogic();
         if (soundOn) {
             this.toggleMovingSoundsWhileRunning();
         }
@@ -145,6 +169,7 @@ class Character extends MovableObject {
     playMovingLeftAnimationWithAudio() {
         this.moveLeft();
         this.otherDirection = true;
+        this.playWalkingLogic();
         if (soundOn) {
             this.toggleMovingSoundsWhileRunning();
         }
@@ -292,17 +317,14 @@ class Character extends MovableObject {
      */
 
     characterIsJumpingOrMoving() {
-        if (this.keyWasntPressedForLessThanHundredMiliSeconds()) {
-            this.playAnimation([this.IMAGES_JUMPING[1]]);
-        }
         if (this.keyRightWasPressed()) {
             this.playMovingRightAnimationWithAudio();
         }
-        this.world.camera_x = this.x + 200;
+        // this.world.camera_x = this.x + 200;
         if (this.keyLeftWasPressed()) {
             this.playMovingLeftAnimationWithAudio();
         }
-        this.world.camera_x = -this.x + 200;
+        // this.world.camera_x = -this.x + 200;
         if (this.keySpaceWasPressed()) {
             this.executeJumpLogic();
         }
@@ -316,6 +338,10 @@ class Character extends MovableObject {
         if (!this.world.audioManager.isSoundMuted('walking_sound')) {
             this.world.audioManager.muteSound(true, 'walking_sound');
         }
+        if (!this.isJumping) {
+            this.isJumping = true;
+            this.playAnimation(this.IMAGES_JUMPING);
+        }
         this.jump();
     }
 
@@ -326,12 +352,8 @@ class Character extends MovableObject {
     characterIsDyingGetsHurtIsJumpingOrWalking() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
-        } else if (this.isAboveGround()) {
-            this.playCharacterIsInTheAirLogic();
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-        } else {
-            this.playWalkingLogic();
         }
     }
 
@@ -340,16 +362,22 @@ class Character extends MovableObject {
     */
 
     playCharacterIsInTheAirLogic() {
-        console.log(this.currentImage);
-        if (this.currentImage <= this.IMAGES_JUMPING.length) {
-            if (this.speedY > 0) {
+        if (this.isJumping) {
+            if (this.currentImage < this.IMAGES_JUMPING.length) {
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else {
+                this.currentImage = 0;
             }
         }
-        else if (this.currentImage > this.IMAGES_JUMPING.length) {
-            this.currentImage = 0;
-        }
     }
+
+    // playCharacterIsInTheAirLogic() {
+    //     if (this.currentImage <= this.IMAGES_JUMPING.length) {
+    //         this.playAnimation(this.IMAGES_JUMPING);
+    //     } else {
+    //         this.currentImage = 0;
+    //     }
+    // }
 
     /**
     * Plays the walking animation logic if the right or left key is pressed.
@@ -359,15 +387,6 @@ class Character extends MovableObject {
         if (this.wasRightOrLeftKeyPressed()) {
             this.playAnimation(this.IMAGES_WALKING);
         }
-    }
-
-    /**
-     * Checks if no key was pressed for less than 100 miliseconds.
-     * @returns {boolean} True if the condition is met, false otherwise.
-     */
-
-    keyWasntPressedForLessThanHundredMiliSeconds() {
-        this.timePassedWhenKeyPressed < 100 && !this.isAboveGround() && !this.isHurt();
     }
 
     /**
