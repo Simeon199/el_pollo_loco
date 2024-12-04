@@ -76,6 +76,10 @@ class Character extends MovableObject {
         }, 50);
     };
 
+    /**
+     * Checks if the logic for when the character is in the air should be executed. If the character is jumping, it plays the appropriate logic and disables the sleeping state.
+     */
+
     shouldCharacterInTheAirLogicBePlayed() {
         if (this.isJumping) {
             this.playCharacterIsInTheAirLogic();
@@ -222,11 +226,19 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+    * Sets the `isSleeping` property to `false` if it is currently `true`.
+    */
+
     setIsSleepingOnFalseIfSetTrue() {
         if (this.isSleeping == true) {
             this.isSleeping = false;
         }
     }
+
+    /**
+    * Determines if the sleep animation should be played based on the sleeping state. Plays the sleep animation with audio if sleeping, otherwise plays the chill animation.
+    */
 
     checkIfSleepAnimationShouldBePlayed() {
         if (this.isSleeping == true) {
@@ -251,6 +263,12 @@ class Character extends MovableObject {
             this.isSleeping = false;
         }
     }
+
+    /**
+     * Evaluates conditions required for the character to start sleeping.
+     * @param {number} timeCharacterExists - The time in seconds the character has been active.
+     * @returns {boolean} Returns `true` if any of the sleep conditions are met, otherwise `false`.
+     */
 
     conditionsToBeMetForSleeping(timeCharacterExists) {
         return this.characterExistsFiveSecondsButNoButtonPressed(timeCharacterExists) ||
@@ -281,6 +299,11 @@ class Character extends MovableObject {
     characterExistsFiveSecondsButNoButtonPressed(timeCharacterExists) {
         return timeCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
+
+    /**
+    * Checks if all required conditions are true for the sleep animation to play.
+    * @returns {boolean} Returns `true` if the character is not pressing any keys, not attacked, not jumping, and not hurt.
+    */
 
     allVariablesThatMustBeTrueForSleepAnimation() {
         return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && !this.isHurt();
