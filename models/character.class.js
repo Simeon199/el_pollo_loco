@@ -214,7 +214,6 @@ class Character extends MovableObject {
     */
 
     playSleepAnimationWithAudio() {
-        // this.playAnimation(this.IMAGES_SLEEP);
         if (this.soundIsntMutedAndKeyIsntPressed()) {
             if (this.world.audioManager.isSoundMuted('snorring_sound')) {
                 this.world.audioManager.muteSound(false, 'snorring_sound');
@@ -233,6 +232,8 @@ class Character extends MovableObject {
         if (this.isSleeping == true) {
             this.playAnimation(this.IMAGES_SLEEP);
             this.playSleepAnimationWithAudio();
+        } else {
+            this.playAnimation(this.IMAGES_CHILL);
         }
     }
 
@@ -245,11 +246,9 @@ class Character extends MovableObject {
         let timeCharacterExists = currentTime - this.timeSinceCharacterExists;
         let conditionsToBeMetForSleeping = this.conditionsToBeMetForSleeping(timeCharacterExists);
         if (conditionsToBeMetForSleeping == true) {
-            // debugger;
             this.isSleeping = true;
         } else {
-            this.playAnimation(this.IMAGES_CHILL);
-            this.setIsSleepingOnFalseIfSetTrue();
+            this.isSleeping = false;
         }
     }
 
@@ -266,12 +265,11 @@ class Character extends MovableObject {
 
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         if (this.lastTimeKeyPressed !== 0) {
-            let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed); // && this.timePassedWhenKeyPressed > 5000
-            return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
-                && this.wasRandomKeyOncePressed == true
-                && timePassedWhenKeyReleased > 5000
+            let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
+            return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000 && this.wasRandomKeyOncePressed == true && timePassedWhenKeyReleased > 5000
                 && this.allVariablesThatMustBeTrueForSleepAnimation();
         }
+        return false;
     }
 
     /**
@@ -281,16 +279,11 @@ class Character extends MovableObject {
     */
 
     characterExistsFiveSecondsButNoButtonPressed(timeCharacterExists) {
-        return timeCharacterExists > 5000 &&
-            this.wasRandomKeyOncePressed == false &&
-            this.allVariablesThatMustBeTrueForSleepAnimation();
+        return timeCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
 
     allVariablesThatMustBeTrueForSleepAnimation() {
-        return this.isKeyPressed == false
-            && this.isAttacked == false
-            && this.isJumping == false
-            && !this.isHurt();
+        return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && !this.isHurt();
     }
 
     /**
@@ -299,9 +292,7 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedForMoreThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed > 5000
-            && this.wasRandomKeyOncePressed == true
-            && this.allVariablesThatMustBeTrueForSleepAnimation();
+        return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
 
     /**
