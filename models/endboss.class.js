@@ -317,7 +317,7 @@ class Endboss extends Chicken {
     checkIfEndbossAlreadyHitCharacter() {
         let date = new Date().getTime();
         let timeDifference = date - this.endbossHitCharacterAtTime;
-        this.world.character.timeDifference = timeDifference;
+        this.world.character.timeDifferenceBetweenNowAndLastHitFromEndboss = timeDifference;
         if (timeDifference < 200) {
             this.endbossSpeedX = 0;
         } else if (timeDifference >= 200) {

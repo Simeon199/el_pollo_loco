@@ -160,21 +160,20 @@ document.addEventListener('fullscreenchange', () => {
  * Sets global variables when a key or touch event is triggered.
  */
 
-function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    excludeCertainEvents(event);
+function settingGlobalVariablesInKeyDownOrTouchStartEvent() { // event
+    isKeyPressed = true;
+    wasRandomKeyOncePressed = true;
     someKeyWasPressedAgain = new Date().getTime();
     world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
     world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-    world.character.isKeyStillPressed = isKeyPressed;
+    world.character.isKeyPressed = isKeyPressed;
 }
 
-function excludeCertainEvents(event) {
-    let excludedIds = ["sound-off-icon", "sound-on-icon"];
-    let targetElement = event.target;
-    if (!excludedIds.includes(targetElement.id)) {
-        wasRandomKeyOncePressed = true;
-        isKeyPressed = true;
-    }
+function excludeCertainEvents(event) { // Bei wasRandomKeyPressed und den anderen press events sound-off und sound-on ausschließen!
+    let soundOnIcon = document.getElementById('sound-on-icon');
+    let soundOffIcon = document.getElementById('sound-off-icon');
+    let booleanValue = event.target == (soundOnIcon || soundOffIcon);
+    return booleanValue;
 }
 
 /**
@@ -185,7 +184,7 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
     isKeyPressed = false;
     lastTimeKeyPressed = new Date().getTime();
     world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyStillPressed = isKeyPressed;
+    world.character.isKeyPressed = isKeyPressed;
 }
 
 /**
@@ -226,15 +225,16 @@ function muteSnorringSoundIfNecessary() {
 // Event listener for touchstart events
 
 function touchStartHandler(event) {
-    if (wasntPlayIconPressed(event) && isGamePlaying == true) {
-        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+    if (wasntPlayIconPressed(event) && excludeCertainEvents(event) == false && isGamePlaying == true) {
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(); // event
+        muteSnorringSoundIfNecessary();
         if (wasButtonLeftPressed(event)) {
             prepareForThrowingLeft();
-            world.audioManager.muteSound(true, 'snorring_sound');
+            // world.audioManager.muteSound(true, 'snorring_sound');
         }
         if (wasButtonRightPressed(event)) {
             prepareForThrowingRight();
-            world.audioManager.muteSound(true, 'snorring_sound');
+            // world.audioManager.muteSound(true, 'snorring_sound');
         }
         if (wasButtonUpPressed(event)) {
             keyboard.SPACE = true;
@@ -290,29 +290,32 @@ window.addEventListener('keydown', keyDownHandler);
  */
 
 function keyDownHandler(event) {
-    settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-    if (event.keyCode == 39) {
-        prepareForThrowingRight();
+    if (excludeCertainEvents(event) == false) {
         muteSnorringSoundIfNecessary();
-    }
-    if (event.keyCode == 37) {
-        prepareForThrowingLeft();
-        muteSnorringSoundIfNecessary();
-    }
-    if (event.keyCode == 38) {
-        world.audioManager.muteSound(false, 'walking_sound');
-        keyboard.UP = true;
-    }
-    if (event.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-    if (event.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-    if (event.keyCode == 68) {
-        keyboard.keyD = true;
-        timeWhenKeyDWasPressed = new Date().getTime();
-        giveOrDenyPermissionToThrow();
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+        if (event.keyCode == 39) {
+            prepareForThrowingRight();
+            // muteSnorringSoundIfNecessary();
+        }
+        if (event.keyCode == 37) {
+            prepareForThrowingLeft();
+            // muteSnorringSoundIfNecessary();
+        }
+        if (event.keyCode == 38) {
+            // world.audioManager.muteSound(false, 'walking_sound');
+            keyboard.UP = true;
+        }
+        if (event.keyCode == 40) {
+            keyboard.DOWN = true;
+        }
+        if (event.keyCode == 32) {
+            keyboard.SPACE = true;
+        }
+        if (event.keyCode == 68) {
+            keyboard.keyD = true;
+            timeWhenKeyDWasPressed = new Date().getTime();
+            giveOrDenyPermissionToThrow();
+        }
     }
 }
 

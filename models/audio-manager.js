@@ -57,6 +57,7 @@ class AudioManager {
         }
     }
 
+
     /**
      * Toggles the background music playback. 
      * If it is currently playing, it will be paused, and vice versa.
