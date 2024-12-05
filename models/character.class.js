@@ -67,7 +67,6 @@ class Character extends MovableObject {
             this.characterIsDyingOrGetsHurt();
             this.shouldCharacterInTheAirLogicBePlayed();
         }, 100);
-
         setInterval(() => {
             if (this.keyRightWasPressed()) { }
             this.world.camera_x = this.x + 200;
@@ -140,68 +139,6 @@ class Character extends MovableObject {
         this.moveLeft();
         this.otherDirection = true;
         this.playWalkingLogic();
-    }
-
-    /**
-    * Toggles moving sounds based on the character's running state. If the walking sound is muted and conditions are met, it unmutes the walking sound.
-    * If the walking sound has ended, it restarts the sound.
-    */
-
-    toggleMovingSoundsWhileRunning() {
-        if (this.isWalkingSoundMutedCharacterInTheAirAndSoundOn()) {
-            this.muteSnorringSoundIfNecessary();
-            this.unmuteWalkingSoundAndPlayIt();
-        } else if (this.hasWalkingSoundEnded()) {
-            this.playWalkingSoundFromBeginning();
-        }
-    }
-
-    /**
-    * Checks if the walking sound is muted, the character is on the ground, and sound is enabled.
-    * @returns {boolean} True if all conditions are met, false otherwise.
-    */
-
-    isWalkingSoundMutedCharacterInTheAirAndSoundOn() {
-        return this.world.audioManager.isSoundMuted('walking_sound') && !this.isAboveGround() && soundOn == true;
-    }
-
-    /**
-    * Checks if the walking sound has ended or its playback time is at the beginning.
-    * @returns {boolean} True if the sound has ended or is at the beginning, false otherwise.
-    */
-
-    hasWalkingSoundEnded() {
-        return this.world.audioManager.sounds['walking_sound'].ended || this.world.audioManager.sounds['walking_sound'].currentTime == 0;
-    }
-
-    /**
-    * Mutes the snoring sound if it is currently unmuted.
-    */
-
-    muteSnorringSoundIfNecessary() {
-        if (!this.world.audioManager.isSoundMuted('snorring_sound')) {
-            this.world.audioManager.muteSound(true, 'snorring_sound');
-        }
-    }
-
-    /**
-    * Unmutes the walking sound and starts playing it from the beginning.
-    */
-
-    unmuteWalkingSoundAndPlayIt() {
-        this.world.audioManager.muteSound(false, 'walking_sound');
-        this.playWalkingSoundFromBeginning();
-    }
-
-    /**
-    * Starts playing the walking sound from the beginning if the right or left key is pressed.
-    */
-
-    playWalkingSoundFromBeginning() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.world.audioManager.sounds['walking_sound'].currentTime = 0;
-            this.world.audioManager.playSound('walking_sound');
-        }
     }
 
     /**
@@ -386,7 +323,7 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }
         if (soundOn) {
-            this.toggleMovingSoundsWhileRunning();
+            this.world.audioManager.toggleMovingSoundsWhileRunning();
         }
     }
 

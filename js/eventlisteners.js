@@ -8,28 +8,11 @@ permissionToThrow = true;
  */
 
 if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-    /**
-     * Listens for the `pointerdown` event and checks if the pointer type is `touch`.
-     * 
-     * @param {PointerEvent} event - The event object that provides information about the pointer interaction.
-     */
-    document.addEventListener('pointerdown', function (event) {
-        if (event.pointerType === 'touch') {
-            /**
-            * Prevents the default context menu from appearing. Stops event propagation to avoid conflicts with other event listeners.
-            * This listener is applied only once per touch interaction.
-            * 
-            * @param {Event} event - The context menu event triggered by a long press.
-            * @returns {boolean} - Always returns `false` to prevent further event handling.
-            */
-            document.addEventListener('contextmenu', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                event.stopImmediatePropagation();
-                return false;
-            }, { once: true });
-        }
-    });
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+    }, { passive: false }); // 'passive: false' ist wichtig, um sicherzustellen, dass `preventDefault()` greift.
 }
 
 /**

@@ -7,6 +7,8 @@ class AudioManager {
      * Initializes the AudioManager with background music and sound effects.
      */
 
+    world;
+
     constructor() {
         this.isBackgroundMusicPaused = false;
         this.backgroundMusic = new Audio('audio/laCucaracha.mp3');
@@ -44,6 +46,68 @@ class AudioManager {
             this.isBackgroundMusicPaused = false;
         }
         this.isBackgroundMusicPaused = false;
+    }
+
+    /**
+    * Toggles moving sounds based on the character's running state. If the walking sound is muted and conditions are met, it unmutes the walking sound.
+    * If the walking sound has ended, it restarts the sound.
+    */
+
+    toggleMovingSoundsWhileRunning() {
+        if (this.isWalkingSoundMutedCharacterInTheAirAndSoundOn()) {
+            this.muteSnorringSoundIfNecessary();
+            this.unmuteWalkingSoundAndPlayIt();
+        } else if (this.hasWalkingSoundEnded()) {
+            this.playWalkingSoundFromBeginning();
+        }
+    }
+
+    /**
+    * Checks if the walking sound is muted, the character is on the ground, and sound is enabled.
+    * @returns {boolean} True if all conditions are met, false otherwise.
+    */
+
+    isWalkingSoundMutedCharacterInTheAirAndSoundOn() {
+        return this.isSoundMuted('walking_sound') && !this.world.character.isAboveGround() && soundOn == true;
+    }
+
+    /**
+    * Mutes the snoring sound if it is currently unmuted.
+    */
+
+    muteSnorringSoundIfNecessary() {
+        if (!this.isSoundMuted('snorring_sound')) {
+            this.muteSound(true, 'snorring_sound');
+        }
+    }
+
+    /**
+    * Unmutes the walking sound and starts playing it from the beginning.
+    */
+
+    unmuteWalkingSoundAndPlayIt() {
+        this.muteSound(false, 'walking_sound');
+        this.playWalkingSoundFromBeginning();
+    }
+
+    /**
+    * Starts playing the walking sound from the beginning if the right or left key is pressed.
+    */
+
+    playWalkingSoundFromBeginning() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.sounds['walking_sound'].currentTime = 0;
+            this.playSound('walking_sound');
+        }
+    }
+
+    /**
+    * Checks if the walking sound has ended or its playback time is at the beginning.
+    * @returns {boolean} True if the sound has ended or is at the beginning, false otherwise.
+    */
+
+    hasWalkingSoundEnded() {
+        return this.sounds['walking_sound'].ended || this.sounds['walking_sound'].currentTime == 0;
     }
 
     /**
