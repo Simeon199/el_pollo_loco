@@ -33,90 +33,8 @@ if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
 }
 
 /**
- * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
- * Sets `keyboard.LEFT` to true and ensures that `rightForThrow` is false while `leftForThrow` is true.
- */
-
-function prepareForThrowingLeft() {
-    keyboard.LEFT = true;
-    if (keyboard.rightForThrow == true) {
-        keyboard.rightForThrow = false;
-    }
-    keyboard.leftForThrow = true;
-}
-
-/**
- * Prepares the player to throw an object to the right by setting the appropriate keyboard properties.
- * Sets `keyboard.RIGHT` to true and ensures that `leftForThrow` is false while `rightForThrow` is true.
- */
-
-function prepareForThrowingRight() {
-    keyboard.RIGHT = true;
-    if (keyboard.leftForThrow == true) {
-        keyboard.leftForThrow = false;
-    }
-    keyboard.rightForThrow = true;
-}
-
-/**
- * Checks if the play icon was not pressed.
- * 
- * @param {Event} event - The event object from the user interaction.
- * @returns {boolean} - Returns true if the play icon was not pressed.
- */
-
-function wasntPlayIconPressed(event) {
-    return event.target !== document.getElementById('playIcon');
-}
-
-/**
- * Checks if the left button was pressed.
- * 
- * @param {Event} event - The event object from the user interaction.
- * @returns {boolean} - Returns true if the left button was pressed.
- */
-
-function wasButtonLeftPressed(event) {
-    return event.target == document.getElementById('buttonLeft');
-}
-
-/**
- * Checks if the right button was pressed.
- * 
- * @param {Event} event - The event object from the user interaction.
- * @returns {boolean} - Returns true if the right button was pressed.
- */
-
-function wasButtonRightPressed(event) {
-    return event.target == document.getElementById('buttonRight');
-}
-
-/**
- * Checks if the up button was pressed.
- * 
- * @param {Event} event - The event object from the user interaction.
- * @returns {boolean} - Returns true if the up button was pressed.
- */
-
-function wasButtonUpPressed(event) {
-    return event.target == document.getElementById('buttonUp');
-}
-
-/**
- * Checks if the throw button was pressed.
- * 
- * @param {Event} event - The event object from the user interaction.
- * @returns {boolean} - Returns true if the throw button was pressed.
- */
-
-function wasButtonThrowPressed(event) {
-    return event.target == document.getElementById('buttonThrow');
-}
-
-/**
  *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
  */
-
 
 window.addEventListener("resize", checkOrientation);
 
@@ -125,23 +43,6 @@ window.addEventListener("resize", checkOrientation);
  */
 
 window.addEventListener("orientationchange", checkOrientation);
-
-/**
- * Checks if all background images in the document are hidden. Returns `true` if all specified images are hidden; otherwise, returns `false`.
- *
- * @returns {boolean} - `true` if all specified images ('winning-image', 'losing-image', 'intro-image') are hidden and variable isGamePlaying is false. 
- */
-
-function proveIfBackgroundIsEmpty() {
-    let winningImage = document.getElementById('winning-image');
-    let losingImage = document.getElementById('losing-image');
-    let introImage = document.getElementById('intro-image');
-    let boolean1 = winningImage.style.display == 'none';
-    let boolean2 = losingImage.style.display == 'none';
-    let boolean3 = introImage.style.display == 'none';
-    let boolean4 = isGamePlaying == false;
-    return totalBoolean = boolean1 && boolean2 && boolean3 && boolean4;
-}
 
 /**
  * Toggles fullscreen mode and handles the exit from fullscreen.
@@ -155,47 +56,6 @@ document.addEventListener('fullscreenchange', () => {
         isChangingToFullscreen = false;
     }
 });
-
-/**
- * Sets global variables when a key or touch event is triggered.
- */
-
-function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    if (event.type.startsWith('touch') && excludeCertainEvents(event) == true) {
-        wasRandomKeyOncePressed = false;
-        isKeyPressed = false;
-    } else {
-        wasRandomKeyOncePressed = true;
-        isKeyPressed = true;
-    }
-    someKeyWasPressedAgain = new Date().getTime();
-    world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-    world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-    world.character.isKeyPressed = isKeyPressed;
-}
-
-function excludeCertainEvents(event) {
-    let soundOnIcon = document.getElementById('sound-on-icon');
-    let soundOffIcon = document.getElementById('sound-off-icon');
-    if (event.target == soundOffIcon) {
-        return true;
-    } else if (event.target == soundOnIcon) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/**
- * Sets global variables when a key or touch event ends.
- */
-
-function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
-    isKeyPressed = false;
-    lastTimeKeyPressed = new Date().getTime();
-    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyPressed = isKeyPressed;
-}
 
 /**
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
@@ -221,18 +81,12 @@ window.addEventListener('touchstart', touchStartHandler);
 window.addEventListener('touchend', touchEndHandler);
 
 /**
- * This function checks the current mute status of the snoring sound in the audio manager. If the snoring sound is not muted, it will
- * mute the sound by invoking the `muteSound` method of the `audioManager`.
+ * Handles the touchstart event to set key states and perform specific actions based on the touch input.
+ * Verifies that the play icon was not pressed and that the game is active.
+ * Manages left, right, up, and throw button states, and initiates corresponding actions.
+ *
+ * @param {TouchEvent} event - The touchstart event object.
  */
-
-function muteSnorringSoundIfNecessary() {
-    let snorring_sound = world.audioManager.sounds['snorring_sound'];
-    if (snorring_sound.muted == false) {
-        world.audioManager.muteSound(true, 'snorring_sound');
-    }
-}
-
-// Event listener for touchstart events
 
 function touchStartHandler(event) {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
@@ -255,7 +109,13 @@ function touchStartHandler(event) {
     }
 }
 
-// Event listener for touchend events
+/**
+ * Handles the touchend event to update the game state by resetting key states and managing audio.
+ * Checks if the event did not involve the play icon and if the game is currently playing.
+ * Updates key states for left, right, up, and throw buttons.
+ *
+ * @param {TouchEvent} event - The touchend event object.
+ */
 
 function touchEndHandler(event) {
     if (wasntPlayIconPressed(event) && isGamePlaying == true) {
@@ -323,21 +183,6 @@ function keyDownHandler(event) {
 }
 
 /**
- * Grants or denies permission to throw an object based on the timing of key "D" actions.
- */
-
-function giveOrDenyPermissionToThrow() {
-    if (timeWhenKeyDWasReleased > 0) {
-        timeDifferenceBetweenKeyDReleasedAndLaterPressed = Math.abs(timeWhenKeyDWasPressed - timeWhenKeyDWasReleased);
-        if (timeDifferenceBetweenKeyDReleasedAndLaterPressed > 500) {
-            permissionToThrow = true;
-        } else {
-            permissionToThrow = false;
-        }
-    }
-}
-
-/**
  * Handles 'keyup' events by resetting keyboard states based on key codes. Stops specific game actions based on the arrow keys, spacebar, and 'D' key.
  *
  * @param {KeyboardEvent} event - The keyup event containing key code data.
@@ -382,19 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame();
     });
 });
-
-/**
- * Adds or removes classes based on fullscreen activation status. Manages class changes when entering or exiting fullscreen mode.
- */
-
-function addingAndRemovingClassesDependingOnFullscreenActivated() {
-    isFullscreenActivated = !!document.fullscreenElement;
-    if (!isFullscreenActivated) {
-        manageAddRemoveClassesWhenExitFullscreen();
-    } else {
-        isChangingToFullscreen = false;
-    }
-}
 
 /**
  * Removes all previously attached event listeners from the window and document. Cleans up to prevent memory leaks and unwanted behavior when resetting the game.
