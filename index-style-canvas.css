@@ -59,8 +59,14 @@ body {
 }
 
 .sound-container {
+    z-index: 9999;
+    right: 5%;
     cursor: pointer;
+    position: absolute;
+    top: 15%;
 }
+
+
 
 .style-container {
     padding: 4px;
@@ -76,16 +82,16 @@ body {
     background-color: wheat;
 }
 
-#control-panel-throw-right {
+#control-panel-throw-jump {
     display: flex;
     justify-content: space-around;
-    width: 50%;
+    width: 20%;
 }
 
-#control-panel-left-jump {
+#control-panel-left-right {
     display: flex;
     justify-content: space-around;
-    width: 50%;
+    width: 20%;
 }
 
 .canvas-container .sound-container img:nth-child(2) {
@@ -170,7 +176,7 @@ canvas {
     z-index: 1;
 }
 
-.sound-screen-control-container {
+.screen-control-container {
     display: flex;
     justify-content: center;
     z-index: 10001;

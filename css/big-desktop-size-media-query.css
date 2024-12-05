@@ -75,7 +75,7 @@
         display: none;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         justify-content: end;
     }
 }
@@ -93,7 +93,7 @@
         aspect-ratio: 720 / 480;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         right: 13%;
     }
 
@@ -165,7 +165,7 @@
         display: none;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         justify-content: end;
     }
 

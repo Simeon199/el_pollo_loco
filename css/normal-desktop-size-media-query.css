@@ -16,7 +16,7 @@
         align-items: center;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         display: flex;
         justify-content: center;
         z-index: 10001;
@@ -68,11 +68,11 @@
         background-color: wheat;
     }
 
-    #control-panel-left-jump {
+    #control-panel-left-right {
         display: none;
     }
 
-    #control-panel-throw-right {
+    #control-panel-throw-jump {
         display: none;
     }
 
@@ -164,7 +164,7 @@
         justify-content: center;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         bottom: 1%;
         right: 1%;
     }
@@ -256,7 +256,7 @@
         display: none;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         justify-content: end;
     }
 
@@ -361,7 +361,7 @@
         display: none;
     }
 
-    .sound-screen-control-container {
+    .screen-control-container {
         justify-content: end;
     }
 }
