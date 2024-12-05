@@ -1,3 +1,4 @@
+let isSoundIconInteraction = false;
 let timePassedWhenKeyReleased;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
@@ -72,9 +73,9 @@ window.addEventListener('touchend', touchEndHandler);
  */
 
 function touchStartHandler(event) {
-    if (wasntPlayIconPressed(event) && isGamePlaying == true) {
-        settingGlobalVariablesInKeyDownOrTouchStartEvent(event); // event
-        muteSnorringSoundIfNecessary();
+    isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+    if (isGamePlayingAndPlayAndSoundIconsWasntTouched(event)) {
+        manageSoundAndPrepareGlobalVariables(event);
         if (wasButtonLeftPressed(event)) {
             prepareForThrowingLeft();
         }
@@ -141,7 +142,7 @@ window.addEventListener('keydown', keyDownHandler);
  */
 
 function keyDownHandler(event) {
-    muteSnorringSoundIfNecessary();
+    world.audioManager.muteSnorringSoundIfNecessary();
     settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
     if (event.keyCode == 39) {
         prepareForThrowingRight();

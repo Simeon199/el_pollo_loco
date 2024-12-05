@@ -104,11 +104,14 @@ function proveIfBackgroundIsEmpty() {
  */
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    setKeyPressedVariablesRight(event);
-    someKeyWasPressedAgain = new Date().getTime();
-    world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-    world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-    world.character.isKeyPressed = isKeyPressed;
+    world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+    if (!world.character.isSoundIconInteraction) {
+        setKeyPressedVariablesRight(event);
+        someKeyWasPressedAgain = new Date().getTime();
+        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+        world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+        world.character.isKeyPressed = isKeyPressed;
+    }
 }
 
 /**
@@ -169,18 +172,6 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
 }
 
 /**
- * This function checks the current mute status of the snoring sound in the audio manager. If the snoring sound is not muted, it will
- * mute the sound by invoking the `muteSound` method of the `audioManager`.
- */
-
-function muteSnorringSoundIfNecessary() {
-    let snorring_sound = world.audioManager.sounds['snorring_sound'];
-    if (snorring_sound.muted == false) {
-        world.audioManager.muteSound(true, 'snorring_sound');
-    }
-}
-
-/**
  * Grants or denies permission to throw an object based on the timing of key "D" actions.
  */
 
@@ -193,6 +184,29 @@ function giveOrDenyPermissionToThrow() {
             permissionToThrow = false;
         }
     }
+}
+
+/**
+ * Manages sound-related settings and prepares global variables based on the triggered event.
+ * Calls functions to set global key press variables and mute the snoring sound if necessary.
+ *
+ * @param {Event} event - The event object triggered by a key press or touch interaction.
+ */
+
+function manageSoundAndPrepareGlobalVariables(event) {
+    settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+    world.audioManager.muteSnorringSoundIfNecessary();
+}
+
+/**
+ * Checks if the game is currently playing and ensures that neither the sound icons nor the play icon was touched.
+ * This function returns `true` if the game is active, the play icon was not pressed, and no interaction with sound icons occurred.
+ *
+ * @returns {boolean} `true` if the game is playing, the play icon wasn't touched, and no sound icon interaction occurred; otherwise, `false`.
+ */
+
+function isGamePlayingAndPlayAndSoundIconsWasntTouched(event) {
+    return !isSoundIconInteraction && wasntPlayIconPressed(event) && isGamePlaying == true;
 }
 
 /**

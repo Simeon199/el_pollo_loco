@@ -5,6 +5,7 @@
 
 class Character extends MovableObject {
     fixDate = 0;
+    isSoundIconInteraction = false;
     timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
     wasRandomKeyOncePressed = false;
     isKeyPressed = false;
@@ -194,7 +195,7 @@ class Character extends MovableObject {
         let currentTime = new Date().getTime();
         let timeCharacterExists = currentTime - this.timeSinceCharacterExists;
         let conditionsToBeMetForSleeping = this.conditionsToBeMetForSleeping(timeCharacterExists);
-        if (conditionsToBeMetForSleeping == true) {
+        if (conditionsToBeMetForSleeping == true && !this.isSoundIconInteraction) {
             this.isSleeping = true;
         } else {
             this.isSleeping = false;
