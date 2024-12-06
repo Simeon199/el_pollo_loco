@@ -4,7 +4,8 @@
  */
 
 class Character extends MovableObject {
-    fixDate = 0;
+    // fixDate = 0;
+    currentTime = 0;
     isSoundIconInteraction = false;
     timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
     wasRandomKeyOncePressed = false;
@@ -16,6 +17,7 @@ class Character extends MovableObject {
     isAttacked = false;
     isJumping = false;
     timeSinceCharacterExists = 0;
+    timeCharacterExists = 0;
     height = 280;
     width = 130;
     y = 20;
@@ -62,11 +64,24 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
-            this.characterIsEitherSleepingOrChilling();
-            this.checkIfSleepAnimationShouldBePlayed();
-            this.characterIsJumpingOrMoving();
-            this.characterIsDyingOrGetsHurt();
-            this.shouldCharacterInTheAirLogicBePlayed();
+            if (this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction) {
+                this.playAnimation(this.IMAGES_SLEEP);
+                this.world.audioManager.playSleepAudio();
+            } else if (this.keyRightWasPressed()) {
+                this.playMovingRightAnimationWithAudio();
+            } else if (this.keyLeftWasPressed()) {
+                this.playMovingLeftAnimationWithAudio();
+            } else if (this.keySpaceWasPressed()) {
+                this.isJumping = true;
+                this.executeJumpLogic();
+                this.playCharacterIsInTheAirLogic();
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else {
+                this.playAnimation(this.IMAGES_CHILL);
+            }
         }, 100);
         setInterval(() => {
             if (this.keyRightWasPressed()) { }
@@ -77,14 +92,13 @@ class Character extends MovableObject {
     };
 
     /**
-     * Checks if the logic for when the character is in the air should be executed. If the character is jumping, it plays the appropriate logic and disables the sleeping state.
+     * Sets all the global variables that are related to the character's movement state. Also mutes walking and snorring sounds.
      */
 
-    shouldCharacterInTheAirLogicBePlayed() {
-        if (this.isJumping) {
-            this.playCharacterIsInTheAirLogic();
-            this.setIsSleepingOnFalseIfSetTrue();
-        }
+    setRelevantGlobalVariablesForMovingCharacter() {
+        this.currentTime = new Date().getTime();
+        this.timeCharacterExists = this.currentTime - this.timeSinceCharacterExists;
+        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain);
     }
 
     /**
@@ -114,15 +128,6 @@ class Character extends MovableObject {
     }
 
     /**
-    * Checks if the sound is not muted, sound is enabled, and no key is currently pressed.
-    * @returns {boolean} True if sound is enabled and no key is pressed, false otherwise.
-    */
-
-    soundIsntMutedAndKeyIsntPressed() {
-        return soundIsMuted == false && soundOn == true && this.isKeyPressed == false;;
-    }
-
-    /**
      * Moves the character to the right and plays the walking sound.
      */
 
@@ -143,28 +148,6 @@ class Character extends MovableObject {
     }
 
     /**
-     * Sets all the global variables that are related to the character's movement state. Also mutes walking and snorring sounds.
-     */
-
-    setRelevantGlobalVariablesForMovingCharacter() {
-        this.fixDate = new Date().getTime();
-        this.timePassedWhenKeyPressed = Math.abs(this.fixDate - this.someKeyWasPressedAgain);
-    }
-
-    /**
-    * Plays the sleep animation with the snoring sound.
-    */
-
-    playSleepAnimationWithAudio() {
-        if (this.soundIsntMutedAndKeyIsntPressed()) {
-            if (this.world.audioManager.isSoundMuted('snorring_sound')) {
-                this.world.audioManager.muteSound(false, 'snorring_sound');
-            }
-            this.world.audioManager.playSound('snorring_sound');
-        }
-    }
-
-    /**
     * Sets the `isSleeping` property to `false` if it is currently `true`.
     */
 
@@ -175,41 +158,13 @@ class Character extends MovableObject {
     }
 
     /**
-    * Determines if the sleep animation should be played based on the sleeping state. Plays the sleep animation with audio if sleeping, otherwise plays the chill animation.
-    */
-
-    checkIfSleepAnimationShouldBePlayed() {
-        if (this.isSleeping == true) {
-            this.playAnimation(this.IMAGES_SLEEP);
-            this.playSleepAnimationWithAudio();
-        } else {
-            this.playAnimation(this.IMAGES_CHILL);
-        }
-    }
-
-    /**
-     * Checks if the character should play the sleep or chill animation based on inactivity.
-     */
-
-    characterIsEitherSleepingOrChilling() {
-        let currentTime = new Date().getTime();
-        let timeCharacterExists = currentTime - this.timeSinceCharacterExists;
-        let conditionsToBeMetForSleeping = this.conditionsToBeMetForSleeping(timeCharacterExists);
-        if (conditionsToBeMetForSleeping == true && !this.isSoundIconInteraction) {
-            this.isSleeping = true;
-        } else {
-            this.isSleeping = false;
-        }
-    }
-
-    /**
      * Evaluates conditions required for the character to start sleeping.
      * @param {number} timeCharacterExists - The time in seconds the character has been active.
      * @returns {boolean} Returns `true` if any of the sleep conditions are met, otherwise `false`.
      */
 
-    conditionsToBeMetForSleeping(timeCharacterExists) {
-        return this.characterExistsFiveSecondsButNoButtonPressed(timeCharacterExists) ||
+    conditionsToBeMetForSleeping() { // timeCharacterExists
+        return this.characterExistsFiveSecondsButNoButtonPressed() || // timeCharacterExists
             this.keyWasntPressedForMoreThanFiveSeconds() ||
             this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
@@ -234,8 +189,8 @@ class Character extends MovableObject {
     * @returns {boolean} True if conditions are met, false otherwise.
     */
 
-    characterExistsFiveSecondsButNoButtonPressed(timeCharacterExists) {
-        return timeCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.allVariablesThatMustBeTrueForSleepAnimation();
+    characterExistsFiveSecondsButNoButtonPressed() { // timeCharacterExists
+        return this.timeCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
 
     /**
@@ -254,24 +209,6 @@ class Character extends MovableObject {
 
     keyWasntPressedForMoreThanFiveSeconds() {
         return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.allVariablesThatMustBeTrueForSleepAnimation();
-    }
-
-    /**
-     * Checks if the character should jump or move based on which key is pressed.
-     */
-
-    characterIsJumpingOrMoving() {
-        this.setIsSleepingOnFalseIfSetTrue();
-        if (this.keyRightWasPressed()) {
-            this.playMovingRightAnimationWithAudio();
-        }
-        if (this.keyLeftWasPressed()) {
-            this.playMovingLeftAnimationWithAudio();
-        }
-        if (this.keySpaceWasPressed()) {
-            this.isJumping = true;
-            this.executeJumpLogic();
-        }
     }
 
     /**
@@ -300,19 +237,6 @@ class Character extends MovableObject {
                 }, 350);
             }
         }
-    }
-
-    /**
-     * Checks if the character is hurt, dead, jumping, or walking and plays the corresponding animation.
-     */
-
-    characterIsDyingOrGetsHurt() {
-        if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
-        } else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-        }
-        this.setIsSleepingOnFalseIfSetTrue();
     }
 
     /**

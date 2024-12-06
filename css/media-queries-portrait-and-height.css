@@ -1,8 +1,4 @@
 @media(min-width: 2500px) and (hover: hover) {
-    .game-functions-container {
-        width: 100%;
-    }
-
     .game-functions-container h2 {
         font-size: 60px;
     }
@@ -32,7 +28,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        width: 100%;
     }
 }
 
