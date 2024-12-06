@@ -11,8 +11,6 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     timePassedLimit = 1.5;
-    // jumpMoment = 0;
-    // landingMoment = 0;
     timePassedVariable = 0;
     lastHit = 0;
     offsetRight = 0;
@@ -40,11 +38,9 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else {
                 this.y = 145;
-                // this.landingMoment = new Date().getTime();
-                // console.log('time passed in the air: ', this.landingMoment - this.jumpMoment); // average = 1300 sec
                 this.isJumping = false;
             }
-        }, 80);
+        }, 70);
     }
 
     /**
@@ -145,7 +141,7 @@ class MovableObject extends DrawableObject {
 
     substractCorrectEnergyAmountWhenGetHit() {
         if (this.isEndboss()) {
-            this.energy -= 10;
+            this.energy -= 15;
         } else if (this.isCharacter()) {
             this.energy -= 20;
         }

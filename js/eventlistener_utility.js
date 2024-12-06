@@ -178,7 +178,7 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
 function giveOrDenyPermissionToThrow() {
     if (timeWhenKeyDWasReleased > 0) {
         timeDifferenceBetweenKeyDReleasedAndLaterPressed = Math.abs(timeWhenKeyDWasPressed - timeWhenKeyDWasReleased);
-        if (timeDifferenceBetweenKeyDReleasedAndLaterPressed > 500) {
+        if (timeDifferenceBetweenKeyDReleasedAndLaterPressed > 300) {
             permissionToThrow = true;
         } else {
             permissionToThrow = false;

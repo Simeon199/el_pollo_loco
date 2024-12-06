@@ -8,12 +8,12 @@ permissionToThrow = true;
  * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
 
-if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
     document.addEventListener('contextmenu', function (event) {
         event.preventDefault();
         event.stopPropagation();
         event.stopImmediatePropagation();
-    }, { passive: false }); // 'passive: false' ist wichtig, um sicherzustellen, dass `preventDefault()` greift.
+    }, { passive: false });
 }
 
 /**

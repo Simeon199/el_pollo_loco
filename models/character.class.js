@@ -297,7 +297,7 @@ class Character extends MovableObject {
                 this.img.scr = this.IMAGES_JUMPING[8];
                 setTimeout(() => {
                     this.currentImage = 0;
-                }, 300);
+                }, 350);
             }
         }
     }
