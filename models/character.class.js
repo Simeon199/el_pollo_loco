@@ -82,13 +82,17 @@ class Character extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_CHILL);
             }
-        }, 100);
-        setInterval(() => {
-            if (this.keyRightWasPressed()) { }
-            this.world.camera_x = this.x + 200;
-            if (this.keyLeftWasPressed()) { }
-            this.world.camera_x = -this.x + 200;
         }, 50);
+        setInterval(() => {
+            if (this.keyRightWasPressed()) {
+                this.moveRight();
+            }
+            this.world.camera_x = this.x + 200;
+            if (this.keyLeftWasPressed()) {
+                this.moveLeft();
+            }
+            this.world.camera_x = -this.x + 200;
+        }, 35);
     };
 
     /**
@@ -109,8 +113,8 @@ class Character extends MovableObject {
 
     characterGotHurtButEnjoysProtection() {
         this.setIsSleepingOnFalseIfSetTrue();
-        let currentTime = new Date().getTime();
-        if (this.timePassedBetweenNowAndLastHitAgainstCharacter(currentTime)) {
+        this.currentTime = new Date().getTime(); // currentTime
+        if (this.timePassedBetweenNowAndLastHitAgainstCharacter()) { // currentTime
             return true;
         } else {
             return false;
@@ -123,8 +127,8 @@ class Character extends MovableObject {
     * @returns {boolean} True if less than 2 seconds have passed since the character was hit, false otherwise.
     */
 
-    timePassedBetweenNowAndLastHitAgainstCharacter(currentTime) {
-        return currentTime - this.world.timePointWhenCharacterGetsHit < 2000;
+    timePassedBetweenNowAndLastHitAgainstCharacter() { // currentTime
+        return this.currentTime - this.world.timePointWhenCharacterGetsHit < 2000;
     }
 
     /**
@@ -132,7 +136,6 @@ class Character extends MovableObject {
      */
 
     playMovingRightAnimationWithAudio() {
-        this.moveRight();
         this.otherDirection = false;
         this.playWalkingLogic();
     }
@@ -142,7 +145,6 @@ class Character extends MovableObject {
      */
 
     playMovingLeftAnimationWithAudio() {
-        this.moveLeft();
         this.otherDirection = true;
         this.playWalkingLogic();
     }
