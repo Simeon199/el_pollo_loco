@@ -199,6 +199,12 @@ class AudioManager {
         }
     }
 
+    muteWalkingSoundIfNecessary() {
+        if (!this.isSoundMuted('walking_sound')) {
+            this.muteSound(true, 'walking_sound');
+        }
+    }
+
     /**
      * Mutes or unmutes the background music.
      * 

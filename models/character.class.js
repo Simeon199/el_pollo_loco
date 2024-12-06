@@ -4,7 +4,6 @@
  */
 
 class Character extends MovableObject {
-    // fixDate = 0;
     currentTime = 0;
     isSoundIconInteraction = false;
     timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
@@ -64,17 +63,21 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
-            if (this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction) {
-                this.playAnimation(this.IMAGES_SLEEP);
-                this.world.audioManager.playSleepAudio();
-            } else if (this.keyRightWasPressed()) {
+            if (this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed()) {
+                this.isJumping = true;
+                this.world.audioManager.muteWalkingSoundIfNecessary();
+                this.playCharacterIsInTheAirLogic();
+            } else if (this.keyRightWasPressed() && !this.isAboveGround()) {
                 this.playMovingRightAnimationWithAudio();
-            } else if (this.keyLeftWasPressed()) {
+            } else if (this.keyLeftWasPressed() && !this.isAboveGround()) {
                 this.playMovingLeftAnimationWithAudio();
             } else if (this.keySpaceWasPressed()) {
                 this.isJumping = true;
-                this.executeJumpLogic();
+                this.world.audioManager.muteWalkingSoundIfNecessary();
                 this.playCharacterIsInTheAirLogic();
+            } else if (this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction) {
+                this.playAnimation(this.IMAGES_SLEEP);
+                this.world.audioManager.playSleepAudio();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
@@ -82,17 +85,20 @@ class Character extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_CHILL);
             }
-        }, 50);
+        }, 125);
+
         setInterval(() => {
             if (this.keyRightWasPressed()) {
                 this.moveRight();
+                this.otherDirection = false;
             }
             this.world.camera_x = this.x + 200;
             if (this.keyLeftWasPressed()) {
                 this.moveLeft();
+                this.otherDirection = true;
             }
             this.world.camera_x = -this.x + 200;
-        }, 35);
+        }, 75);
     };
 
     /**
@@ -113,8 +119,8 @@ class Character extends MovableObject {
 
     characterGotHurtButEnjoysProtection() {
         this.setIsSleepingOnFalseIfSetTrue();
-        this.currentTime = new Date().getTime(); // currentTime
-        if (this.timePassedBetweenNowAndLastHitAgainstCharacter()) { // currentTime
+        this.currentTime = new Date().getTime();
+        if (this.timePassedBetweenNowAndLastHitAgainstCharacter()) {
             return true;
         } else {
             return false;
@@ -127,7 +133,7 @@ class Character extends MovableObject {
     * @returns {boolean} True if less than 2 seconds have passed since the character was hit, false otherwise.
     */
 
-    timePassedBetweenNowAndLastHitAgainstCharacter() { // currentTime
+    timePassedBetweenNowAndLastHitAgainstCharacter() {
         return this.currentTime - this.world.timePointWhenCharacterGetsHit < 2000;
     }
 
@@ -165,8 +171,8 @@ class Character extends MovableObject {
      * @returns {boolean} Returns `true` if any of the sleep conditions are met, otherwise `false`.
      */
 
-    conditionsToBeMetForSleeping() { // timeCharacterExists
-        return this.characterExistsFiveSecondsButNoButtonPressed() || // timeCharacterExists
+    conditionsToBeMetForSleeping() {
+        return this.characterExistsFiveSecondsButNoButtonPressed() ||
             this.keyWasntPressedForMoreThanFiveSeconds() ||
             this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
@@ -179,7 +185,8 @@ class Character extends MovableObject {
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         if (this.lastTimeKeyPressed !== 0) {
             let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
-            return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000 && this.wasRandomKeyOncePressed == true && timePassedWhenKeyReleased > 5000
+            return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
+                && this.wasRandomKeyOncePressed == true && timePassedWhenKeyReleased > 5000
                 && this.allVariablesThatMustBeTrueForSleepAnimation();
         }
         return false;
@@ -191,7 +198,7 @@ class Character extends MovableObject {
     * @returns {boolean} True if conditions are met, false otherwise.
     */
 
-    characterExistsFiveSecondsButNoButtonPressed() { // timeCharacterExists
+    characterExistsFiveSecondsButNoButtonPressed() {
         return this.timeCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
 
@@ -214,30 +221,16 @@ class Character extends MovableObject {
     }
 
     /**
-    * Executes the logic for jumping, including muting the walking sound and triggering the jump action.
-    */
-
-    executeJumpLogic() {
-        if (!this.world.audioManager.isSoundMuted('walking_sound')) {
-            this.world.audioManager.muteSound(true, 'walking_sound');
-        }
-        this.jump();
-    }
-
-    /**
     * Plays the appropriate animation logic when the character is in the air. Displays jumping animations based on the vertical speed of the character.
     */
 
     playCharacterIsInTheAirLogic() {
+        if (!this.isJumping && this.keySpaceWasPressed()) {
+            this.isJumping = true;
+        }
         if (this.isJumping) {
-            if (this.currentImage <= this.IMAGES_JUMPING.length - 1) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.currentImage > this.IMAGES_JUMPING.length - 1 && this.isAboveGround()) {
-                this.img.scr = this.IMAGES_JUMPING[8];
-                setTimeout(() => {
-                    this.currentImage = 0;
-                }, 350);
-            }
+            this.jump();
+            this.playAnimation(this.IMAGES_JUMPING);
         }
     }
 
@@ -278,7 +271,7 @@ class Character extends MovableObject {
      */
 
     keySpaceWasPressed() {
-        return this.world.keyboard.SPACE && !this.isAboveGround();
+        return this.world.keyboard.SPACE;
     }
 
     /**

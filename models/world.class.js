@@ -51,13 +51,8 @@ class World {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-            // this.invokeWorldFunction();
         }, 125);
     }
-
-    // invokeWorldFunction() {
-    //     console.log("value of world in audioManager.js is: ", this.audioManager.world);
-    // }
 
     /**
      * Sets references to the game world in different game elements like the character, enemies, status bars, and level.

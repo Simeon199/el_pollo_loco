@@ -38,9 +38,9 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else {
                 this.y = 145;
-                this.isJumping = false;
+                // this.isJumping = false;
             }
-        }, 70);
+        }, 100);
     }
 
     /**
@@ -241,8 +241,8 @@ class MovableObject extends DrawableObject {
     jump() {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
-        } else {
-            this.speedY = 18;
+        } else if (!this.isAboveGround()) {
+            this.speedY = 15;
         }
     }
 
