@@ -180,7 +180,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Sets all the global variables that are related to the character's movement state. Also mutes walking and snorring sounds.
+     * Sets global variables related to the character's movement and timing. Tracks the current time, the total existence time of the character, 
+     * and the time passed since a key was last pressed.
      */
 
     setRelevantGlobalVariablesForMovingCharacter() {
@@ -207,7 +208,6 @@ class Character extends MovableObject {
 
     /**
     * Determines whether less than 2 seconds have passed since the character was last hit.
-    * @param {number} currentTime - The current timestamp.
     * @returns {boolean} True if less than 2 seconds have passed since the character was hit, false otherwise.
     */
 
@@ -216,7 +216,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the character to the right and plays the walking sound.
+     * Plays the animation for moving the character to the right and manages the relevant walking audio.
+     * Ensures the character is facing the correct direction.
      */
 
     playMovingRightAnimationWithAudio() {
@@ -225,7 +226,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the character to the left and plays the walking sound.
+     * Plays the animation for moving the character to the left and manages the relevant walking audio.
+     * Ensures the character is facing the correct direction.
      */
 
     playMovingLeftAnimationWithAudio() {
@@ -245,7 +247,6 @@ class Character extends MovableObject {
 
     /**
      * Evaluates conditions required for the character to start sleeping.
-     * @param {number} timeCharacterExists - The time in seconds the character has been active.
      * @returns {boolean} Returns `true` if any of the sleep conditions are met, otherwise `false`.
      */
 
@@ -256,9 +257,9 @@ class Character extends MovableObject {
     }
 
     /**
-    * Checks if more than 5 seconds have passed without any key press or attack on the character.
-    * @returns {boolean} True if conditions are met, false otherwise.
-    */
+     * Determines if no key has been pressed and the character hasn't been attacked for more than five seconds.
+     * @returns {boolean} True if five seconds have passed without key presses or attacks, and all conditions for sleep animation are met.
+     */
 
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         if (this.lastTimeKeyPressed !== 0) {
@@ -271,9 +272,8 @@ class Character extends MovableObject {
     }
 
     /**
-    * Checks if the character has existed for more than 5 seconds and no random key was pressed or attack occurred.
-    * @param {number} timeFrameSinceCharacterExists - Time elapsed since the character's creation.
-    * @returns {boolean} True if conditions are met, false otherwise.
+    * Checks if the character has existed for more than five seconds without any key being pressed.
+    * @returns {boolean} True if the character exists for over five seconds, no keys were pressed, and sleep conditions are met.
     */
 
     characterExistsFiveSecondsButNoButtonPressed() {
@@ -281,17 +281,17 @@ class Character extends MovableObject {
     }
 
     /**
-    * Checks if all required conditions are true for the sleep animation to play.
-    * @returns {boolean} Returns `true` if the character is not pressing any keys, not attacked, not jumping, and not hurt.
-    */
+     * Validates all conditions that must be true for the character to enter the sleep animation.
+     * @returns {boolean} True if the character is not pressing any keys, not being attacked, not jumping, and not hurt.
+     */
 
     allVariablesThatMustBeTrueForSleepAnimation() {
         return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && !this.isHurt();
     }
 
     /**
-     * Checks if no key was pressed for more than 5 seconds (inactivity check).
-     * @returns {boolean} True if the condition is met, false otherwise.
+     * Checks if no key has been pressed for more than five seconds and all conditions for sleep animation are met.
+     * @returns {boolean} True if over five seconds have passed since a key press and sleep conditions are satisfied.
      */
 
     keyWasntPressedForMoreThanFiveSeconds() {
@@ -299,8 +299,9 @@ class Character extends MovableObject {
     }
 
     /**
-    * Plays the walking animation logic if the right or left key is pressed.
-    */
+     * Manages the logic for walking animations and sound effects.
+     * Plays the walking animation if a movement key is pressed, and toggles walking sounds if sound is enabled.
+     */
 
     playWalkingLogic() {
         if (this.wasRightOrLeftKeyPressed()) {
@@ -312,8 +313,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Checks if the right key is pressed.
-     * @returns {boolean} True if the right key is pressed, false otherwise.
+     * Checks if the right key was pressed and ensures the character does not exceed the level's boundary.
+     * @returns {boolean} True if the right key is pressed and the character is within the level bounds.
      */
 
     keyRightWasPressed() {
@@ -321,8 +322,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Checks if the left key is pressed.
-     * @returns {boolean} True if the left key is pressed, false otherwise.
+     * Checks if the left key was pressed and ensures the character does not exceed the level's boundary.
+     * @returns {boolean} True if the left key is pressed and the character is within the level bounds.
      */
 
     keyLeftWasPressed() {
