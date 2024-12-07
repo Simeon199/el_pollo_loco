@@ -57,13 +57,18 @@ class Character extends MovableObject {
     }
 
     /**
-     * Starts the animation cycle for the character. Calls different checks for movement, sleeping, and other states at defined intervals.
-     */
+    * Controls all animations and camera movement for the character in the game world.
+    */
 
     animate() {
         this.manageAllCharacterAnimations();
         this.manageCameraMovementWhenCharacterMovesInWorld();
     };
+
+    /**
+     * Manages all character animations by checking the state of the character and triggering the appropriate animation.
+     * Animations include jumping, moving left/right, sleeping, being hurt, dying, and idle. This method runs continuously at a 125ms interval.
+     */
 
     manageAllCharacterAnimations() {
         setInterval(() => {
@@ -90,6 +95,11 @@ class Character extends MovableObject {
         }, 125);
     }
 
+    /**
+     * Handles the camera's movement in response to the character's position and direction in the world.
+     * Updates the camera position continuously at a 75ms interval.
+     */
+
     manageCameraMovementWhenCharacterMovesInWorld() {
         setInterval(() => {
             if (this.keyRightWasPressed()) {
@@ -105,9 +115,18 @@ class Character extends MovableObject {
         }, 75);
     }
 
+    /**
+     * Checks if the jump and movement keys were pressed simultaneously.
+     * @returns {boolean} True if the space (jump) key and left/right movement keys were pressed together.
+     */
+
     wereJumpAndMoveBruttonPressedSimultaneously() {
         return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
     }
+
+    /**
+     * Triggers the logic for making the character jump. Sets the jumping state to true and mutes walking sounds if necessary.
+     */
 
     triggerJumpLogic() {
         this.isJumping = true;
@@ -115,22 +134,46 @@ class Character extends MovableObject {
         this.jump();
     }
 
+    /**
+     * Checks if the character is currently jumping and is above the ground level.
+     * @returns {boolean} True if the character is in the air and jumping.
+     */
+
     isCharacterJumpingAndAboveTheGround() {
         return this.isJumping == true && this.isAboveGround();
     }
+
+    /**
+     * Plays the sleep animation and corresponding audio.
+     */
 
     playSleepAnimationWithAudio() {
         this.playAnimation(this.IMAGES_SLEEP);
         this.world.audioManager.playSleepAudio();
     }
 
+    /**
+     * Determines if the character should fall asleep due to inactivity.
+     * @returns {boolean} True if all conditions for sleeping are met and there is no sound icon interaction.
+     */
+
     shouldCharacterFallInSleepDueToInactivity() {
         return this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction;
     }
 
+    /**
+     * Checks if the right key is pressed and the character is on the ground.
+     * @returns {boolean} True if the right key is pressed and the character is not jumping.
+     */
+
     keyRightPressedAndCharacterOnGround() {
         return this.keyRightWasPressed() && !this.isAboveGround();
     }
+
+    /**
+     * Checks if the left key is pressed and the character is on the ground.
+     * @returns {boolean} True if the left key is pressed and the character is not jumping.
+     */
 
     keyLeftPressedAndCharacterOnGround() {
         return this.keyLeftWasPressed() && !this.isAboveGround();
