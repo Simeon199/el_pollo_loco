@@ -63,15 +63,21 @@ class AudioManager {
     }
 
     /**
-    * Plays the sleep animation with the snoring sound.
-    */
+     * This function checks if sound is enabled and no key is pressed. If the character is sleeping,
+     * it ensures the "snorring_sound" is unmuted and plays it. If the character is not sleeping,
+     * it mutes the "snorring_sound".
+     */
 
     playSleepAudio() {
         if (this.soundIsntMutedAndKeyIsntPressed()) {
-            if (this.isSoundMuted('snorring_sound')) {
-                this.muteSound(false, 'snorring_sound');
+            if (this.world.character.isSleeping) {
+                if (this.isSoundMuted('snorring_sound')) {
+                    this.muteSound(false, 'snorring_sound');
+                }
+                this.playSound('snorring_sound');
+            } else {
+                this.muteSound(true, 'snorring_sound');
             }
-            this.playSound('snorring_sound');
         }
     }
 
@@ -142,7 +148,6 @@ class AudioManager {
             this.isBackgroundMusicPaused == true;
         }
     }
-
 
     /**
      * Toggles the background music playback. 

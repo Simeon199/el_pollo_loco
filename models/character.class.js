@@ -84,12 +84,16 @@ class Character extends MovableObject {
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
                 this.playMovingLeftAnimationWithAudio();
             } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
+                this.isSleeping = true;
                 this.playSleepAnimationWithAudio();
             } else if (this.isHurt()) {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.playAnimation(this.IMAGES_DEAD);
             } else {
+                this.ifIsSleepingSetTrueSetFalse();
                 this.playAnimation(this.IMAGES_CHILL);
             }
         }, 75);
@@ -115,12 +119,19 @@ class Character extends MovableObject {
         }, 75);
     }
 
+    ifIsSleepingSetTrueSetFalse() {
+        if (this.isSleeping == true) {
+            this.isSleeping = false;
+        }
+    }
+
     /**
      * Checks if the jump and movement keys were pressed simultaneously.
      * @returns {boolean} True if the space (jump) key and left/right movement keys were pressed together.
      */
 
     wereJumpAndMoveBruttonPressedSimultaneously() {
+        this.setIsSleepingOnFalseIfSetTrue();
         return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
     }
 
@@ -140,6 +151,7 @@ class Character extends MovableObject {
      */
 
     isCharacterJumpingAndAboveTheGround() {
+        this.setIsSleepingOnFalseIfSetTrue();
         return this.isJumping == true && this.isAboveGround();
     }
 
@@ -148,8 +160,11 @@ class Character extends MovableObject {
      */
 
     playSleepAnimationWithAudio() {
-        this.playAnimation(this.IMAGES_SLEEP);
-        this.world.audioManager.playSleepAudio();
+        console.log('value of is sleeping: ', this.isSleeping);
+        if (this.isSleeping) {
+            this.playAnimation(this.IMAGES_SLEEP);
+            this.world.audioManager.playSleepAudio();
+        }
     }
 
     /**
@@ -167,6 +182,7 @@ class Character extends MovableObject {
      */
 
     keyRightPressedAndCharacterOnGround() {
+        this.setIsSleepingOnFalseIfSetTrue();
         return this.keyRightWasPressed() && !this.isAboveGround();
     }
 
@@ -176,6 +192,7 @@ class Character extends MovableObject {
      */
 
     keyLeftPressedAndCharacterOnGround() {
+        this.setIsSleepingOnFalseIfSetTrue();
         return this.keyLeftWasPressed() && !this.isAboveGround();
     }
 
@@ -336,6 +353,7 @@ class Character extends MovableObject {
      */
 
     keySpaceWasPressed() {
+        this.setIsSleepingOnFalseIfSetTrue();
         return this.world.keyboard.SPACE;
     }
 
