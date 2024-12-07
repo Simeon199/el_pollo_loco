@@ -61,23 +61,25 @@ class Character extends MovableObject {
      */
 
     animate() {
+        this.manageAllCharacterAnimations();
+        this.manageCameraMovementWhenCharacterMovesInWorld();
+    };
+
+    manageAllCharacterAnimations() {
         setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
-            if (this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed()) {
-                this.isJumping = true;
-                this.world.audioManager.muteWalkingSoundIfNecessary();
-                this.playCharacterIsInTheAirLogic();
-            } else if (this.keyRightWasPressed() && !this.isAboveGround()) {
-                this.playMovingRightAnimationWithAudio();
-            } else if (this.keyLeftWasPressed() && !this.isAboveGround()) {
-                this.playMovingLeftAnimationWithAudio();
+            if (this.wereJumpAndMoveBruttonPressedSimultaneously()) {
+                this.triggerJumpLogic();
             } else if (this.keySpaceWasPressed()) {
-                this.isJumping = true;
-                this.world.audioManager.muteWalkingSoundIfNecessary();
-                this.playCharacterIsInTheAirLogic();
-            } else if (this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction) {
-                this.playAnimation(this.IMAGES_SLEEP);
-                this.world.audioManager.playSleepAudio();
+                this.triggerJumpLogic();
+            } else if (this.isCharacterJumpingAndAboveTheGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.keyRightPressedAndCharacterOnGround()) {
+                this.playMovingRightAnimationWithAudio();
+            } else if (this.keyLeftPressedAndCharacterOnGround()) {
+                this.playMovingLeftAnimationWithAudio();
+            } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
+                this.playSleepAnimationWithAudio();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
@@ -86,7 +88,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_CHILL);
             }
         }, 125);
+    }
 
+    manageCameraMovementWhenCharacterMovesInWorld() {
         setInterval(() => {
             if (this.keyRightWasPressed()) {
                 this.moveRight();
@@ -99,7 +103,38 @@ class Character extends MovableObject {
             }
             this.world.camera_x = -this.x + 200;
         }, 75);
-    };
+    }
+
+    wereJumpAndMoveBruttonPressedSimultaneously() {
+        return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
+    }
+
+    triggerJumpLogic() {
+        this.isJumping = true;
+        this.world.audioManager.muteWalkingSoundIfNecessary();
+        this.jump();
+    }
+
+    isCharacterJumpingAndAboveTheGround() {
+        return this.isJumping == true && this.isAboveGround();
+    }
+
+    playSleepAnimationWithAudio() {
+        this.playAnimation(this.IMAGES_SLEEP);
+        this.world.audioManager.playSleepAudio();
+    }
+
+    shouldCharacterFallInSleepDueToInactivity() {
+        return this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction;
+    }
+
+    keyRightPressedAndCharacterOnGround() {
+        return this.keyRightWasPressed() && !this.isAboveGround();
+    }
+
+    keyLeftPressedAndCharacterOnGround() {
+        return this.keyLeftWasPressed() && !this.isAboveGround();
+    }
 
     /**
      * Sets all the global variables that are related to the character's movement state. Also mutes walking and snorring sounds.
@@ -218,20 +253,6 @@ class Character extends MovableObject {
 
     keyWasntPressedForMoreThanFiveSeconds() {
         return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.allVariablesThatMustBeTrueForSleepAnimation();
-    }
-
-    /**
-    * Plays the appropriate animation logic when the character is in the air. Displays jumping animations based on the vertical speed of the character.
-    */
-
-    playCharacterIsInTheAirLogic() {
-        if (!this.isJumping && this.keySpaceWasPressed()) {
-            this.isJumping = true;
-        }
-        if (this.isJumping) {
-            this.jump();
-            this.playAnimation(this.IMAGES_JUMPING);
-        }
     }
 
     /**
