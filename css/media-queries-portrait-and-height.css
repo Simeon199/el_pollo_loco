@@ -23,7 +23,7 @@
     }
 }
 
-@media(min-height: 1400px) and (hover: hover) {
+@media(min-height: 1300px) and (hover: hover) {
     .game-functions-container {
         display: flex;
         flex-direction: column;
@@ -31,7 +31,7 @@
     }
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-width: 1300px) {
     .game-functions-container {
         display: none;
     }

@@ -92,7 +92,7 @@ class Character extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_CHILL);
             }
-        }, 125);
+        }, 75);
     }
 
     /**

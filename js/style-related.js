@@ -158,11 +158,14 @@ function changeStyleWhenIndependentOfWinningOrLosing() {
  */
 
 function showMessageToTurnDevice() {
-    document.getElementById('overlay').style.display = 'flex';
-    document.getElementById('canvas-container').style.display = 'none';
-    document.getElementById('canvas').style.display = 'none';
-    makeContainersDisappearIfTheyAreStillThere();
-    document.getElementById('message-to-turn-device').style.display = 'flex';
+    // debugger;
+    if (window.innerWidth < 1300 && (window.innerHeight > window.innerWidth)) {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('canvas-container').style.display = 'none';
+        document.getElementById('canvas').style.display = 'none';
+        makeContainersDisappearIfTheyAreStillThere();
+        document.getElementById('message-to-turn-device').style.display = 'flex';
+    }
 }
 
 /**
