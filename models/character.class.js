@@ -84,17 +84,13 @@ class Character extends MovableObject {
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
                 this.playMovingLeftAnimationWithAudio();
             } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
-                this.isSleeping = true;
-                this.playSleepAnimationWithAudio();
+                this.setIsSleepingTrueAndPlayAnimation();
             } else if (this.isHurt()) {
-                this.setIsSleepingOnFalseIfSetTrue();
-                this.playAnimation(this.IMAGES_HURT);
+                this.cancelIsSleepingIfActiveAndPlayHurtAnimation();
             } else if (this.isDead()) {
-                this.setIsSleepingOnFalseIfSetTrue();
-                this.playAnimation(this.IMAGES_DEAD);
+                this.cancelIsSleepingIfActiveAndPlayDeadAnimation();
             } else {
-                this.ifIsSleepingSetTrueSetFalse();
-                this.playAnimation(this.IMAGES_CHILL);
+                this.cancelIsSleepingIfActiveAndPlayChillAnimation();
             }
         }, 75);
     }
@@ -119,10 +115,40 @@ class Character extends MovableObject {
         }, 75);
     }
 
-    ifIsSleepingSetTrueSetFalse() {
-        if (this.isSleeping == true) {
-            this.isSleeping = false;
-        }
+    /**
+     * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the chill animation.
+     */
+
+    cancelIsSleepingIfActiveAndPlayChillAnimation() {
+        this.setIsSleepingOnFalseIfSetTrue();
+        this.playAnimation(this.IMAGES_CHILL);
+    }
+
+    /**
+     * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the dead animation.
+     */
+
+    cancelIsSleepingIfActiveAndPlayDeadAnimation() {
+        this.setIsSleepingOnFalseIfSetTrue();
+        this.playAnimation(this.IMAGES_DEAD);
+    }
+
+    /**
+     * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the hurt animation.
+     */
+
+    cancelIsSleepingIfActiveAndPlayHurtAnimation() {
+        this.setIsSleepingOnFalseIfSetTrue();
+        this.playAnimation(this.IMAGES_HURT);
+    }
+
+    /**
+     * This function activates the sleeping state of the character and triggers the corresponding sleep animation along with the audio.
+     */
+
+    setIsSleepingTrueAndPlayAnimation() {
+        this.isSleeping = true;
+        this.playSleepAnimationWithAudio();
     }
 
     /**
@@ -160,7 +186,6 @@ class Character extends MovableObject {
      */
 
     playSleepAnimationWithAudio() {
-        console.log('value of is sleeping: ', this.isSleeping);
         if (this.isSleeping) {
             this.playAnimation(this.IMAGES_SLEEP);
             this.world.audioManager.playSleepAudio();
