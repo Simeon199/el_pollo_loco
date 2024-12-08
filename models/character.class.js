@@ -20,7 +20,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 15;
+    speed = 5;
     world;
 
     /**
@@ -92,7 +92,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingIfActiveAndPlayChillAnimation();
             }
-        }, 75);
+        }, 90); // 90
     }
 
     /**
@@ -112,7 +112,7 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
             this.world.camera_x = -this.x + 200;
-        }, 75);
+        }, 35); // 35
     }
 
     /**
@@ -396,6 +396,6 @@ class Character extends MovableObject {
      */
 
     bounce() {
-        this.speedY = 15;
+        this.speedY = 10; // 15
     }
 }

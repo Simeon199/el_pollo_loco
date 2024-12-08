@@ -89,7 +89,7 @@ class ThrowableObject extends MovableObject {
     */
 
     handleSpeedAndGravityOfThrowedBottle() {
-        this.speedY = 25;
+        this.speedY = 20;
         this.applyGravity();
     }
 
@@ -146,7 +146,7 @@ class ThrowableObject extends MovableObject {
             setTimeout(() => {
                 clearInterval(this.intervalID);
                 this.img.src = '';
-            }, 25);
+            }, 25); // 25
         }
     }
 
@@ -162,12 +162,12 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
                 this.checkWhetherBottleIsFlyingInTheAirOrLanding(direction)
-            }, 75);
+            }, 75); // 75
         } else if (this.isBottleBroken) {
             this.clearBottleBrokenIntervalIfItsExist();
             this.bottleBrokenIntervalId = setInterval(() => {
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
-            }, 50);
+            }, 75); // 75
         }
     }
 
@@ -244,38 +244,4 @@ class ThrowableObject extends MovableObject {
         let boleanValue = this.keyboard.rightForThrow == false && this.keyboard.leftForThrow == true;
         return boleanValue;
     }
-
-    /**
-    * Sets an interval to play the bottle broken animation, cycling through the frames until the animation finishes.
-    * 
-    * @param {number} totalFrames - The total number of frames in the broken bottle animation.
-    * @param {number} animationInterval - The time in milliseconds between each frame.
-    */
-
-    // setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval) {
-    //     this.bottleBrokenIntervalId = setInterval(() => {
-    //         this.img.src = this.BOTTLE_BROKEN_IMAGES[this.currentImage];
-    //         this.currentImage++;
-    //         if (this.currentImage >= totalFrames) {
-    //             clearInterval(this.bottleBrokenIntervalId);
-    //         }
-    //     }, animationInterval);
-    // }
-
-    /**
-    * Plays the bottle breaking animation by cycling through the frames of the bottle broken image sequence.
-    * If an interval for the animation already exists, it will be cleared before starting a new one.
-    */
-
-    // playBottleBrokenAnimation() {
-    //     this.currentImage = 0;
-    //     let animationInterval = 50;
-    //     let totalFrames = this.BOTTLE_BROKEN_IMAGES.length;
-    //     if (this.bottleBrokenIntervalId) {
-    //         clearInterval(this.bottleBrokenIntervalId);
-    //     }
-    //     if (this.isBottleBroken) {
-    //         this.setAndPlayBottleBrokenIntervalId(totalFrames, animationInterval);
-    //     }
-    // }
 }

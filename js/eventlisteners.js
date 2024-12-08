@@ -13,7 +13,7 @@ if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedi
         event.preventDefault();
         event.stopPropagation();
         event.stopImmediatePropagation();
-    }, { passive: false });
+    }, { passive: false, capture: true });
 }
 
 /**

@@ -50,8 +50,8 @@ class World {
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
-            this.audioManager.playBackgroundMusic();
-        }, 100);
+            // this.audioManager.playBackgroundMusic();
+        }, 100); // 100
     }
 
     /**
@@ -276,7 +276,7 @@ class World {
                 }
             }
             clearInterval(knockbackInterval);
-        }, 100);
+        }, 25); // 25
     }
 
     /**
@@ -295,7 +295,7 @@ class World {
 
     setVariablesAndKnockBackInterval(enemy) {
         let knockbackDistance = 100;
-        let knockbackSpeed = 20;
+        let knockbackSpeed = 15;
         if (enemy instanceof Endboss) {
             knockbackDistance = 200;
             knockbackSpeed = 20;
