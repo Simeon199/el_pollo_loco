@@ -4,7 +4,7 @@
 
 class Endboss extends Chicken {
     endbossHitCharacterAtTime = 0;
-    endbossSpeedX = 20;
+    endbossSpeedX = 0;
     mainCharacterPosition = null;
     timePassedLimit = 5;
     animateInterval = -1;
@@ -119,7 +119,7 @@ class Endboss extends Chicken {
     playAttackingEndbossAndShowHimRunningLeft() {
         this.world.audioManager.playSound('chickenSound');
         this.playAttackEndbossAnimation();
-        this.x -= this.endbossSpeedX;
+        this.x -= this.endbossSpeedX
     }
 
     /**
@@ -129,7 +129,7 @@ class Endboss extends Chicken {
     playAttackingEndbossAndShowHimRunningRight() {
         this.world.audioManager.playSound('chickenSound');
         this.playAttackEndbossAnimation();
-        this.x += this.endbossSpeedX;
+        this.x += this.endbossSpeedX
     }
 
     /**
@@ -322,7 +322,7 @@ class Endboss extends Chicken {
             this.endbossSpeedX = 0;
         } else if (timeDifference >= 200) {
             setTimeout(() => {
-                this.endbossSpeedX = 8;
+                this.endbossSpeedX = 5;
             }, 500);
         }
     }

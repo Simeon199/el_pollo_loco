@@ -15,8 +15,8 @@ class Chicken extends MovableObject {
     y = 340;
     height = 90;
     width = 80;
-    offsetBottom = -10;
-    offsetTop = -5;
+    offsetBottom = 10;
+    offsetTop = -30;
     offsetRight = 10;
     offsetLeft = 10;
     world;
@@ -167,7 +167,7 @@ class Chicken extends MovableObject {
             if (this.isChickenDead()) {
                 this.decideWhetherChickensAreMovingRightOrLeft();
             }
-        }, 50); // 1000 / 60
+        }, 50);
     }
 
     /**
@@ -180,7 +180,7 @@ class Chicken extends MovableObject {
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-        }, 50); // 1000 / 100
+        }, 50);
     }
 
     /**

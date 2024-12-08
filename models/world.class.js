@@ -276,7 +276,7 @@ class World {
                 }
             }
             clearInterval(knockbackInterval);
-        }, 50); // 25
+        }, 50);
     }
 
     /**

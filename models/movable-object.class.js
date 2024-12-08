@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
-    acceleration = 2.5; // 2.5
+    acceleration = 1.8; // 2.5
     energy = 100;
     timePassedLimit = 1;
     timePassedVariable = 0;
@@ -40,7 +40,7 @@ class MovableObject extends DrawableObject {
                 this.y = 145;
                 this.isJumping = false;
             }
-        }, 75); // 50
+        }, 60); // 50
     }
 
     /**
@@ -106,12 +106,12 @@ class MovableObject extends DrawableObject {
             this.offsetRight = 60;
             this.offsetLeft = 60;
             this.offsetTop = 30;
-            this.offsetBottom = 10;
+            this.offsetBottom = 40;
         } else if (this.isCharacterAndNotAboveGround()) {
             this.offsetRight = 40;
             this.offsetLeft = 40;
             this.offsetTop = -10;
-            this.offsetBottom = -10;
+            this.offsetBottom = 0;
         }
     }
 
@@ -242,7 +242,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else if (!this.isAboveGround()) {
-            this.speedY = 18; // versuche auch 12 (15 Standard) oder 18
+            this.speedY = 18;
         }
     }
 
