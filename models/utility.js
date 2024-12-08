@@ -119,12 +119,19 @@ class Utility {
                 this.collectBottles(bottle);
             }
         });
-        this.world.throwableObjects.forEach(bottle => {
+        this.world.throwableObjects = this.world.throwableObjects.filter(bottle => {
             if (this.world.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
                 this.collectGroundBottles(bottle);
-                this.world.throwableObjects.splice(0, 1);
+                return false; // Entfernt die Flasche aus dem Array
             }
+            return true; // Beibehaltung der Flasche
         });
+        // this.world.throwableObjects.forEach(bottle => {
+        //     if (this.world.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
+        //         this.collectGroundBottles(bottle);
+        //         this.world.throwableObjects.splice(0, 1);
+        //     }
+        // });
     }
 
     /**
@@ -153,12 +160,20 @@ class Utility {
     */
 
     collectGroundBottles(bottle) {
-        if (!bottle.wasAlreadyCollected) {
-            this.world.bottlebar.updateThrowObjectsArray('increase', bottle);
-            bottle.wasAlreadyCollected = true;
-            this.world.audioManager.playSound('loadingSound');
-        }
+        if (bottle.wasAlreadyCollected) return;
+
+        bottle.wasAlreadyCollected = true; // Vor weiteren Aktionen setzen
+        this.world.bottlebar.updateThrowObjectsArray('increase', bottle);
+        this.world.audioManager.playSound('loadingSound');
     }
+
+    // collectGroundBottles(bottle) {
+    //     if (!bottle.wasAlreadyCollected) {
+    //         this.world.bottlebar.updateThrowObjectsArray('increase', bottle);
+    //         bottle.wasAlreadyCollected = true;
+    //         this.world.audioManager.playSound('loadingSound');
+    //     }
+    // }
 
     /**
      * Determines if the `checkThrowObjects` function should be invoked based on the "D" key status.
