@@ -75,10 +75,14 @@ class Character extends MovableObject {
             this.setRelevantGlobalVariablesForMovingCharacter();
             if (this.wereJumpAndMoveBruttonPressedSimultaneously()) {
                 this.triggerJumpLogic();
+                this.animateCharacterJump();
+                // this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.keySpaceWasPressed()) {
+                this.animateCharacterJump();
                 this.triggerJumpLogic();
             } else if (this.isCharacterJumpingAndAboveTheGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+                this.animateCharacterJump();
+                // this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.keyRightPressedAndCharacterOnGround()) {
                 this.playMovingRightAnimationWithAudio();
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
@@ -92,7 +96,18 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingIfActiveAndPlayChillAnimation();
             }
-        }, 90); // 90
+        }, 70);
+    }
+
+    animateCharacterJump() {
+        if (this.currentImage < this.IMAGES_JUMPING.length) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.currentImage >= this.IMAGES_JUMPING.length) {
+            this.playAnimation([this.IMAGES_JUMPING[8]]);
+            setTimeout(() => {
+                this.currentImage = 0;
+            }, 75);
+        }
     }
 
     /**
@@ -112,7 +127,7 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
             this.world.camera_x = -this.x + 200;
-        }, 35); // 35
+        }, 25);
     }
 
     /**
@@ -396,6 +411,6 @@ class Character extends MovableObject {
      */
 
     bounce() {
-        this.speedY = 10; // 15
+        this.speedY = 12; // 10
     }
 }

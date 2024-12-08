@@ -89,7 +89,7 @@ class ThrowableObject extends MovableObject {
     */
 
     handleSpeedAndGravityOfThrowedBottle() {
-        this.speedY = 20;
+        this.speedY = 25;
         this.applyGravity();
     }
 
@@ -121,9 +121,9 @@ class ThrowableObject extends MovableObject {
 
     checkDirectionLeftOrRightMovingBottle(direction) {
         if (direction == 'right') {
-            this.x += 10;
+            this.x += 10; // 10
         } else if (direction == 'left') {
-            this.x -= 10;
+            this.x -= 10; // 10
         }
     }
 
@@ -146,7 +146,7 @@ class ThrowableObject extends MovableObject {
             setTimeout(() => {
                 clearInterval(this.intervalID);
                 this.img.src = '';
-            }, 25); // 25
+            }, 200); // 25
         }
     }
 
@@ -162,12 +162,12 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
                 this.checkWhetherBottleIsFlyingInTheAirOrLanding(direction)
-            }, 75); // 75
+            }, 100); // 75
         } else if (this.isBottleBroken) {
             this.clearBottleBrokenIntervalIfItsExist();
             this.bottleBrokenIntervalId = setInterval(() => {
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
-            }, 75); // 75
+            }, 100); // 75
         }
     }
 

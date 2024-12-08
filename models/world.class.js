@@ -33,7 +33,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.audioManager = new AudioManager();
-        this.audioManager.playBackgroundMusic();
+        // this.audioManager.playBackgroundMusic();
         this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
         this.draw();
         this.setWorld();
@@ -50,7 +50,7 @@ class World {
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
-            // this.audioManager.playBackgroundMusic();
+            this.audioManager.playBackgroundMusic();
         }, 100); // 100
     }
 
@@ -276,7 +276,7 @@ class World {
                 }
             }
             clearInterval(knockbackInterval);
-        }, 25); // 25
+        }, 50); // 25
     }
 
     /**

@@ -76,7 +76,7 @@ class Chicken extends MovableObject {
             this.clearAllRelevantIntervalsWhenChickenDies();
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-            }, 150);
+            }, 100);
             this.stopPlayingDeadAnimation();
         }
     };
@@ -89,7 +89,7 @@ class Chicken extends MovableObject {
         if (this.isDead) {
             this.playingDeadEnemyId = setInterval(() => {
                 this.playAnimation(this.IMAGE_DEAD_CHICKEN);
-            }, 150);
+            }, 100);
         }
         this.clearAllRelevantIntervalsWhenChickenDies();
     }
@@ -167,7 +167,7 @@ class Chicken extends MovableObject {
             if (this.isChickenDead()) {
                 this.decideWhetherChickensAreMovingRightOrLeft();
             }
-        }, 100); // 1000 / 60
+        }, 50); // 1000 / 60
     }
 
     /**
@@ -192,7 +192,7 @@ class Chicken extends MovableObject {
             setTimeout(function () {
                 clearInterval(this.playingDeadEnemyId);
                 this.playingDeadEnemyId = null;
-            }, 100);
+            }, 200);
         }
     }
 }

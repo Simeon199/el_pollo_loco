@@ -48,7 +48,7 @@ class Endboss extends Chicken {
         this.animateInterval = setInterval(() => {
             this.updateEndbossDirection();
             this.checkAndAnimateAllPossibleBehavioursOfEndboss();
-        }, 150);
+        }, 100);
     }
 
     /**
@@ -217,9 +217,9 @@ class Endboss extends Chicken {
 
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
-        if (this.checkTimeDifferenceSinceLastTimeHit() < 200) { // ehemals 1000
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 3000) {
             this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
-        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) { // ehemals 1000
+        } else {
             this.showDefeatedEndbossAndPositionCharacter();
         }
     }
@@ -322,8 +322,8 @@ class Endboss extends Chicken {
             this.endbossSpeedX = 0;
         } else if (timeDifference >= 200) {
             setTimeout(() => {
-                this.endbossSpeedX = 9;
-            }, 100);
+                this.endbossSpeedX = 8;
+            }, 500);
         }
     }
 
