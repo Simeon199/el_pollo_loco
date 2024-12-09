@@ -96,8 +96,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Handles the camera's movement in response to the character's position and direction in the world.
-     * Updates the camera position continuously at a 75ms interval.
+     * Handles the camera's movement in response to the character's position and direction in the world. Updates the camera position continuously at a 75ms interval.
      */
 
     manageCameraMovementWhenCharacterMovesInWorld() {
@@ -114,6 +113,10 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 200;
         }, 25);
     }
+
+    /**
+     * Plays the jumping animation frames sequentially. If the animation sequence is complete, displays the last frame and resets the animation after a short delay.
+     */
 
     animateCharacterJump() {
         if (this.currentImage < this.IMAGES_JUMPING.length) {
@@ -353,8 +356,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Manages the logic for walking animations and sound effects.
-     * Plays the walking animation if a movement key is pressed, and toggles walking sounds if sound is enabled.
+     * Checks if directional keys are pressed and triggers the walking animation. Adjusts sound behavior depending on Pepe's position and movement.
      */
 
     playWalkingLogic() {
@@ -362,7 +364,27 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }
         if (soundOn) {
-            this.world.audioManager.toggleMovingSoundsWhileRunning();
+            if (this.pepeHasReachedHisBorders()) {
+                this.world.audioManager.muteSound(true, 'walking_sound');
+            } else {
+                this.world.audioManager.toggleMovingSoundsWhileRunning();
+            }
+        }
+    }
+
+    /**
+     * Checks whether Pepe has reached the boundaries of the level.
+     *
+     * @returns {boolean} - Returns `true` if Pepe's x-position exceeds the start or end boundary, otherwise `false`.
+     */
+
+    pepeHasReachedHisBorders() {
+        if (this.x > this.world.level.level_end_x + 100) {
+            return true;
+        } else if (this.x < this.world.level.level_start_x - 100) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -372,7 +394,7 @@ class Character extends MovableObject {
      */
 
     keyRightWasPressed() {
-        return this.world.keyboard.RIGHT && this.x < world.level.level_end_x + 100;
+        return this.world.keyboard.RIGHT && this.x <= world.level.level_end_x + 100;
     }
 
     /**
@@ -380,8 +402,8 @@ class Character extends MovableObject {
      * @returns {boolean} True if the left key is pressed and the character is within the level bounds.
      */
 
-    keyLeftWasPressed() {
-        return this.world.keyboard.LEFT && this.x > -719 - 100;
+    keyLeftWasPressed() { // -719
+        return this.world.keyboard.LEFT && this.x >= this.world.level.level_start_x - 100;
     }
 
     /**

@@ -12,6 +12,7 @@ class Level {
     bottles;
     coins;
     level_end_x = 2 * 719;
+    level_start_x = -719;
 
     /**
      * Creates an instance of the Level class.

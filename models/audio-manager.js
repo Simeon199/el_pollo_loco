@@ -60,6 +60,11 @@ class AudioManager {
         } else if (this.hasWalkingSoundEnded()) {
             this.playWalkingSoundFromBeginning();
         }
+        // else if (this.world.character.x <= -719 - 100 || this.world.character.x >= this.world.level_end_x) {
+        //     this.muteSound(true, 'walking_sound');
+        // } else {
+        //     this.muteSound(false, 'walking_sound');
+        // }
     }
 
     /**
@@ -272,4 +277,12 @@ class AudioManager {
             }
         });
     }
+
+    // muteWalkingSoundIfCharacterExceedsTerritory() {
+    //     if ((this.world.character.x >= this.world.level_end + 100 || this.world.character.x <= -719 - 100) && this.world.character.wasRightOrLeftKeyPressed()) {
+    //         this.muteSound(true, 'walking_sound');
+    //     } else {
+    //         this.muteSound(false, 'walking_sound');
+    //     }
+    // }
 }

@@ -126,12 +126,6 @@ class Utility {
             }
             return true; // Beibehaltung der Flasche
         });
-        // this.world.throwableObjects.forEach(bottle => {
-        //     if (this.world.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
-        //         this.collectGroundBottles(bottle);
-        //         this.world.throwableObjects.splice(0, 1);
-        //     }
-        // });
     }
 
     /**
@@ -166,14 +160,6 @@ class Utility {
         this.world.bottlebar.updateThrowObjectsArray('increase', bottle);
         this.world.audioManager.playSound('loadingSound');
     }
-
-    // collectGroundBottles(bottle) {
-    //     if (!bottle.wasAlreadyCollected) {
-    //         this.world.bottlebar.updateThrowObjectsArray('increase', bottle);
-    //         bottle.wasAlreadyCollected = true;
-    //         this.world.audioManager.playSound('loadingSound');
-    //     }
-    // }
 
     /**
      * Determines if the `checkThrowObjects` function should be invoked based on the "D" key status.

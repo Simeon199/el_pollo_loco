@@ -174,11 +174,11 @@ function keyDownHandler(event) {
 
 function keyUpHandler(event) {
     settingGlobalVariablesInKeyUpOrTouchEndEvent();
-    if (event.keyCode == 39) {
+    if (event.keyCode == 39 || world.character.x >= world.level.level_end_x) {
         keyboard.RIGHT = false;
         world.audioManager.muteSound(true, 'walking_sound');
     }
-    if (event.keyCode == 37) {
+    if (event.keyCode == 37 || world.character.x <= -719 - 100) {
         keyboard.LEFT = false;
         world.audioManager.muteSound(true, 'walking_sound');
     }

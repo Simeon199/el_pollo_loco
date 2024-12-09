@@ -9,6 +9,7 @@ class ThrowableObject extends MovableObject {
     throwObjectsArray = [];
     intervalID = null;
     height = 60;
+    acceleration = 2.7;
     width = 60 * 1.2;
     spliceable = false;
     keyboard;
@@ -89,7 +90,7 @@ class ThrowableObject extends MovableObject {
     */
 
     handleSpeedAndGravityOfThrowedBottle() {
-        this.speedY = 25;
+        this.speedY = 30;
         this.applyGravity();
     }
 

@@ -33,7 +33,6 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.audioManager = new AudioManager();
-        // this.audioManager.playBackgroundMusic();
         this.level = new Level(new Keyboard(), generateEnemies(), generateCloud(), generateBackgroundArray(), generateRandomBottles(), generateCoinsArray());
         this.draw();
         this.setWorld();
@@ -51,7 +50,7 @@ class World {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-        }, 100); // 100
+        }, 100);
     }
 
     /**
