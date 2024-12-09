@@ -1,6 +1,5 @@
 /**
- * Represents a character in the game that can move, jump, get hurt, die, and play various animations.
- * Extends the MovableObject class ('./characterImages.js').
+ * Represents a character in the game that can move, jump, get hurt, die, and play various animations. Extends the MovableObject class ('./characterImages.js').
  */
 
 class Character extends MovableObject {
@@ -96,7 +95,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Handles the camera's movement in response to the character's position and direction in the world. Updates the camera position continuously at a 75ms interval.
+     * Handles the camera's movement in response to the character's position and direction in the world. Updates the camera position continuously at a 25ms interval.
      */
 
     manageCameraMovementWhenCharacterMovesInWorld() {
@@ -379,9 +378,9 @@ class Character extends MovableObject {
      */
 
     pepeHasReachedHisBorders() {
-        if (this.x > this.world.level.level_end_x + 100) {
+        if (this.x > this.world.level.level_end_x) {
             return true;
-        } else if (this.x < this.world.level.level_start_x - 100) {
+        } else if (this.x < this.world.level.level_start_x) {
             return true;
         } else {
             return false;
