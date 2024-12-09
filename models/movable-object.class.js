@@ -40,7 +40,7 @@ class MovableObject extends DrawableObject {
                 this.y = 145;
                 this.isJumping = false;
             }
-        }, 60);
+        }, 60); // 60
     }
 
     /**

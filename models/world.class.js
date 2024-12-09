@@ -50,7 +50,7 @@ class World {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-        }, 100);
+        }, 100); // 100
     }
 
     /**
@@ -143,7 +143,7 @@ class World {
             return;
         }
         else if (this.isEnemyAliveEndbossOrCharacterOnGround(enemy)) {
-            if (this.characterLacksProtection() && !enemy.isDead) {
+            if (this.characterLacksProtection() && !enemy.isDead && !this.character.isDead()) {
                 this.applyKnockback(enemy);
                 this.adjustStatusBarWhenCharacterGetsHit();
                 this.audioManager.playSound('punchAndOuch');
