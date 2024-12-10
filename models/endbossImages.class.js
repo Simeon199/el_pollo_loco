@@ -1,6 +1,13 @@
 class EndbossImages {
     constructor() {
         this.IMAGES_WALKING_ENDBOSS = [
+            'img/4_enemie_boss_chicken/1_walk/G1.png',
+            'img/4_enemie_boss_chicken/1_walk/G2.png',
+            'img/4_enemie_boss_chicken/1_walk/G3.png',
+            'img/4_enemie_boss_chicken/1_walk/G4.png'
+        ];
+
+        this.IMAGES_ALERT_ENDBOSS = [
             'img/4_enemie_boss_chicken/2_alert/G5.png',
             'img/4_enemie_boss_chicken/2_alert/G7.png',
             'img/4_enemie_boss_chicken/2_alert/G8.png',

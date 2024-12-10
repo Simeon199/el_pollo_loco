@@ -122,9 +122,9 @@ class ThrowableObject extends MovableObject {
 
     checkDirectionLeftOrRightMovingBottle(direction) {
         if (direction == 'right') {
-            this.x += 10;
+            this.x += 15; // 10
         } else if (direction == 'left') {
-            this.x -= 10;
+            this.x -= 15; // 10
         }
     }
 

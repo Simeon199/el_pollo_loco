@@ -4,7 +4,7 @@
 
 class Character extends MovableObject {
     currentTime = 0;
-    // acceleration = 2.5;
+    acceleration = 2;
     isSoundIconInteraction = false;
     timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
     wasRandomKeyOncePressed = false;
@@ -20,7 +20,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 5;
+    speed = 8;
     world;
 
     /**
@@ -77,11 +77,9 @@ class Character extends MovableObject {
                 this.triggerJumpLogic();
             } else if (this.keySpaceWasPressed()) {
                 this.triggerJumpLogic();
-            }
-            else if (this.isCharacterJumpingAndAboveTheGround()) {
+            } else if (this.isCharacterJumpingAndAboveTheGround()) {
                 this.animateCharacterJump();
-            }
-            else if (this.keyRightPressedAndCharacterOnGround()) {
+            } else if (this.keyRightPressedAndCharacterOnGround()) {
                 this.playMovingRightAnimationWithAudio();
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
                 this.playMovingLeftAnimationWithAudio();
@@ -121,13 +119,11 @@ class Character extends MovableObject {
      */
 
     animateCharacterJump() {
-        // if (this.isCharacterJumpingAndAboveTheGround()) {
-        //     this.playAnimation(this.IMAGES_JUMPING);
-        // }
+        // this.playAnimation(this.IMAGES_JUMPING);
         if (this.currentImage < this.IMAGES_JUMPING.length) {
-            console.log('value of currentImage: ', this.currentImage);
             this.playAnimation(this.IMAGES_JUMPING);
-        } else {
+        }
+        else {
             this.playAnimation([this.IMAGES_JUMPING[8]]);
             setTimeout(() => {
                 this.currentImage = 0;
