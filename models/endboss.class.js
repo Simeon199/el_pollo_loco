@@ -44,7 +44,7 @@ class Endboss extends Chicken {
 
     playAnimation(animation) {
         let now = Date.now();
-        if (now - this.lastAnimationChange > 200) { // Mindestens 200ms zwischen Animationen
+        if (now - this.lastAnimationChange > 300) { // Mindestens 200ms zwischen Animationen
             super.playAnimation(animation);
             this.lastAnimationChange = now;
         }
@@ -56,9 +56,8 @@ class Endboss extends Chicken {
 
     animate() {
         this.animateInterval = setInterval(() => {
-            this.updateEndbossDirection();
             this.checkAndAnimateAllPossibleBehavioursOfEndboss();
-        }, 150);
+        }, 100);
     }
 
     /**
@@ -66,9 +65,13 @@ class Endboss extends Chicken {
     */
 
     checkAndAnimateAllPossibleBehavioursOfEndboss() {
-        if (this.isEndbossInAttackMode()) return;
-        else if (this.isEndbossInDeathMode()) return;
-        else if (this.isEndbossInIdleMode()) return;
+        if (this.isEndbossInAttackMode()) {
+            return;
+        } else if (this.isEndbossInDeathMode()) {
+            return;
+        } else if (this.isEndbossInIdleMode()) {
+            return;
+        }
     }
 
     /**
@@ -78,17 +81,24 @@ class Endboss extends Chicken {
      */
 
     isEndbossInAttackMode() {
-        if (this.wasEndbossProvokedByCharacter()) {
+        this.updateEndbossDirection();
+        if (this.wasEndbossProvokedByCharacter()) { //  || this.isCharacterToCloseToEndboss()
             this.handleAttackingEndbossAndHurtingEndbossAnimation();
             return true;
-        } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
-            this.playAttackingEndbossAndShowHimRunningLeft();
-            return true;
-        } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
-            this.playAttackingEndbossAndShowHimRunningRight();
+        } else if (this.isCharacterToCloseToEndboss()) {
+            this.playMovingEndboss();
             return true;
         }
         return false;
+    }
+
+    isCharacterToCloseToEndboss() {
+        return this.isCharacterToCloseToEndbossFromTheLeft() || this.isCharacterToCloseToEndbossFromTheRight();
+    }
+
+    playMovingEndboss() {
+        this.world.audioManager.playSound('chickenSound');
+        this.animateMovingAndAttackingEndboss();
     }
 
     /**
@@ -123,36 +133,20 @@ class Endboss extends Chicken {
     }
 
     /**
-    * Animates the Endboss running left while attacking.
-    */
-
-    playAttackingEndbossAndShowHimRunningLeft() {
-        this.world.audioManager.playSound('chickenSound');
-        this.playAttackEndbossAnimation();
-        this.x -= this.endbossSpeedX;
-    }
-
-    /**
-    * Animates the Endboss running right while attacking.
-    */
-
-    playAttackingEndbossAndShowHimRunningRight() {
-        this.world.audioManager.playSound('chickenSound');
-        this.playAttackEndbossAnimation();
-        this.x += this.endbossSpeedX;
-    }
-
-    /**
      * Handles the attacking and hurt animation of the Endboss, playing sounds and deciding on movement.
      */
 
     handleAttackingEndbossAndHurtingEndbossAnimation() {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
-        if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
-            this.playAnimation(this.IMAGES_HURT_ENDBOSS);
-        } else {
-            this.animateMovingAndAttackingEndboss();
+        if (this.wasEndbossHit()) {
+            if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
+                this.playAnimation(this.IMAGES_HURT_ENDBOSS);
+                return;
+            } else {
+                this.animateMovingAndAttackingEndboss();
+                return;
+            }
         }
     }
 
@@ -164,7 +158,6 @@ class Endboss extends Chicken {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
         this.directEndbossIntoAttackDirectionAndCheckCollisions();
-        this.playAnimation(this.IMAGES_WALKING_ENDBOSS); // this.IMAGES_ATTACK_ENDBOSS
     }
 
     /**
@@ -172,6 +165,7 @@ class Endboss extends Chicken {
      */
 
     directEndbossIntoAttackDirectionAndCheckCollisions() {
+        this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
         if (this.mainCharacterPosition < this.x) {
             this.checkIfEndbossAlreadyHitCharacter();
             this.x -= this.endbossSpeedX;
@@ -281,7 +275,7 @@ class Endboss extends Chicken {
     */
 
     isCharacterToCloseToEndbossFromTheRight() {
-        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0;
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 200 && this.x < this.mainCharacterPosition && this.energy > 0;
     }
 
     /**
@@ -291,16 +285,7 @@ class Endboss extends Chicken {
     */
 
     isCharacterToCloseToEndbossFromTheLeft() {
-        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0;
-    }
-
-    /**
-     * Plays the Endboss attack animation and checks if Enboss hit character.
-     */
-
-    playAttackEndbossAnimation() {
-        this.playAnimation(this.IMAGES_WALKING_ENDBOSS); // this.IMAGES_ATTACK_ENDBOSS
-        this.checkIfEndbossAlreadyHitCharacter();
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 200 && this.x > this.mainCharacterPosition && this.energy > 0;
     }
 
     /**
@@ -406,11 +391,9 @@ class Endboss extends Chicken {
     wasEndbossHit() {
         if (this.isEndbossHurtAndLastHitEqualsZero()) {
             this.getLastHitTime();
-        }
-        if (this.isEndbossHurtAndTimeSinceLastHitIsBelowTimeLimit()) {
+        } else if (this.isEndbossHurtAndTimeSinceLastHitIsBelowTimeLimit()) {
             return true;
-        }
-        if (this.isEndbossHurtAndTimeSinceLastHitExceedsTimeLimit()) {
+        } else if (this.isEndbossHurtAndTimeSinceLastHitExceedsTimeLimit()) {
             this.setEndbossIsNotHurtAnymore();
         }
         return false;
