@@ -3,9 +3,9 @@
  */
 
 class Endboss extends Chicken {
-    wasProvokedByCharacter = false;
+    lastAnimationChange = 0;
     endbossHitCharacterAtTime = 0;
-    endbossSpeedX = 0;
+    endbossSpeedX = 20;
     mainCharacterPosition = null;
     timePassedLimit = 5;
     animateInterval = -1;
@@ -27,7 +27,6 @@ class Endboss extends Chicken {
         super();
         let endbossImages = new window.EndbossImages();
         this.IMAGES_WALKING_ENDBOSS = endbossImages.IMAGES_WALKING_ENDBOSS;
-        this.IMAGES_ALERT_ENDBOSS = endbossImages.IMAGES_ALERT_ENDBOSS;
         this.IMAGES_HURT_ENDBOSS = endbossImages.IMAGES_HURT_ENDBOSS;
         this.IMAGES_DEAD_ENDBOSS = endbossImages.IMAGES_DEAD_ENDBOSS;
         this.IMAGES_ATTACK_ENDBOSS = endbossImages.IMAGES_ATTACK_ENDBOSS;
@@ -38,9 +37,17 @@ class Endboss extends Chicken {
         this.loadImages(this.IMAGES_HURT_ENDBOSS);
         this.loadImages(this.IMAGES_DEAD_ENDBOSS);
         this.loadImages(this.IMAGES_ATTACK_ENDBOSS);
-        this.loadImages(this.IMAGES_ALERT_ENDBOSS);
         this.x = 1700;
         this.animate();
+    }
+
+
+    playAnimation(animation) {
+        let now = Date.now();
+        if (now - this.lastAnimationChange > 200) { // Mindestens 200ms zwischen Animationen
+            super.playAnimation(animation);
+            this.lastAnimationChange = now;
+        }
     }
 
     /**
@@ -49,48 +56,90 @@ class Endboss extends Chicken {
 
     animate() {
         this.animateInterval = setInterval(() => {
-            this.wasProvokedByCharacter = false;
             this.updateEndbossDirection();
-            if (this.wasEndbossAttackedByCharacter()) {
-                this.handleAttackingEndbossAndHurtingEndbossAnimation();
-            } else if (this.isCharacterToCloseToEndboss()) {
-                this.animateMovingEndbossTowardsCharacter()
-            } else if (this.isEndbossAliveAndWasNotAttacked()) {
-                this.playAnimation(this.IMAGES_ALERT_ENDBOSS);
-            } else if (this.isEndbossNotFinalEnemyButDead()) {
-                this.playDyingAnimationAndSetFixedDeadEndbossImage();
-            } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
-                this.setIsDeadAttributeAndplayDyingAnimation();
-            }
-        }, 100);
-    }
-
-    isCharacterToCloseToEndboss() {
-        return this.isCharacterToCloseToEndbossFromTheLeft() || this.isCharacterToCloseToEndbossFromTheRight();
-    }
-
-    animateMovingEndbossTowardsCharacter() {
-        this.wasProvokedByCharacter = true;
-        this.world.audioManager.playSound('chickenSound');
-        this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
-        this.directEndbossIntoAttackDirectionAndCheckCollisions();
+            this.checkAndAnimateAllPossibleBehavioursOfEndboss();
+        }, 150);
     }
 
     /**
-     * Checks if the Endboss already hit the main character and adjusts its speed.
+    * Checks and handles different behaviors of the Endboss such as attacking, being hurt, or dying.
+    */
+
+    checkAndAnimateAllPossibleBehavioursOfEndboss() {
+        if (this.isEndbossInAttackMode()) return;
+        else if (this.isEndbossInDeathMode()) return;
+        else if (this.isEndbossInIdleMode()) return;
+    }
+
+    /**
+     * Determines if the end boss is in attack mode based on the character's position and actions.
+     * 
+     * @returns {boolean} `true` if the end boss is in attack mode; otherwise, `false`.
      */
 
-    checkIfEndbossAlreadyHitCharacter() {
-        let date = new Date().getTime();
-        let timeDifference = date - this.endbossHitCharacterAtTime;
-        this.world.character.timeDifferenceBetweenNowAndLastHitFromEndboss = timeDifference;
-        if (timeDifference < 200) {
-            this.endbossSpeedX = 0;
-        } else if (timeDifference >= 200) {
-            setTimeout(() => {
-                this.endbossSpeedX = 5;
-            }, 500);
+    isEndbossInAttackMode() {
+        if (this.wasEndbossProvokedByCharacter()) {
+            this.handleAttackingEndbossAndHurtingEndbossAnimation();
+            return true;
+        } else if (this.isCharacterToCloseToEndbossFromTheLeft()) {
+            this.playAttackingEndbossAndShowHimRunningLeft();
+            return true;
+        } else if (this.isCharacterToCloseToEndbossFromTheRight()) {
+            this.playAttackingEndbossAndShowHimRunningRight();
+            return true;
         }
+        return false;
+    }
+
+    /**
+     * Determines if the end boss is in death mode based on whether it is dead and its status as the final enemy.
+     * 
+     * @returns {boolean} `true` if the end boss is in death mode; otherwise, `false`.
+     */
+
+    isEndbossInDeathMode() {
+        if (this.isEndbossNotFinalEnemyButDead()) {
+            this.playDyingAnimationAndSetFixedDeadEndbossImage();
+            return true;
+        } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
+            this.setIsDeadAttributeAndplayDyingAnimation();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the end boss is in idle mode, showing a walking animation if alive and unprovoked.
+     * 
+     * @returns {boolean} `true` if the end boss is in idle mode; otherwise, `false`.
+     */
+
+    isEndbossInIdleMode() {
+        if (this.isEndbossAliveAndWasNotAttacked()) {
+            this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+    * Animates the Endboss running left while attacking.
+    */
+
+    playAttackingEndbossAndShowHimRunningLeft() {
+        this.world.audioManager.playSound('chickenSound');
+        this.playAttackEndbossAnimation();
+        this.x -= this.endbossSpeedX;
+    }
+
+    /**
+    * Animates the Endboss running right while attacking.
+    */
+
+    playAttackingEndbossAndShowHimRunningRight() {
+        this.world.audioManager.playSound('chickenSound');
+        this.playAttackEndbossAnimation();
+        this.x += this.endbossSpeedX;
     }
 
     /**
@@ -115,7 +164,7 @@ class Endboss extends Chicken {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
         this.directEndbossIntoAttackDirectionAndCheckCollisions();
-        this.playAnimation(this.IMAGES_ATTACK_ENDBOSS); // this.IMAGES_WALKING_ENDBOSS
+        this.playAnimation(this.IMAGES_WALKING_ENDBOSS); // this.IMAGES_ATTACK_ENDBOSS
     }
 
     /**
@@ -148,7 +197,7 @@ class Endboss extends Chicken {
      * @returns {boolean} True if provoked, false otherwise.
      */
 
-    wasEndbossAttackedByCharacter() {
+    wasEndbossProvokedByCharacter() {
         return this.isEndbossAliveAndFinalEnemy() || this.isEndbossAliveAndWasAttacked();
     }
 
@@ -178,9 +227,9 @@ class Endboss extends Chicken {
 
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
-        if (this.checkTimeDifferenceSinceLastTimeHit() < 3000) {
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 200) { // ehemals 1000
             this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
-        } else {
+        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) { // ehemals 1000
             this.showDefeatedEndbossAndPositionCharacter();
         }
     }
@@ -221,8 +270,8 @@ class Endboss extends Chicken {
     * @returns {boolean} True if the endboss is alive and not hit, false otherwise.
     */
 
-    isEndbossAliveAndWasNotAttacked() { // Mit dieser Funktion findet die Animationsüberlagerung wahrscheinlich statt! 
-        return this.isDead == false && this.energy > 0 && !(this.wasEndbossHit()) && !this.wasProvokedByCharacter;
+    isEndbossAliveAndWasNotAttacked() {
+        return this.isDead == false && this.energy > 0 && !(this.wasEndbossHit());
     }
 
     /**
@@ -246,6 +295,15 @@ class Endboss extends Chicken {
     }
 
     /**
+     * Plays the Endboss attack animation and checks if Enboss hit character.
+     */
+
+    playAttackEndbossAnimation() {
+        this.playAnimation(this.IMAGES_WALKING_ENDBOSS); // this.IMAGES_ATTACK_ENDBOSS
+        this.checkIfEndbossAlreadyHitCharacter();
+    }
+
+    /**
     * Sets the Endboss as dead and plays the dying animation.
     */
 
@@ -260,6 +318,24 @@ class Endboss extends Chicken {
 
     stopAnimateFunction() {
         clearInterval(this.animateInterval);
+    }
+
+    /**
+     * Checks if the Endboss already hit the main character and adjusts its speed.
+     */
+
+    checkIfEndbossAlreadyHitCharacter() {
+        let date = new Date().getTime();
+        let timeDifference = date - this.endbossHitCharacterAtTime;
+        this.world.character.timeDifferenceBetweenNowAndLastHitFromEndboss = timeDifference;
+        if (timeDifference < 200) {
+            this.endbossSpeedX = 0;
+        } else if (timeDifference >= 200) {
+            this.endbossSpeedX = 9;
+            setTimeout(() => {
+                this.endbossSpeedX = 9;
+            }, 100);
+        }
     }
 
     /**

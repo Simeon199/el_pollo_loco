@@ -64,6 +64,7 @@ class World {
         this.coinbar.world = this;
         this.level.world = this;
         this.audioManager.world = this;
+        // debugger;
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
