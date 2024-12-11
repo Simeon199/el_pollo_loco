@@ -4,6 +4,10 @@
 
 class Endboss extends Chicken {
     lastAnimationChange = 0;
+
+    lastDirectionChangeTime = 0;
+    directionChangeCooldown = 500;
+
     endbossHitCharacterAtTime = 0;
     endbossSpeedX = 20;
     mainCharacterPosition = null;
@@ -29,13 +33,13 @@ class Endboss extends Chicken {
         this.IMAGES_WALKING_ENDBOSS = endbossImages.IMAGES_WALKING_ENDBOSS;
         this.IMAGES_HURT_ENDBOSS = endbossImages.IMAGES_HURT_ENDBOSS;
         this.IMAGES_DEAD_ENDBOSS = endbossImages.IMAGES_DEAD_ENDBOSS;
+        this.IMAGES_ALERT_ENDBOSS = endbossImages.IMAGES_ALERT_ENDBOSS;
         this.IMAGES_ATTACK_ENDBOSS = endbossImages.IMAGES_ATTACK_ENDBOSS;
-        this.speed = 1.5;
-        this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImage('img/3_enemies_chicken/chicken_normal/2_dead/dead.png')
         this.loadImages(this.IMAGES_WALKING_ENDBOSS);
         this.loadImages(this.IMAGES_HURT_ENDBOSS);
         this.loadImages(this.IMAGES_DEAD_ENDBOSS);
+        this.loadImages(this.IMAGES_ALERT_ENDBOSS);
         this.loadImages(this.IMAGES_ATTACK_ENDBOSS);
         this.x = 1700;
         this.animate();
@@ -55,22 +59,22 @@ class Endboss extends Chicken {
      */
 
     animate() {
+        // this.clearAnimateIntervalIfItExists();
         this.animateInterval = setInterval(() => {
-            this.checkAndAnimateAllPossibleBehavioursOfEndboss();
+            if (this.isEndbossInAttackMode()) {
+                console.log(this.endbossSpeedX);
+                return;
+            } else if (this.isEndbossInDeathMode()) {
+                return;
+            } else if (this.isEndbossInIdleMode()) {
+                return;
+            }
         }, 100);
     }
 
-    /**
-    * Checks and handles different behaviors of the Endboss such as attacking, being hurt, or dying.
-    */
-
-    checkAndAnimateAllPossibleBehavioursOfEndboss() {
-        if (this.isEndbossInAttackMode()) {
-            return;
-        } else if (this.isEndbossInDeathMode()) {
-            return;
-        } else if (this.isEndbossInIdleMode()) {
-            return;
+    clearAnimateIntervalIfItExists() {
+        if (this.animateInterval !== -1) {
+            clearInterval(this.animateInterval);
         }
     }
 
@@ -81,7 +85,6 @@ class Endboss extends Chicken {
      */
 
     isEndbossInAttackMode() {
-        this.updateEndbossDirection();
         if (this.wasEndbossProvokedByCharacter()) { //  || this.isCharacterToCloseToEndboss()
             this.handleAttackingEndbossAndHurtingEndbossAnimation();
             return true;
@@ -98,7 +101,7 @@ class Endboss extends Chicken {
 
     playMovingEndboss() {
         this.world.audioManager.playSound('chickenSound');
-        this.animateMovingAndAttackingEndboss();
+        this.directEndbossIntoAttackDirectionAndCheckCollisions(this.IMAGES_WALKING_ENDBOSS);
     }
 
     /**
@@ -126,7 +129,7 @@ class Endboss extends Chicken {
 
     isEndbossInIdleMode() {
         if (this.isEndbossAliveAndWasNotAttacked()) {
-            this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
+            this.playAnimation(this.IMAGES_ALERT_ENDBOSS);
             return true;
         }
         return false;
@@ -139,14 +142,10 @@ class Endboss extends Chicken {
     handleAttackingEndbossAndHurtingEndbossAnimation() {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
-        if (this.wasEndbossHit()) {
-            if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
-                this.playAnimation(this.IMAGES_HURT_ENDBOSS);
-                return;
-            } else {
-                this.animateMovingAndAttackingEndboss();
-                return;
-            }
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 300) {
+            this.playAnimation(this.IMAGES_HURT_ENDBOSS);
+        } else {
+            this.animateMovingAndAttackingEndboss();
         }
     }
 
@@ -157,22 +156,46 @@ class Endboss extends Chicken {
     animateMovingAndAttackingEndboss() {
         this.world.audioManager.playSound('chickenScream');
         this.world.audioManager.playSound('chickenSound');
-        this.directEndbossIntoAttackDirectionAndCheckCollisions();
+        this.directEndbossIntoAttackDirectionAndCheckCollisions(this.IMAGES_ATTACK_ENDBOSS);
     }
 
     /**
      * Directs the Endboss towards the main character and checks for collisions.
      */
 
-    directEndbossIntoAttackDirectionAndCheckCollisions() {
-        this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
+    // directEndbossIntoAttackDirectionAndCheckCollisions(images) {
+    //     this.checkIfEndbossAlreadyHitCharacter();
+
+    //     let now = Date.now();
+    //     let shouldChangeDirection = (now - this.lastDirectionChangeTime) > this.directionChangeCooldown;
+
+    //     if (this.mainCharacterPosition < this.x) {
+    //         if (!this.otherDirection && shouldChangeDirection) {
+    //             this.x -= this.endbossSpeedX;
+    //             this.otherDirection = false;
+    //             this.lastDirectionChangeTime = now;
+    //         }
+    //     } else {
+    //         if (this.otherDirection && shouldChangeDirection) {
+    //             this.x += this.endbossSpeedX;
+    //             this.otherDirection = true;
+    //             this.lastDirectionChangeTime = now;
+    //         }
+    //     }
+
+    //     this.playAnimation(images);
+    // }
+
+    directEndbossIntoAttackDirectionAndCheckCollisions(images) {
+        this.checkIfEndbossAlreadyHitCharacter();
         if (this.mainCharacterPosition < this.x) {
-            this.checkIfEndbossAlreadyHitCharacter();
             this.x -= this.endbossSpeedX;
+            this.otherDirection = false;
         } else {
-            this.checkIfEndbossAlreadyHitCharacter();
             this.x += this.endbossSpeedX;
+            this.otherDirection = true;
         }
+        this.playAnimation(images);
     }
 
     /**
@@ -221,9 +244,9 @@ class Endboss extends Chicken {
 
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
-        if (this.checkTimeDifferenceSinceLastTimeHit() < 200) { // ehemals 1000
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 200) {
             this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
-        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) { // ehemals 1000
+        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) {
             this.showDefeatedEndbossAndPositionCharacter();
         }
     }
@@ -316,12 +339,10 @@ class Endboss extends Chicken {
         if (timeDifference < 200) {
             this.endbossSpeedX = 0;
         } else if (timeDifference >= 200) {
-            this.endbossSpeedX = 9;
-            setTimeout(() => {
-                this.endbossSpeedX = 9;
-            }, 100);
+            this.endbossSpeedX = 8;
         }
     }
+
 
     /**
      * Updates the Endboss direction based on the main character's position.
