@@ -2,6 +2,8 @@ let isSoundIconInteraction = false;
 let timePassedWhenKeyReleased;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
+let momentKeySpaceWasPressed = 0;
+let momentKeySpaceWasReleased = 0;
 permissionToThrow = true;
 
 /**
@@ -83,7 +85,12 @@ function touchStartHandler(event) {
             prepareForThrowingRight();
         }
         if (wasButtonUpPressed(event)) {
-            keyboard.SPACE = true;
+            if (this.momentKeySpaceWasReleased > 0) {
+                let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
+                if (timeThatPassedSinceKeySpaceReleased > 500) {
+                    keyboard.SPACE = true;
+                }
+            }
         }
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = true;
@@ -114,6 +121,7 @@ function touchEndHandler(event) {
         }
         if (wasButtonUpPressed(event)) {
             keyboard.SPACE = false;
+            this.momentKeySpaceWasReleased = new Date().getTime();
         }
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = false;
@@ -157,7 +165,16 @@ function keyDownHandler(event) {
         keyboard.DOWN = true;
     }
     if (event.keyCode == 32) {
+        if (this.momentKeySpaceWasReleased > 0) {
+            let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
+            if (timeThatPassedSinceKeySpaceReleased > 500) {
+                keyboard.SPACE = true;
+            }
+        }
         keyboard.SPACE = true;
+        // else if (this.momentKeySpaceWasReleased == 0) {
+        //     keyboard.SPACE = true;
+        // }
     }
     if (event.keyCode == 68) {
         keyboard.keyD = true;
@@ -190,6 +207,7 @@ function keyUpHandler(event) {
     }
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
+        this.momentKeySpaceWasReleased = new Date().getTime();
     }
     if (event.keyCode == 68) {
         keyboard.keyD = false;

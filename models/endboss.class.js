@@ -4,12 +4,11 @@
 
 class Endboss extends Chicken {
     lastAnimationChange = 0;
-
     lastDirectionChangeTime = 0;
     directionChangeCooldown = 500;
-
     endbossHitCharacterAtTime = 0;
-    endbossSpeedX = 20;
+    speed = 0;
+    // endbossSpeedX = 0;
     mainCharacterPosition = null;
     timePassedLimit = 5;
     animateInterval = -1;
@@ -48,7 +47,7 @@ class Endboss extends Chicken {
 
     playAnimation(animation) {
         let now = Date.now();
-        if (now - this.lastAnimationChange > 300) { // Mindestens 200ms zwischen Animationen
+        if (now - this.lastAnimationChange > 300) {
             super.playAnimation(animation);
             this.lastAnimationChange = now;
         }
@@ -62,7 +61,7 @@ class Endboss extends Chicken {
         // this.clearAnimateIntervalIfItExists();
         this.animateInterval = setInterval(() => {
             if (this.isEndbossInAttackMode()) {
-                console.log(this.endbossSpeedX);
+                // console.log(this.speed);
                 return;
             } else if (this.isEndbossInDeathMode()) {
                 return;
@@ -72,11 +71,11 @@ class Endboss extends Chicken {
         }, 100);
     }
 
-    clearAnimateIntervalIfItExists() {
-        if (this.animateInterval !== -1) {
-            clearInterval(this.animateInterval);
-        }
-    }
+    // clearAnimateIntervalIfItExists() {
+    //     if (this.animateInterval !== -1) {
+    //         clearInterval(this.animateInterval);
+    //     }
+    // }
 
     /**
      * Determines if the end boss is in attack mode based on the character's position and actions.
@@ -163,37 +162,22 @@ class Endboss extends Chicken {
      * Directs the Endboss towards the main character and checks for collisions.
      */
 
-    // directEndbossIntoAttackDirectionAndCheckCollisions(images) {
-    //     this.checkIfEndbossAlreadyHitCharacter();
-
-    //     let now = Date.now();
-    //     let shouldChangeDirection = (now - this.lastDirectionChangeTime) > this.directionChangeCooldown;
-
-    //     if (this.mainCharacterPosition < this.x) {
-    //         if (!this.otherDirection && shouldChangeDirection) {
-    //             this.x -= this.endbossSpeedX;
-    //             this.otherDirection = false;
-    //             this.lastDirectionChangeTime = now;
-    //         }
-    //     } else {
-    //         if (this.otherDirection && shouldChangeDirection) {
-    //             this.x += this.endbossSpeedX;
-    //             this.otherDirection = true;
-    //             this.lastDirectionChangeTime = now;
-    //         }
-    //     }
-
-    //     this.playAnimation(images);
-    // }
-
     directEndbossIntoAttackDirectionAndCheckCollisions(images) {
         this.checkIfEndbossAlreadyHitCharacter();
+        let now = Date.now();
+        let shouldChangeDirection = (now - this.lastDirectionChangeTime) > this.directionChangeCooldown;
         if (this.mainCharacterPosition < this.x) {
-            this.x -= this.endbossSpeedX;
-            this.otherDirection = false;
+            this.x -= this.speed; // endbossSpeedX
+            if (shouldChangeDirection) {
+                this.otherDirection = false;
+                this.lastDirectionChangeTime = now;
+            }
         } else {
-            this.x += this.endbossSpeedX;
-            this.otherDirection = true;
+            this.x += this.speed; // endbossSpeedX
+            if (shouldChangeDirection) {
+                this.otherDirection = true;
+                this.lastDirectionChangeTime = now;
+            }
         }
         this.playAnimation(images);
     }
@@ -337,9 +321,9 @@ class Endboss extends Chicken {
         let timeDifference = date - this.endbossHitCharacterAtTime;
         this.world.character.timeDifferenceBetweenNowAndLastHitFromEndboss = timeDifference;
         if (timeDifference < 200) {
-            this.endbossSpeedX = 0;
+            this.speed = 0; // endbossSpeedX
         } else if (timeDifference >= 200) {
-            this.endbossSpeedX = 8;
+            this.speed = 8; // endbossSpeedX
         }
     }
 

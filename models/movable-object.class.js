@@ -38,9 +38,11 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else {
                 this.y = 145;
+                // let onGround = new Date().getTime();
+                // console.log("time in air: ", onGround - )
                 this.isJumping = false;
             }
-        }, 62); // 60
+        }, 60); // 60
     }
 
     /**

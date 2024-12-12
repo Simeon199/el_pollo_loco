@@ -3,6 +3,8 @@
  */
 
 class Character extends MovableObject {
+    lastJumpAnimationChange = 0;
+
     currentTime = 0;
     acceleration = 2;
     isSoundIconInteraction = false;
@@ -92,7 +94,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingIfActiveAndPlayChillAnimation();
             }
-        }, 70); // 60
+        }, 100); // 60
     }
 
     /**
@@ -120,16 +122,27 @@ class Character extends MovableObject {
 
     animateCharacterJump() {
         // this.playAnimation(this.IMAGES_JUMPING);
-        if (this.currentImage < this.IMAGES_JUMPING.length) {
+        if (this.currentImage < this.IMAGES_JUMPING.length && (this.speedY > 0 || this.speedY < 0)) {
+            // this.playProperJumpAnimation(this.IMAGES_JUMPING);
+            // debugger;
             this.playAnimation(this.IMAGES_JUMPING);
         }
         else {
-            this.playAnimation([this.IMAGES_JUMPING[8]]);
-            setTimeout(() => {
-                this.currentImage = 0;
-            }, 100);
+            this.currentImage = 0;
+            // this.playAnimation([this.IMAGES_JUMPING[8]]);
+            // setTimeout(() => {
+            //     this.currentImage = 0;
+            // }, 50);
         }
     }
+
+    // playProperJumpAnimation(animation) {
+    //     let now = Date.now();
+    //     if (now - this.lastJumpAnimationChange > 300) {
+    //         super.playAnimation(animation);
+    //         this.lastAnimationChange = now;
+    //     }
+    // }
 
     /**
      * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the chill animation.
