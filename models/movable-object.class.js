@@ -42,7 +42,7 @@ class MovableObject extends DrawableObject {
                 // console.log("time in air: ", onGround - )
                 this.isJumping = false;
             }
-        }, 60); // 60
+        }, 55); // 60
     }
 
     /**

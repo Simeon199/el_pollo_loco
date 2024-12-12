@@ -87,7 +87,7 @@ function touchStartHandler(event) {
         if (wasButtonUpPressed(event)) {
             if (this.momentKeySpaceWasReleased > 0) {
                 let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-                if (timeThatPassedSinceKeySpaceReleased > 500) {
+                if (timeThatPassedSinceKeySpaceReleased > 500 && !world.character.isAboveGround()) {
                     keyboard.SPACE = true;
                 }
             }
@@ -167,7 +167,7 @@ function keyDownHandler(event) {
     if (event.keyCode == 32) {
         if (this.momentKeySpaceWasReleased > 0) {
             let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-            if (timeThatPassedSinceKeySpaceReleased > 500) {
+            if (timeThatPassedSinceKeySpaceReleased > 500 && !world.character.isAboveGround()) {
                 keyboard.SPACE = true;
             }
         }

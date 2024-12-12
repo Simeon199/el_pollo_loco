@@ -4,7 +4,6 @@
 
 class Character extends MovableObject {
     lastJumpAnimationChange = 0;
-
     currentTime = 0;
     acceleration = 2;
     isSoundIconInteraction = false;
@@ -79,6 +78,8 @@ class Character extends MovableObject {
                 this.triggerJumpLogic();
             } else if (this.keySpaceWasPressed()) {
                 this.triggerJumpLogic();
+            } else if (this.isAboveGround && this.isJumping == true) {
+                this.animateCharacterJump();
             } else if (this.isCharacterJumpingAndAboveTheGround()) {
                 this.animateCharacterJump();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
@@ -121,28 +122,15 @@ class Character extends MovableObject {
      */
 
     animateCharacterJump() {
-        // this.playAnimation(this.IMAGES_JUMPING);
-        if (this.currentImage < this.IMAGES_JUMPING.length && (this.speedY > 0 || this.speedY < 0)) {
-            // this.playProperJumpAnimation(this.IMAGES_JUMPING);
-            // debugger;
+        if (this.currentImage < this.IMAGES_JUMPING.length) {
             this.playAnimation(this.IMAGES_JUMPING);
-        }
-        else {
+        } else {
+            if (this.isAboveGround()) {
+                this.playAnimation([this.IMAGES_JUMPING[8]]);
+            }
             this.currentImage = 0;
-            // this.playAnimation([this.IMAGES_JUMPING[8]]);
-            // setTimeout(() => {
-            //     this.currentImage = 0;
-            // }, 50);
         }
     }
-
-    // playProperJumpAnimation(animation) {
-    //     let now = Date.now();
-    //     if (now - this.lastJumpAnimationChange > 300) {
-    //         super.playAnimation(animation);
-    //         this.lastAnimationChange = now;
-    //     }
-    // }
 
     /**
      * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the chill animation.
@@ -417,7 +405,7 @@ class Character extends MovableObject {
      * @returns {boolean} True if the left key is pressed and the character is within the level bounds.
      */
 
-    keyLeftWasPressed() { // -719
+    keyLeftWasPressed() {
         return this.world.keyboard.LEFT && this.x >= this.world.level.level_start_x - 100;
     }
 
