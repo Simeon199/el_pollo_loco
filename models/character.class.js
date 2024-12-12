@@ -3,25 +3,20 @@
  */
 
 class Character extends MovableObject {
-    lastJumpAnimationChange = 0;
-    currentTime = 0;
-    acceleration = 2;
     isSoundIconInteraction = false;
-    timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
     wasRandomKeyOncePressed = false;
     isKeyPressed = false;
-    isSleeping = false;
+    currentTime = 0;
+    timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
     someKeyWasPressedAgain = 0;
     lastTimeKeyPressed = 0;
-    timePassedWhenKeyPressed;
-    isAttacked = false;
-    isJumping = false;
     timeSinceCharacterExists = 0;
     timeCharacterExists = 0;
     height = 280;
     width = 130;
     y = 20;
     speed = 8;
+    timePassedWhenKeyPressed;
     world;
 
     /**
@@ -89,13 +84,13 @@ class Character extends MovableObject {
             } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
                 this.setIsSleepingTrueAndPlayAnimation();
             } else if (this.isHurt()) {
-                this.cancelIsSleepingIfActiveAndPlayHurtAnimation();
+                this.cancelIsSleepingAndPlayAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
-                this.cancelIsSleepingIfActiveAndPlayDeadAnimation();
+                this.cancelIsSleepingAndPlayAnimation(this.IMAGES_DEAD);
             } else {
-                this.cancelIsSleepingIfActiveAndPlayChillAnimation();
+                this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 100); // 60
+        }, 80); // 60
     }
 
     /**
@@ -133,30 +128,14 @@ class Character extends MovableObject {
     }
 
     /**
-     * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the chill animation.
+     * Cancels the sleeping state of the character if it is currently active and triggers the specified animation.
+     * 
+     * @param {Array} animationType - The array of animation frames to be played.
      */
 
-    cancelIsSleepingIfActiveAndPlayChillAnimation() {
+    cancelIsSleepingAndPlayAnimation(animationType) {
         this.setIsSleepingOnFalseIfSetTrue();
-        this.playAnimation(this.IMAGES_CHILL);
-    }
-
-    /**
-     * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the dead animation.
-     */
-
-    cancelIsSleepingIfActiveAndPlayDeadAnimation() {
-        this.setIsSleepingOnFalseIfSetTrue();
-        this.playAnimation(this.IMAGES_DEAD);
-    }
-
-    /**
-     * This function checks if the character is currently sleeping. If so, it sets the sleeping state to false and then triggers the hurt animation.
-     */
-
-    cancelIsSleepingIfActiveAndPlayHurtAnimation() {
-        this.setIsSleepingOnFalseIfSetTrue();
-        this.playAnimation(this.IMAGES_HURT);
+        this.playAnimation(animationType);
     }
 
     /**
@@ -311,8 +290,7 @@ class Character extends MovableObject {
      */
 
     conditionsToBeMetForSleeping() {
-        return this.characterExistsFiveSecondsButNoButtonPressed() ||
-            this.keyWasntPressedForMoreThanFiveSeconds() ||
+        return this.characterExistsFiveSecondsButNoButtonPressed() || this.keyWasntPressedForMoreThanFiveSeconds() ||
             this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
 
@@ -433,6 +411,6 @@ class Character extends MovableObject {
      */
 
     bounce() {
-        this.speedY = 15;
+        this.speedY = 12;
     }
 }

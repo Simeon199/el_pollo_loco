@@ -50,7 +50,7 @@ class World {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-        }, 100); // 100
+        }, 80); // 100
     }
 
     /**

@@ -58,24 +58,16 @@ class Endboss extends Chicken {
      */
 
     animate() {
-        // this.clearAnimateIntervalIfItExists();
         this.animateInterval = setInterval(() => {
             if (this.isEndbossInAttackMode()) {
-                // console.log(this.speed);
                 return;
             } else if (this.isEndbossInDeathMode()) {
                 return;
             } else if (this.isEndbossInIdleMode()) {
                 return;
             }
-        }, 100);
+        }, 120); // 100
     }
-
-    // clearAnimateIntervalIfItExists() {
-    //     if (this.animateInterval !== -1) {
-    //         clearInterval(this.animateInterval);
-    //     }
-    // }
 
     /**
      * Determines if the end boss is in attack mode based on the character's position and actions.
@@ -167,13 +159,13 @@ class Endboss extends Chicken {
         let now = Date.now();
         let shouldChangeDirection = (now - this.lastDirectionChangeTime) > this.directionChangeCooldown;
         if (this.mainCharacterPosition < this.x) {
-            this.x -= this.speed; // endbossSpeedX
+            this.x -= this.speed;
             if (shouldChangeDirection) {
                 this.otherDirection = false;
                 this.lastDirectionChangeTime = now;
             }
         } else {
-            this.x += this.speed; // endbossSpeedX
+            this.x += this.speed;
             if (shouldChangeDirection) {
                 this.otherDirection = true;
                 this.lastDirectionChangeTime = now;
@@ -282,7 +274,7 @@ class Endboss extends Chicken {
     */
 
     isCharacterToCloseToEndbossFromTheRight() {
-        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 200 && this.x < this.mainCharacterPosition && this.energy > 0;
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x < this.mainCharacterPosition && this.energy > 0;
     }
 
     /**
@@ -292,7 +284,7 @@ class Endboss extends Chicken {
     */
 
     isCharacterToCloseToEndbossFromTheLeft() {
-        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 200 && this.x > this.mainCharacterPosition && this.energy > 0;
+        return this.x - this.mainCharacterPosition && Math.abs(this.x - this.mainCharacterPosition) < 400 && this.x > this.mainCharacterPosition && this.energy > 0;
     }
 
     /**
@@ -321,12 +313,11 @@ class Endboss extends Chicken {
         let timeDifference = date - this.endbossHitCharacterAtTime;
         this.world.character.timeDifferenceBetweenNowAndLastHitFromEndboss = timeDifference;
         if (timeDifference < 200) {
-            this.speed = 0; // endbossSpeedX
+            this.speed = 0;
         } else if (timeDifference >= 200) {
-            this.speed = 8; // endbossSpeedX
+            this.speed = 10;
         }
     }
-
 
     /**
      * Updates the Endboss direction based on the main character's position.

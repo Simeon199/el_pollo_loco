@@ -7,8 +7,11 @@
 class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
+    isAttacked = false;
+    isJumping = false;
+    isSleeping = false;
     speedY = 0;
-    acceleration = 1.8; // 2.5
+    acceleration = 2;
     energy = 100;
     timePassedLimit = 1;
     timePassedVariable = 0;
@@ -42,7 +45,7 @@ class MovableObject extends DrawableObject {
                 // console.log("time in air: ", onGround - )
                 this.isJumping = false;
             }
-        }, 55); // 60
+        }, 50); // 60
     }
 
     /**
