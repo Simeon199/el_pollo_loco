@@ -3,6 +3,7 @@
  */
 
 class Character extends MovableObject {
+    wasKeySpacePressedActivated = false;
     isSoundIconInteraction = false;
     wasRandomKeyOncePressed = false;
     isKeyPressed = false;
@@ -69,13 +70,9 @@ class Character extends MovableObject {
     manageAllCharacterAnimations() {
         setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
-            if (this.wereJumpAndMoveBruttonPressedSimultaneously()) {
-                this.triggerJumpLogic();
-            } else if (this.keySpaceWasPressed()) {
-                this.triggerJumpLogic();
-            } else if (this.isAboveGround && this.isJumping == true) {
-                this.animateCharacterJump();
-            } else if (this.isCharacterJumpingAndAboveTheGround()) {
+            if (this.checkWhetherButtonForJumpWasActivated()) {
+                this.triggerJumpMovement();
+            } else if (this.isAboveGround() && this.isJumping == true) {
                 this.animateCharacterJump();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
                 this.playMovingRightAnimationWithAudio();
@@ -90,7 +87,18 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 80); // 60
+        }, 70); // 60
+    }
+
+    checkWhetherButtonForJumpWasActivated() {
+        return this.wereJumpAndMoveBruttonPressedSimultaneously() || this.keySpaceWasPressed();
+    }
+
+    triggerJumpMovement() {
+        this.animateCharacterJump();
+        setTimeout(() => {
+            this.jump();
+        }, 100);
     }
 
     /**
@@ -109,7 +117,7 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
             this.world.camera_x = -this.x + 200;
-        }, 25);
+        }, 35); // 25
     }
 
     /**
@@ -117,7 +125,7 @@ class Character extends MovableObject {
      */
 
     animateCharacterJump() {
-        if (this.currentImage < this.IMAGES_JUMPING.length) {
+        if (this.currentImage <= this.IMAGES_JUMPING.length - 1) {
             this.playAnimation(this.IMAGES_JUMPING);
         } else {
             if (this.isAboveGround()) {
@@ -155,17 +163,6 @@ class Character extends MovableObject {
     wereJumpAndMoveBruttonPressedSimultaneously() {
         this.setIsSleepingOnFalseIfSetTrue();
         return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
-    }
-
-    /**
-     * Triggers the logic for making the character jump. Sets the jumping state to true and mutes walking sounds if necessary.
-     */
-
-    triggerJumpLogic() {
-        this.isJumping = true;
-        this.world.audioManager.muteWalkingSoundIfNecessary();
-        this.jump();
-        this.animateCharacterJump();
     }
 
     /**
@@ -394,6 +391,7 @@ class Character extends MovableObject {
 
     keySpaceWasPressed() {
         this.setIsSleepingOnFalseIfSetTrue();
+        this.isJumping = true;
         return this.world.keyboard.SPACE;
     }
 

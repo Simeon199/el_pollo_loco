@@ -66,7 +66,7 @@ class Endboss extends Chicken {
             } else if (this.isEndbossInIdleMode()) {
                 return;
             }
-        }, 120); // 100
+        }, 100); // 100
     }
 
     /**
