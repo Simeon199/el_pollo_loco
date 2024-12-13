@@ -16,7 +16,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 8;
+    speed = 7;
     timePassedWhenKeyPressed;
     world;
 
@@ -72,7 +72,7 @@ class Character extends MovableObject {
             this.setRelevantGlobalVariablesForMovingCharacter();
             if (this.checkWhetherButtonForJumpWasActivated()) {
                 this.triggerJumpMovement();
-            } else if (this.isAboveGround() && this.isJumping == true) {
+            } else if (this.isCharacterJumpingAndAboveTheGround()) {
                 this.animateCharacterJump();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
                 this.playMovingRightAnimationWithAudio();
@@ -87,7 +87,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 70); // 60
+        }, 80); // 60
     }
 
     checkWhetherButtonForJumpWasActivated() {
@@ -95,6 +95,7 @@ class Character extends MovableObject {
     }
 
     triggerJumpMovement() {
+        this.world.audioManager.muteWalkingSoundIfNecessary();
         this.animateCharacterJump();
         setTimeout(() => {
             this.jump();
@@ -111,13 +112,13 @@ class Character extends MovableObject {
                 this.moveRight();
                 this.otherDirection = false;
             }
-            this.world.camera_x = this.x + 200;
+            this.world.camera_x = this.x + 250; // 200
             if (this.keyLeftWasPressed() && !this.keyRightWasPressed()) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
-            this.world.camera_x = -this.x + 200;
-        }, 35); // 25
+            this.world.camera_x = -this.x + 250; // 200
+        }, 25); // 25
     }
 
     /**
@@ -128,10 +129,10 @@ class Character extends MovableObject {
         if (this.currentImage <= this.IMAGES_JUMPING.length - 1) {
             this.playAnimation(this.IMAGES_JUMPING);
         } else {
-            if (this.isAboveGround()) {
-                this.playAnimation([this.IMAGES_JUMPING[8]]);
-            }
-            this.currentImage = 0;
+            this.playAnimation([this.IMAGES_JUMPING[8]]);
+            setTimeout(() => {
+                this.currentImage = 0;
+            }, 100);
         }
     }
 
@@ -409,6 +410,6 @@ class Character extends MovableObject {
      */
 
     bounce() {
-        this.speedY = 12;
+        this.speedY = 15;
     }
 }

@@ -11,7 +11,7 @@ class MovableObject extends DrawableObject {
     isAttacked = false;
     isSleeping = false;
     speedY = 0;
-    acceleration = 2;
+    acceleration = 2; // 2.5
     energy = 100;
     timePassedLimit = 1;
     timePassedVariable = 0;
@@ -41,9 +41,9 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else {
                 this.y = 145;
-                // this.isJumping = false;
+                this.isJumping = false;
             }
-        }, 50); // 60
+        }, 60);
     }
 
     /**
@@ -207,7 +207,6 @@ class MovableObject extends DrawableObject {
      */
 
     playAnimation(images) {
-        // debugger;
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
@@ -246,7 +245,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else if (!this.isAboveGround()) {
-            this.speedY = 18;
+            this.speedY = 20;
         }
     }
 

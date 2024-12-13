@@ -46,11 +46,14 @@ class World {
      */
 
     run() {
+        if (this.runInterval) {
+            clearInterval(this.runInterval);
+        }
         this.runInterval = setInterval(() => {
             this.utilityClass.playUtilityFunctions();
             this.checkIfAllEnemiesAreDeadExceptTheEndboss();
             this.audioManager.playBackgroundMusic();
-        }, 75); // 100
+        }, 100); // 100
     }
 
     /**
