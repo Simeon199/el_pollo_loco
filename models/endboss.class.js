@@ -8,7 +8,6 @@ class Endboss extends Chicken {
     directionChangeCooldown = 500;
     endbossHitCharacterAtTime = 0;
     speed = 0;
-    // endbossSpeedX = 0;
     mainCharacterPosition = null;
     timePassedLimit = 5;
     animateInterval = -1;
@@ -47,7 +46,7 @@ class Endboss extends Chicken {
 
     playAnimation(animation) {
         let now = Date.now();
-        if (now - this.lastAnimationChange > 300) {
+        if (now - this.lastAnimationChange > 1000 / 60) { // 300
             super.playAnimation(animation);
             this.lastAnimationChange = now;
         }
@@ -318,7 +317,7 @@ class Endboss extends Chicken {
         if (timeDifference < 200) {
             this.speed = 0;
         } else if (timeDifference >= 200) {
-            this.speed = 10;
+            this.speed = 5;
         }
     }
 

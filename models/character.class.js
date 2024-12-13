@@ -16,7 +16,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 7;
+    speed = 5;
     timePassedWhenKeyPressed;
     world;
 
@@ -87,7 +87,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 80); // 60
+        }, 70); // 60
     }
 
     checkWhetherButtonForJumpWasActivated() {
@@ -99,7 +99,7 @@ class Character extends MovableObject {
         this.animateCharacterJump();
         setTimeout(() => {
             this.jump();
-        }, 100);
+        }, 200);
     }
 
     /**
@@ -132,7 +132,7 @@ class Character extends MovableObject {
             this.playAnimation([this.IMAGES_JUMPING[8]]);
             setTimeout(() => {
                 this.currentImage = 0;
-            }, 100);
+            }, 150);
         }
     }
 
