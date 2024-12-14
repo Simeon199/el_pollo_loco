@@ -169,13 +169,29 @@ function keyDownHandler(event) {
     }
 }
 
+/**
+ * Manages the permission for the space key based on the time since it was released.
+ * If the key was released recently and the character is on the ground, the space key is re-enabled.
+ */
+
 function manageKeySpacePermissionDependingOnTime() {
     if (this.momentKeySpaceWasReleased > 0) {
         let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-        if (timeThatPassedSinceKeySpaceReleased >= 500 && !world.character.isAboveGround()) {
+        if (isCharacterOnGroundAndKeySpaceReleasedWithinTimeLimit(timeThatPassedSinceKeySpaceReleased)) {
             keyboard.SPACE = true;
         }
     }
+}
+
+/**
+ * Checks if the character is on the ground and if the space key was released within a specific time limit.
+ * 
+ * @param {number} timeThatPassedSinceKeySpaceReleased - Time in milliseconds since the space key was released.
+ * @returns {boolean} True if the character is on the ground and the time since release is within the limit, false otherwise.
+ */
+
+function isCharacterOnGroundAndKeySpaceReleasedWithinTimeLimit(timeThatPassedSinceKeySpaceReleased) {
+    return timeThatPassedSinceKeySpaceReleased >= 500 && !world.character.isAboveGround();
 }
 
 /**
@@ -186,11 +202,11 @@ function manageKeySpacePermissionDependingOnTime() {
 
 function keyUpHandler(event) {
     settingGlobalVariablesInKeyUpOrTouchEndEvent();
-    if (event.keyCode == 39 || world.character.x >= world.level.level_end_x) {
+    if (keyRightReleasedAndCharacterWithinBorder(event)) {
         keyboard.RIGHT = false;
         world.audioManager.muteSound(true, 'walking_sound');
     }
-    if (event.keyCode == 37 || world.character.x <= -719 - 100) {
+    if (keyLeftReleasedAndCharacterWithinBorder(event)) {
         keyboard.LEFT = false;
         world.audioManager.muteSound(true, 'walking_sound');
     }
@@ -209,6 +225,32 @@ function keyUpHandler(event) {
         setTimeActivationVariablesForKeyD();
     }
 }
+
+/**
+ * Determines if the right arrow key was released or if the character has reached the right boundary of the level.
+ * 
+ * @param {KeyboardEvent} event - The keyboard event triggered by releasing a key.
+ * @returns {boolean} True if the right arrow key was released or the character is within the level's right boundary.
+ */
+
+function keyRightReleasedAndCharacterWithinBorder(event) {
+    return event.keyCode == 39 || world.character.x >= world.level.level_end_x;
+}
+
+/**
+ * Determines if the left arrow key was released or if the character has reached the left boundary of the level.
+ * 
+ * @param {KeyboardEvent} event - The keyboard event triggered by releasing a key.
+ * @returns {boolean} True if the left arrow key was released or the character is within the level's left boundary.
+ */
+
+function keyLeftReleasedAndCharacterWithinBorder(event) {
+    return event.keyCode == 37 || world.character.x <= world.level.level_start_x - 100;
+}
+
+/**
+ * Sets the activation variables for the "D" key by recording the release time and calculating the duration of the key press.
+ */
 
 function setTimeActivationVariablesForKeyD() {
     timeWhenKeyDWasReleased = new Date().getTime();

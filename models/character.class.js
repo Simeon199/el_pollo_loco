@@ -87,7 +87,6 @@ class Character extends MovableObject {
     }
 
     wasJumpButtonActivatedAndCharacterOnGround() {
-        // this.isLoopFinished = false;
         return (this.wereJumpAndMoveBruttonPressedSimultaneously() || this.keySpaceWasPressed()) && !this.isAboveGround();
     }
 
