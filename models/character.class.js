@@ -138,20 +138,20 @@ class Character extends MovableObject {
 
 
     animateCharacterJump() {
-        debugger;
-        if (this.speedY > 0) {
-            this.playAnimation([this.IMAGES_JUMPING[3]]);
-        } else if (this.speedY <= 0) {
-            if (this.currentImage % this.IMAGES_JUMPING.length == 0) {
-                this.isLoopFinished = true;
-                this.playAnimation([this.IMAGES_JUMPING[8]]);
-            } else {
-                this.playAnimation(this.IMAGES_JUMPING.slice(4, 8));
+        // debugger;
+        if (this.isJumping == true) {
+            if (this.speedY > 0) {
+                this.playAnimation([this.IMAGES_JUMPING[3]]);
+            } else if (this.speedY <= 0) {
+                if (this.currentImage % this.IMAGES_JUMPING.length == 0) {
+                    this.isLoopFinished = true;
+                    this.playAnimation([this.IMAGES_JUMPING[8]]);
+                    this.isJumping = false;
+                } else {
+                    this.playAnimation(this.IMAGES_JUMPING.slice(4, 8));
+                }
             }
         }
-        // if ((this.speedY > 0 || this.speedY < 0) && this.isLoopFinished == true) {
-        //     this.playAnimation([this.IMAGES_JUMPING[8]]);
-        // }
     }
 
     /**
