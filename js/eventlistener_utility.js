@@ -4,11 +4,6 @@
  */
 
 function prepareForThrowingLeft() {
-    // if (world.character.x > -719 - 100) {
-    //     keyboard.LEFT = true;
-    // } else {
-    //     keyboard.LEFT = false;
-    // }
     keyboard.LEFT = true;
     if (keyboard.rightForThrow == true) {
         keyboard.rightForThrow = false;
@@ -22,11 +17,6 @@ function prepareForThrowingLeft() {
  */
 
 function prepareForThrowingRight() {
-    // if (world.character.x < world.level.level_end_x) {
-    //     keyboard.RIGHT = true;
-    // } else {
-    //     keyboard.RIGHT = false;
-    // }
     keyboard.RIGHT = true;
     if (keyboard.leftForThrow == true) {
         keyboard.leftForThrow = false;

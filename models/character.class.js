@@ -83,7 +83,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 100); // 70
+        }, 70);
     }
 
     wasJumpButtonActivatedAndCharacterOnGround() {
@@ -96,7 +96,7 @@ class Character extends MovableObject {
             this.isPreparingJump = false;
             this.triggerJumpMovement();
             this.jump();
-        }, 150);
+        }, 100);
     }
 
     /**
@@ -122,13 +122,13 @@ class Character extends MovableObject {
                 this.moveRight();
                 this.otherDirection = false;
             }
-            this.world.camera_x = this.x + 250; // 200
+            this.world.camera_x = this.x + 200;
             if (this.keyLeftWasPressed() && !this.keyRightWasPressed()) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
-            this.world.camera_x = -this.x + 250; // 200
-        }, 25); // 25
+            this.world.camera_x = -this.x + 200;
+        }, 25);
     }
 
     /**
@@ -136,12 +136,13 @@ class Character extends MovableObject {
      */
 
     animateCharacterJump() {
-        if (this.currentImage <= this.IMAGES_JUMPING.length - 1) {
-            this.playAnimation(this.IMAGES_JUMPING);
-        } else {
-            setTimeout(() => { this.currentImage = 0 }, 100);
-            this.playAnimation([this.IMAGES_JUMPING[8]]);
+        if (this.currentImage <= this.IMAGES_JUMPING.length - 1 && this.speedY < 0) {
+            this.playAnimation(this.IMAGES_JUMPING.slice(3, 8));
+        } else if (this.speedY >= 0 && this.currentImage > this.IMAGES_JUMPING.length - 1) {
+            this.playAnimation([this.IMAGES_JUMPING[3]]);
+            this.currentImage = 0;
         }
+        console.log(this.currentImage);
     }
 
     /**

@@ -46,7 +46,7 @@ class Endboss extends Chicken {
 
     playAnimation(animation) {
         let now = Date.now();
-        if (now - this.lastAnimationChange > 1000 / 60) { // 300
+        if (now - this.lastAnimationChange > 1000 / 60) {
             super.playAnimation(animation);
             this.lastAnimationChange = now;
         }
@@ -68,7 +68,7 @@ class Endboss extends Chicken {
             } else if (this.isEndbossInIdleMode()) {
                 return;
             }
-        }, 100); // 125
+        }, 100);
     }
 
     /**

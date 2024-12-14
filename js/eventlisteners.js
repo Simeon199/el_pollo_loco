@@ -85,12 +85,7 @@ function touchStartHandler(event) {
             prepareForThrowingRight();
         }
         if (wasButtonUpPressed(event)) {
-            if (this.momentKeySpaceWasReleased > 0) {
-                let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-                if (timeThatPassedSinceKeySpaceReleased > 0 && !world.character.isAboveGround()) {
-                    keyboard.SPACE = true;
-                }
-            }
+            manageKeySpacePermissionDependingOnTime();
         }
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = true;
@@ -121,12 +116,11 @@ function touchEndHandler(event) {
         }
         if (wasButtonUpPressed(event)) {
             keyboard.SPACE = false;
-            this.momentKeySpaceWasReleased = new Date().getTime();
+            momentKeySpaceWasReleased = new Date().getTime();
         }
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = false;
-            timeWhenKeyDWasReleased = new Date().getTime();
-            timeDifferenceBetweenKeyDPressedReleased = Math.abs(timeWhenKeyDWasReleased - timeWhenKeyDWasPressed);
+            setTimeActivationVariablesForKeyD();
         }
     }
 }
@@ -165,18 +159,22 @@ function keyDownHandler(event) {
         keyboard.DOWN = true;
     }
     if (event.keyCode == 32) {
-        if (this.momentKeySpaceWasReleased > 0) {
-            let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-            if (timeThatPassedSinceKeySpaceReleased >= 500 && !world.character.isAboveGround()) {
-                keyboard.SPACE = true;
-            }
-        }
+        manageKeySpacePermissionDependingOnTime();
         keyboard.SPACE = true;
     }
     if (event.keyCode == 68) {
         keyboard.keyD = true;
         timeWhenKeyDWasPressed = new Date().getTime();
         giveOrDenyPermissionToThrow();
+    }
+}
+
+function manageKeySpacePermissionDependingOnTime() {
+    if (this.momentKeySpaceWasReleased > 0) {
+        let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
+        if (timeThatPassedSinceKeySpaceReleased >= 500 && !world.character.isAboveGround()) {
+            keyboard.SPACE = true;
+        }
     }
 }
 
@@ -208,9 +206,13 @@ function keyUpHandler(event) {
     }
     if (event.keyCode == 68) {
         keyboard.keyD = false;
-        timeWhenKeyDWasReleased = new Date().getTime();
-        timeDifferenceBetweenKeyDPressedReleased = Math.abs(timeWhenKeyDWasReleased - timeWhenKeyDWasPressed);
+        setTimeActivationVariablesForKeyD();
     }
+}
+
+function setTimeActivationVariablesForKeyD() {
+    timeWhenKeyDWasReleased = new Date().getTime();
+    timeDifferenceBetweenKeyDPressedReleased = Math.abs(timeWhenKeyDWasReleased - timeWhenKeyDWasPressed);
 }
 
 /**
