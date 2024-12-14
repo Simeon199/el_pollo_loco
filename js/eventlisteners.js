@@ -87,7 +87,7 @@ function touchStartHandler(event) {
         if (wasButtonUpPressed(event)) {
             if (this.momentKeySpaceWasReleased > 0) {
                 let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-                if (timeThatPassedSinceKeySpaceReleased > 500 && !world.character.isAboveGround()) {
+                if (timeThatPassedSinceKeySpaceReleased > 0 && !world.character.isAboveGround()) {
                     keyboard.SPACE = true;
                 }
             }
@@ -167,14 +167,11 @@ function keyDownHandler(event) {
     if (event.keyCode == 32) {
         if (this.momentKeySpaceWasReleased > 0) {
             let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-            if (timeThatPassedSinceKeySpaceReleased > 500 && !world.character.isAboveGround()) {
+            if (timeThatPassedSinceKeySpaceReleased >= 500 && !world.character.isAboveGround()) {
                 keyboard.SPACE = true;
             }
         }
         keyboard.SPACE = true;
-        // else if (this.momentKeySpaceWasReleased == 0) {
-        //     keyboard.SPACE = true;
-        // }
     }
     if (event.keyCode == 68) {
         keyboard.keyD = true;

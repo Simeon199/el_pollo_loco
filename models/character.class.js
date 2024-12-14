@@ -3,6 +3,8 @@
  */
 
 class Character extends MovableObject {
+    animateCharacterInterval;
+    isPreparingJump = false;
     wasKeySpacePressedActivated = false;
     isSoundIconInteraction = false;
     wasRandomKeyOncePressed = false;
@@ -46,14 +48,6 @@ class Character extends MovableObject {
     }
 
     /**
-    * Sets the timestamp indicating when the character was created.
-    */
-
-    setTimeSinceCharacterExists() {
-        this.timeSinceCharacterExists = new Date().getTime();
-    }
-
-    /**
     * Controls all animations and camera movement for the character in the game world.
     */
 
@@ -68,10 +62,12 @@ class Character extends MovableObject {
      */
 
     manageAllCharacterAnimations() {
-        setInterval(() => {
+        this.animateCharacterInterval = setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
-            if (this.checkWhetherButtonForJumpWasActivated()) {
-                this.triggerJumpMovement();
+            if (this.isPreparingJump) {
+                this.prepareJumpAnimation();
+            } else if (this.wasJumpButtonActivatedAndCharacterOnGround()) {
+                this.isPreparingJump = true;
             } else if (this.isCharacterJumpingAndAboveTheGround()) {
                 this.animateCharacterJump();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
@@ -87,19 +83,33 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 70); // 60
+        }, 100); // 70
     }
 
-    checkWhetherButtonForJumpWasActivated() {
-        return this.wereJumpAndMoveBruttonPressedSimultaneously() || this.keySpaceWasPressed();
+    wasJumpButtonActivatedAndCharacterOnGround() {
+        return (this.wereJumpAndMoveBruttonPressedSimultaneously() || this.keySpaceWasPressed()) && !this.isAboveGround();
+    }
+
+    prepareJumpAnimation() {
+        this.playAnimation(this.IMAGES_JUMPING.slice(0, 3));
+        setTimeout(() => {
+            this.isPreparingJump = false;
+            this.triggerJumpMovement();
+            this.jump();
+        }, 150);
+    }
+
+    /**
+    * Sets the timestamp indicating when the character was created.
+    */
+
+    setTimeSinceCharacterExists() {
+        this.timeSinceCharacterExists = new Date().getTime();
     }
 
     triggerJumpMovement() {
         this.world.audioManager.muteWalkingSoundIfNecessary();
-        this.animateCharacterJump();
-        setTimeout(() => {
-            this.jump();
-        }, 200);
+        this.isJumping = true;
     }
 
     /**
@@ -129,10 +139,8 @@ class Character extends MovableObject {
         if (this.currentImage <= this.IMAGES_JUMPING.length - 1) {
             this.playAnimation(this.IMAGES_JUMPING);
         } else {
+            setTimeout(() => { this.currentImage = 0 }, 100);
             this.playAnimation([this.IMAGES_JUMPING[8]]);
-            setTimeout(() => {
-                this.currentImage = 0;
-            }, 150);
         }
     }
 
@@ -173,7 +181,9 @@ class Character extends MovableObject {
 
     isCharacterJumpingAndAboveTheGround() {
         this.setIsSleepingOnFalseIfSetTrue();
-        return this.isJumping == true && this.isAboveGround();
+        if (this.timeCharacterExists > 2000) {
+            return this.isJumping == true && this.isAboveGround();
+        }
     }
 
     /**
@@ -392,7 +402,6 @@ class Character extends MovableObject {
 
     keySpaceWasPressed() {
         this.setIsSleepingOnFalseIfSetTrue();
-        this.isJumping = true;
         return this.world.keyboard.SPACE;
     }
 

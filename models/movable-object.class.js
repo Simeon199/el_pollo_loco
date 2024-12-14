@@ -11,7 +11,7 @@ class MovableObject extends DrawableObject {
     isAttacked = false;
     isSleeping = false;
     speedY = 0;
-    acceleration = 2; // 2.5
+    acceleration = 2.5; // 2.5
     energy = 100;
     timePassedLimit = 1;
     timePassedVariable = 0;
@@ -43,7 +43,7 @@ class MovableObject extends DrawableObject {
                 this.y = 145;
                 this.isJumping = false;
             }
-        }, 60);
+        }, 50);
     }
 
     /**
