@@ -3,7 +3,7 @@
  */
 
 class Character extends MovableObject {
-    animateCharacterInterval;
+    isLoopFinished = false;
     isPreparingJump = false;
     wasKeySpacePressedActivated = false;
     isSoundIconInteraction = false;
@@ -87,6 +87,7 @@ class Character extends MovableObject {
     }
 
     wasJumpButtonActivatedAndCharacterOnGround() {
+        // this.isLoopFinished = false;
         return (this.wereJumpAndMoveBruttonPressedSimultaneously() || this.keySpaceWasPressed()) && !this.isAboveGround();
     }
 
@@ -96,7 +97,7 @@ class Character extends MovableObject {
             this.isPreparingJump = false;
             this.triggerJumpMovement();
             this.jump();
-        }, 100);
+        }, 150);
     }
 
     /**
@@ -135,14 +136,22 @@ class Character extends MovableObject {
      * Plays the jumping animation frames sequentially. If the animation sequence is complete, displays the last frame and resets the animation after a short delay.
      */
 
+
     animateCharacterJump() {
-        if (this.currentImage <= this.IMAGES_JUMPING.length - 1 && this.speedY < 0) {
-            this.playAnimation(this.IMAGES_JUMPING.slice(3, 8));
-        } else if (this.speedY >= 0 && this.currentImage > this.IMAGES_JUMPING.length - 1) {
+        debugger;
+        if (this.speedY > 0) {
             this.playAnimation([this.IMAGES_JUMPING[3]]);
-            this.currentImage = 0;
+        } else if (this.speedY <= 0) {
+            if (this.currentImage % this.IMAGES_JUMPING.length == 0) {
+                this.isLoopFinished = true;
+                this.playAnimation([this.IMAGES_JUMPING[8]]);
+            } else {
+                this.playAnimation(this.IMAGES_JUMPING.slice(4, 8));
+            }
         }
-        console.log(this.currentImage);
+        // if ((this.speedY > 0 || this.speedY < 0) && this.isLoopFinished == true) {
+        //     this.playAnimation([this.IMAGES_JUMPING[8]]);
+        // }
     }
 
     /**

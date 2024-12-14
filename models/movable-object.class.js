@@ -40,6 +40,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
+                this.speedY = 0;
                 this.y = 145;
                 this.isJumping = false;
             }
@@ -244,7 +245,7 @@ class MovableObject extends DrawableObject {
     jump() {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
-        } else if (!this.isAboveGround()) {
+        } else if (this instanceof Character && !this.isAboveGround()) {
             this.speedY = 20;
         }
     }
