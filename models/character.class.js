@@ -66,20 +66,13 @@ class Character extends MovableObject {
             this.setRelevantGlobalVariablesForMovingCharacter();
             if (this.isBounced == true) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.areJumpAndMoveButtonSimultaneouslyPressed()) {
+            } else if (this.shouldJumpAnimationBeExecuted()) {
                 this.playAnimationMovingAndJumping();
-            } else if (this.keySpaceWasPressed()) {
-                this.playAnimationMovingAndJumping();
-                // this.startJump();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
                 this.playMovingRightAnimationWithAudio();
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
                 this.playMovingLeftAnimationWithAudio();
-            }
-            // else if (this.isJumping) {
-            //     this.playAnimationMovingAndJumping();
-            // } 
-            else if (this.isBounced == true) {
+            } else if (this.isBounced == true) {
                 this.animateCharacterJump();
             } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
                 this.setIsSleepingTrueAndPlayAnimation();
@@ -110,6 +103,10 @@ class Character extends MovableObject {
             }
             this.world.camera_x = -this.x + 200;
         }, 35); // 25
+    }
+
+    shouldJumpAnimationBeExecuted() {
+        return this.areJumpAndMoveButtonSimultaneouslyPressed() || this.keySpaceWasPressed();
     }
 
     areJumpAndMoveButtonSimultaneouslyPressed() {
