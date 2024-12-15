@@ -5,13 +5,14 @@
  */
 
 class MovableObject extends DrawableObject {
+    isBounced = false;
     speed = 0.15;
     otherDirection = false;
     isJumping = false;
     isAttacked = false;
     isSleeping = false;
     speedY = 0;
-    acceleration = 2.25; // 2.5
+    acceleration = 2; // 2.5
     energy = 100;
     timePassedLimit = 1;
     timePassedVariable = 0;
@@ -36,15 +37,24 @@ class MovableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
+            if (this.speedY < 0 && this instanceof Character) {
+                this.acceleration = 3;
+            }
             if (this.isAboveGroundOrUpwardSpeedPositive()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
                 this.speedY = 0;
                 this.y = 145;
-                // this.isJumping = false;
+                this.unsetIsBouncedIfSetTrue();
             }
-        }, 55);
+        }, 60);
+    }
+
+    unsetIsBouncedIfSetTrue() {
+        if (this.isBounced) {
+            this.isBounced = false;
+        }
     }
 
     /**
@@ -260,17 +270,6 @@ class MovableObject extends DrawableObject {
         return this instanceof Character && (this.isHurt() || this.isDead());
     }
 
-    /**
-     * Makes the character bounce by setting the vertical speed to 15.
-     */
-
-    bounce() {
-        if (this instanceof Character) {
-            this.speedY = 15;
-            this.startJump();
-        }
-    }
-
     startJump() {
         if (!this.isJumping) {
             this.currentImage = 0;
@@ -286,5 +285,15 @@ class MovableObject extends DrawableObject {
         if (this instanceof Character && this.isSleeping == true) {
             this.isSleeping = false;
         }
+    }
+
+    /**
+   * Makes the character bounce by setting the vertical speed to 15.
+   */
+
+    bounce() {
+        this.speedY = 15;
+        this.startJump();
+        this.isBounced = true;
     }
 }

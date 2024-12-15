@@ -85,7 +85,8 @@ function touchStartHandler(event) {
             prepareForThrowingRight();
         }
         if (wasButtonUpPressed(event)) {
-            manageKeySpacePermissionDependingOnTime();
+            // manageKeySpacePermissionDependingOnTime();
+            keyboard.SPACE = true;
         }
         if (wasButtonThrowPressed(event)) {
             keyboard.keyD = true;
@@ -116,6 +117,7 @@ function touchEndHandler(event) {
         }
         if (wasButtonUpPressed(event)) {
             keyboard.SPACE = false;
+            world.character.isKeySpaceReleased = true;
             momentKeySpaceWasReleased = new Date().getTime();
         }
         if (wasButtonThrowPressed(event)) {
@@ -159,8 +161,9 @@ function keyDownHandler(event) {
         keyboard.DOWN = true;
     }
     if (event.keyCode == 32) {
-        manageKeySpacePermissionDependingOnTime();
+        // manageKeySpacePermissionDependingOnTime();
         keyboard.SPACE = true;
+        // world.character.isKeySpaceReleased = false;
     }
     if (event.keyCode == 68) {
         keyboard.keyD = true;
@@ -177,8 +180,11 @@ function keyDownHandler(event) {
 function manageKeySpacePermissionDependingOnTime() {
     if (this.momentKeySpaceWasReleased > 0) {
         let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
+        world.character.timeThatPassedSinceKeySpaceReleased = timeThatPassedSinceKeySpaceReleased;
+        // world.character.isKeySpaceReleased = false;
         if (isCharacterOnGroundAndKeySpaceReleasedWithinTimeLimit(timeThatPassedSinceKeySpaceReleased)) {
             keyboard.SPACE = true;
+            // world.character.isKeySpaceReleased = false;
         }
     }
 }
@@ -191,7 +197,7 @@ function manageKeySpacePermissionDependingOnTime() {
  */
 
 function isCharacterOnGroundAndKeySpaceReleasedWithinTimeLimit(timeThatPassedSinceKeySpaceReleased) {
-    return timeThatPassedSinceKeySpaceReleased >= 500 && !world.character.isAboveGround();
+    return timeThatPassedSinceKeySpaceReleased >= 0 && !world.character.isAboveGround(); // 500
 }
 
 /**
@@ -218,6 +224,7 @@ function keyUpHandler(event) {
     }
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
+        world.character.isKeySpaceReleased = true;
         this.momentKeySpaceWasReleased = new Date().getTime();
     }
     if (event.keyCode == 68) {

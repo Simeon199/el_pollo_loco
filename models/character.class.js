@@ -3,10 +3,12 @@
  */
 
 class Character extends MovableObject {
+    isKeySpaceReleased = false;
     wasKeySpacePressedActivated = false;
     isSoundIconInteraction = false;
     wasRandomKeyOncePressed = false;
     isKeyPressed = false;
+    timeThatPassedSinceKeySpaceReleased = 0;
     currentTime = 0;
     timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
     someKeyWasPressedAgain = 0;
@@ -16,7 +18,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 5;
+    speed = 8; // 5
     timePassedWhenKeyPressed;
     world;
 
@@ -62,14 +64,23 @@ class Character extends MovableObject {
     manageAllCharacterAnimations() {
         setInterval(() => {
             this.setRelevantGlobalVariablesForMovingCharacter();
-            if (this.wasJumpButtonActivatedAndCharacterOnGround()) {
-                this.startJump();
-            } else if (this.isJumping) {
-                this.animateCharacterJump();
+            if (this.isBounced == true) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.areJumpAndMoveButtonSimultaneouslyPressed()) {
+                this.playAnimationMovingAndJumping();
+            } else if (this.keySpaceWasPressed()) {
+                this.playAnimationMovingAndJumping();
+                // this.startJump();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
                 this.playMovingRightAnimationWithAudio();
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
                 this.playMovingLeftAnimationWithAudio();
+            }
+            // else if (this.isJumping) {
+            //     this.playAnimationMovingAndJumping();
+            // } 
+            else if (this.isBounced == true) {
+                this.animateCharacterJump();
             } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
                 this.setIsSleepingTrueAndPlayAnimation();
             } else if (this.isHurt()) {
@@ -79,7 +90,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 70);
+        }, 80); // 70
     }
 
     /**
@@ -98,11 +109,18 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
             this.world.camera_x = -this.x + 200;
-        }, 25);
+        }, 35); // 25
     }
 
-    wasJumpButtonActivatedAndCharacterOnGround() {
-        return (this.wereJumpAndMoveBruttonPressedSimultaneously() || this.keySpaceWasPressed()) && !this.isAboveGround();
+    areJumpAndMoveButtonSimultaneouslyPressed() {
+        return this.keySpaceWasPressed() && this.keyLeftPressedAndCharacterOnGround() || this.keySpaceWasPressed() && this.keyRightPressedAndCharacterOnGround() || this.isKeySpaceReleased;
+    }
+
+    playAnimationMovingAndJumping() {
+        this.startJump();
+        if (this.isJumping) {
+            this.animateCharacterJump();
+        }
     }
 
     /**
@@ -113,17 +131,13 @@ class Character extends MovableObject {
         this.timeSinceCharacterExists = new Date().getTime();
     }
 
-    triggerJumpMovement() {
-        this.world.audioManager.muteWalkingSoundIfNecessary();
-        this.isJumping = true;
-    }
-
     /**
      * Plays the jumping animation frames sequentially. If the animation sequence is complete, displays the last frame and resets the animation after a short delay.
      */
 
 
     animateCharacterJump() {
+        this.world.audioManager.muteWalkingSoundIfNecessary();
         this.playAnimation(this.IMAGES_JUMPING);
         if (this.currentImage == 4) {
             this.jump();
@@ -133,6 +147,13 @@ class Character extends MovableObject {
             this.currentImage--;
         } else if (this.currentImage > this.IMAGES_JUMPING.length && !this.isAboveGround()) {
             this.isJumping = false;
+            this.setIsKeyReleasedFalseIfSetTrue();
+        }
+    }
+
+    setIsKeyReleasedFalseIfSetTrue() {
+        if (this.isKeySpaceReleased == true) {
+            this.isKeySpaceReleased = false;
         }
     }
 
@@ -163,19 +184,8 @@ class Character extends MovableObject {
 
     wereJumpAndMoveBruttonPressedSimultaneously() {
         this.setIsSleepingOnFalseIfSetTrue();
+        this.world.audioManager.muteWalkingSoundIfNecessary();
         return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
-    }
-
-    /**
-     * Checks if the character is currently jumping and is above the ground level.
-     * @returns {boolean} True if the character is in the air and jumping.
-     */
-
-    isCharacterJumpingAndAboveTheGround() {
-        this.setIsSleepingOnFalseIfSetTrue();
-        if (this.timeCharacterExists > 2000) {
-            return this.isJumping == true && this.isAboveGround();
-        }
     }
 
     /**
