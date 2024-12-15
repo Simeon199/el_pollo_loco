@@ -88,9 +88,19 @@ class Endboss extends Chicken {
         return false;
     }
 
+    /**
+     * Determines if the character is too close to the endboss, either from the left or the right side.
+     * 
+     * @returns {boolean} - Returns `true` if the character is too close, otherwise `false`.
+     */
+
     isCharacterToCloseToEndboss() {
         return this.isCharacterToCloseToEndbossFromTheLeft() || this.isCharacterToCloseToEndbossFromTheRight();
     }
+
+    /**
+     * Plays the movement sound for the endboss and manages its attack direction. Also checks for collisions while the endboss is moving.
+     */
 
     playMovingEndboss() {
         this.world.audioManager.playSound('chickenSound');
@@ -160,20 +170,50 @@ class Endboss extends Chicken {
         this.checkIfEndbossAlreadyHitCharacter();
         let now = Date.now();
         let shouldChangeDirection = (now - this.lastDirectionChangeTime) > this.directionChangeCooldown;
-        if (this.mainCharacterPosition < this.x) {
+        this.manageDirectionAndMovementOfEndboss(shouldChangeDirection, now);
+        this.playAnimation(images);
+    }
+
+    /**
+     * Manages the direction and movement of the endboss based on the character's position. Moves the endboss towards or away from the character and updates its direction.
+     * 
+     * @param {boolean} shouldChangeDirection - Indicates if the direction should be changed.
+     * @param {number} now - The current timestamp for tracking the last direction change.
+     */
+
+    manageDirectionAndMovementOfEndboss(shouldChangeDirection, now) {
+        if (this.isCharacterStandingLeftFromEndboss()) {
             this.x -= this.speed;
-            if (shouldChangeDirection) {
-                this.otherDirection = false;
-                this.lastDirectionChangeTime = now;
-            }
+            this.manageDirectionOfEndboss(false, shouldChangeDirection, now);
         } else {
             this.x += this.speed;
-            if (shouldChangeDirection) {
-                this.otherDirection = true;
-                this.lastDirectionChangeTime = now;
-            }
+            this.manageDirectionOfEndboss(true, shouldChangeDirection, now);
         }
-        this.playAnimation(images);
+    }
+
+    /**
+     * Updates the direction of the endboss if required and records the time of the change.
+     * 
+     * @param {boolean} boolean - The new direction for the endboss (`true` for right, `false` for left).
+     * @param {boolean} shouldChangeDirection - Indicates if the direction should be updated.
+     * @param {number} now - The current timestamp for tracking the last direction change.
+     */
+
+    manageDirectionOfEndboss(boolean, shouldChangeDirection, now) {
+        if (shouldChangeDirection) {
+            this.otherDirection = boolean;
+            this.lastDirectionChangeTime = now;
+        }
+    }
+
+    /**
+     * Checks if the main character is positioned to the left of the endboss.
+     * 
+     * @returns {boolean} - Returns `true` if the character is standing left of the endboss, otherwise `false`.
+     */
+
+    isCharacterStandingLeftFromEndboss() {
+        return this.mainCharacterPosition < this.x;
     }
 
     /**
@@ -222,9 +262,9 @@ class Endboss extends Chicken {
 
     playDyingAnimationAndSetFixedDeadEndbossImage() {
         this.isDead == true;
-        if (this.checkTimeDifferenceSinceLastTimeHit() < 200) {
+        if (this.checkTimeDifferenceSinceLastTimeHit() < 2000) {
             this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
-        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 200) {
+        } else if (this.checkTimeDifferenceSinceLastTimeHit() >= 2000) {
             this.showDefeatedEndbossAndPositionCharacter();
         }
     }
@@ -294,8 +334,8 @@ class Endboss extends Chicken {
     */
 
     setIsDeadAttributeAndplayDyingAnimation() {
-        this.isDead == true;
         this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
+        this.isDead == true;
     }
 
     /**

@@ -51,6 +51,10 @@ class MovableObject extends DrawableObject {
         }, 60);
     }
 
+    /**
+     * Resets the `isBounced` property to `false` if it is currently set to `true`.
+     */
+
     unsetIsBouncedIfSetTrue() {
         if (this.isBounced) {
             this.isBounced = false;
@@ -161,6 +165,12 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Checks if the object is an instance of Character.
+     * 
+     * @returns {boolean} True if the object is the Character; otherwise, false.
+     */
+
     isCharacter() {
         return this instanceof Character;
     }
@@ -269,6 +279,11 @@ class MovableObject extends DrawableObject {
     isMovableObjectCharacterAndHurtOrDead() {
         return this instanceof Character && (this.isHurt() || this.isDead());
     }
+
+    /**
+     * Initiates a jump action if the object is not already jumping.
+     * Sets the `isJumping` property to `true` and resets the current image index to 0.
+     */
 
     startJump() {
         if (!this.isJumping) {

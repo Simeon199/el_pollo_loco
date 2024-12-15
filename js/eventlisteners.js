@@ -85,7 +85,6 @@ function touchStartHandler(event) {
             prepareForThrowingRight();
         }
         if (wasButtonUpPressed(event)) {
-            // manageKeySpacePermissionDependingOnTime();
             keyboard.SPACE = true;
         }
         if (wasButtonThrowPressed(event)) {
@@ -161,43 +160,13 @@ function keyDownHandler(event) {
         keyboard.DOWN = true;
     }
     if (event.keyCode == 32) {
-        // manageKeySpacePermissionDependingOnTime();
         keyboard.SPACE = true;
-        // world.character.isKeySpaceReleased = false;
     }
     if (event.keyCode == 68) {
         keyboard.keyD = true;
         timeWhenKeyDWasPressed = new Date().getTime();
         giveOrDenyPermissionToThrow();
     }
-}
-
-/**
- * Manages the permission for the space key based on the time since it was released.
- * If the key was released recently and the character is on the ground, the space key is re-enabled.
- */
-
-function manageKeySpacePermissionDependingOnTime() {
-    if (this.momentKeySpaceWasReleased > 0) {
-        let timeThatPassedSinceKeySpaceReleased = new Date().getTime() - this.momentKeySpaceWasReleased;
-        world.character.timeThatPassedSinceKeySpaceReleased = timeThatPassedSinceKeySpaceReleased;
-        // world.character.isKeySpaceReleased = false;
-        if (isCharacterOnGroundAndKeySpaceReleasedWithinTimeLimit(timeThatPassedSinceKeySpaceReleased)) {
-            keyboard.SPACE = true;
-            // world.character.isKeySpaceReleased = false;
-        }
-    }
-}
-
-/**
- * Checks if the character is on the ground and if the space key was released within a specific time limit.
- * 
- * @param {number} timeThatPassedSinceKeySpaceReleased - Time in milliseconds since the space key was released.
- * @returns {boolean} True if the character is on the ground and the time since release is within the limit, false otherwise.
- */
-
-function isCharacterOnGroundAndKeySpaceReleasedWithinTimeLimit(timeThatPassedSinceKeySpaceReleased) {
-    return timeThatPassedSinceKeySpaceReleased >= 0 && !world.character.isAboveGround(); // 500
 }
 
 /**

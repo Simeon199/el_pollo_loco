@@ -105,13 +105,29 @@ class Character extends MovableObject {
         }, 35); // 25
     }
 
+    /**
+     * Determines whether the jump animation should be executed. This is true if the jump and movement buttons are pressed simultaneously  or if the space key was pressed.
+     * 
+     * @returns {boolean} - Returns `true` if the jump animation should be executed, otherwise `false`.
+     */
+
     shouldJumpAnimationBeExecuted() {
         return this.areJumpAndMoveButtonSimultaneouslyPressed() || this.keySpaceWasPressed();
     }
 
+    /**
+     * Checks if the jump and movement buttons are pressed simultaneously or if the space key was released after being pressed.
+     * 
+     * @returns {boolean} - Returns `true` if jump and move buttons are pressed together or if the space key was released, otherwise `false`.
+     */
+
     areJumpAndMoveButtonSimultaneouslyPressed() {
         return this.keySpaceWasPressed() && this.keyLeftPressedAndCharacterOnGround() || this.keySpaceWasPressed() && this.keyRightPressedAndCharacterOnGround() || this.isKeySpaceReleased;
     }
+
+    /**
+     * Handles the animation for moving and jumping. Starts the jump action and, if the character is jumping, animates the jump.
+     */
 
     playAnimationMovingAndJumping() {
         this.startJump();
@@ -147,6 +163,10 @@ class Character extends MovableObject {
             this.setIsKeyReleasedFalseIfSetTrue();
         }
     }
+
+    /**
+     * Resets the `isKeySpaceReleased` property to `false` if it is currently set to `true`.
+     */
 
     setIsKeyReleasedFalseIfSetTrue() {
         if (this.isKeySpaceReleased == true) {
