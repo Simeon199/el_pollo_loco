@@ -259,4 +259,32 @@ class MovableObject extends DrawableObject {
     isMovableObjectCharacterAndHurtOrDead() {
         return this instanceof Character && (this.isHurt() || this.isDead());
     }
+
+    /**
+     * Makes the character bounce by setting the vertical speed to 15.
+     */
+
+    bounce() {
+        if (this instanceof Character) {
+            this.speedY = 15;
+            this.startJump();
+        }
+    }
+
+    startJump() {
+        if (!this.isJumping) {
+            this.currentImage = 0;
+            this.isJumping = true;
+        }
+    }
+
+    /**
+    * Sets the `isSleeping` property to `false` if it is currently `true`.
+    */
+
+    setIsSleepingOnFalseIfSetTrue() {
+        if (this instanceof Character && this.isSleeping == true) {
+            this.isSleeping = false;
+        }
+    }
 }
