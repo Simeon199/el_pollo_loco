@@ -103,7 +103,9 @@
     }
 }
 
-@media(orientation: landscape) and (min-width: 1000px) and (max-height: 700px) and (hover: hover) {
+@media(orientation: landscape) and (min-width: 1000px) and (max-height: 800px) and (hover: hover) {
+
+    /* 700 */
     .links-images {
         display: none;
     }
@@ -162,7 +164,9 @@
     }
 }
 
-@media(max-width: 700px) and (hover: hover) {
+@media(max-width: 800px) and (hover: hover) {
+
+    /* 800 */
     #all-icons-container-mini-version a {
         font-size: 12px;
     }
