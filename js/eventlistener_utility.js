@@ -114,6 +114,10 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     }
 }
 
+function isCharacterAliveAndNotHurt() {
+    return world.character.energy > 0 && world.character.isHurt() == false;
+}
+
 /**
  * Sets key press variables based on the event type, ensuring proper handling for touch events. 
  * Skips setting variables if the event is a touch event and the sound icon is triggered.

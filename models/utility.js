@@ -44,10 +44,9 @@ class Utility {
     invokeMomentWhenCharacterAttacked() {
         let now = new Date().getTime();
         let timePassedSinceCharacterAttacked = now - this.world.momentCharacterAttacked;
-        if (timePassedSinceCharacterAttacked > 1000 && this.world.character.isAttacked == true) {
+        if (timePassedSinceCharacterAttacked > 5000 && this.world.character.isAttacked == true) {
             this.world.character.isAttacked = false;
         }
-        // console.log('time passed since character attacked: ', now - this.world.momentCharacterAttacked);
     }
 
     /**

@@ -78,19 +78,21 @@ function touchStartHandler(event) {
     isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
     if (isGamePlayingAndPlayAndSoundIconsWasntTouched(event)) {
         manageSoundAndPrepareGlobalVariables(event);
-        if (wasButtonLeftPressed(event)) {
-            prepareForThrowingLeft();
-        }
-        if (wasButtonRightPressed(event)) {
-            prepareForThrowingRight();
-        }
-        if (wasButtonUpPressed(event)) {
-            keyboard.SPACE = true;
-        }
-        if (wasButtonThrowPressed(event)) {
-            keyboard.keyD = true;
-            timeWhenKeyDWasPressed = new Date().getTime();
-            giveOrDenyPermissionToThrow();
+        if (isCharacterAliveAndNotHurt()) {
+            if (wasButtonLeftPressed(event)) {
+                prepareForThrowingLeft();
+            }
+            if (wasButtonRightPressed(event)) {
+                prepareForThrowingRight();
+            }
+            if (wasButtonUpPressed(event)) {
+                keyboard.SPACE = true;
+            }
+            if (wasButtonThrowPressed(event)) {
+                keyboard.keyD = true;
+                timeWhenKeyDWasPressed = new Date().getTime();
+                giveOrDenyPermissionToThrow();
+            }
         }
     }
 }
@@ -147,25 +149,27 @@ window.addEventListener('keydown', keyDownHandler);
 function keyDownHandler(event) {
     world.audioManager.muteSnorringSoundIfNecessary();
     settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-    if (event.keyCode == 39) {
-        prepareForThrowingRight();
-    }
-    if (event.keyCode == 37) {
-        prepareForThrowingLeft();
-    }
-    if (event.keyCode == 38) {
-        keyboard.UP = true;
-    }
-    if (event.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-    if (event.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-    if (event.keyCode == 68) {
-        keyboard.keyD = true;
-        timeWhenKeyDWasPressed = new Date().getTime();
-        giveOrDenyPermissionToThrow();
+    if (isCharacterAliveAndNotHurt()) {
+        if (event.keyCode == 39) {
+            prepareForThrowingRight();
+        }
+        if (event.keyCode == 37) {
+            prepareForThrowingLeft();
+        }
+        if (event.keyCode == 38) {
+            keyboard.UP = true;
+        }
+        if (event.keyCode == 40) {
+            keyboard.DOWN = true;
+        }
+        if (event.keyCode == 32) {
+            keyboard.SPACE = true;
+        }
+        if (event.keyCode == 68) {
+            keyboard.keyD = true;
+            timeWhenKeyDWasPressed = new Date().getTime();
+            giveOrDenyPermissionToThrow();
+        }
     }
 }
 

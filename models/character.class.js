@@ -18,7 +18,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 7;
+    speed = 5;
     timePassedWhenKeyPressed;
     world;
 
@@ -83,7 +83,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 85); // 80
+        }, 90); // 80
     }
 
     /**
@@ -337,11 +337,11 @@ class Character extends MovableObject {
 
     /**
      * Validates all conditions that must be true for the character to enter the sleep animation.
-     * @returns {boolean} True if the character is not pressing any keys, not being attacked, not jumping, and not hurt.
+     * @returns {boolean} True if the character is not pressing any keys, not being attacked, not jumping, not hurt and not dead.
      */
 
     allVariablesThatMustBeTrueForSleepAnimation() {
-        return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && this.isHurt() == false;
+        return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && this.isHurt() == false && this.energy > 0;
     }
 
     /**
