@@ -43,6 +43,31 @@ class Endboss extends Chicken {
         this.animate();
     }
 
+    /**
+     * Starts the animation loop for the Endboss, updating its behavior every 100ms.
+     */
+
+    animate() {
+        this.animateInterval = setInterval(() => {
+            if (this.wasEndbossProvokedByCharacter()) {
+                this.handleAttackingEndbossAndHurtingEndbossAnimation();
+            } else if (this.isCharacterToCloseToEndboss()) {
+                this.playMovingEndboss();
+            } else if (this.isEndbossNotFinalEnemyButDead()) {
+                this.playDyingAnimationAndSetFixedDeadEndbossImage();
+            } else if (this.isFinalEnemyEndbossAndIsHeDead()) {
+                this.setIsDeadAttributeAndplayDyingAnimation();
+            } else if (this.isEndbossAliveAndWasNotAttacked()) {
+                this.playAnimation(this.IMAGES_ALERT_ENDBOSS);
+            }
+        }, 100);
+    }
+
+    /**
+     * Plays the specified animation if enough time has passed since the last animation change.
+     *
+     * @param {string} animation - The name of the animation to be played.
+     */
 
     playAnimation(animation) {
         let now = Date.now();
@@ -50,42 +75,6 @@ class Endboss extends Chicken {
             super.playAnimation(animation);
             this.lastAnimationChange = now;
         }
-    }
-
-    /**
-     * Starts the animation loop for the Endboss, updating its behavior every 100ms.
-     */
-
-    animate() {
-        if (this.animateInterval) {
-            clearInterval(this.animateInterval);
-        }
-        this.animateInterval = setInterval(() => {
-            if (this.isEndbossInAttackMode()) {
-                return;
-            } else if (this.isEndbossInDeathMode()) {
-                return;
-            } else if (this.isEndbossInIdleMode()) {
-                return;
-            }
-        }, 100);
-    }
-
-    /**
-     * Determines if the end boss is in attack mode based on the character's position and actions.
-     * 
-     * @returns {boolean} `true` if the end boss is in attack mode; otherwise, `false`.
-     */
-
-    isEndbossInAttackMode() {
-        if (this.wasEndbossProvokedByCharacter()) {
-            this.handleAttackingEndbossAndHurtingEndbossAnimation();
-            return true;
-        } else if (this.isCharacterToCloseToEndboss()) {
-            this.playMovingEndboss();
-            return true;
-        }
-        return false;
     }
 
     /**

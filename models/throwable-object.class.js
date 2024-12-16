@@ -54,10 +54,10 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
-        this.offsetRight = 30;
-        this.offsetLeft = 30;
-        this.offsetTop = 0;
-        this.offsetBottom = 0;
+        this.offsetRight = 20; // 30
+        this.offsetLeft = 20; // 30
+        this.offsetTop = 0; // 0
+        this.offsetBottom = 0; // 0
     }
 
     /**
@@ -90,7 +90,7 @@ class ThrowableObject extends MovableObject {
     */
 
     handleSpeedAndGravityOfThrowedBottle() {
-        this.speedY = 25; // 30
+        this.speedY = 25; // 30 oder 25
         this.applyGravity();
     }
 
@@ -122,9 +122,9 @@ class ThrowableObject extends MovableObject {
 
     checkDirectionLeftOrRightMovingBottle(direction) {
         if (direction == 'right') {
-            this.x += 18; // 10
+            this.x += 15; // 10 oder 12 oder 18 oder 15
         } else if (direction == 'left') {
-            this.x -= 18; // 10
+            this.x -= 15; // 10 oder 12 oder 18 oder 15
         }
     }
 
@@ -147,7 +147,7 @@ class ThrowableObject extends MovableObject {
             setTimeout(() => {
                 clearInterval(this.intervalID);
                 this.img.src = '';
-            }, 200);
+            }, 200); // ehemals 200
         }
     }
 
@@ -163,12 +163,12 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
                 this.checkWhetherBottleIsFlyingInTheAirOrLanding(direction)
-            }, 75); // 100
+            }, 60); // 100 oder 75
         } else if (this.isBottleBroken) {
             this.clearBottleBrokenIntervalIfItsExist();
             this.bottleBrokenIntervalId = setInterval(() => {
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
-            }, 75); // 100
+            }, 60); // 100 oder 75
         }
     }
 
