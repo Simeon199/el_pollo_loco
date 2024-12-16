@@ -54,10 +54,10 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.keyboard = z;
-        this.offsetRight = 20; // 30
-        this.offsetLeft = 20; // 30
-        this.offsetTop = 0; // 0
-        this.offsetBottom = 0; // 0
+        this.offsetRight = 20;
+        this.offsetLeft = 20;
+        this.offsetTop = 0;
+        this.offsetBottom = 0;
     }
 
     /**
@@ -163,12 +163,12 @@ class ThrowableObject extends MovableObject {
         if (!this.isBottleBroken) {
             this.intervalID = setInterval(() => {
                 this.checkWhetherBottleIsFlyingInTheAirOrLanding(direction)
-            }, 60); // 100 oder 75
+            }, 60);
         } else if (this.isBottleBroken) {
             this.clearBottleBrokenIntervalIfItsExist();
             this.bottleBrokenIntervalId = setInterval(() => {
                 this.playAnimation(this.BOTTLE_BROKEN_IMAGES);
-            }, 60); // 100 oder 75
+            }, 60);
         }
     }
 

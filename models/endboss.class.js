@@ -346,7 +346,7 @@ class Endboss extends Chicken {
         if (timeDifference < 200) {
             this.speed = 0;
         } else if (timeDifference >= 200) {
-            this.speed = 5;
+            this.speed = 6.5;
         }
     }
 

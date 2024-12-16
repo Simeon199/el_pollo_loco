@@ -18,7 +18,7 @@ class Character extends MovableObject {
     height = 280;
     width = 130;
     y = 20;
-    speed = 8; // 5
+    speed = 7;
     timePassedWhenKeyPressed;
     world;
 
@@ -83,7 +83,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 80);
+        }, 85); // 80
     }
 
     /**
