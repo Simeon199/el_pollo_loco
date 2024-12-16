@@ -9,6 +9,7 @@ class World {
     bottlebar = new BottleBar();
     endbossbar = new EndbossBar();
     coinbar = new CoinBar();
+    momentCharacterAttacked = 0;
     level = level1;
     canvas;
     ctx;
@@ -293,6 +294,7 @@ class World {
         }
         this.setVariablesAndKnockBackInterval(enemy);
         this.character.isAttacked = true;
+        this.momentCharacterAttacked = new Date().getTime();
     }
 
     setVariablesAndKnockBackInterval(enemy) {

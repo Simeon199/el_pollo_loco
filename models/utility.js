@@ -31,6 +31,7 @@ class Utility {
     */
 
     playUtilityFunctions() {
+        this.invokeMomentWhenCharacterAttacked();
         this.checkCollisions();
         this.checkCollisionsWithBottles();
         this.proveWhetherCheckThrowObjectsShouldBeInvoked();
@@ -38,6 +39,15 @@ class Utility {
         this.calibrateDistanceBetweenCharacterAndEndboss();
         this.checkMovingDirectionOfEnemies();
         this.world.bottlebar.updateBottleBar();
+    }
+
+    invokeMomentWhenCharacterAttacked() {
+        let now = new Date().getTime();
+        let timePassedSinceCharacterAttacked = now - this.world.momentCharacterAttacked;
+        if (timePassedSinceCharacterAttacked > 1000 && this.world.character.isAttacked == true) {
+            this.world.character.isAttacked = false;
+        }
+        // console.log('time passed since character attacked: ', now - this.world.momentCharacterAttacked);
     }
 
     /**
@@ -122,9 +132,9 @@ class Utility {
         this.world.throwableObjects = this.world.throwableObjects.filter(bottle => {
             if (this.world.character.isColliding(bottle) && !bottle.isBottleBroken && bottle.proveIfBottleIsOnGround()) {
                 this.collectGroundBottles(bottle);
-                return false; // Entfernt die Flasche aus dem Array
+                return false;
             }
-            return true; // Beibehaltung der Flasche
+            return true;
         });
     }
 

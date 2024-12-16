@@ -83,7 +83,7 @@ class Character extends MovableObject {
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
-        }, 80); // 70
+        }, 80);
     }
 
     /**
@@ -316,11 +316,11 @@ class Character extends MovableObject {
      * @returns {boolean} True if five seconds have passed without key presses or attacks, and all conditions for sleep animation are met.
      */
 
-    keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
+    keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() { // && this.wasRandomKeyOncePressed == true 
         if (this.lastTimeKeyPressed !== 0) {
             let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
             return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
-                && this.wasRandomKeyOncePressed == true && timePassedWhenKeyReleased > 5000
+                && timePassedWhenKeyReleased > 5000
                 && this.allVariablesThatMustBeTrueForSleepAnimation();
         }
         return false;
@@ -341,7 +341,7 @@ class Character extends MovableObject {
      */
 
     allVariablesThatMustBeTrueForSleepAnimation() {
-        return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && !this.isHurt();
+        return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && this.isHurt() == false;
     }
 
     /**
