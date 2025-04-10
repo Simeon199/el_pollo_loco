@@ -28,7 +28,6 @@
 /* #intro-image properties */
 
 #intro-image {
-    /* width: 100%; */
     position: relative;
     height: auto;
     display: flex;
@@ -141,6 +140,34 @@
 
 .control-panel-everything {
     display: none;
+}
+
+/* legal notice and privacy policy section */
+
+.legal-notice-and-privacy-policy {
+    display: flex;
+    flex-direction: row;
+    font-family: damion;
+    font-size: 24px;
+}
+
+.legal-notice-and-privacy-policy img {
+    width: 112px;
+}
+
+.h2-title-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.h2-title-section {
+    transition: transform 500ms ease-in-out;
+}
+
+.h2-title-section h2:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 /*all-icons-container and its overlay */
