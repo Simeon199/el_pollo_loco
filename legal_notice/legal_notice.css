@@ -46,6 +46,15 @@ body::before {
     padding: 24px;
 }
 
+/** Content back-to-container - Anfang **/
+
+.back-to-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .back-to-container img {
     width: 112px;
     display: flex;
@@ -64,3 +73,16 @@ body::before {
 .back-to-container h2:hover {
     cursor: pointer;
 }
+
+.navigation-section {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.h2-section-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/** Content back-to-container - Ende **/

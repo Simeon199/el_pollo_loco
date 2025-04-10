@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'damion';
+    src: url('../fonts/Damion-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans light';
+    src: url('../fonts/PlaypenSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans';
+    src: url('../fonts/PlaypenSans-Medium.ttf') format('truetype');
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -26,3 +41,44 @@ body::before {
 .privacy-policy-wrapper {
     padding: 24px;
 }
+
+/** Content back-to-container - Anfang **/
+
+.back-to-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-container img {
+    width: 112px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-container h2 {
+    font-family: Damion;
+    font-size: 28px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.back-to-container h2:hover {
+    cursor: pointer;
+}
+
+.navigation-section {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.h2-section-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/** Content back-to-container - Ende **/
