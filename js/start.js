@@ -17,6 +17,14 @@ function redirectToLegalNoticePage() {
 }
 
 /**
+ * Redirects the user to the privacy policy page.
+ */
+
+function redirectToPrivacyPolicyPage(){
+    window.location.href = "./privacy_policy/privacy_policy.html";
+}
+
+/**
  * Opens the container displaying all icons in a minimized version.
  */
 

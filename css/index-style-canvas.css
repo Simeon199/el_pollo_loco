@@ -10,22 +10,22 @@
 
 @font-face {
     font-family: 'damion';
-    src: url('fonts/Damion-Regular.ttf') format('truetype');
+    src: url('../fonts/Damion-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'sombrero';
-    src: url('fonts/SombreroLight.ttf') format('truetype');
+    src: url('../fonts/SombreroLight.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'playpensans';
-    src: url('fonts/PlaypenSans-Medium.ttf') format('truetype');
+    src: url('../fonts/PlaypenSans-Medium.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'playpensans light';
-    src: url('fonts/PlaypenSans-Light.ttf') format('truetype');
+    src: url('../fonts/PlaypenSans-Light.ttf') format('truetype');
 }
 
 /* body properties */
@@ -35,7 +35,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('assets/desert_3.png');
+    background-image: url('../assets/desert_3.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
