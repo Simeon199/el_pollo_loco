@@ -1,5 +1,3 @@
-/* --- Shared font-families --- */ 
-
 @font-face {
     font-family: 'damion';
     src: url('../fonts/Damion-Regular.ttf') format('truetype');
@@ -14,8 +12,6 @@
     font-family: 'playpensans';
     src: url('../fonts/PlaypenSans-Medium.ttf') format('truetype');
 }
-
-/* --- Shared style (For Imprint and Privacy Policy) --- */
 
 * {
     box-sizing: border-box;
@@ -76,6 +72,7 @@ body::before {
 
 .navigation-section {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -101,4 +98,22 @@ body::before {
 .h2-section-container h2:hover {
     cursor: pointer;
     transform: scale(1.05);
+}
+
+@media(max-width: 600px){
+    .back-to-container {
+        flex-direction: column;
+    }
+
+    .back-to-container h2 {
+        font-size: 18px;
+    }
+
+    .back-to-container img {
+        width: 88px;
+    }
+
+    .h2-section-container h2 {
+        font-size: 18px;
+    }
 }

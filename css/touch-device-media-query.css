@@ -220,6 +220,18 @@
     }
 }
 
+@media(max-width: 600px){
+    .imprint-and-privacy-policy-overlay img {
+        width: 32px;
+        top: 8px;
+        right: 8px;
+    }
+
+    .imprint-privacy-wrapper h2 {
+        font-size: 40px;
+    }
+}
+
 @media(max-width: 500px) and (hover: none) {
     .main-title-properties img {
         width: 32px;
