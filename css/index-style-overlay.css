@@ -161,7 +161,7 @@
     justify-content: center;
 }
 
-.h2-title-section {
+.h2-title-section h2 {
     transition: transform 500ms ease-in-out;
 }
 

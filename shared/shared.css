@@ -1,0 +1,97 @@
+/* --- Shared font-families --- */ 
+
+@font-face {
+    font-family: 'damion';
+    src: url('../fonts/Damion-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans light';
+    src: url('../fonts/PlaypenSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans';
+    src: url('../fonts/PlaypenSans-Medium.ttf') format('truetype');
+}
+
+/* --- Shared style (For Imprint and Privacy Policy) --- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-image: url('../assets/desert_3.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'Arial', 'Helvetica', 'sans-serif';
+    font-size: 16px;
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.back-to-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: transform 500ms ease-in-out;
+}
+
+.back-to-container:hover {
+    transform: scale(1.05);
+}
+
+.back-to-container img {
+    width: 112px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-container h2 {
+    font-family: Damion;
+    font-size: 28px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.back-to-container h2:hover {
+    cursor: pointer;
+}
+
+.navigation-section {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.h2-section-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.h2-section-container h2 {
+    transition: transform 500ms ease-in-out;
+}
+
+.h2-section-container h2:hover {
+    transform: scale(1.05);
+}
