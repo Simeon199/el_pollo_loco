@@ -36,6 +36,17 @@ function openAllIconsContainer() {
 }
 
 /**
+ * Opens the container displaying the imprint and privacy-policy-page.
+ */
+
+function openImprintAndPrivacyOverlay(){
+    let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay');
+    if(imprintAndPrivacyOverlay.classList.contains('d-none')){
+        imprintAndPrivacyOverlay.classList.remove('d-none');
+    }
+}
+
+/**
  * Closes the container displaying all icons in a minimized version.
  */
 
