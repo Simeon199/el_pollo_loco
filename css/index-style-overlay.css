@@ -271,7 +271,7 @@
 .control-keys {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     gap: 24px;
 }
 
@@ -279,12 +279,31 @@
     font-family: 'playpensans';
 }
 
+.control-key-image-container {
+    width: 145px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .control-keys img {
     width: 96px;
 }
 
+.spacebar{
+    padding: 12px;
+    border: 6px solid black;
+    border-radius: 16px;
+}
+
+.spacebar p {
+    font-family: playpensans;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .control-key-style {
-    min-width: 260.73px;
+    min-width: 280px;
     display: flex;
     align-items: center;
     gap: 24px;

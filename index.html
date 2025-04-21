@@ -135,12 +135,22 @@
             <div class="screen-control-container" id="screen-control-container">
                 <div class="control-panel-everything" id="control-panel-everything">
                     <div class="control-panel-left-right" id="control-panel-left-right">
-                        <img src="assets/left_arrow.png" alt="left" id="buttonLeft">
-                        <img src="assets/right_arrow.png" alt="right" id="buttonRight">
+                        <div class="control-key-image-container">
+                            <img src="assets/left_arrow.png" alt="left" id="buttonLeft">
+                        </div>
+                        <div class="control-key-image-container">
+                            <img src="assets/right_arrow.png" alt="right" id="buttonRight">
+                        </div>
                     </div>
                     <div class="control-panel-throw-jump" id="control-panel-throw-jump">
-                        <img src="assets/top_arrow.png" id="buttonUp" alt="top">
-                        <img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d">
+                        <div class="control-key-image-container">
+                            <div class="spacebar">
+                                <p>Spacebar</p>
+                            </div>
+                        </div>
+                        <div class="control-key-image-container">
+                            <img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,19 +204,27 @@
                 <img src="assets/close.png" alt="close" onclick="closeOverlay('explain-game-container')">
                 <div class="control-keys">
                     <div class="control-key-style">
-                        <img src="assets/top_arrow.png" alt="top arrow">
+                        <div class="control-key-image-container">
+                            <div class="spacebar"><p>Spacebar</p></div>
+                        </div>
                         <h3>Jump Up</h3>
                     </div>
                     <div class="control-key-style">
-                        <img src="assets/right_arrow.png" alt="right arrow">
+                        <div class="control-key-image-container">
+                            <img src="assets/right_arrow.png" alt="right arrow">
+                        </div>
                         <h3>Move Right</h3>
                     </div>
                     <div class="control-key-style">
-                        <img src="assets/left_arrow.png" alt="left arrow">
+                        <div class="control-key-image-container">
+                            <img src="assets/left_arrow.png" alt="left arrow">
+                        </div> 
                         <h3>Move Left</h3>
                     </div>
                     <div class="control-key-style">
-                        <img src="assets/letter_d_white.png" alt="letter d">
+                        <div class="control-key-image-container">
+                            <img src="assets/letter_d_white.png" alt="letter d">
+                        </div>
                         <h3>Throw Bottles</h3>
                     </div>
                 </div>
