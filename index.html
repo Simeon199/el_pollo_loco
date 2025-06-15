@@ -45,30 +45,26 @@
 
 <body>
     <div class="envelope-all-container">
-        <!-- <div class="control-key-image-container">
-            <div id="buttonUp" class="spacebar">
-                <p>Spacebar</p>
-            </div>
-        </div> -->
         <div class="links-images">
             <div class="legal-notice-and-privacy-policy">
                 <img src="assets/notice.png" alt="notice">
                 <div class="h2-title-section">
-                    <h2 onclick="redirectToPrivacyPolicyPage()">Privacy Policy</h2>
-                    <h2 onclick="redirectToLegalNoticePage()">Imprint</h2>
+                    <h2>Privacy Policy</h2>
+                    <h2>Imprint</h2>
                 </div>
             </div>
             <h1 id="main-title">El Pollo Loco</h1>
-            <div class="main-title-properties" id="cartwheel-image-container" onclick="openOverlay('explain-game-container')">
+            <div class="main-title-properties" id="cartwheel-image-container">
                 <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image">
                 <h2>Settings</h2>
             </div>
         </div>
-        <div class="all-icons-button-container" onclick="openOverlay('all-icons-container-overlay')">
+
+        <div class="all-icons-button-container">
             <button id="all-icons-button">Show Icons Sources</button>
         </div>
         <div class="imprint-and-privacy-policy-overlay d-none" id="imprint-and-privacy-policy-overlay">
-            <img src="assets/close.png" alt="close" onclick="closeOverlay('imprint-and-privacy-policy-overlay')">
+            <img src="assets/close.png" alt="close">
             <div class="imprint-privacy-wrapper">
                 <a href="/privacy_policy/privacy_policy.html">
                     <h2>Privacy Policy</h2>
@@ -78,11 +74,10 @@
                 </a>
            </div>
         </div>
-        <div class="all-icons-container-overlay d-none" id="all-icons-container-overlay"
-            onclick="closeOverlay('all-icons-container-overlay')">
-            <div class="all-icons-container-mini-version" id="all-icons-container-mini-version"
-                onclick="preventBubbling(event)">
-                <img src="assets/close.png" alt="close" onclick="closeOverlay('all-icons-container-overlay')">
+
+        <div class="all-icons-container-overlay d-none" id="all-icons-container-overlay">
+            <div class="all-icons-container-mini-version" id="all-icons-container-mini-version">
+                <img src="assets/close.png" alt="close">
                 <a href="https://www.flaticon.com/free-icons/chicken" title="chicken icons" target="_blank">Chicken
                     icons
                     created by Freepik
@@ -131,11 +126,12 @@
                     Flaticon</a>
             </div>
         </div>
+
         <div class="canvas-container" id="canvas-container">
             <canvas id="canvas" width="720" height="480"></canvas>
             <div class="sound-container">
-                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" onclick="turnSoundOnOrOff()">
-                <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon" onclick="turnSoundOnOrOff()">
+                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon">
+                <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon">
             </div>
             <div class="screen-control-container" id="screen-control-container">
                 <div class="control-panel-everything" id="control-panel-everything">
@@ -160,30 +156,30 @@
                 </div>
             </div>
         </div>
+
         <div class="overlay" id="overlay">
             <div id="intro-image">
                 <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
                 <img src="assets/playIcon_2.png" alt="Play" id="playIcon">
                 <div class="icon-and-settings-container-in-intro-image" id="icon-and-settings-container-in-intro-image">
-                    <div class="all-icons-button-container-small-version" onclick="openOverlay('all-icons-container-overlay')">
+                    <div class="all-icons-button-container-small-version">
                         <button id="all-icons-button-small-version">Show Icons Sources</button>
                     </div>
-                    <div class="main-title-properties" onclick="redirectToLegalNoticePage()">
+                    <div class="main-title-properties">
                         <img src="assets/notice.png" alt="notice">
                     </div>
-                    <div class="main-title-properties" id="cartwheel-image-container-small-version"
-                        onclick="openOverlay('explain-game-container')">
+                    <div class="main-title-properties" id="cartwheel-image-container-small-version">
                         <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image-small-version">
                     </div>
                 </div>
             </div>
             <div id="winning-image">
                 <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image">
-                <button onclick="playAgain()" class="button-style">Play Again</button>
+                <button class="button-style">Play Again</button>
             </div>
             <div id="losing-image">
                 <img src="img/9_intro_outro_screens/game_over/game over!.png" alt="Losing-Image">
-                <button onclick="playAgain()" class="button-style">Play Again</button>
+                <button class="button-style">Play Again</button>
             </div>
             <div id="message-to-turn-device">
                 <button>
@@ -191,22 +187,22 @@
                 </button>
             </div>
             <div class="icon-and-settings-container" id="icon-and-settings-container">
-                <div class="all-icons-button-container-small-version" onclick="openOverlay('all-icons-container-overlay')">
+                <div class="all-icons-button-container-small-version">
                     <button id="all-icons-button-small-version">Show Icons Sources</button>
                 </div>
-                <div class="main-title-properties" onclick="openOverlay('imprint-and-privacy-policy-overlay')">
+                <div class="main-title-properties">
                     <img src="assets/notice.png" alt="notice">
                 </div>
-                <div class="main-title-properties" id="cartwheel-image-container-small-version"
-                    onclick="openOverlay('explain-game-container')">
+                <div class="main-title-properties" id="cartwheel-image-container-small-version">
                     <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image-small-version">
                 </div>
             </div>
         </div>
-        <div class="explain-game-container d-none" id="explain-game-container" onclick="closeOverlay('explain-game-container')">
-            <div class="game-functions-container" id="game-functions-container" onclick="preventBubbling(event)">
+
+        <div class="explain-game-container d-none" id="explain-game-container">
+            <div class="game-functions-container" id="game-functions-container">
                 <h2>Settings</h2>
-                <img src="assets/close.png" alt="close" onclick="closeOverlay('explain-game-container')">
+                <img src="assets/close.png" alt="close">
                 <div class="control-keys">
                     <div class="control-key-style">
                         <div class="control-key-image-container">
