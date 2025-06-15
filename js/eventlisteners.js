@@ -48,23 +48,39 @@ document.addEventListener('fullscreenchange', () => {
  */
 
 function addAllEventListenersWhenInitGame() {
-    window.addEventListener('keydown', keyDownHandler);
-    window.addEventListener('keyup', keyUpHandler);
-    window.addEventListener('touchstart', touchStartHandler);
-    window.addEventListener('touchend', touchEndHandler);
+    window.addEventListener('keydown', (event) => {
+        keyDownHandler(event);
+    });
+    window.addEventListener('keyup', (event) => {
+        keyUpHandler(event)
+    });
+    window.addEventListener('touchstart', (event) =>  {
+        // event.preventDefault();
+        touchStartHandler(event);
+    });
+    window.addEventListener('touchend', (event) => {
+        // event.preventDefault();
+        touchEndHandler(event);
+    });
 }
 
 /**
  * Event listener for the 'touchstart' event. Invokes the touchStartHandler to handle touch-based controls.
  */
 
-window.addEventListener('touchstart', touchStartHandler);
+window.addEventListener('touchstart', (event) => {
+    // event.preventDefault();
+    touchStartHandler(event)
+});
 
 /**
  * Event listener for the 'touchend' event. Invokes the touchEndHandler to handle the end of touch interactions.
  */
 
-window.addEventListener('touchend', touchEndHandler);
+window.addEventListener('touchend', (event) => {
+    // event.preventDefault();
+    touchEndHandler(event)
+});
 
 /**
  * Handles the touchstart event to set key states and perform specific actions based on the touch input.
@@ -80,10 +96,10 @@ function touchStartHandler(event) {
         manageSoundAndPrepareGlobalVariables(event);
         if (isCharacterAliveAndNotHurt()) {
             if (wasButtonLeftPressed(event)) {
-                prepareForThrowingLeft();
+                prepareForThrowingLeft(); 
             }
             if (wasButtonRightPressed(event)) {
-                prepareForThrowingRight();
+                prepareForThrowingRight(); 
             }
             if (wasButtonUpPressed(event)) {
                 keyboard.SPACE = true;
@@ -132,13 +148,17 @@ function touchEndHandler(event) {
  * Event listener for the 'keyup' event. Invokes keyUpHandler to handle keyboard key releases.
  */
 
-window.addEventListener('keyup', keyUpHandler);
+window.addEventListener('keyup', (event) => {
+    keyUpHandler(event);
+});
 
 /**
  * Event listener for the 'keydown' event. Invokes keyDownHandler to handle keyboard key presses.
  */
 
-window.addEventListener('keydown', keyDownHandler);
+window.addEventListener('keydown', (event) => {
+    keyDownHandler(event)
+});
 
 /**
  * Handles 'keydown' events by setting keyboard states based on key codes. Updates specific game actions based on the arrow keys, spacebar, and 'D' key.

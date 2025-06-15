@@ -271,7 +271,6 @@
 .control-keys {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     gap: 24px;
 }
 
@@ -284,6 +283,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: wheat;
 }
 
 .control-keys img {

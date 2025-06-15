@@ -181,11 +181,12 @@
         max-width: 130px;
     }
 
-    .spacebar p {
+    #spacebar p {
+        font-size: 'playpensans light';
         font-size: 18px;
     }
 
-    .spacebar {
+    #spacebar {
         border: 4px solid black;
     }
 }

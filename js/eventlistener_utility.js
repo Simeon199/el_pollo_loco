@@ -16,7 +16,7 @@ function prepareForThrowingLeft() {
  * Sets `keyboard.RIGHT` to true and ensures that `leftForThrow` is false while `rightForThrow` is true.
  */
 
-function prepareForThrowingRight() {
+function prepareForThrowingRight() { 
     keyboard.RIGHT = true;
     if (keyboard.leftForThrow == true) {
         keyboard.leftForThrow = false;
@@ -64,7 +64,8 @@ function wasButtonRightPressed(event) {
  * @returns {boolean} - Returns true if the up button was pressed.
  */
 
-function wasButtonUpPressed(event) {
+function wasButtonUpPressed(event) { // Charakter spring nur, wenn der Rand berührt wurde!
+    console.log('event invoked in function wasButtonUpPressed: ', event.target);
     return event.target == document.getElementById('buttonUp');
 }
 

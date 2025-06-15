@@ -69,11 +69,11 @@
     }
 
     #control-panel-left-right {
-        display: none;
+        display: flex;
     }
 
     #control-panel-throw-jump {
-        display: none;
+        display: flex;
     }
 
     .canvas-container img:nth-child(1) {
@@ -172,11 +172,12 @@
         max-width: 130px;
     }
 
-    .spacebar {
+    #spacebar {
         border: 4px solid black;
     }
 
-    .spacebar p {
+    #spacebar p {
+        font-family: 'playpensans light';
         font-size: 18px;
     }
 
