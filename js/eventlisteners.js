@@ -258,20 +258,6 @@ function setTimeActivationVariablesForKeyD() {
 }
 
 /**
- * Initializes event listeners once the DOM content is fully loaded.
- * Sets up a click event on the 'playIcon' element to start the game.
- * 
- * @event DOMContentLoaded - Triggered when the initial HTML document is fully loaded and parsed.
- */
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     let playIcon = document.getElementById('playIcon');
-//     playIcon.addEventListener('click', () => {
-//         startGame();
-//     });
-// });
-
-/**
  * Removes all previously attached event listeners from the window and document. Cleans up to prevent memory leaks and unwanted behavior when resetting the game.
  */
 

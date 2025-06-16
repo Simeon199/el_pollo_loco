@@ -3,7 +3,18 @@ let isExplainContainerOpen = false;
 document.addEventListener('DOMContentLoaded', () => {
     let allIconsMiniVersion = document.getElementById('all-icons-container-mini-version');
     let settingsIcon = document.getElementById('cartwheel-image-container');
+    let iconSource = document.getElementById('iconSource');
+    let allIconsButton = document.querySelectorAll('.all-icons-button-container')[0];
     let playIcon = document.getElementById('playIcon');
+    let privacy = document.getElementById('privacy');
+    let imprint = document.getElementById('imprint');
+    let winningImageButton = document.getElementById('winning-image').querySelector('button');
+    let losingImageButton = document.getElementById('losing-image').querySelector('button');
+    let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img');
+    let allIconsContainerOverlay = document.getElementById('all-icons-container-overlay');
+    let explainGameContainer = document.getElementById('explain-game-container');
+    let explainGameSmallVersionIcon = document.getElementById('explain-game-container-small-version');
+    let imprintAndPrivacyIcon = document.getElementById('overlay-icon-for-imprint-privacy');
 
     if(settingsIcon){
         settingsIcon.addEventListener('click', async () => {
@@ -25,70 +36,75 @@ document.addEventListener('DOMContentLoaded', () => {
         playIcon.addEventListener('click', async () => {
             await loadTemplate('../templates/canvas-container.html', 'canvas-container');
             startGame();
+            manageSoundIconEventListeners();
         });
-        let canvas = document.getElementById('canvas');
-        if(canvas){
-            let soundOff = document.getElementById('sound-off-icon');
-            let soundOn = document.getElementById('sound-on-icon');
-            soundOff.addEventListener('click', () => {
-                turnSoundOnOrOff();
-            });
-            soundOn.addEventListener('click', () => {
-                turnSoundOnOrOff();
-            });
-        } 
     }
 
-    document.getElementById('privacy').addEventListener('click', () => {
+    if(explainGameSmallVersionIcon){
+        explainGameSmallVersionIcon.addEventListener('click', async () => {
+            await loadTemplate('../templates/explain-game.html', 'explain-game-container');
+            openOverlay('explain-game-container');
+        });
+    }
+    
+    if(imprintAndPrivacyIcon){
+        imprintAndPrivacyIcon.addEventListener('click', async () => {
+            await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
+            openOverlay('imprint-and-privacy-policy-overlay');
+        });
+    }
+
+    if(iconSource){
+        iconSource.addEventListener('click', async () => {
+            await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
+            openOverlay('all-icons-container-overlay');
+        });
+    }
+
+    privacy.addEventListener('click', () => {
         redirectToPrivacyPolicyPage();
     });
-    document.getElementById('imprint').addEventListener('click', () => {
+
+    imprint.addEventListener('click', () => {
         redirectToLegalNoticePage();
     });
-    document.querySelectorAll('.all-icons-button-container')[0].addEventListener('click', async () => {
+
+    winningImageButton.addEventListener('click', () => {
+        playAgain();
+    });
+
+    losingImageButton.addEventListener('click', () => {
+        playAgain();
+    });
+
+    imprintAndPrivacyOverlay.addEventListener('click', () => {
+        closeOverlay('imprint-and-privacy-policy-overlay');
+    });
+
+    allIconsButton.addEventListener('click', async () => {
         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
         openOverlay('all-icons-container-overlay');
     });
-    document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img').addEventListener('click', () => {
-        closeOverlay('imprint-and-privacy-policy-overlay');
-    });
-    document.getElementById('all-icons-container-overlay').addEventListener('click', () => {
+    
+    allIconsContainerOverlay.addEventListener('click', () => {
         closeOverlay('all-icons-container-overlay');
     });
-    // document.getElementById('sound-off-icon').addEventListener('click', () => {
-    //     turnSoundOnOrOff();
-    // });
-    // document.getElementById('sound-on-icon').addEventListener('click', () => {
-    //     turnSoundOnOrOff();
-    // });
-    document.getElementById('cartwheel-image-container-small-version').addEventListener('click', () => {
-        openOverlay('explain-game-container');
-    });
-    document.getElementById('winning-image').querySelector('button').addEventListener('click', () => {
-        playAgain();
-    });
-    document.getElementById('losing-image').querySelector('button').addEventListener('click', () => {
-        playAgain();
-    });
-    document.getElementById('iconSource').addEventListener('click', () => {
-        openOverlay('all-icons-container-overlay');
-    });
-    document.getElementById('overlay-icon-for-imprint-privacy').addEventListener('click', () => {
-        openOverlay('imprint-and-privacy-policy-overlay');
-    });
-    document.getElementById('explain-game-container-small-version').addEventListener('click', () => {
-        openOverlay('explain-game-container');
-    });
-    document.getElementById('explain-game-container').addEventListener('click', () => {
+
+    explainGameContainer.addEventListener('click', () => {
         closeOverlay('explain-game-container');
     });
-    // document.getElementById('icon-and-settings-container-in-intro-image').querySelectorAll('div')[0].addEventListener('click', () => {
-    //     openOverlay('all-icons-container-overlay');
-    // });
-    // document.getElementById('icon-and-settings-container-in-intro-image').querySelectorAll('div')[1].addEventListener('click', () => {
-    //     redirectToLegalNoticePage()    
-    // });
 });
+
+function manageSoundIconEventListeners(){
+    let soundOff = document.getElementById('sound-off-icon');
+    let soundOn = document.getElementById('sound-on-icon');
+    soundOff.addEventListener('click', () => {
+        turnSoundOnOrOff();
+    });
+    soundOn.addEventListener('click', () => {
+        turnSoundOnOrOff();
+    });
+}
 
 /**
  * Redirects the user to the play page.
