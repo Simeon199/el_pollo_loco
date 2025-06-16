@@ -2,10 +2,12 @@ let isExplainContainerOpen = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     let allIconsMiniVersion = document.getElementById('all-icons-container-mini-version');
-    let explainGameContainer = document.getElementById("explain-game-container");
-    if(explainGameContainer){
-        explainGameContainer.addEventListener('click', async () => {
-            await loadTemplate('../templates/explain-game.html');
+    let settingsIcon = document.getElementById('cartwheel-image-container');
+    let playIcon = document.getElementById('playIcon');
+
+    if(settingsIcon){
+        settingsIcon.addEventListener('click', async () => {
+            await loadTemplate('../templates/explain-game.html', 'explain-game-container');
             openOverlay('explain-game-container');
         });
     }
@@ -18,14 +20,30 @@ document.addEventListener('DOMContentLoaded', () => {
             closeOverlay('all-icons-container-overlay');
         });
     }
+
+    if(playIcon){
+        playIcon.addEventListener('click', async () => {
+            await loadTemplate('../templates/canvas-container.html', 'canvas-container');
+            startGame();
+        });
+        let canvas = document.getElementById('canvas');
+        if(canvas){
+            let soundOff = document.getElementById('sound-off-icon');
+            let soundOn = document.getElementById('sound-on-icon');
+            soundOff.addEventListener('click', () => {
+                turnSoundOnOrOff();
+            });
+            soundOn.addEventListener('click', () => {
+                turnSoundOnOrOff();
+            });
+        } 
+    }
+
     document.getElementById('privacy').addEventListener('click', () => {
         redirectToPrivacyPolicyPage();
     });
     document.getElementById('imprint').addEventListener('click', () => {
         redirectToLegalNoticePage();
-    });
-    document.getElementById('cartwheel-image-container').addEventListener('click', () => {
-        openOverlay('explain-game-container');
     });
     document.querySelectorAll('.all-icons-button-container')[0].addEventListener('click', async () => {
         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
@@ -37,12 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('all-icons-container-overlay').addEventListener('click', () => {
         closeOverlay('all-icons-container-overlay');
     });
-    document.getElementById('sound-off-icon').addEventListener('click', () => {
-        turnSoundOnOrOff();
-    });
-    document.getElementById('sound-on-icon').addEventListener('click', () => {
-        turnSoundOnOrOff();
-    });
+    // document.getElementById('sound-off-icon').addEventListener('click', () => {
+    //     turnSoundOnOrOff();
+    // });
+    // document.getElementById('sound-on-icon').addEventListener('click', () => {
+    //     turnSoundOnOrOff();
+    // });
     document.getElementById('cartwheel-image-container-small-version').addEventListener('click', () => {
         openOverlay('explain-game-container');
     });
@@ -59,24 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
         openOverlay('imprint-and-privacy-policy-overlay');
     });
     document.getElementById('explain-game-container-small-version').addEventListener('click', () => {
-        console.log('cartwheel-image-container-small-version is triggered');
         openOverlay('explain-game-container');
     });
     document.getElementById('explain-game-container').addEventListener('click', () => {
         closeOverlay('explain-game-container');
     });
-    document.getElementById('game-functions-container').addEventListener('click', (event) => {
-        preventBubbling(event);
-    });
-    document.getElementById('game-functions-container').querySelector('img').addEventListener('click', () => {
-        closeOverlay('explain-game-container');
-    });
-    document.getElementById('icon-and-settings-container-in-intro-image').querySelectorAll('div')[0].addEventListener('click', () => {
-        openOverlay('all-icons-container-overlay');
-    });
-    document.getElementById('icon-and-settings-container-in-intro-image').querySelectorAll('div')[1].addEventListener('click', () => {
-        redirectToLegalNoticePage()    
-    });
+    // document.getElementById('icon-and-settings-container-in-intro-image').querySelectorAll('div')[0].addEventListener('click', () => {
+    //     openOverlay('all-icons-container-overlay');
+    // });
+    // document.getElementById('icon-and-settings-container-in-intro-image').querySelectorAll('div')[1].addEventListener('click', () => {
+    //     redirectToLegalNoticePage()    
+    // });
 });
 
 /**
