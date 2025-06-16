@@ -30,18 +30,6 @@ window.addEventListener("resize", checkOrientation);
 
 window.addEventListener("orientationchange", checkOrientation);
 
-/**
- * Toggles fullscreen mode and handles the exit from fullscreen.
- */
-
-// document.addEventListener('fullscreenchange', () => {
-//     isFullscreenActivated = !!document.fullscreenElement;
-//     if (!isFullscreenActivated) {
-//         manageAddRemoveClassesWhenExitFullscreen();
-//     } else {
-//         isChangingToFullscreen = false;
-//     }
-// });
 
 /**
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
@@ -52,14 +40,12 @@ function addAllEventListenersWhenInitGame() {
         keyDownHandler(event);
     });
     window.addEventListener('keyup', (event) => {
-        keyUpHandler(event)
+        keyUpHandler(event);
     });
     window.addEventListener('touchstart', (event) =>  {
-        // event.preventDefault();
         touchStartHandler(event);
     });
     window.addEventListener('touchend', (event) => {
-        // event.preventDefault();
         touchEndHandler(event);
     });
 }
@@ -157,7 +143,7 @@ window.addEventListener('keyup', (event) => {
  */
 
 window.addEventListener('keydown', (event) => {
-    keyDownHandler(event)
+    keyDownHandler(event);
 });
 
 /**

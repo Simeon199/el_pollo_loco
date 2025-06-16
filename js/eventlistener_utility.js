@@ -64,9 +64,9 @@ function wasButtonRightPressed(event) {
  * @returns {boolean} - Returns true if the up button was pressed.
  */
 
-function wasButtonUpPressed(event) { // Charakter spring nur, wenn der Rand berührt wurde!
-    console.log('event invoked in function wasButtonUpPressed: ', event.target);
-    return event.target == document.getElementById('buttonUp');
+function wasButtonUpPressed(event) { 
+    // console.log('button up pressed: ', event.target == document.getElementById('buttonUp'));
+    return event.target == document.getElementById('buttonUp') || event.target == document.getElementById('spacebar'); 
 }
 
 /**
