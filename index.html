@@ -45,12 +45,15 @@
 
 <body>
     <div class="envelope-all-container">
+
+        <!-- Header And Footer Templates Combined -->
+
         <div class="links-images">
             <div class="legal-notice-and-privacy-policy">
                 <img src="assets/notice.png" alt="notice">
                 <div class="h2-title-section">
-                    <h2>Privacy Policy</h2>
-                    <h2>Imprint</h2>
+                    <h2 id="privacy">Privacy Policy</h2>
+                    <h2 id="imprint">Imprint</h2>
                 </div>
             </div>
             <h1 id="main-title">El Pollo Loco</h1>
@@ -59,7 +62,6 @@
                 <h2>Settings</h2>
             </div>
         </div>
-
         <div class="all-icons-button-container">
             <button id="all-icons-button">Show Icons Sources</button>
         </div>
@@ -75,57 +77,11 @@
            </div>
         </div>
 
-        <div class="all-icons-container-overlay d-none" id="all-icons-container-overlay">
-            <div class="all-icons-container-mini-version" id="all-icons-container-mini-version">
-                <img src="assets/close.png" alt="close">
-                <a href="https://www.flaticon.com/free-icons/chicken" title="chicken icons" target="_blank">Chicken
-                    icons
-                    created by Freepik
-                    -
-                    Flaticon
-                </a>
-                <a href="https://www.flaticon.com/free-icons/video" title="video icons" target="_blank">Video icons
-                    created
-                    by Bingge Liu -
-                    Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/king-size" title="king size icons" target="_blank">King
-                    size
-                    icons created by
-                    Prosymbols Premium - Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/exit-full-screen" title="exit full screen icons"
-                    target="_blank">Exit full
-                    screen
-                    icons created by Prosymbols Premium - Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/back" title="back icons" target="_blank">Back icons created
-                    by
-                    Roundicons -
-                    Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/arrow" title="arrow icons" target="_blank">Arrow icons
-                    created
-                    by Roundicons -
-                    Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/straight-arrow" title="straight arrow icons"
-                    target="_blank">Straight arrow
-                    icons
-                    created by ChilliColor - Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/letter-d" title="letter d icons" target="_blank">Letter d
-                    icons
-                    created by
-                    Freepik
-                    - Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/close" title="close icons" target="_blank">Close icons
-                    created
-                    by reussy -
-                    Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/mute" title="mute icons" target="_blank">Mute icons created
-                    by
-                    HideMaru –
-                    Flaticon</a>
-                <a href="https://www.flaticon.com/free-icons/volume" title="volume icons" target="_blank">Volume icons
-                    created by apien -
-                    Flaticon</a>
-            </div>
-        </div>
+        <!-- All Icons Container Template -->
+
+         <div class="all-icons-container-overlay d-none" id="all-icons-container-overlay"></div>             
+
+        <!-- Canvas Container Template -->
 
         <div class="canvas-container" id="canvas-container">
             <canvas id="canvas" width="720" height="480"></canvas>
@@ -157,6 +113,8 @@
             </div>
         </div>
 
+        <!-- Small Version Template -->
+
         <div class="overlay" id="overlay">
             <div id="intro-image">
                 <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
@@ -186,20 +144,26 @@
                     Please Turn Your Device To Play The Game!
                 </button>
             </div>
-            <div class="icon-and-settings-container" id="icon-and-settings-container">
-                <div class="all-icons-button-container-small-version">
-                    <button id="all-icons-button-small-version">Show Icons Sources</button>
+
+            <div id="icon-and-settings-container" class="icon-and-settings-container">
+                <div id="iconSource" class="all-icons-button-container-small-version">
+                    <button>Show Icons Sources</button>
                 </div>
-                <div class="main-title-properties">
+                <div id="overlay-icon-for-imprint-privacy" class="main-title-properties">
                     <img src="assets/notice.png" alt="notice">
                 </div>
-                <div class="main-title-properties" id="cartwheel-image-container-small-version">
-                    <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image-small-version">
+                <div id="explain-game-container-small-version" class="main-title-properties">
+                    <img src="assets/cartwheel.png" alt="cartwheel">
                 </div>
             </div>
-        </div>
 
-        <div class="explain-game-container d-none" id="explain-game-container">
+        </div>
+        
+        <!-- Explain Game Container Template -->
+
+        <div  id="explain-game-container" class="explain-game-container d-none"></div> 
+
+        <!-- <div class="explain-game-container d-none" id="explain-game-container">
             <div class="game-functions-container" id="game-functions-container">
                 <h2>Settings</h2>
                 <img src="assets/close.png" alt="close">
@@ -240,8 +204,10 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
+
     </div>
+
 </body>
 
 </html>
