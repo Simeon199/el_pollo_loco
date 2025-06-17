@@ -113,7 +113,7 @@ function deleteWorldInstance() {
 
 function init() {
     deleteWorldInstance();
-    removeAllListeners();
+    // removeAllListeners();
     addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
     muteUnmuteSound(soundIsMuted);

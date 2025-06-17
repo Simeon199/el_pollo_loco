@@ -10,13 +10,13 @@ permissionToThrow = true;
  * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
 
-// if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
-//     document.addEventListener('contextmenu', function (event) {
-//         event.preventDefault();
-//         event.stopPropagation();
-//         event.stopImmediatePropagation();
-//     }, { passive: false, capture: true });
-// }
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+    }, { passive: false, capture: true });
+}
 
 /**
  *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
@@ -35,38 +35,69 @@ window.addEventListener("orientationchange", checkOrientation);
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
  */
 
-function addAllEventListenersWhenInitGame() {
+function addAllEventListenersWhenInitGame() { // window was the reference for the event listener
     window.addEventListener('keydown', (event) => {
         keyDownHandler(event);
     });
     window.addEventListener('keyup', (event) => {
         keyUpHandler(event);
     });
-    window.addEventListener('touchstart', (event) =>  {
-        touchStartHandler(event);
-    });
-    window.addEventListener('touchend', (event) => {
-        touchEndHandler(event);
-    });
+    // window.addEventListener('touchstart', (event) =>  {
+    //     touchStartHandler(event);
+    // });
+    // window.addEventListener('touchend', (event) => {
+    //     touchEndHandler(event);
+    // });
 }
 
 /**
  * Event listener for the 'touchstart' event. Invokes the touchStartHandler to handle touch-based controls.
  */
 
-window.addEventListener('touchstart', (event) => {
-    // event.preventDefault();
-    touchStartHandler(event)
-});
+// window.addEventListener('touchstart', (event) => {
+//     touchStartHandler(event)
+// });
 
 /**
  * Event listener for the 'touchend' event. Invokes the touchEndHandler to handle the end of touch interactions.
  */
 
-window.addEventListener('touchend', (event) => {
-    // event.preventDefault();
-    touchEndHandler(event)
-});
+// window.addEventListener('touchend', (event) => {
+//     touchEndHandler(event);
+// });
+
+// function isGamePlayingAndPlayAndSoundIconsWasntTouched(event) {
+//     return !isSoundIconInteraction && wasntPlayIconPressed(event) && isGamePlaying == true;
+// }
+
+// function isEventOfTypeTouchAndSoundIconTriggered(event) {
+//     return event.type.startsWith('touch') && checkIfSoundIconWasTriggered(event) == true;
+// }
+
+// function manageSoundAndPrepareGlobalVariables(event) {
+//     settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+//     world.audioManager.muteSnorringSoundIfNecessary();
+// }
+
+// function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
+//     world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+//     if (!world.character.isSoundIconInteraction) {
+//         setKeyPressedVariablesRight(event);
+//         someKeyWasPressedAgain = new Date().getTime();
+//         world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+//         world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+//         world.character.isKeyPressed = isKeyPressed;
+//     }
+// }
+
+// function setKeyPressedVariablesRight(event) {
+//     if (isEventOfTypeTouchAndSoundIconTriggered(event)) {
+//         return;
+//     } else {
+//         wasRandomKeyOncePressed = true;
+//         isKeyPressed = true;
+//     }
+// }
 
 /**
  * Handles the touchstart event to set key states and perform specific actions based on the touch input.
@@ -76,26 +107,86 @@ window.addEventListener('touchend', (event) => {
  * @param {TouchEvent} event - The touchstart event object.
  */
 
-function touchStartHandler(event) {
-    isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-    if (isGamePlayingAndPlayAndSoundIconsWasntTouched(event)) {
-        manageSoundAndPrepareGlobalVariables(event);
-        if (isCharacterAliveAndNotHurt()) {
-            if (wasButtonLeftPressed(event)) {
-                prepareForThrowingLeft(); 
-            }
-            if (wasButtonRightPressed(event)) {
-                prepareForThrowingRight(); 
-            }
-            if (wasButtonUpPressed(event)) {
+function touchStartHandler() { // event
+    // isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+    if (isGamePlaying) { // isGamePlayingAndPlayAndSoundIconsWasntTouched(event)
+        let soundOn = document.getElementById('sound-on-icon');
+        let soundOff = document.getElementById('sound-off-icon');
+
+        let buttonLeftTouch = document.getElementById('buttonLeft');
+        let buttonRightTouch = document.getElementById('buttonRight');
+        let buttonUpTouch = document.getElementById('buttonUp');
+        let spacebarTouch = document.getElementById('spacebar');
+        let buttonThrowTouch = document.getElementById('buttonThrow');
+
+        if(soundOn){
+            soundOn.addEventListener('touchstart', () => {
+                console.log('Hier muss noch die Funktion rein!');
+            });
+        }
+
+        if(soundOff){
+            soundOff.addEventListener('touchstart', () => {
+                console.log('Hier muss noch die Funktion rein!');
+            });
+        }
+
+        if(buttonLeftTouch){
+            buttonLeftTouch.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                prepareForThrowingLeft();
+            }, {passive: false});
+        }
+
+        if(buttonRightTouch){
+            buttonRightTouch.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                prepareForThrowingRight();
+            }, {passive: false});
+        }
+
+        if(buttonUpTouch){
+            buttonUpTouch.addEventListener('touchstart', (event) => {
+                event.preventDefault();
                 keyboard.SPACE = true;
-            }
-            if (wasButtonThrowPressed(event)) {
+            }, {passive: false});
+        }
+
+        if(spacebarTouch){
+            spacebarTouch.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                keyboard.SPACE = true;
+            }, {passive: false});
+        }
+
+        if(buttonThrowTouch){
+            buttonThrowTouch.addEventListener('touchstart', (event) => {
+                event.preventDefault();
                 keyboard.keyD = true;
                 timeWhenKeyDWasPressed = new Date().getTime();
                 giveOrDenyPermissionToThrow();
-            }
+            }, {passive: false});
         }
+
+        // Originale EventListeners hier:
+
+        // manageSoundAndPrepareGlobalVariables(event);
+        // if (isCharacterAliveAndNotHurt()) {
+        //     if (wasButtonLeftPressed(event)) {
+        //         prepareForThrowingLeft(); 
+        //     }
+        //     if (wasButtonRightPressed(event)) {
+        //         prepareForThrowingRight(); 
+        //     }
+        //     if (wasButtonUpPressed(event)) {
+        //         keyboard.SPACE = true;
+        //     }
+        //     if (wasButtonThrowPressed(event)) {
+        //         keyboard.keyD = true;
+        //         timeWhenKeyDWasPressed = new Date().getTime();
+        //         giveOrDenyPermissionToThrow();
+        //     }
+        // }
     }
 }
 
@@ -107,8 +198,8 @@ function touchStartHandler(event) {
  * @param {TouchEvent} event - The touchend event object.
  */
 
-function touchEndHandler(event) {
-    if (wasntPlayIconPressed(event) && isGamePlaying == true) {
+function touchEndHandler(event) { // Hier genauso anpassen, wie auch den touchStartHandler
+    if (isGamePlaying) { // wasntPlayIconPressed(event) && isGamePlaying == true
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
         if (wasButtonLeftPressed(event)) {
             keyboard.LEFT = false;
@@ -247,8 +338,8 @@ function setTimeActivationVariablesForKeyD() {
  * Removes all previously attached event listeners from the window and document. Cleans up to prevent memory leaks and unwanted behavior when resetting the game.
  */
 
-function removeAllListeners() {
-    document.removeEventListener("fullscreenchange", addingAndRemovingClassesDependingOnFullscreenActivated);
-    window.removeEventListener('touchstart', touchStartHandler);
-    window.removeEventListener('touchend', touchEndHandler);
-}
+// function removeAllListeners() {
+//     document.removeEventListener("fullscreenchange", addingAndRemovingClassesDependingOnFullscreenActivated);
+//     window.removeEventListener('touchstart', touchStartHandler);
+//     window.removeEventListener('touchend', touchEndHandler);
+// }

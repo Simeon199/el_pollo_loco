@@ -158,7 +158,6 @@ function changeStyleWhenIndependentOfWinningOrLosing() {
  */
 
 function showMessageToTurnDevice() {
-    // debugger;
     if (window.innerWidth < 1300 && (window.innerHeight > window.innerWidth)) {
         document.getElementById('overlay').style.display = 'flex';
         document.getElementById('canvas-container').style.display = 'none';
