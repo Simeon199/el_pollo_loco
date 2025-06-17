@@ -62,19 +62,6 @@ function addAllEventListenersWhenInitGame() {
     touchEndHandler();
 }
 
-// function isGamePlayingAndPlayAndSoundIconsWasntTouched(event) {
-//     return !isSoundIconInteraction && wasntPlayIconPressed(event) && isGamePlaying == true;
-// }
-
-// function isEventOfTypeTouchAndSoundIconTriggered(event) {
-//     return event.type.startsWith('touch') && checkIfSoundIconWasTriggered(event) == true;
-// }
-
-// function manageSoundAndPrepareGlobalVariables(event) {
-//     settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-//     world.audioManager.muteSnorringSoundIfNecessary();
-// }
-
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
     if (!world.character.isSoundIconInteraction) {
