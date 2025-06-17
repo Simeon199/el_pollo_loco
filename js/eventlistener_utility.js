@@ -65,7 +65,6 @@ function wasButtonRightPressed(event) {
  */
 
 function wasButtonUpPressed(event) { 
-    // console.log('button up pressed: ', event.target == document.getElementById('buttonUp'));
     return event.target == document.getElementById('buttonUp') || event.target == document.getElementById('spacebar'); 
 }
 

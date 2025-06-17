@@ -307,8 +307,7 @@ class Character extends MovableObject {
      */
 
     conditionsToBeMetForSleeping() {
-        return this.characterExistsFiveSecondsButNoButtonPressed() || this.keyWasntPressedForMoreThanFiveSeconds() ||
-            this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
+        return this.characterExistsFiveSecondsButNoButtonPressed() || this.keyWasntPressedForMoreThanFiveSeconds() || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
 
     /**
