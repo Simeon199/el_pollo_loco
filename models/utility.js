@@ -4,7 +4,6 @@
 
 class Utility {
     world;
-    permissionToThrow = false;
 
     /**
      * Initializes the Utility class with the game world instance.
@@ -35,7 +34,6 @@ class Utility {
         this.invokeMomentWhenCharacterAttacked();
         this.checkCollisions();
         this.checkCollisionsWithBottles();
-        this.proveWhetherCheckThrowObjectsShouldBeInvoked();
         this.checkThrowableObjectsCollision();
         this.calibrateDistanceBetweenCharacterAndEndboss();
         this.checkMovingDirectionOfEnemies();
@@ -164,36 +162,13 @@ class Utility {
     */
 
     collectGroundBottles(bottle) {
-        if (bottle.wasAlreadyCollected) return;
-
+        if (bottle.wasAlreadyCollected){
+            return;
+        }
         bottle.wasAlreadyCollected = true; // Vor weiteren Aktionen setzen
         this.world.bottlebar.updateThrowObjectsArray('increase', bottle);
         this.world.audioManager.playSound('loadingSound');
     }
-
-    /**
-     * Determines if the `checkThrowObjects` function should be invoked based on the "D" key status.
-     * This function checks if the "D" key is currently pressed. If it is, a 125-millisecond delay is set.
-     * After the delay, it checks if the "D" key has been released and if `permissionToThrow` is `true`.
-     * If both conditions are met, it invokes the `checkThrowObjects` function.
-     */
-
-    proveWhetherCheckThrowObjectsShouldBeInvoked() {
-        console.log('keyD value: ', this.world.keyboard.keyD);
-        if (this.world.keyboard.keyD == true && permissionToThrow == true) { // Neu hinzugefügt: permissionToThrow == true
-            console.log('permission to throw value of utilityClass: ', world.utilityClass.permissionToThrow); 
-            setTimeout(() => {
-                if (this.world.keyboard.keyD == false) {
-                    if (permissionToThrow == true) {
-                        this.checkThrowObjects();
-                    }
-                }
-            }, 90);
-        } else {
-            return;
-        }
-    }
-
 
     /**
     * Checks if the character throws a bottle and updates the bottle bar correct.
@@ -218,7 +193,7 @@ class Utility {
     checkThrowableObjectsCollision() {
         this.world.throwableObjects.forEach(bottle => {
             this.proveIfBottleIsCollidingWithEnemy(bottle);
-        })
+        });
     }
 
     /**

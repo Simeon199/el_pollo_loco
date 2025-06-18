@@ -80,6 +80,9 @@ class Character extends MovableObject {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_DEAD);
+            } else if(this.isPepeSleepingButKeyPressedOrButtonTouched()){
+                console.log('I get into this if-statement');
+                this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
@@ -420,5 +423,9 @@ class Character extends MovableObject {
 
     wasRightOrLeftKeyPressed() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+    }
+
+    isPepeSleepingButKeyPressedOrButtonTouched(){
+        return this.isSleeping && timePassedWhenKeyPressed < 5000;
     }
 }

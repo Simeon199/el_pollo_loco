@@ -9,6 +9,7 @@ function prepareForThrowingLeft() {
         keyboard.rightForThrow = false;
     }
     keyboard.leftForThrow = true;
+    // Mute Schlafanimation, falls diese aktiviert ist!
 }
 
 /**
@@ -22,6 +23,7 @@ function prepareForThrowingRight() {
         keyboard.leftForThrow = false;
     }
     keyboard.rightForThrow = true;
+    // Mute Schlafanimation, falls diese aktiviert ist!
 }
 
 /**
@@ -162,17 +164,6 @@ function checkIfSoundIconWasTriggered(event) {
     } else {
         return false;
     }
-}
-
-/**
- * Sets global variables when a key or touch event ends.
- */
-
-function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
-    isKeyPressed = false;
-    lastTimeKeyPressed = new Date().getTime();
-    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyPressed = isKeyPressed;
 }
 
 /**

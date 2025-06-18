@@ -5,8 +5,6 @@ let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
 let momentKeySpaceWasPressed = 0;
 let momentKeySpaceWasReleased = 0;
 
-permissionToThrow = true;
-
 /**
  * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
@@ -73,6 +71,17 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     }
 }
 
+/**
+ * Sets global variables when a key or touch event ends.
+ */
+
+function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
+    isKeyPressed = false;
+    lastTimeKeyPressed = new Date().getTime();
+    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+    world.character.isKeyPressed = isKeyPressed;
+}
+
 function setKeyPressedVariablesRight(event) {
     if (isEventOfTypeTouchAndSoundIconTriggered(event)) {
         return;
@@ -131,8 +140,6 @@ function touchStartHandler() {
             buttonThrowTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
                 keyboard.keyD = true;
-                timeWhenKeyDWasPressed = new Date().getTime();
-                giveOrDenyPermissionToThrow();
             }, {passive: false});
         }
     }
@@ -191,8 +198,8 @@ function touchEndHandler() {
         if(buttonThrowTouch){
             buttonThrowTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
+                world.utilityClass.checkThrowObjects();
                 keyboard.keyD = false;
-                setTimeActivationVariablesForKeyD();
             }, {passive: false});
         }
     }
@@ -239,8 +246,6 @@ function keyDownHandler(event) {
         }
         if (event.keyCode == 68) {
             keyboard.keyD = true;
-            timeWhenKeyDWasPressed = new Date().getTime();
-            giveOrDenyPermissionToThrow();
         }
     }
 }
@@ -272,8 +277,8 @@ function keyUpHandler(event) {
         this.momentKeySpaceWasReleased = new Date().getTime();
     }
     if (event.keyCode == 68) {
+        world.utilityClass.checkThrowObjects();
         keyboard.keyD = false;
-        setTimeActivationVariablesForKeyD();
     }
 }
 
