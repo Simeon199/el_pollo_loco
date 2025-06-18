@@ -154,6 +154,61 @@ function touchStartHandler() {
     }
 }
 
+function handleButtonLeftTouchStart(){
+    let buttonLeftTouch = document.getElementById('buttonLeft');
+    if(buttonLeftTouch){
+        buttonLeftTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            prepareForThrowingLeft();
+            buttonLeftTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function handleButtonRightTouchStart(){
+    let buttonRightTouch = document.getElementById('buttonRight');
+    if(buttonRightTouch){
+        buttonRightTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            prepareForThrowingRight();
+            buttonRightTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function handleSpacebarTouchStart(){
+    let spacebarTouch = document.getElementById('spacebar');
+    if(spacebarTouch){
+        spacebarTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            keyboard.SPACE = true;
+            buttonUpTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function handleJumpTouchStart(){
+    let buttonUpTouch = document.getElementById('buttonUp');
+    if(buttonUpTouch){
+        buttonUpTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            keyboard.SPACE = true;
+            buttonUpTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function handleThrowTouchStart(){
+    let buttonThrowTouch = document.getElementById('buttonThrow');
+    if(buttonThrowTouch){
+        buttonThrowTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            keyboard.keyD = true;
+            buttonThrowTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
 /**
  * Handles the touchend event to update the game state by resetting key states and managing audio.
  * Checks if the event did not involve the play icon and if the game is currently playing.
@@ -217,6 +272,22 @@ function touchEndHandler() {
             }, {passive: false});
         }
     }
+}
+
+function handleButtonLeftTouchEnd(){
+    console.log('Hier kommt die Funktion rein!');
+}
+
+function handleButtonRightTouchEnd(){
+    console.log('Hier kommt die Funktion rein!');
+}
+
+function handleJumpTouchEnd(){
+    console.log('Hier kommt die Funktion rein!');
+}
+
+function handleThrowTouchEnd(){
+    console.log('Hier kommt die Funktion rein!');
 }
 
 /**
