@@ -1,4 +1,9 @@
 @media(hover: none) {
+    html, body {
+        overscroll-behavior: none;
+        touch-action: none;
+    }
+
     #losing-image {
         width: 100dvw;
         height: 100dvh;
@@ -24,10 +29,6 @@
     #sound-on-icon {
         width: 60px;
     }
-
-    /* .color-touched {
-        background-color: rgb(75, 61, 35);
-    } */
 
     #sound-off-icon {
         width: 60px;
