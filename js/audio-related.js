@@ -69,6 +69,12 @@ function setAllWorldAudioSound(mute) {
     }
 }
 
+/**
+ * Mutes or unmutes the bottle landing sound in the game world.
+ * 
+ * @param {boolean} mute - If true, mutes the bottle landing sound; if false, unmutes it.
+ */
+
 function muteRemainingSounds(mute) {
     world.audioManager.muteSound(mute, 'bottleLanding');
 }
@@ -76,7 +82,7 @@ function muteRemainingSounds(mute) {
 /**
  * Mutes or unmutes the background music in the game world.
  * 
- * @param {boolean} bolean - If true, mutes the background music; if false, unmutes it.
+ * @param {boolean} mute - If true, mutes the background music; if false, unmutes it.
  */
 
 function manageBackgroundMusic(mute) {

@@ -9,7 +9,6 @@ function prepareForThrowingLeft() {
         keyboard.rightForThrow = false;
     }
     keyboard.leftForThrow = true;
-    // Mute Schlafanimation, falls diese aktiviert ist!
 }
 
 /**
@@ -23,7 +22,6 @@ function prepareForThrowingRight() {
         keyboard.leftForThrow = false;
     }
     keyboard.rightForThrow = true;
-    // Mute Schlafanimation, falls diese aktiviert ist!
 }
 
 /**
@@ -115,6 +113,12 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
         world.character.isKeyPressed = isKeyPressed;
     }
 }
+
+/**
+ * Checks if the character is alive and not hurt.
+ * 
+ * @returns {boolean} - Returns `true` if the character is alive and hurt, returns `false` otherwise.
+ */
 
 function isCharacterAliveAndNotHurt() {
     return world.character.energy > 0 && world.character.isHurt() == false;

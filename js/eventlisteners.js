@@ -82,6 +82,10 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
     world.character.isKeyPressed = isKeyPressed;
 }
 
+/**
+ * Sets the global variables wasRandomKeyOncePressed and isKeyPressed that are monitoring whether a certain key or button was pressed.
+ */
+
 function setKeyPressedVariablesRight(event) {
     if (isEventOfTypeTouchAndSoundIconTriggered(event)) {
         return;
@@ -154,7 +158,7 @@ function touchStartHandler() {
  */
 
 function touchEndHandler() {
-    if (isGamePlaying) { // wasntPlayIconPressed(event) && isGamePlaying == true
+    if (isGamePlaying) { 
         let buttonLeftTouch = document.getElementById('buttonLeft');
         let buttonRightTouch = document.getElementById('buttonRight');
         let buttonUpTouch = document.getElementById('buttonUp');

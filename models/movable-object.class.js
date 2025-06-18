@@ -266,7 +266,7 @@ class MovableObject extends DrawableObject {
         if (this.isMovableObjectCharacterAndHurtOrDead()) {
             this.speedY = 0;
         } else if (this instanceof Character && !this.isAboveGround()) {
-            this.speedY = 20;
+            this.speedY = 25; // ehemals speedY = 20
         }
     }
 
@@ -307,7 +307,7 @@ class MovableObject extends DrawableObject {
    */
 
     bounce() {
-        this.speedY = 15;
+        this.speedY = 18; // ehemals speedY = 15
         this.startJump();
         this.isBounced = true;
     }

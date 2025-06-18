@@ -95,6 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**
+ * Adds click event listeners to the sound icon elements.
+ * 
+ * When either the 'sound-off-icon' or 'sound-on-icon' is clicked,
+ * the `turnSoundOnOrOff` function is triggered to toggle the sound state.
+ */
+
 function manageSoundIconEventListeners(){
     let soundOff = document.getElementById('sound-off-icon');
     let soundOn = document.getElementById('sound-on-icon');
@@ -140,7 +147,11 @@ function preventBubbling(event) {
     event.stopPropagation();
 }
 
-// Die folgenden Funktionen sind noch nicht nach JSDoc-Standard kommentiert worden
+/**
+ * Closes the overlay element by adding the 'd-none' class to hide it.
+ * 
+ * @param {string} overlayId - The ID of the overlay element to close.
+ */
 
 function closeOverlay(overlayId){
     let overlay = document.getElementById(`${overlayId}`);
@@ -149,12 +160,27 @@ function closeOverlay(overlayId){
     }
 }
 
+/**
+ * Opens the overlay element by removing the 'd-none' class to make it visible.
+ * 
+ * @param {string} overlayId - The ID of the overlay element to open.
+ */
+
 function openOverlay(overlayId){
     let overlay = document.getElementById(`${overlayId}`);
     if(overlay.classList.contains('d-none')){
         overlay.classList.remove('d-none');
     }
 }
+
+/**
+ * Loads an HTML template from a URL and inserts it into a placeholder element.
+ * 
+ * @async
+ * @param {string} url - The URL of the HTML template to fetch.
+ * @param {string} placeholderId - The ID of the element where the HTML content will be injected.
+ * @returns {Promise<void>} - A Promise that resolves when the content is loaded and inserted.
+ */
 
 async function loadTemplate(url, placeholderId){
     let response = await fetch(url);

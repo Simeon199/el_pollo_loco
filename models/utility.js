@@ -40,6 +40,11 @@ class Utility {
         this.world.bottlebar.updateBottleBar();
     }
 
+    /**
+     * Handles the logic that should be executed when the character is attacked.
+     * Computes time that had passed by since the last attack and sets the isAttacked boolean accordingly.
+     */
+
     invokeMomentWhenCharacterAttacked() {
         let now = new Date().getTime();
         let timePassedSinceCharacterAttacked = now - this.world.momentCharacterAttacked;

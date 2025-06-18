@@ -151,7 +151,6 @@ class Character extends MovableObject {
      * Plays the jumping animation frames sequentially. If the animation sequence is complete, displays the last frame and resets the animation after a short delay.
      */
 
-
     animateCharacterJump() {
         this.world.audioManager.muteWalkingSoundIfNecessary();
         this.playAnimation(this.IMAGES_JUMPING);
@@ -424,6 +423,11 @@ class Character extends MovableObject {
     wasRightOrLeftKeyPressed() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }
+
+    /**
+     * Checks if the main character is sleeping and if an arbitrary key or button was pressed.
+     * @returns {boolean} True if character is sleeping and if arbitrary key or button is pressed, false otherwise.
+     */
 
     isPepeSleepingButKeyPressedOrButtonTouched(){
         return this.isSleeping && timePassedWhenKeyPressed < 5000;
