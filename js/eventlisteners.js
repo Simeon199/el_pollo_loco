@@ -9,13 +9,13 @@ let momentKeySpaceWasReleased = 0;
  * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
 
-if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-    }, { passive: false, capture: true });
-}
+// if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+//     document.addEventListener('contextmenu', function (event) {
+//         event.preventDefault();
+//         event.stopPropagation();
+//         event.stopImmediatePropagation();
+//     }, { passive: false, capture: true });
+// }
 
 /**
  *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
@@ -116,6 +116,7 @@ function touchStartHandler() {
             buttonLeftTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
                 prepareForThrowingLeft();
+                buttonLeftTouch.style.background = 'rgb(75, 61, 35)';
             }, {passive: false});
         }
 
@@ -123,6 +124,7 @@ function touchStartHandler() {
             buttonRightTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
                 prepareForThrowingRight();
+                buttonRightTouch.style.background = 'rgb(75, 61, 35)';
             }, {passive: false});
         }
 
@@ -130,6 +132,7 @@ function touchStartHandler() {
             buttonUpTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
                 keyboard.SPACE = true;
+                buttonUpTouch.style.background = 'rgb(75, 61, 35)';
             }, {passive: false});
         }
 
@@ -137,6 +140,7 @@ function touchStartHandler() {
             spacebarTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
                 keyboard.SPACE = true;
+                buttonUpTouch.style.background = 'rgb(75, 61, 35)';
             }, {passive: false});
         }
 
@@ -144,6 +148,7 @@ function touchStartHandler() {
             buttonThrowTouch.addEventListener('touchstart', (event) => {
                 event.preventDefault();
                 keyboard.keyD = true;
+                buttonThrowTouch.style.background = 'rgb(75, 61, 35)';
             }, {passive: false});
         }
     }
@@ -170,6 +175,7 @@ function touchEndHandler() {
                 event.preventDefault();
                 keyboard.LEFT = false;
                 world.audioManager.muteSound(true, 'walking_sound');
+                buttonLeftTouch.style.background = 'wheat';
             });
         }
 
@@ -178,6 +184,7 @@ function touchEndHandler() {
                 event.preventDefault();
                 keyboard.RIGHT = false;
                 world.audioManager.muteSound(true, 'walking_sound');
+                buttonRightTouch.style.background = 'wheat';
             }, {passive: false});
         }
 
@@ -187,6 +194,7 @@ function touchEndHandler() {
                 keyboard.SPACE = false;
                 world.character.isKeySpaceReleased = true;
                 momentKeySpaceWasReleased = new Date().getTime();
+                buttonUpTouch.style.background = 'wheat';
             }, {passive: false});
         }
 
@@ -196,14 +204,16 @@ function touchEndHandler() {
                 keyboard.SPACE = false;
                 world.character.isKeySpaceReleased = true;
                 momentKeySpaceWasReleased = new Date().getTime();
+                buttonUpTouch.style.background = 'wheat';
             }, {passive: false});
         }
 
         if(buttonThrowTouch){
-            buttonThrowTouch.addEventListener('touchstart', (event) => {
+            buttonThrowTouch.addEventListener('touchend', (event) => {
                 event.preventDefault();
                 world.utilityClass.checkThrowObjects();
                 keyboard.keyD = false;
+                buttonThrowTouch.style.background = 'wheat';
             }, {passive: false});
         }
     }

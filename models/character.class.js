@@ -81,7 +81,6 @@ class Character extends MovableObject {
             } else if (this.isDead()) {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_DEAD);
             } else if(this.isPepeSleepingButKeyPressedOrButtonTouched()){
-                console.log('I get into this if-statement');
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             } else {
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
