@@ -9,13 +9,13 @@ let momentKeySpaceWasReleased = 0;
  * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
 
-// if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
-//     document.addEventListener('contextmenu', function (event) {
-//         event.preventDefault();
-//         event.stopPropagation();
-//         event.stopImmediatePropagation();
-//     }, { passive: false, capture: true });
-// }
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+    }, { passive: false, capture: true });
+}
 
 /**
  *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
