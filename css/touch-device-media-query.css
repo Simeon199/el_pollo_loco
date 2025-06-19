@@ -4,6 +4,11 @@
         touch-action: none;
     }
 
+    .envelope-all-container {
+        height: calc(var(--vh, 1vh) * 100);
+        overflow: hidden;
+    }
+
     #losing-image {
         width: 100dvw;
         height: 100dvh;

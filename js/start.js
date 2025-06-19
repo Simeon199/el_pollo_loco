@@ -1,7 +1,8 @@
 let isExplainContainerOpen = false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(window.location.pathname.endsWith('/index.html')){        
+    if(window.location.pathname.endsWith('/index.html')){
+        setViewHeight();        
         handleSettingIconListener();
         handleAllIConsMiniVersionListener()
         handlePlayIconListener();
@@ -19,13 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }   
 });
 
-// window.addEventListener('resize', setViewHeight);
+function setViewHeight(){
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
 
-// window.addEventListener('load', setViewHeight);
+// Nach Stabilisierung nochmal setzen
+window.addEventListener('load', () => {
+  setTimeout(setViewHeight, 200);
+});
 
-// function setViewHeight(){
-//     document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
-// }
+// Optional bei echten Viewport-Änderungen
+window.addEventListener('resize', () => {
+  setTimeout(setViewHeight, 100);
+});
 
 function handleSettingIconListener(){
     let settingsIcon = document.getElementById('cartwheel-image-container');
