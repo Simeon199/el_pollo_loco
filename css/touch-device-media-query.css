@@ -200,9 +200,10 @@
         max-width: 130px;
     }
 
-    #spacebar p {
-        font-size: 'playpensans light';
-        font-size: 16px;
+    .spacebar p {
+        font-family: 'playpensans light';
+        font-size: 20px;
+        font-weight: 600;
     }
 }
 
@@ -231,14 +232,12 @@
         width: 48px;
         padding: 4px;
         border: 2px solid black;
-        border-radius: 4px;
     }
 
     #sound-off-icon {
         width: 48px;
         padding: 4px;
         border: 2px solid black;
-        border-radius: 4px;
     }
 
     #all-icons-container-mini-version a {

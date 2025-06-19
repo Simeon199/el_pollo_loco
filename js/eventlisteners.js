@@ -9,13 +9,13 @@ let momentKeySpaceWasReleased = 0;
  * Prevents the context menu from appearing on touch devices when a user performs a long press.
  */
 
-if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-    }, { passive: false, capture: true });
-}
+// if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+//     document.addEventListener('contextmenu', function (event) {
+//         event.preventDefault();
+//         event.stopPropagation();
+//         event.stopImmediatePropagation();
+//     }, { passive: false, capture: true });
+// }
 
 /**
  *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
@@ -95,62 +95,13 @@ function setKeyPressedVariablesRight(event) {
     }
 }
 
-/**
- * Handles the touchstart event to set key states and perform specific actions based on the touch input.
- * Verifies that the play icon was not pressed and that the game is active.
- * Manages left, right, up, and throw button states, and initiates corresponding actions.
- *
- * @param {TouchEvent} event - The touchstart event object.
- */
-
 function touchStartHandler() { 
     if (isGamePlaying) {
-        let buttonLeftTouch = document.getElementById('buttonLeft');
-        let buttonRightTouch = document.getElementById('buttonRight');
-        let buttonUpTouch = document.getElementById('buttonUp');
-        let spacebarTouch = document.getElementById('spacebar');
-        let buttonThrowTouch = document.getElementById('buttonThrow');
-
-
-        if(buttonLeftTouch){
-            buttonLeftTouch.addEventListener('touchstart', (event) => {
-                event.preventDefault();
-                prepareForThrowingLeft();
-                buttonLeftTouch.style.background = 'rgb(75, 61, 35)';
-            }, {passive: false});
-        }
-
-        if(buttonRightTouch){
-            buttonRightTouch.addEventListener('touchstart', (event) => {
-                event.preventDefault();
-                prepareForThrowingRight();
-                buttonRightTouch.style.background = 'rgb(75, 61, 35)';
-            }, {passive: false});
-        }
-
-        if(buttonUpTouch){
-            buttonUpTouch.addEventListener('touchstart', (event) => {
-                event.preventDefault();
-                keyboard.SPACE = true;
-                buttonUpTouch.style.background = 'rgb(75, 61, 35)';
-            }, {passive: false});
-        }
-
-        if(spacebarTouch){
-            spacebarTouch.addEventListener('touchstart', (event) => {
-                event.preventDefault();
-                keyboard.SPACE = true;
-                buttonUpTouch.style.background = 'rgb(75, 61, 35)';
-            }, {passive: false});
-        }
-
-        if(buttonThrowTouch){
-            buttonThrowTouch.addEventListener('touchstart', (event) => {
-                event.preventDefault();
-                keyboard.keyD = true;
-                buttonThrowTouch.style.background = 'rgb(75, 61, 35)';
-            }, {passive: false});
-        }
+        handleButtonLeftTouchStart();
+        handleButtonRightTouchStart();
+        handleJumpTouchStart();
+        handleSpacebarTouchStart();
+        handleThrowTouchStart();
     }
 }
 
@@ -178,6 +129,7 @@ function handleButtonRightTouchStart(){
 
 function handleSpacebarTouchStart(){
     let spacebarTouch = document.getElementById('spacebar');
+    let buttonUpTouch = document.getElementById('buttonUp');
     if(spacebarTouch){
         spacebarTouch.addEventListener('touchstart', (event) => {
             event.preventDefault();
@@ -209,85 +161,75 @@ function handleThrowTouchStart(){
     }
 }
 
-/**
- * Handles the touchend event to update the game state by resetting key states and managing audio.
- * Checks if the event did not involve the play icon and if the game is currently playing.
- * Updates key states for left, right, up, and throw buttons.
- *
- * @param {TouchEvent} event - The touchend event object.
- */
-
 function touchEndHandler() {
     if (isGamePlaying) { 
-        let buttonLeftTouch = document.getElementById('buttonLeft');
-        let buttonRightTouch = document.getElementById('buttonRight');
-        let buttonUpTouch = document.getElementById('buttonUp');
-        let spacebarTouch = document.getElementById('spacebar');
-        let buttonThrowTouch = document.getElementById('buttonThrow');
-
-        if(buttonLeftTouch){
-            buttonLeftTouch.addEventListener('touchend', (event) => {
-                event.preventDefault();
-                keyboard.LEFT = false;
-                world.audioManager.muteSound(true, 'walking_sound');
-                buttonLeftTouch.style.background = 'wheat';
-            });
-        }
-
-        if(buttonRightTouch){
-            buttonRightTouch.addEventListener('touchend', (event) => {
-                event.preventDefault();
-                keyboard.RIGHT = false;
-                world.audioManager.muteSound(true, 'walking_sound');
-                buttonRightTouch.style.background = 'wheat';
-            }, {passive: false});
-        }
-
-        if(buttonUpTouch){
-            buttonUpTouch.addEventListener('touchend', (event) => {
-                event.preventDefault();
-                keyboard.SPACE = false;
-                world.character.isKeySpaceReleased = true;
-                momentKeySpaceWasReleased = new Date().getTime();
-                buttonUpTouch.style.background = 'wheat';
-            }, {passive: false});
-        }
-
-        if(spacebarTouch){
-            spacebarTouch.addEventListener('touchend', (event) => {
-                event.preventDefault();
-                keyboard.SPACE = false;
-                world.character.isKeySpaceReleased = true;
-                momentKeySpaceWasReleased = new Date().getTime();
-                buttonUpTouch.style.background = 'wheat';
-            }, {passive: false});
-        }
-
-        if(buttonThrowTouch){
-            buttonThrowTouch.addEventListener('touchend', (event) => {
-                event.preventDefault();
-                world.utilityClass.checkThrowObjects();
-                keyboard.keyD = false;
-                buttonThrowTouch.style.background = 'wheat';
-            }, {passive: false});
-        }
+        handleButtonLeftTouchEnd();
+        handleButtonRightTouchEnd();
+        handleJumpTouchEnd();
+        handleSpacebarTouchEnd();
+        handleThrowTouchEnd();
     }
 }
 
 function handleButtonLeftTouchEnd(){
-    console.log('Hier kommt die Funktion rein!');
+    let buttonLeftTouch = document.getElementById('buttonLeft');
+    if(buttonLeftTouch){
+        buttonLeftTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            keyboard.LEFT = false;
+            world.audioManager.muteSound(true, 'walking_sound');
+            buttonLeftTouch.style.background = 'wheat';
+        });
+    }
 }
 
 function handleButtonRightTouchEnd(){
-    console.log('Hier kommt die Funktion rein!');
+    let buttonRightTouch = document.getElementById('buttonRight');
+    if(buttonRightTouch){
+        buttonRightTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            keyboard.RIGHT = false;
+            world.audioManager.muteSound(true, 'walking_sound');
+            buttonRightTouch.style.background = 'wheat';
+        }, {passive: false});
+    }
 }
 
 function handleJumpTouchEnd(){
-    console.log('Hier kommt die Funktion rein!');
+    let buttonUpTouch = document.getElementById('buttonUp');
+    buttonUpTouch.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard.SPACE = false;
+        world.character.isKeySpaceReleased = true;
+        momentKeySpaceWasReleased = new Date().getTime();
+        buttonUpTouch.style.background = 'wheat';
+    }, {passive: false});
+}
+
+function handleSpacebarTouchEnd(){
+    let spacebarTouch = document.getElementById('spacebar');
+    let buttonUpTouch = document.getElementById('buttonUp');
+    if(spacebarTouch){
+        spacebarTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            keyboard.SPACE = false;
+            world.character.isKeySpaceReleased = true;
+            momentKeySpaceWasReleased = new Date().getTime();
+            buttonUpTouch.style.background = 'wheat';
+        }, {passive: false});
+    }
 }
 
 function handleThrowTouchEnd(){
-    console.log('Hier kommt die Funktion rein!');
+    let buttonThrowTouch = document.getElementById('buttonThrow');
+    if(buttonThrowTouch){
+        buttonThrowTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            world.utilityClass.checkThrowObjects();
+            keyboard.keyD = false;
+            buttonThrowTouch.style.background = 'wheat';
+        }, {passive: false});
+    }
 }
 
 /**
