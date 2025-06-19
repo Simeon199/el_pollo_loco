@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }   
 });
 
-window.addEventListener('resize', setViewHeight);
+// window.addEventListener('resize', setViewHeight);
 
-window.addEventListener('load', setViewHeight);
+// window.addEventListener('load', setViewHeight);
 
-function setViewHeight(){
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
-}
+// function setViewHeight(){
+//     document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
+// }
 
 function handleSettingIconListener(){
     let settingsIcon = document.getElementById('cartwheel-image-container');
