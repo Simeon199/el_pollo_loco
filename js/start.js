@@ -1,28 +1,36 @@
 let isExplainContainerOpen = false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    let allIconsMiniVersion = document.getElementById('all-icons-container-mini-version');
-    let settingsIcon = document.getElementById('cartwheel-image-container');
-    let iconSource = document.getElementById('iconSource');
-    let allIconsButton = document.querySelectorAll('.all-icons-button-container')[0];
-    let playIcon = document.getElementById('playIcon');
-    let privacy = document.getElementById('privacy');
-    let imprint = document.getElementById('imprint');
-    let winningImageButton = document.getElementById('winning-image').querySelector('button');
-    let losingImageButton = document.getElementById('losing-image').querySelector('button');
-    let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img');
-    let allIconsContainerOverlay = document.getElementById('all-icons-container-overlay');
-    let explainGameContainer = document.getElementById('explain-game-container');
-    let explainGameSmallVersionIcon = document.getElementById('explain-game-container-small-version');
-    let imprintAndPrivacyIcon = document.getElementById('overlay-icon-for-imprint-privacy');
+    if(window.location.pathname.endsWith('/index.html')){        
+        handleSettingIconListener();
+        handleAllIConsMiniVersionListener()
+        handlePlayIconListener();
+        handleExplainGameSmallVersionIconListener();
+        handleImprintAndPrivacyIconListener();
+        handleIconSourceListener();
+        handlePrivacyListener();
+        handleImprintListener();
+        handleWinningButtonImageListener();
+        handleLosingButtonImageListener();
+        handleImprintAndPrivacyOverlayListener();
+        handleAllIconsButtonListener();
+        handleAllIconsContainerOverlayListener();
+        handleExplainGameContainerListener();
+    }   
+});
 
+function handleSettingIconListener(){
+    let settingsIcon = document.getElementById('cartwheel-image-container');
     if(settingsIcon){
         settingsIcon.addEventListener('click', async () => {
             await loadTemplate('../templates/explain-game.html', 'explain-game-container');
             openOverlay('explain-game-container');
         });
     }
-    
+}
+
+function handleAllIConsMiniVersionListener(){
+    let allIconsMiniVersion = document.getElementById('all-icons-container-mini-version');
     if(allIconsMiniVersion){
         allIconsMiniVersion.addEventListener('click', (event) => {
             preventBubbling(event);
@@ -31,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
             closeOverlay('all-icons-container-overlay');
         });
     }
+}
 
+function handlePlayIconListener(){
+    let playIcon = document.getElementById('playIcon');
     if(playIcon){
         playIcon.addEventListener('click', async () => {
             await loadTemplate('../templates/canvas-container.html', 'canvas-container');
@@ -39,61 +50,94 @@ document.addEventListener('DOMContentLoaded', () => {
             manageSoundIconEventListeners();
         });
     }
+}
 
+function handleExplainGameSmallVersionIconListener(){
+    let explainGameSmallVersionIcon = document.getElementById('explain-game-container-small-version');
     if(explainGameSmallVersionIcon){
         explainGameSmallVersionIcon.addEventListener('click', async () => {
             await loadTemplate('../templates/explain-game.html', 'explain-game-container');
             openOverlay('explain-game-container');
         });
     }
-    
+}
+
+function handleImprintAndPrivacyIconListener(){
+    let imprintAndPrivacyIcon = document.getElementById('overlay-icon-for-imprint-privacy');
     if(imprintAndPrivacyIcon){
         imprintAndPrivacyIcon.addEventListener('click', async () => {
             await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
             openOverlay('imprint-and-privacy-policy-overlay');
         });
     }
+}
 
+function handleIconSourceListener(){
+    let iconSource = document.getElementById('iconSource');
     if(iconSource){
         iconSource.addEventListener('click', async () => {
             await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
             openOverlay('all-icons-container-overlay');
         });
     }
+}
 
+function handlePrivacyListener(){
+    let privacy = document.getElementById('privacy');
     privacy.addEventListener('click', () => {
         redirectToPrivacyPolicyPage();
     });
+}
 
+function handleImprintListener(){
+    let imprint = document.getElementById('imprint');
     imprint.addEventListener('click', () => {
         redirectToLegalNoticePage();
     });
+}
 
+function handleWinningButtonImageListener(){
+    let winningImageButton = document.getElementById('winning-image').querySelector('button');
     winningImageButton.addEventListener('click', () => {
         playAgain();
     });
+}
 
+function handleLosingButtonImageListener(){
+    let losingImageButton = document.getElementById('losing-image').querySelector('button');
     losingImageButton.addEventListener('click', () => {
         playAgain();
     });
+}
 
+function handleImprintAndPrivacyOverlayListener(){
+    let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img');
     imprintAndPrivacyOverlay.addEventListener('click', () => {
         closeOverlay('imprint-and-privacy-policy-overlay');
     });
+}
 
+function handleAllIconsButtonListener(){
+    let allIconsButton = document.querySelectorAll('.all-icons-button-container')[0];
     allIconsButton.addEventListener('click', async () => {
         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
         openOverlay('all-icons-container-overlay');
     });
-    
+}
+
+function handleAllIconsContainerOverlayListener(){
+    let allIconsContainerOverlay = document.getElementById('all-icons-container-overlay');
     allIconsContainerOverlay.addEventListener('click', () => {
         closeOverlay('all-icons-container-overlay');
     });
+}
 
+function handleExplainGameContainerListener(){
+    let explainGameContainer = document.getElementById('explain-game-container');
     explainGameContainer.addEventListener('click', () => {
         closeOverlay('explain-game-container');
     });
-});
+}
 
 /**
  * Adds click event listeners to the sound icon elements.
