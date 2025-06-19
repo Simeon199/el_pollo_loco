@@ -197,6 +197,11 @@ canvas {
 
 /* fullscreen and minimize-button properties */
 
+.fullscreen {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 .fullscreen-mode {
     height: 100%;
     width: 100%;
