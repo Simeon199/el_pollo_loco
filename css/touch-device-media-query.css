@@ -4,8 +4,13 @@
         touch-action: none;
     }
 
-    .envelope-all-container {
+    /* .overlay {
         height: calc(var(--vh, 1vh) * 100);
+        overflow: hidden;
+    } */
+
+    .envelope-all-container {
+        /* height: calc(var(--vh, 1vh) * 100); */
         overflow: hidden;
     }
 
@@ -52,8 +57,11 @@
     }
 
     #intro-image {
+        position: relative;
         height: 100dvh;
+        height: calc(var(--vh, 1vh) * 100); /* Fallback für ältere Touch-Geräte */
         width: 100dvw;
+        overflow: hidden;
     }
 
     #intro-image img:nth-child(1) {

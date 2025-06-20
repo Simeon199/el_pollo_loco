@@ -25,12 +25,12 @@ function setViewHeight(){
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-// Nach Stabilisierung nochmal setzen
+
 window.addEventListener('load', () => {
   setTimeout(setViewHeight, 200);
 });
 
-// Optional bei echten Viewport-Änderungen
+
 window.addEventListener('resize', () => {
   setTimeout(setViewHeight, 100);
 });
