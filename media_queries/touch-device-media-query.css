@@ -54,15 +54,6 @@
         width: 30%;
     }
 
-    #intro-image {
-        position: relative;
-        height: 100dvh;
-        height: calc(var(--vh, 1vh) * 100); /* Fallback für ältere Touch-Geräte */
-        width: 100dvw;
-        outline: 2px solid lime;
-        /* overflow: hidden; */
-    }
-
     #intro-image img:nth-child(1) {
         width: 100%;
         height: 100%;

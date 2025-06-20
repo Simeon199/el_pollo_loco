@@ -1,8 +1,7 @@
 let isExplainContainerOpen = false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(window.location.pathname.endsWith('/index.html')){
-        setViewHeight();        
+    if(window.location.pathname.endsWith('/index.html')){      
         handleSettingIconListener();
         handleAllIConsMiniVersionListener()
         handlePlayIconListener();
@@ -20,19 +19,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }   
 });
 
-function setViewHeight(){
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
+/**
+ *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
+ */
+
+window.addEventListener("resize", checkOrientation);
+
+/**
+ *  Event listener for screen orientation. In the case of a orientationchange the checkOrientation is invoked.
+ */
+
+window.addEventListener("orientationchange", checkOrientation);
+
+/**
+ * Prevents the context menu from appearing on touch devices when a user performs a long press.
+ */
+
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+    }, { passive: false, capture: true });
 }
-
-window.addEventListener('load', () => {
-  window.scrollTo(0, 1);
-  setTimeout(setViewHeight, 300);
-});
-
-window.addEventListener('resize', () => {
-  setTimeout(setViewHeight, 100);
-});
 
 function handleSettingIconListener(){
     let settingsIcon = document.getElementById('cartwheel-image-container');
