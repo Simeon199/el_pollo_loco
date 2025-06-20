@@ -2,15 +2,13 @@
     html, body {
         overscroll-behavior: none;
         touch-action: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
     }
 
-    /* .overlay {
-        height: calc(var(--vh, 1vh) * 100);
-        overflow: hidden;
-    } */
-
     .envelope-all-container {
-        /* height: calc(var(--vh, 1vh) * 100); */
         overflow: hidden;
     }
 
@@ -61,7 +59,8 @@
         height: 100dvh;
         height: calc(var(--vh, 1vh) * 100); /* Fallback für ältere Touch-Geräte */
         width: 100dvw;
-        overflow: hidden;
+        outline: 2px solid lime;
+        /* overflow: hidden; */
     }
 
     #intro-image img:nth-child(1) {

@@ -25,11 +25,10 @@ function setViewHeight(){
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-
 window.addEventListener('load', () => {
-  setTimeout(setViewHeight, 200);
+  window.scrollTo(0, 1);
+  setTimeout(setViewHeight, 300);
 });
-
 
 window.addEventListener('resize', () => {
   setTimeout(setViewHeight, 100);
