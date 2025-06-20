@@ -1,25 +1,8 @@
 @media(hover: none) {
-    html, body {
-        overscroll-behavior: none;
-        touch-action: none;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-    }
 
-    .envelope-all-container {
-        overflow: hidden;
-    }
-
-    #losing-image {
+    #losing-image img { /* Werte ehemals in % */
         width: 100dvw;
         height: 100dvh;
-    }
-
-    #losing-image img {
-        width: 100%;
-        height: 100%;
     }
 
     #winning-image img {
@@ -54,9 +37,9 @@
         width: 30%;
     }
 
-    #intro-image img:nth-child(1) {
-        width: 100%;
-        height: 100%;
+    #intro-image img:nth-child(1) { /* Ehemals in % alle Werte */ 
+        width: 100dvw;
+        height: 100dvh;
     }
 
     #intro-image img:nth-child(2) {
@@ -199,9 +182,9 @@
         text-align: center;
     }
 
-    .control-key-image-container {
+    /* .control-key-image-container {
         max-width: 130px;
-    }
+    } */
 
     .spacebar p {
         font-family: 'playpensans light';
