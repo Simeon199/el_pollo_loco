@@ -1,0 +1,268 @@
+// <script src="start.js"></script>
+
+let touchScreenVersionPath = '../templates/touch-screen-version.html';
+let desktopVersionPath = '../templates/desktop-version.html';
+let canvasContainerPath = '../templates/canvas-container.html';
+
+let gameJS = [
+    "models/drawable-object.class.js",
+    "models/movable-object.class.js",
+    "models/characterImages.class.js",
+    "models/character.class.js",
+    "models/chicken.class.js",
+    "models/baby-chicken.class.js",
+    "models/clouds.class.js",
+    "models/background-object.class.js",
+    "models/audio-manager.js",
+    "models/world.class.js",
+    "models/utility.js",
+    "models/keyboard.class.js",
+    "models/levels.class.js",
+    "models/endbossImages.class.js",
+    "models/endboss.class.js",
+    "models/status-bar.class.js",
+    "models/bottle-bar.class.js",
+    "models/endboss-bar.class.js",
+    "models/coin-bar.class.js",
+    "models/throwable-object.class.js",
+    "models/bottle.class.js",
+    "models/coin.class.js",
+    "levels/level1.js",
+    "js/game.js",
+    "start.js",
+    "js/style-related.js",
+    "js/audio-related.js",
+    "js/eventlistener_utility.js",
+    "js/eventlisteners.js"
+];
+
+let desktopCSS = [
+    "css/index-style-overlay.css",
+    "css/index-style-canvas.css",
+    "media_queries/normal-desktop-size-media-query.css",
+    "media_queries/big-desktop-size-media-query.css"
+];
+
+let touchCSS = [
+    "css/index-style-overlay.css",
+    "media_queries/touch-device-media-query.css",
+    "media_queries/media-queries-portrait-and-height.css"
+]; 
+
+document.addEventListener('DOMContentLoaded', async () => {
+    if(window.location.pathname.endsWith('/index.html')){
+        if(isTouchDevice()){
+            loadTouchDeviceCSS();
+            await loadTouchDeviceHTML();
+            loadSharedGameLogic();
+        } else {
+            loadDesktopDeviceCSS();
+            await loadDesktopDeviceHTML();
+            loadSharedGameLogic();
+        }
+    }
+});
+
+async function loadDesktopDeviceHTML(){
+    await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
+}
+
+async function loadTouchDeviceHTML(){
+    await loadTemplate(`${touchScreenVersionPath}`, 'touch-screen-version');
+}
+
+/**
+ * Loads an HTML template from a URL and inserts it into a placeholder element.
+ * 
+ * @async
+ * @param {string} url - The URL of the HTML template to fetch.
+ * @param {string} placeholderId - The ID of the element where the HTML content will be injected.
+ */
+
+async function loadTemplate(url, placeholderId){
+    let response = await fetch(url);
+    let html = await response.text();
+    document.getElementById(placeholderId).innerHTML = html;
+}
+
+function loadTouchDeviceCSS(){
+    touchCSS.forEach(link => {
+        loadCSS(link);
+    });
+}
+
+function loadDesktopDeviceCSS(){
+    desktopCSS.forEach(link => {
+        loadCSS(link);
+    });
+}
+
+function loadSharedGameLogic(){
+    gameJS.forEach(scr => {
+        loadScript(scr);
+    });
+    // addAllEventListeners();
+}
+
+// function addAllEventListeners(){
+//     handleTouchAndDesktopSharedEventListeners();
+//     handleSettingIconListener();
+//     handleAllIConsMiniVersionListener();
+//     handlePlayIconListener(); 
+//     handleExplainGameSmallVersionIconListener(); 
+//     handleImprintAndPrivacyIconListener(); 
+//     handleIconSourceListener();
+//     handlePrivacyListener();
+//     handleImprintListener();
+//     handleWinningButtonImageListener();
+//     handleLosingButtonImageListener();
+//     handleImprintAndPrivacyOverlayListener();
+//     handleAllIconsButtonListener();
+//     handleAllIconsContainerOverlayListener();
+//     handleExplainGameContainerListener();
+// }
+
+/**
+ *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
+ */
+
+// window.addEventListener("resize", checkOrientation);
+
+/**
+ *  Event listener for screen orientation. In the case of a orientationchange the checkOrientation is invoked.
+ */
+
+// window.addEventListener("orientationchange", checkOrientation);
+
+// function handleSettingIconListener(){
+//     let settingsIcon = document.getElementById('cartwheel-image-container');
+//     if(settingsIcon){
+//         settingsIcon.addEventListener('click', async () => {
+//             await loadTemplate('../templates/explain-game.html', 'explain-game-container');
+//             openOverlay('explain-game-container');
+//         });
+//     }
+// }
+
+// function handleAllIConsMiniVersionListener(){
+//     let allIconsMiniVersion = document.getElementById('all-icons-container-mini-version');
+//     if(allIconsMiniVersion){
+//         allIconsMiniVersion.addEventListener('click', (event) => {
+//             preventBubbling(event);
+//         });
+//         allIconsMiniVersion.querySelector('img').addEventListener('click', () => {
+//             closeOverlay('all-icons-container-overlay');
+//         });
+//     }
+// }
+
+// function handlePlayIconListener(){
+//     let playIcon = document.getElementById('playIcon');
+//     playIcon.addEventListener('click', async () => {
+//         startGame();
+//         manageSoundIconEventListeners();
+//     });
+// }
+
+// function handleExplainGameSmallVersionIconListener(){
+//     let explainGameSmallVersionIcon = document.getElementById('explain-game-container-small-version');
+//     explainGameSmallVersionIcon.addEventListener('click', async () => {
+//         await loadTemplate('../templates/explain-game.html', 'explain-game-container');
+//         openOverlay('explain-game-container');
+//     });
+// }
+
+// function handleImprintAndPrivacyIconListener(){
+//     let imprintAndPrivacyIcon = document.getElementById('overlay-icon-for-imprint-privacy');
+//     imprintAndPrivacyIcon.addEventListener('click', async () => {
+//         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
+//         openOverlay('imprint-and-privacy-policy-overlay');
+//     });
+// }
+
+// function handleIconSourceListener(){
+//     let iconSource = document.getElementById('iconSource');
+//     iconSource.addEventListener('click', async () => {
+//         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
+//         openOverlay('all-icons-container-overlay');
+//     });
+// }
+
+// function handlePrivacyListener(){
+//     let privacy = document.getElementById('privacy');
+//     privacy.addEventListener('click', () => {
+//         redirectToPrivacyPolicyPage();
+//     });
+// }
+
+// function handleImprintListener(){
+//     let imprint = document.getElementById('imprint');
+//     imprint.addEventListener('click', () => {
+//         redirectToLegalNoticePage();
+//     });
+// }
+
+// function handleWinningButtonImageListener(){
+//     let winningImageButton = document.getElementById('winning-image').querySelector('button');
+//     winningImageButton.addEventListener('click', () => {
+//         playAgain();
+//     });
+// }
+
+// function handleLosingButtonImageListener(){
+//     let losingImageButton = document.getElementById('losing-image').querySelector('button');
+//     losingImageButton.addEventListener('click', () => {
+//         playAgain();
+//     });
+// }
+
+// function handleImprintAndPrivacyOverlayListener(){
+//     let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img');
+//     imprintAndPrivacyOverlay.addEventListener('click', () => {
+//         closeOverlay('imprint-and-privacy-policy-overlay');
+//     });
+// }
+
+// function handleAllIconsButtonListener(){
+//     let allIconsButton = document.querySelectorAll('.all-icons-button-container')[0];
+//     allIconsButton.addEventListener('click', async () => {
+//         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
+//         openOverlay('all-icons-container-overlay');
+//     });
+// }
+
+// function handleAllIconsContainerOverlayListener(){
+//     let allIconsContainerOverlay = document.getElementById('all-icons-container-overlay');
+//     allIconsContainerOverlay.addEventListener('click', () => {
+//         closeOverlay('all-icons-container-overlay');
+//     });
+// }
+
+// function handleExplainGameContainerListener(){
+//     let explainGameContainer = document.getElementById('explain-game-container');
+//     explainGameContainer.addEventListener('click', () => {
+//         closeOverlay('explain-game-container');
+//     });
+// }
+
+function isTouchDevice(){
+    return (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+    );
+}
+
+function loadScript(src){
+    let script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
+function loadCSS(href){
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+}

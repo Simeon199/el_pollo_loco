@@ -286,8 +286,7 @@ function manageStyleDependingOnWinndingOrLosing(string) {
         changeStyleWhenLosing(string);
     } else if (string === 'winning') {
         changeStyleWhenWinning(string);
-    }
-    else {
+    } else {
         resetGame();
     }
 }
