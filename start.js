@@ -51,29 +51,3 @@ function redirectToPrivacyPolicyPage(){
 function preventBubbling(event) {
     event.stopPropagation();
 }
-
-/**
- * Closes the overlay element by adding the 'd-none' class to hide it.
- * 
- * @param {string} overlayId - The ID of the overlay element to close.
- */
-
-function closeOverlay(overlayId){
-    let overlay = document.getElementById(`${overlayId}`);
-    if (!overlay.classList.contains('d-none')) {
-        overlay.classList.add('d-none');
-    }
-}
-
-/**
- * Opens the overlay element by removing the 'd-none' class to make it visible.
- * 
- * @param {string} overlayId - The ID of the overlay element to open.
- */
-
-function openOverlay(overlayId){
-    let overlay = document.getElementById(`${overlayId}`);
-    if(overlay.classList.contains('d-none')){
-        overlay.classList.remove('d-none');
-    }
-}

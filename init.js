@@ -1,5 +1,3 @@
-// <script src="start.js"></script>
-
 let touchScreenVersionPath = '../templates/touch-screen-version.html';
 let desktopVersionPath = '../templates/desktop-version.html';
 let canvasContainerPath = '../templates/canvas-container.html';
@@ -54,17 +52,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(isTouchDevice()){
             loadTouchDeviceCSS();
             await loadTouchDeviceHTML();
-            loadSharedGameLogic();
         } else {
+            console.log('Desktop device triggered.');
             loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
-            loadSharedGameLogic();
         }
     }
 });
 
 async function loadDesktopDeviceHTML(){
     await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
+    addEventListenersToDesktopDevice();
 }
 
 async function loadTouchDeviceHTML(){
@@ -98,10 +96,100 @@ function loadDesktopDeviceCSS(){
 }
 
 function loadSharedGameLogic(){
-    gameJS.forEach(scr => {
-        loadScript(scr);
+    gameJS.forEach(src => {
+        loadScript(src);
     });
-    // addAllEventListeners();
+}
+
+function addEventListenersToDesktopDevice(){
+
+    // Drücke PlayIcon und starte Spiel
+
+    handlePlayIconEventListener();
+
+    // Öffne Explain-Game-Container
+
+    handleSettingsEventListener();
+
+    // Öffne Container mit allen Icons darin
+    
+    handleShowAllIconsEventListener();
+}
+
+async function handleShowAllIconsEventListener(){
+    let iconsButton = document.getElementById('all-icons-button');
+    if(iconsButton){
+        iconsButton.addEventListener('click', async () => {
+            await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
+            openOverlay('all-icons-container-overlay');
+            handleOverlayEventListener('all-icons-container-overlay');
+        });
+    }
+}
+
+async function handleSettingsEventListener(){
+    let settings = document.getElementById('cartwheel-image-container');
+    if(settings){
+        settings.addEventListener('click', async () => {
+        await loadTemplate('../templates/explain-game.html', 'explain-game-container');
+        openOverlay('explain-game-container');
+        handleOverlayEventListener('explain-game-container');
+    })};
+}
+
+function handleOverlayEventListener(id){ 
+    let overlay = document.getElementById(id);
+    if(overlay){
+        overlay.addEventListener('click', () => {
+            closeOverlay(id);
+            removeDivElementFromDOM(id);
+        });
+    }
+}
+
+function removeDivElementFromDOM(id){
+    let divElement = document.getElementById(id);
+    if(divElement && divElement.children.length === 0){
+        divElement.remove();
+    }
+}
+
+/**
+ * Closes the overlay element by adding the 'd-none' class to hide it.
+ * 
+ * @param {string} overlayId - The ID of the overlay element to close.
+ */
+
+function closeOverlay(overlayId){
+    let overlay = document.getElementById(`${overlayId}`);
+    if (!overlay.classList.contains('d-none')) {
+        overlay.classList.add('d-none');
+    }
+}
+
+/**
+ * Opens the overlay element by removing the 'd-none' class to make it visible.
+ * 
+ * @param {string} overlayId - The ID of the overlay element to open.
+ */
+
+function openOverlay(overlayId){
+    let overlay = document.getElementById(`${overlayId}`);
+    if(overlay.classList.contains('d-none')){
+        overlay.classList.remove('d-none');
+    }
+}
+
+function handlePlayIconEventListener(){
+    let playIcon = document.getElementById('playIcon');
+    if(playIcon){
+        console.log('playIcon exists in DOM!');
+        playIcon.addEventListener('click', () => {
+            loadSharedGameLogic();
+            // Es könnte Sinn machen, hier die gesamte Spiellogik zu laden!
+            console.log('playIcon wurde geklickt.');
+        });
+    }
 }
 
 // function addAllEventListeners(){
