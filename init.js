@@ -1,11 +1,11 @@
 let gameScriptsLoaded = false;
 let isExplainContainerOpen = false;
-
+let isTouch = false;
 let touchScreenVersionPath = '../templates/touch-screen-version.html';
 let desktopVersionPath = '../templates/desktop-version.html';
 let canvasContainerPath = '../templates/canvas-container.html';
 
-let gameJS = [ // start.js war ursprünglich als letzte Datei hier enthalten!
+let gameJS = [ 
     "models/drawable-object.class.js",
     "models/movable-object.class.js",
     "models/characterImages.class.js",
@@ -30,47 +30,62 @@ let gameJS = [ // start.js war ursprünglich als letzte Datei hier enthalten!
     "models/coin.class.js",
     "levels/level1.js",
     "js/game.js"
-];
+]; // start.js war ursprünglich als letzte Datei hier enthalten!
 
-let touchJS = [ // style-related war als erste Datei in diesem Array enthalten!
-    "js/audio-related.js",
-    "js/touch-device.js"
-    // "js/eventlistener_utility.js",
-    // "js/eventlisteners.js"
-];
+let touchJS = ["js/audio-related.js", "js/touch-device.js"];
 
-let desktopJS = [ // style-related war als erste Datei in diesem Array enthalten!
-    "js/audio-related.js",
-    "js/desktop-device.js",
-    // "js/eventlistener_utility.js",
-    // "js/eventlisteners.js"
-];
+let desktopJS = ["js/audio-related.js", "js/desktop-device.js"];
 
-let desktopCSS = [
-    "css/index-style-overlay.css",
-    "css/index-style-canvas.css",
-    "media_queries/normal-desktop-size-media-query.css",
-    "media_queries/big-desktop-size-media-query.css"
-];
+let desktopCSS = ["css/index-style-overlay.css", "css/index-style-canvas.css", "media_queries/normal-desktop-size-media-query.css", "media_queries/big-desktop-size-media-query.css"];
 
-let touchCSS = [
-    "css/index-style-overlay.css",
-    "media_queries/touch-device-media-query.css",
-    "media_queries/media-queries-portrait-and-height.css"
-]; 
+
+let touchCSS = ["css/index-style-overlay.css", "media_queries/touch-device-media-query.css", "media_queries/media-queries-portrait-and-height.css"]; 
 
 document.addEventListener('DOMContentLoaded', async () => {
-    if(window.location.pathname.endsWith('/index.html')){
+    if(isLocationIndexPage()){
         if(isTouchDevice()){
+            isTouch = true;
             loadTouchDeviceCSS();
             await loadTouchDeviceHTML();
         } else {
-            console.log('Desktop device triggered.');
             loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
         }
     }
 });
+
+function isLocationIndexPage(){
+    return window.location.pathname.endsWith('/index.html');
+}
+
+function isTouchDevice(){
+    return (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+    );
+}
+
+function loadSharedGameLogic(){
+    return loadScriptsSequentially(gameJS);
+}
+
+async function loadScriptsSequentially(scripts){
+    for(const src of scripts){
+        await loadScriptAsync(src);
+    }
+}
+
+function loadScriptAsync(src){
+    return new Promise((resolve, reject) => {
+        let script = document.createElement('script');
+        script.src = src;
+        script.defer = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
 
 async function loadDesktopDeviceHTML(){
     await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
@@ -218,12 +233,25 @@ async function handlePlayIconEventListener(){
     let playIcon = document.getElementById('playIcon');
     if(playIcon){
         playIcon.addEventListener('click', async () => {
-            if(!gameScriptsLoaded){
-                await loadSharedGameLogic();
-                gameScriptsLoaded = true;
-                startGame();
-            }
+            await executeJavaScriptLoadingFilesAndInitGame();
         });
+    }
+}
+
+async function executeJavaScriptLoadingFilesAndInitGame(){
+    if(!gameScriptsLoaded){
+        await loadSharedGameLogic();
+        await loadLogicDependingOnDeviceType();
+        gameScriptsLoaded = true;
+        startGame();
+    }    
+}
+
+async function loadLogicDependingOnDeviceType(){
+    if(isTouch){
+        await loadScriptsSequentially(touchJS);
+    } else {
+        await loadScriptsSequentially(desktopJS);
     }
 }
 
@@ -368,14 +396,6 @@ async function handlePlayIconEventListener(){
 //     });
 // }
 
-function isTouchDevice(){
-    return (
-        'ontouchstart' in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia('(pointer: coarse)').matches
-    );
-}
-
 // loadScript without async approach
 
 function loadScript(src){
@@ -383,29 +403,6 @@ function loadScript(src){
     script.src = src;
     script.defer = true;
     document.head.appendChild(script);
-}
-
-// loadScript with async approach
-
-function loadScriptAsync(src){
-    return new Promise((resolve, reject) => {
-        let script = document.createElement('script');
-        script.src = src;
-        script.defer = true;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-    });
-}
-
-function loadSharedGameLogic(){
-    return loadScriptsSequentially(gameJS);
-}
-
-async function loadScriptsSequentially(scripts){
-    for(const src of scripts){
-        await loadScriptAsync(src);
-    }
 }
 
 function loadCSS(href){

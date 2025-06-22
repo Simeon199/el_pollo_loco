@@ -13,88 +13,11 @@ let world;
 let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isIntroImageActivated = false;
-let isFullscreenActivated = false;
-let isChangingToFullscreen = false;
 let soundIsMuted = false;
 let isGamePlaying = false;
 let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
-
-/**
- * Checks the current screen orientation and background state, 
- * and reloads the page or exits fullscreen mode based on conditions.
- */
-
-function checkOrientation() {
-    if (window.innerHeight > window.innerWidth) {
-        if (hasGameStarted) {
-            location.reload();
-        }
-    }
-}
-
-/**
- * Stops the game and displays a message instructing the user to turn the device.
- */
-
-function stopGameAndShowTurnDeviceMessage() {
-    activateMessageToTurnDevice();
-    clearAllIntervals();
-    stopAllSounds();
-    showMessageToTurnDevice();
-}
-
-/**
- * Shows the intro image and hides the "turn device" message.
- */
-
-function showIntroImageAndDeactivateTurnDeviceMessage() {
-    document.getElementById('message-to-turn-device').style.display = 'none';
-    document.getElementById('intro-image').style.display = 'flex';
-}
-
-/**
- * Activates and displays the "turn device" message.
- */
-
-function activateMessageToTurnDevice() {
-    if ((window.innerWidth < 1300 || window.innerHeight < 800) && window.innerWidth > window.innerHeight) {
-        document.getElementById('message-to-turn-device').style.display = 'flex';
-        document.getElementById('intro-image').style.display = 'none';
-        document.getElementById('canvas').style.display = 'none';
-    }
-}
-
-/**
- * Checks if fullscreen mode was previously activated.
- * 
- * @returns {boolean} - Returns true if fullscreen mode was previously activated.
- */
-
-function wasFullscreenActivated() {
-    return !isFullscreenActivated;
-}
-
-/**
- * Checks if the screen is currently transitioning to fullscreen mode.
- * 
- * @returns {boolean} - Returns true if the screen is not transitioning to fullscreen mode.
- */
-
-function isChangingToFullscreenActivated() {
-    return !isChangingToFullscreen;
-}
-
-/**
- * Checks if the screen is in landscape orientation.
- * 
- * @returns {boolean} - Returns true if the screen width is greater than the screen height.
- */
-
-function isLandscapeScreenActivated() {
-    return (window.innerWidth > window.innerHeight);
-}
 
 /**
  * Deletes the current game world instance and clears all active intervals. Ensures no game logic persists from a previous game session.
@@ -113,44 +36,11 @@ function deleteWorldInstance() {
 
 function init() {
     deleteWorldInstance();
-    addAllEventListenersWhenInitGame();
+    // addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
-    muteUnmuteSound(soundIsMuted);
-    controlTurnOnTurnOffIcon();
+    // muteUnmuteSound(soundIsMuted);
+    // controlTurnOnTurnOffIcon();
     timePointWhenGameInitialized = new Date().getTime();
-}
-
-/**
- * Controls the display of the sound icon based on the current mute state. If the sound is muted, it displays the "sound off" icon.
- * If the sound is unmuted, it displays the "sound on" icon.
- */
-
-function controlTurnOnTurnOffIcon() {
-    if (soundIsMuted) {
-        showTurningSoundOffIcon();
-    } else {
-        showTurningSoundOnIcon();
-    }
-}
-
-/**
- * Mutes all game sounds by updating the sound state variables. Sets `soundOn` to `false` and `soundIsMuted` to `true` to reflect
- * that the game sounds are turned off.
- */
-
-function muteGameSounds() {
-    soundOn = false;
-    soundIsMuted = true;
-}
-
-/**
- * Unmutes all game sounds by updating the sound state variables. Sets `soundOn` to `true` and `soundIsMuted` to `false` to reflect
- * that the game sounds are turned on.
- */
-
-function unmuteGameSounds() {
-    soundOn = true;
-    soundIsMuted = false;
 }
 
 /**
@@ -163,6 +53,35 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
     ctx = canvas.getContext('2d');
     checkIfEnemyOrCharacterIsDead();
     hasGameStarted = true;
+    setStylingOfInitializedGame();
+}
+
+function setStylingOfInitializedGame(){
+    document.getElementById('intro-image').style.display = 'none';
+    document.getElementById('canvas-container').style.display = 'flex';
+}
+
+/**
+ * Controls the display of the sound icon based on the current mute state. If the sound is muted, it displays the "sound off" icon.
+ * If the sound is unmuted, it displays the "sound on" icon.
+ */
+
+// function controlTurnOnTurnOffIcon() {
+//     if (soundIsMuted) {
+//         showTurningSoundOffIcon();
+//     } else {
+//         showTurningSoundOnIcon();
+//     }
+// }
+
+/**
+ * Mutes all game sounds by updating the sound state variables. Sets `soundOn` to `false` and `soundIsMuted` to `true` to reflect
+ * that the game sounds are turned off.
+ */
+
+function muteGameSounds() {
+    soundOn = false;
+    soundIsMuted = true;
 }
 
 /**
@@ -199,43 +118,15 @@ function manageStopGameInterval() {
 }
 
 /**
- * Checks if the user is using a mobile device.
- * 
- * @returns {boolean} - Returns true if the device is a mobile device.
- */
-
-function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-}
-
-/**
- * Checks if the user is using a tablet device.
- * 
- * @returns {boolean} - Returns true if the device is a tablet.
- */
-
-function isTabletDevice() {
-    return /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk|Kindle/i.test(navigator.userAgent);
-}
-
-/**
  * Starts the game, initializes necessary elements, and handles screen orientation.
  */
 
 function startGame() {
-    setCanvasElementsRightInCaseOfRightOrientation();
+    if(isTouchDevice()){
+        setCanvasElementsRightInCaseOfRightOrientation();
+    }
     isGamePlaying = true;
     init();
-}
-
-/**
- * Checks if the device is a desktop.
- * 
- * @returns {boolean} - Returns true if the device is a desktop with a screen width greater than 1400px.
- */
-
-function isDesktopDevice() {
-    return window.innerWidth > window.innerHeight && window.innerWidth > 1300 && !isTabletDevice() && !isMobileDevice();
 }
 
 /**
@@ -336,13 +227,4 @@ function playAgain() {
     hasGameStarted = false;
     isGamePlaying = true;
     init();
-}
-
-/**
- * Determines if fullscreen mode should be activated when playing button was pressed.
- *
- * @returns {boolean} - Returns `true` if all conditions are met and fullscreen should be activated, otherwise `false`.
- */
-function checkIfFullscreenShouldBeActivatedWhenPlayAgain() {
-    return !isFullscreenActivated && window.innerWidth < 1300;
 }

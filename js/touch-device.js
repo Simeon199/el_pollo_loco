@@ -1,3 +1,183 @@
+let momentKeySpaceWasReleased = 0;
+
+/**
+ * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
+ */
+
+function addAllEventListenersWhenInitGame() { 
+    document.addEventListener('touchstart', (event) => {
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+    });
+    document.addEventListener('touchend', () => {
+        settingGlobalVariablesInKeyUpOrTouchEndEvent();
+    });
+    touchStartHandler();
+    touchEndHandler();
+}
+
+function touchStartHandler() { 
+    if (isGamePlaying) {
+        handleButtonLeftTouchStart();
+        handleButtonRightTouchStart();
+        handleJumpTouchStart();
+        handleSpacebarTouchStart();
+        handleThrowTouchStart();
+    }
+}
+
+function handleButtonLeftTouchStart(){
+    let buttonLeftTouch = document.getElementById('buttonLeft');
+    if(buttonLeftTouch){
+        buttonLeftTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            prepareForThrowingLeft();
+            buttonLeftTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+/**
+ * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
+ * Sets `keyboard.LEFT` to true and ensures that `rightForThrow` is false while `leftForThrow` is true.
+ */
+
+function prepareForThrowingLeft() {
+    keyboard.LEFT = true;
+    if (keyboard.rightForThrow == true) {
+        keyboard.rightForThrow = false;
+    }
+    keyboard.leftForThrow = true;
+}
+
+function handleButtonRightTouchStart(){
+    let buttonRightTouch = document.getElementById('buttonRight');
+    if(buttonRightTouch){
+        buttonRightTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            prepareForThrowingRight();
+            buttonRightTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+/**
+ * Prepares the player to throw an object to the right by setting the appropriate keyboard properties.
+ * Sets `keyboard.RIGHT` to true and ensures that `leftForThrow` is false while `rightForThrow` is true.
+ */
+
+function prepareForThrowingRight() { 
+    keyboard.RIGHT = true;
+    if (keyboard.leftForThrow == true) {
+        keyboard.leftForThrow = false;
+    }
+    keyboard.rightForThrow = true;
+}
+
+function handleSpacebarTouchStart(){
+    let spacebarTouch = document.getElementById('spacebar');
+    let buttonUpTouch = document.getElementById('buttonUp');
+    if(spacebarTouch){
+        spacebarTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            keyboard.SPACE = true;
+            buttonUpTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function handleJumpTouchStart(){
+    let buttonUpTouch = document.getElementById('buttonUp');
+    if(buttonUpTouch){
+        buttonUpTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            keyboard.SPACE = true;
+            buttonUpTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function handleThrowTouchStart(){
+    let buttonThrowTouch = document.getElementById('buttonThrow');
+    if(buttonThrowTouch){
+        buttonThrowTouch.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            keyboard.keyD = true;
+            buttonThrowTouch.style.background = 'rgb(75, 61, 35)';
+        }, {passive: false});
+    }
+}
+
+function touchEndHandler() {
+    if (isGamePlaying) { 
+        handleButtonLeftTouchEnd();
+        handleButtonRightTouchEnd();
+        handleJumpTouchEnd();
+        handleSpacebarTouchEnd();
+        handleThrowTouchEnd();
+    }
+}
+
+function handleButtonLeftTouchEnd(){
+    let buttonLeftTouch = document.getElementById('buttonLeft');
+    if(buttonLeftTouch){
+        buttonLeftTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            keyboard.LEFT = false;
+            world.audioManager.muteSound(true, 'walking_sound');
+            buttonLeftTouch.style.background = 'wheat';
+        });
+    }
+}
+
+function handleButtonRightTouchEnd(){
+    let buttonRightTouch = document.getElementById('buttonRight');
+    if(buttonRightTouch){
+        buttonRightTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            keyboard.RIGHT = false;
+            world.audioManager.muteSound(true, 'walking_sound');
+            buttonRightTouch.style.background = 'wheat';
+        }, {passive: false});
+    }
+}
+
+function handleJumpTouchEnd(){
+    let buttonUpTouch = document.getElementById('buttonUp');
+    buttonUpTouch.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard.SPACE = false;
+        world.character.isKeySpaceReleased = true;
+        momentKeySpaceWasReleased = new Date().getTime();
+        buttonUpTouch.style.background = 'wheat';
+    }, {passive: false});
+}
+
+function handleSpacebarTouchEnd(){
+    let spacebarTouch = document.getElementById('spacebar');
+    let buttonUpTouch = document.getElementById('buttonUp');
+    if(spacebarTouch){
+        spacebarTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            keyboard.SPACE = false;
+            world.character.isKeySpaceReleased = true;
+            momentKeySpaceWasReleased = new Date().getTime();
+            buttonUpTouch.style.background = 'wheat';
+        }, {passive: false});
+    }
+}
+
+function handleThrowTouchEnd(){
+    let buttonThrowTouch = document.getElementById('buttonThrow');
+    if(buttonThrowTouch){
+        buttonThrowTouch.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            world.utilityClass.checkThrowObjects();
+            keyboard.keyD = false;
+            buttonThrowTouch.style.background = 'wheat';
+        }, {passive: false});
+    }
+}
+
 /**
  * Displays the canvas and hides the intro image when the screen orientation is correct.
  */
@@ -58,4 +238,59 @@ function manageStyleDependingOnLandscapeScreenActivated() {
     } else {
         showIntroImageAndDeactivateTurnDeviceMessage();
     }
+}
+
+/**
+ * Checks the current screen orientation and background state, 
+ * and reloads the page or exits fullscreen mode based on conditions.
+ */
+
+function checkOrientation() {
+    if (window.innerHeight > window.innerWidth) {
+        if (hasGameStarted) {
+            location.reload();
+        }
+    }
+}
+
+/**
+ * Stops the game and displays a message instructing the user to turn the device.
+ */
+
+function stopGameAndShowTurnDeviceMessage() {
+    activateMessageToTurnDevice();
+    clearAllIntervals();
+    stopAllSounds();
+    showMessageToTurnDevice();
+}
+
+/**
+ * Shows the intro image and hides the "turn device" message.
+ */
+
+function showIntroImageAndDeactivateTurnDeviceMessage() {
+    document.getElementById('message-to-turn-device').style.display = 'none';
+    document.getElementById('intro-image').style.display = 'flex';
+}
+
+/**
+ * Activates and displays the "turn device" message.
+ */
+
+function activateMessageToTurnDevice() {
+    if ((window.innerWidth < 1300 || window.innerHeight < 800) && window.innerWidth > window.innerHeight) {
+        document.getElementById('message-to-turn-device').style.display = 'flex';
+        document.getElementById('intro-image').style.display = 'none';
+        document.getElementById('canvas').style.display = 'none';
+    }
+}
+
+/**
+ * Checks if the screen is in landscape orientation.
+ * 
+ * @returns {boolean} - Returns true if the screen width is greater than the screen height.
+ */
+
+function isLandscapeScreenActivated() {
+    return (window.innerWidth > window.innerHeight);
 }

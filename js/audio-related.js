@@ -14,6 +14,16 @@ function stopAllSounds() {
 }
 
 /**
+ * Unmutes all game sounds by updating the sound state variables. Sets `soundOn` to `true` and `soundIsMuted` to `false` to reflect
+ * that the game sounds are turned on.
+ */
+
+function unmuteGameSounds() {
+    soundOn = true;
+    soundIsMuted = false;
+}
+
+/**
  * Toggles the sound between on and off by muting or unmuting all sounds.
  * Also updates the sound icons to reflect the current sound state.
  */

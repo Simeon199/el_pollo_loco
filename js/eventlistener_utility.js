@@ -1,30 +1,4 @@
 /**
- * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
- * Sets `keyboard.LEFT` to true and ensures that `rightForThrow` is false while `leftForThrow` is true.
- */
-
-function prepareForThrowingLeft() {
-    keyboard.LEFT = true;
-    if (keyboard.rightForThrow == true) {
-        keyboard.rightForThrow = false;
-    }
-    keyboard.leftForThrow = true;
-}
-
-/**
- * Prepares the player to throw an object to the right by setting the appropriate keyboard properties.
- * Sets `keyboard.RIGHT` to true and ensures that `leftForThrow` is false while `rightForThrow` is true.
- */
-
-function prepareForThrowingRight() { 
-    keyboard.RIGHT = true;
-    if (keyboard.leftForThrow == true) {
-        keyboard.leftForThrow = false;
-    }
-    keyboard.rightForThrow = true;
-}
-
-/**
  * Checks if the play icon was not pressed.
  * 
  * @param {Event} event - The event object from the user interaction.
