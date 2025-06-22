@@ -27,22 +27,6 @@ function redirectToPlayPage() {
 }
 
 /**
- * Redirects the user to the legal notice page.
- */
-
-function redirectToLegalNoticePage() {
-    window.location.href = "./legal_notice/legal_notice.html";
-}
-
-/**
- * Redirects the user to the privacy policy page.
- */
-
-function redirectToPrivacyPolicyPage(){
-    window.location.href = "./privacy_policy/privacy_policy.html";
-}
-
-/**
  * Prevents event bubbling (propagation) for the given event.
  * 
  * @param {Event} event - The event object.

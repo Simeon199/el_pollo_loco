@@ -114,6 +114,14 @@ function addEventListenersToDesktopDevice(){
     // Öffne Container mit allen Icons darin
     
     handleShowAllIconsEventListener();
+
+    // Öffne Privacy Policy
+
+    handlePrivacyPolicyEventListener();
+
+    // Öffne Legal Notice
+
+    handleImprintEventListener();
 }
 
 async function handleShowAllIconsEventListener(){
@@ -131,10 +139,11 @@ async function handleSettingsEventListener(){
     let settings = document.getElementById('cartwheel-image-container');
     if(settings){
         settings.addEventListener('click', async () => {
-        await loadTemplate('../templates/explain-game.html', 'explain-game-container');
-        openOverlay('explain-game-container');
-        handleOverlayEventListener('explain-game-container');
-    })};
+            await loadTemplate('../templates/explain-game.html', 'explain-game-container');
+            openOverlay('explain-game-container');
+            handleOverlayEventListener('explain-game-container');
+        });
+    }
 }
 
 function handleOverlayEventListener(id){ 
@@ -152,6 +161,40 @@ function removeDivElementFromDOM(id){
     if(divElement && divElement.children.length === 0){
         divElement.remove();
     }
+}
+
+function handlePrivacyPolicyEventListener(){
+    let privacy = document.getElementById('privacy');
+    if(privacy){
+        privacy.addEventListener('click', () => {
+            redirectToPrivacyPolicyPage();
+        });
+    }
+}
+
+function handleImprintEventListener(){
+    let imprint = document.getElementById('imprint');
+    if(imprint){
+        imprint.addEventListener('click', () => {
+            redirectToLegalNoticePage();
+        });
+    }
+}
+
+/**
+ * Redirects the user to the privacy policy page.
+ */
+
+function redirectToPrivacyPolicyPage(){
+    window.location.href = "./privacy_policy/privacy_policy.html";
+}
+
+/**
+ * Redirects the user to the legal notice page.
+ */
+
+function redirectToLegalNoticePage() {
+    window.location.href = "./legal_notice/legal_notice.html";
 }
 
 /**
@@ -185,8 +228,6 @@ function handlePlayIconEventListener(){
     if(playIcon){
         console.log('playIcon exists in DOM!');
         playIcon.addEventListener('click', () => {
-            loadSharedGameLogic();
-            // Es könnte Sinn machen, hier die gesamte Spiellogik zu laden!
             console.log('playIcon wurde geklickt.');
         });
     }
