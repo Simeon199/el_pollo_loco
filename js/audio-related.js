@@ -165,3 +165,68 @@ function muteUnmuteSound(mute) {
         }
     }
 }
+
+/**
+ * Controls the mute state based on the game's start status. Mutes or unmutes sound depending on whether the game has started or is paused.
+ */
+
+function controlMuteCondition() {
+    if (hasGameStarted) {
+        manageLogicOfSoundOnOrSoundOff();
+    } else {
+        manageSoundOnSoundOffWhenGameIsntPlaying();
+    }
+}
+
+/**
+ * Manages the display of sound icons when the game is not playing. Shows the sound-on icon and hides the sound-off icon.
+ */
+
+function manageSoundOnSoundOffWhenGameIsntPlaying() {
+    document.getElementById('sound-off-icon').style.display = 'none';
+    document.getElementById('sound-on-icon').style.display = 'flex';
+}
+
+/**
+ * Manages the display of sound icons based on the sound state when the game is playing. Shows or hides sound-on and sound-off icons depending on the value of `soundOn`.
+ */
+
+function manageLogicOfSoundOnOrSoundOff() {
+    if (soundOn) {
+        document.getElementById('sound-off-icon').style.display = 'none';
+        document.getElementById('sound-on-icon').style.display = 'flex';
+    } else {
+        document.getElementById('sound-off-icon').style.display = 'flex';
+        document.getElementById('sound-on-icon').style.display = 'none';
+    }
+}
+
+/**
+ * Toggles the sound icon based on whether the sound is muted. Displays either the sound-on or sound-off icon depending on the `soundIsMuted` state.
+ */
+
+function toggleSoundIconBasedOnSoundIsMuted() {
+    if (soundIsMuted) {
+        document.getElementById('sound-off-icon').style.display = 'flex';
+    } else {
+        document.getElementById('sound-on-icon').style.display = 'flex';
+    }
+}
+
+/**
+ * Adds click event listeners to the sound icon elements.
+ * 
+ * When either the 'sound-off-icon' or 'sound-on-icon' is clicked,
+ * the `turnSoundOnOrOff` function is triggered to toggle the sound state.
+ */
+
+function manageSoundIconEventListeners(){
+    let soundOff = document.getElementById('sound-off-icon');
+    let soundOn = document.getElementById('sound-on-icon');
+    soundOff.addEventListener('click', () => {
+        turnSoundOnOrOff();
+    });
+    soundOn.addEventListener('click', () => {
+        turnSoundOnOrOff();
+    });
+}

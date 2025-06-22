@@ -1,8 +1,11 @@
+let gameScriptsLoaded = false;
+let isExplainContainerOpen = false;
+
 let touchScreenVersionPath = '../templates/touch-screen-version.html';
 let desktopVersionPath = '../templates/desktop-version.html';
 let canvasContainerPath = '../templates/canvas-container.html';
 
-let gameJS = [
+let gameJS = [ // start.js war ursprünglich als letzte Datei hier enthalten!
     "models/drawable-object.class.js",
     "models/movable-object.class.js",
     "models/characterImages.class.js",
@@ -26,12 +29,21 @@ let gameJS = [
     "models/bottle.class.js",
     "models/coin.class.js",
     "levels/level1.js",
-    "js/game.js",
-    "start.js",
-    "js/style-related.js",
+    "js/game.js"
+];
+
+let touchJS = [ // style-related war als erste Datei in diesem Array enthalten!
     "js/audio-related.js",
-    "js/eventlistener_utility.js",
-    "js/eventlisteners.js"
+    "js/touch-device.js"
+    // "js/eventlistener_utility.js",
+    // "js/eventlisteners.js"
+];
+
+let desktopJS = [ // style-related war als erste Datei in diesem Array enthalten!
+    "js/audio-related.js",
+    "js/desktop-device.js",
+    // "js/eventlistener_utility.js",
+    // "js/eventlisteners.js"
 ];
 
 let desktopCSS = [
@@ -62,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadDesktopDeviceHTML(){
     await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
-    addEventListenersToDesktopDevice();
+    await addEventListenersToDesktopDevice();
 }
 
 async function loadTouchDeviceHTML(){
@@ -95,33 +107,12 @@ function loadDesktopDeviceCSS(){
     });
 }
 
-function loadSharedGameLogic(){
-    gameJS.forEach(src => {
-        loadScript(src);
-    });
-}
-
-function addEventListenersToDesktopDevice(){
-
-    // Drücke PlayIcon und starte Spiel
-
-    handlePlayIconEventListener();
-
-    // Öffne Explain-Game-Container
-
-    handleSettingsEventListener();
-
-    // Öffne Container mit allen Icons darin
-    
+async function addEventListenersToDesktopDevice(){
+    handleSettingsEventListener();    
     handleShowAllIconsEventListener();
-
-    // Öffne Privacy Policy
-
     handlePrivacyPolicyEventListener();
-
-    // Öffne Legal Notice
-
     handleImprintEventListener();
+    await handlePlayIconEventListener();
 }
 
 async function handleShowAllIconsEventListener(){
@@ -223,12 +214,15 @@ function openOverlay(overlayId){
     }
 }
 
-function handlePlayIconEventListener(){
+async function handlePlayIconEventListener(){
     let playIcon = document.getElementById('playIcon');
     if(playIcon){
-        console.log('playIcon exists in DOM!');
-        playIcon.addEventListener('click', () => {
-            console.log('playIcon wurde geklickt.');
+        playIcon.addEventListener('click', async () => {
+            if(!gameScriptsLoaded){
+                await loadSharedGameLogic();
+                gameScriptsLoaded = true;
+                startGame();
+            }
         });
     }
 }
@@ -382,11 +376,36 @@ function isTouchDevice(){
     );
 }
 
+// loadScript without async approach
+
 function loadScript(src){
     let script = document.createElement('script');
     script.src = src;
     script.defer = true;
     document.head.appendChild(script);
+}
+
+// loadScript with async approach
+
+function loadScriptAsync(src){
+    return new Promise((resolve, reject) => {
+        let script = document.createElement('script');
+        script.src = src;
+        script.defer = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function loadSharedGameLogic(){
+    return loadScriptsSequentially(gameJS);
+}
+
+async function loadScriptsSequentially(scripts){
+    for(const src of scripts){
+        await loadScriptAsync(src);
+    }
 }
 
 function loadCSS(href){
