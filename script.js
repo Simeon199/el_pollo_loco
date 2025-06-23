@@ -100,6 +100,17 @@ async function addEventListenersToDesktopDevice(){
 
 async function loadTouchDeviceHTML(){
     await loadTemplate(`${touchScreenVersionPath}`, 'touch-screen-version');
+    await addEventListenersToTouchDevice();
+}
+
+// Hier muss noch die Pop-Up-Funktionalität für Imprint und Privacy Policy eingebaut werden
+
+async function addEventListenersToTouchDevice(){
+    handleSettingsEventListener();    
+    handleShowAllIconsEventListener();
+    handlePrivacyPolicyEventListener();
+    handleImprintEventListener();
+    await handlePlayIconEventListener();
 }
 
 function isLocationIndexPage(){

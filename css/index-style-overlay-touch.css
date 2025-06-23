@@ -12,15 +12,6 @@
     display: none;
 }
 
-/* .all-icons-button-container-small-version button {
-    font-size: 18px;
-    background-color: gold;
-    border: 1px solid black;
-    border-radius: 16px;
-    padding: 8px;
-    cursor: pointer;
-} */
-
 #icon-and-settings-container-in-intro-image {
     display: none;
 }
@@ -97,56 +88,6 @@
     height: 100%;
 }
 
-/* .links-images properties */
-
-/* .links-images {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 16px;
-    padding-left: 16px;
-}
-
-.links-images a {
-    display: flex;
-    text-decoration: none;
-} */
-
-/* .main-title-properties-division properties  */
-
-/* .main-title-properties {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-    cursor: pointer;
-    font-family: 'playpensans';
-    font-size: 16px;
-    transition: transform 500ms ease-in-out;
-}
-
-.main-title-properties h3 {
-    font-family: 'playpensans light';
-    font-size: 16px;
-    text-align: center;
-}
-
-.main-title-properties img {
-    width: 112px;
-}
-
-.main-title-properties:hover {
-    transform: scale(1.05);
-}
-
-.control-panel-everything {
-    display: none;
-} */
-
 /* legal notice and privacy policy section */
 
 .legal-notice-and-privacy-policy {
@@ -159,24 +100,6 @@
 .legal-notice-and-privacy-policy img {
     width: 112px;
 }
-
-/* .h2-title-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-} */
-
-/* .h2-title-section h2 {
-    font-family: playpensans;
-    font-size: 24px;
-    transition: transform 500ms ease-in-out;
-}
-
-.h2-title-section h2:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-} */
 
 /* legal notice and privacy-policy-overlay */
 
@@ -379,9 +302,6 @@
 .all-icons-button-container h2 {
     font-family: 'playpensans light';
     font-size: 16px;
-    /* position: fixed;
-    left: 16px;
-    bottom: 24px; */
 }
 
 /* .all-icons-container properties */
