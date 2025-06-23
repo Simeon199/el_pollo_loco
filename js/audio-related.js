@@ -62,7 +62,6 @@ function turnSoundOnOrOff() {
  */
 
 function showTurningSoundOffIcon() {
-    console.log('showTurningSoundOffTriggered');
     soundOn = false;
     document.getElementById('sound-off-icon').style.display = 'flex';
     document.getElementById('sound-on-icon').style.display = 'none'
@@ -74,7 +73,6 @@ function showTurningSoundOffIcon() {
  */
 
 function showTurningSoundOnIcon() {
-    console.log('showTurningSoundOnTriggered');
     soundOn = true;
     document.getElementById('sound-off-icon').style.display = 'none';
     document.getElementById('sound-on-icon').style.display = 'flex';
@@ -240,5 +238,24 @@ function toggleSoundIconBasedOnSoundIsMuted() {
         document.getElementById('sound-off-icon').style.display = 'flex';
     } else {
         document.getElementById('sound-on-icon').style.display = 'flex';
+    }
+}
+
+/**
+ * Checks if the event target matches the sound-on or sound-off icons.
+ *
+ * @param {Event} event - The event object to check.
+ * @returns {boolean} - Returns `true` if the event target is either the sound-on or sound-off icon; otherwise, `false`.
+ */
+
+function checkIfSoundIconWasTriggered(event) {
+    let soundOnIcon = document.getElementById('sound-on-icon');
+    let soundOffIcon = document.getElementById('sound-off-icon');
+    if (event.target == soundOffIcon) {
+        return true;
+    } else if (event.target == soundOnIcon) {
+        return true;
+    } else {
+        return false;
     }
 }

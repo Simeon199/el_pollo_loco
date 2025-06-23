@@ -30,16 +30,18 @@ let gameJS = [
     "models/coin.class.js",
     "levels/level1.js",
     "js/game.js"
-]; // start.js war ursprünglich als letzte Datei hier enthalten!
+];
 
 let touchJS = [
     "js/audio-related.js", 
-    "js/touch-device.js"
+    "js/touch-device.js",
+    "shared/shared.js"
 ];
 
 let desktopJS = [
     "js/audio-related.js", 
-    "js/desktop-device.js"
+    "js/desktop-device.js",
+    "shared/shared.js"
 ];
 
 let desktopCSS = [
@@ -64,7 +66,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
-            // addAllEventListenersWhenInitGame();
         }
     }
 });
@@ -271,6 +272,13 @@ async function loadLogicDependingOnDeviceType(){
     }
 }
 
+function loadCSS(href){
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+}
+
 // function addAllEventListeners(){
 //     handleTouchAndDesktopSharedEventListeners();
 //     handleSettingIconListener();
@@ -288,18 +296,6 @@ async function loadLogicDependingOnDeviceType(){
 //     handleAllIconsContainerOverlayListener();
 //     handleExplainGameContainerListener();
 // }
-
-/**
- *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
- */
-
-// window.addEventListener("resize", checkOrientation);
-
-/**
- *  Event listener for screen orientation. In the case of a orientationchange the checkOrientation is invoked.
- */
-
-// window.addEventListener("orientationchange", checkOrientation);
 
 // function handleSettingIconListener(){
 //     let settingsIcon = document.getElementById('cartwheel-image-container');
@@ -347,42 +343,6 @@ async function loadLogicDependingOnDeviceType(){
 //     });
 // }
 
-// function handleIconSourceListener(){
-//     let iconSource = document.getElementById('iconSource');
-//     iconSource.addEventListener('click', async () => {
-//         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
-//         openOverlay('all-icons-container-overlay');
-//     });
-// }
-
-// function handlePrivacyListener(){
-//     let privacy = document.getElementById('privacy');
-//     privacy.addEventListener('click', () => {
-//         redirectToPrivacyPolicyPage();
-//     });
-// }
-
-// function handleImprintListener(){
-//     let imprint = document.getElementById('imprint');
-//     imprint.addEventListener('click', () => {
-//         redirectToLegalNoticePage();
-//     });
-// }
-
-// function handleWinningButtonImageListener(){
-//     let winningImageButton = document.getElementById('winning-image').querySelector('button');
-//     winningImageButton.addEventListener('click', () => {
-//         playAgain();
-//     });
-// }
-
-// function handleLosingButtonImageListener(){
-//     let losingImageButton = document.getElementById('losing-image').querySelector('button');
-//     losingImageButton.addEventListener('click', () => {
-//         playAgain();
-//     });
-// }
-
 // function handleImprintAndPrivacyOverlayListener(){
 //     let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img');
 //     imprintAndPrivacyOverlay.addEventListener('click', () => {
@@ -411,10 +371,3 @@ async function loadLogicDependingOnDeviceType(){
 //         closeOverlay('explain-game-container');
 //     });
 // }
-
-function loadCSS(href){
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    document.head.appendChild(link);
-}

@@ -311,3 +311,15 @@ function activateMessageToTurnDevice() {
 function isLandscapeScreenActivated() {
     return (window.innerWidth > window.innerHeight);
 }
+
+/**
+ *  Event listener for the resize event. In the case of a resize event the checkOrientation is invoked.
+ */
+
+// window.addEventListener("resize", checkOrientation);
+
+/**
+ *  Event listener for screen orientation. In the case of a orientationchange the checkOrientation is invoked.
+ */
+
+// window.addEventListener("orientationchange", checkOrientation);

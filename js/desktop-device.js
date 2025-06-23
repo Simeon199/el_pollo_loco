@@ -7,6 +7,8 @@ function addAllRemainingEventListenersWhenInitGame(isTouch) {
         handleKeyUpEvents();
         handleKeyDownEvents();
         manageSoundIconEventListeners();
+        handleWinningButtonImageListener();
+        handleLosingButtonImageListener();
     }
 }
 
@@ -63,25 +65,6 @@ function setKeyPressedVariablesRight(event) {
 
 function isEventOfTypeTouchAndSoundIconTriggered(event) {
     return event.type.startsWith('touch') && checkIfSoundIconWasTriggered(event) == true;
-}
-
-/**
- * Checks if the event target matches the sound-on or sound-off icons.
- *
- * @param {Event} event - The event object to check.
- * @returns {boolean} - Returns `true` if the event target is either the sound-on or sound-off icon; otherwise, `false`.
- */
-
-function checkIfSoundIconWasTriggered(event) {
-    let soundOnIcon = document.getElementById('sound-on-icon');
-    let soundOffIcon = document.getElementById('sound-off-icon');
-    if (event.target == soundOffIcon) {
-        return true;
-    } else if (event.target == soundOnIcon) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 /**
@@ -221,4 +204,32 @@ function keyLeftReleasedAndCharacterWithinBorder(event) {
 
 function keyRightReleasedAndCharacterWithinBorder(event) {
     return event.keyCode == 39 || world.character.x >= world.level.level_end_x;
+}
+
+// Eventuell in shared-Ordner;
+
+/**
+ * Exits fullscreen mode and resets fullscreen-related flags.
+ */
+
+function exitFullscreen() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    }
+    isFullscreenActivated = false;
+    isChangingToFullscreen = false;
+}
+
+function handleWinningButtonImageListener(){
+    let winningImageButton = document.getElementById('play-again-after-winning');
+    winningImageButton.addEventListener('click', () => {
+        playAgain();
+    });
+}
+
+function handleLosingButtonImageListener(){
+    let losingImageButton = document.getElementById('play-again-after-losing');
+    losingImageButton.addEventListener('click', () => {
+        playAgain();
+    });
 }

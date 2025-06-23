@@ -62,7 +62,7 @@ function preventBubbling(event) {
  * Adds the 'canvas-style' class to the canvas.
  */
 
-function changeStyleWhenIndependentOfWinningOrLosing() {
+function changeStyleWhenIndependentOfWinningOrLosing() { // Besserer Funktionenname: hideCanvasContainer()
     document.getElementById('canvas-container').style.display = 'none';
 }
 
@@ -138,14 +138,55 @@ function prepareDisplayWinningLosingStyle() {
 */
 
 function settingUpStyleWhenPlayAgainButtonPressed() {
-    if (document.getElementById('overlay').style.display !== 'none') {
-        document.getElementById('overlay').style.display = 'none';
+    setCanvasContainerVisibleIfHidden();
+    setCanvasVisibleIfHidden();
+    hideLosingImageIfVisible();
+    hideWinningImageIfVisible();
+    setMainTitleVisibleIfDesktopDevice();
+}
+
+function setCanvasContainerVisibleIfHidden(){
+    if(isCanvasContainerHidden()){
+        document.getElementById('canvas-container').style.display = 'flex';
     }
-    document.getElementById('canvas-container').style.display = 'flex';
-    document.getElementById('canvas').style.display = 'block';
-    document.getElementById('losing-image').style.display = 'none';
-    document.getElementById('winning-image').style.display = 'none';
-    if (isDesktopDevice()) {
+}
+
+function isCanvasContainerHidden(){
+    return document.getElementById('canvas-container').style.display === 'none';
+}
+
+function setCanvasVisibleIfHidden(){
+    if(isCanvasHidden()){
+        document.getElementById('canvas').style.display = 'block';
+    }
+}
+
+function isCanvasHidden(){
+    return document.getElementById('canvas').style.display === 'none';
+}
+
+function hideLosingImageIfVisible(){
+    if(isLosingImageVisible()){
+        document.getElementById('losing-image').style.display = 'none'
+    }
+}
+
+function isLosingImageVisible(){
+    return document.getElementById('losing-image').style.display !== 'none';
+}
+
+function hideWinningImageIfVisible(){
+    if(isWinningImageVisible()){
+        document.getElementById('winning-image').style.display = 'none';
+    }
+}
+
+function isWinningImageVisible(){
+    return document.getElementById('winning-image').style.display !== 'none';
+}
+
+function setMainTitleVisibleIfDesktopDevice(){
+    if (!isTouch) {
         document.getElementById('main-title').style.display = 'block';
     }
 }

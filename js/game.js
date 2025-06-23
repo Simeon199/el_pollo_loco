@@ -13,6 +13,8 @@ let world;
 let keyboard = new Keyboard();
 let hasGameStarted = false;
 let isIntroImageActivated = false;
+let isFullscreenActivated = false;
+let isChangingToFullscreen = false;
 let soundIsMuted = false;
 let isGamePlaying = false;
 let wasGameWon = null;
@@ -38,7 +40,7 @@ function init() {
     deleteWorldInstance();
     // addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
-    // muteUnmuteSound(soundIsMuted);
+    muteUnmuteSound(soundIsMuted);
     controlTurnOnTurnOffIcon();
     timePointWhenGameInitialized = new Date().getTime();
 }
