@@ -4,15 +4,30 @@ let momentKeySpaceWasReleased = 0;
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
  */
 
-function addAllEventListenersWhenInitGame() { 
+function addAllEventListenersWhenInitGame() {
+    setGlobalVariablesInTouchEvent(); 
+    touchStartHandler();
+    touchEndHandler();
+}
+
+function setGlobalVariablesInTouchEvent(){
     document.addEventListener('touchstart', (event) => {
         settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
     });
     document.addEventListener('touchend', () => {
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
     });
-    touchStartHandler();
-    touchEndHandler();
+}
+
+/**
+ * Sets global variables when a key or touch event ends.
+ */
+
+function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
+    isKeyPressed = false;
+    lastTimeKeyPressed = new Date().getTime();
+    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+    world.character.isKeyPressed = isKeyPressed;
 }
 
 function touchStartHandler() { 

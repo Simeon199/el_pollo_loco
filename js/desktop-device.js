@@ -3,12 +3,11 @@ let timeDifferenceBetweenKeyDPressedReleased = 0;
 let momentKeySpaceWasReleased = 0;
 
 function addAllEventListenersWhenInitGame() {
-    document.addEventListener('keydown', (event) => { 
-        world.audioManager.muteSnorringSoundIfNecessary();        
-        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-        keyDownHandler(event);
-    });
+    handleKeyUpEvents();
+    handleKeyDownEvents();
+}
 
+function handleKeyUpEvents(){
     document.addEventListener('keyup', (event) => { 
         world.audioManager.muteSnorringSoundIfNecessary();
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
@@ -16,17 +15,17 @@ function addAllEventListenersWhenInitGame() {
     });
 }
 
-/**
- * Event listener for the 'keyup' event. Invokes keyUpHandler to handle keyboard key releases.
- */
+function handleKeyDownEvents(){
+    document.addEventListener('keydown', (event) => { 
+        world.audioManager.muteSnorringSoundIfNecessary();        
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+        keyDownHandler(event);
+    });
+}
 
 window.addEventListener('keyup', (event) => {
     keyUpHandler(event);
 });
-
-/**
- * Event listener for the 'keydown' event. Invokes keyDownHandler to handle keyboard key presses.
- */
 
 window.addEventListener('keydown', (event) => {
     keyDownHandler(event);

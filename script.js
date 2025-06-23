@@ -32,14 +32,28 @@ let gameJS = [
     "js/game.js"
 ]; // start.js war ursprünglich als letzte Datei hier enthalten!
 
-let touchJS = ["js/audio-related.js", "js/touch-device.js"];
+let touchJS = [
+    "js/audio-related.js", 
+    "js/touch-device.js"
+];
 
-let desktopJS = ["js/audio-related.js", "js/desktop-device.js"];
+let desktopJS = [
+    "js/audio-related.js", 
+    "js/desktop-device.js"
+];
 
-let desktopCSS = ["css/index-style-overlay.css", "css/index-style-canvas.css", "media_queries/normal-desktop-size-media-query.css", "media_queries/big-desktop-size-media-query.css"];
+let desktopCSS = [
+    "css/index-style-overlay.css", 
+    "css/index-style-canvas.css", 
+    "media_queries/desktop_version/normal-desktop-size-media-query.css", 
+    "media_queries/desktop_version/big-desktop-size-media-query.css"
+];
 
-
-let touchCSS = ["css/index-style-overlay.css", "media_queries/touch-device-media-query.css", "media_queries/media-queries-portrait-and-height.css"]; 
+let touchCSS = [
+    "css/index-style-overlay.css", 
+    "media_queries/touch_screen_version/touch-device-media-query.css", 
+    "media_queries/touch_screen_version/media-queries-portrait-and-height.css"
+]; 
 
 document.addEventListener('DOMContentLoaded', async () => {
     if(isLocationIndexPage()){

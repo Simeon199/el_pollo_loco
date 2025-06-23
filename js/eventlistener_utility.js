@@ -156,7 +156,6 @@ function giveOrDenyPermissionToThrow() {
         } else {
             permissionToThrow = false;
         }
-        console.log(permissionToThrow);
         world.utilityClass.permissionToThrow = permissionToThrow;
     }
 }
