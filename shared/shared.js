@@ -62,7 +62,7 @@ function preventBubbling(event) {
  * Adds the 'canvas-style' class to the canvas.
  */
 
-function changeStyleWhenIndependentOfWinningOrLosing() { // Besserer Funktionenname: hideCanvasContainer()
+function hideCanvasContainer() { // Ehemaliger Funktionenname: changeStyleWhenIndependentOfWinningOrLosing()
     document.getElementById('canvas-container').style.display = 'none';
 }
 
@@ -71,12 +71,24 @@ function changeStyleWhenIndependentOfWinningOrLosing() { // Besserer Funktionenn
  */
 
 function changeStyleWhenLosing() {
-    if (document.getElementById('intro-image').style.display !== 'none') {
-        document.getElementById('intro-image').style.display = 'none';
-    }
+    hideIntroImageIfVisible();
+    handleRemainingStyleInCaseOfLosing();
+}
+
+function handleRemainingStyleInCaseOfLosing(){
     document.getElementById('losing-image').style.display = 'flex';
     document.getElementById('losing-image').classList.add('losing-image-properties');
     document.getElementById('main-title').style.display = 'none';
+}
+
+function hideIntroImageIfVisible(){
+    if (isIntroImageVisible()) {
+        document.getElementById('intro-image').style.display = 'none';
+    }
+}
+
+function isIntroImageVisible(){
+    return document.getElementById('intro-image').style.display !== 'none';
 }
 
 /**
@@ -84,9 +96,11 @@ function changeStyleWhenLosing() {
  */
 
 function changeStyleWhenWinning() {
-    if (document.getElementById('intro-image').style.display !== 'none') {
-        document.getElementById('intro-image').style.display = 'none';
-    }
+    hideIntroImageIfVisible();
+    handleRemainingStyleInCaseOfWinning();
+}
+
+function handleRemainingStyleInCaseOfWinning(){
     document.getElementById('winning-image').style.display = 'flex';
     document.getElementById('winning-image').classList.add('winning-image-properties');
     document.getElementById('main-title').style.display = 'none';
@@ -96,12 +110,12 @@ function changeStyleWhenWinning() {
  * Manages the style and layout when the game is stopped. Stops all game intervals, sounds, and exits fullscreen mode.
  */
 
-function manageStyleWhenGameIsStopped(string) {
+function manageStyleWhenGameIsStopped() { // string
     clearAllIntervals();
     stopAllSounds();
     isGamePlaying = false;
     document.getElementById('canvas').style.display = 'none';
-    changeStyleWhenIndependentOfWinningOrLosing(string);
+    hideCanvasContainer();
     exitFullscreen();
 }
 
