@@ -52,7 +52,8 @@ let desktopCSS = [
 ];
 
 let touchCSS = [
-    "css/index-style-overlay.css", 
+    "css/index-style-overlay.css",
+    "css/index-style-canvas.css",  
     "media_queries/touch_screen_version/touch-device-media-query.css", 
     "media_queries/touch_screen_version/media-queries-portrait-and-height.css"
 ]; 
@@ -60,15 +61,46 @@ let touchCSS = [
 document.addEventListener('DOMContentLoaded', async () => {
     if(isLocationIndexPage()){
         if(isTouchDevice()){
+            console.log('I am in the if-statement for touch devices!');
             isTouch = true;
             loadTouchDeviceCSS();
             await loadTouchDeviceHTML();
         } else {
+            console.log('I am in the if-statement for desktop devices!');
             loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
         }
     }
 });
+
+function loadTouchDeviceCSS(){
+    touchCSS.forEach(link => {
+        loadCSS(link);
+    });
+}
+
+function loadDesktopDeviceCSS(){
+    desktopCSS.forEach(link => {
+        loadCSS(link);
+    });
+}
+
+async function loadDesktopDeviceHTML(){
+    await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
+    await addEventListenersToDesktopDevice();
+}
+
+async function addEventListenersToDesktopDevice(){
+    handleSettingsEventListener();    
+    handleShowAllIconsEventListener();
+    handlePrivacyPolicyEventListener();
+    handleImprintEventListener();
+    await handlePlayIconEventListener();
+}
+
+async function loadTouchDeviceHTML(){
+    await loadTemplate(`${touchScreenVersionPath}`, 'touch-screen-version');
+}
 
 function isLocationIndexPage(){
     return window.location.pathname.endsWith('/index.html');
@@ -103,15 +135,6 @@ function loadScriptAsync(src){
     });
 }
 
-async function loadDesktopDeviceHTML(){
-    await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
-    await addEventListenersToDesktopDevice();
-}
-
-async function loadTouchDeviceHTML(){
-    await loadTemplate(`${touchScreenVersionPath}`, 'touch-screen-version');
-}
-
 /**
  * Loads an HTML template from a URL and inserts it into a placeholder element.
  * 
@@ -124,26 +147,6 @@ async function loadTemplate(url, placeholderId){
     let response = await fetch(url);
     let html = await response.text();
     document.getElementById(placeholderId).innerHTML = html;
-}
-
-function loadTouchDeviceCSS(){
-    touchCSS.forEach(link => {
-        loadCSS(link);
-    });
-}
-
-function loadDesktopDeviceCSS(){
-    desktopCSS.forEach(link => {
-        loadCSS(link);
-    });
-}
-
-async function addEventListenersToDesktopDevice(){
-    handleSettingsEventListener();    
-    handleShowAllIconsEventListener();
-    handlePrivacyPolicyEventListener();
-    handleImprintEventListener();
-    await handlePlayIconEventListener();
 }
 
 async function handleShowAllIconsEventListener(){

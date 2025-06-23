@@ -38,7 +38,6 @@ function deleteWorldInstance() {
 
 function init() {
     deleteWorldInstance();
-    // addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
     muteUnmuteSound(soundIsMuted);
     controlTurnOnTurnOffIcon();
@@ -103,9 +102,11 @@ function checkIfEnemyOrCharacterIsDead() {
  */
 
 function manageStopGameInterval() {
-    if (stopGameInterval) {
-        clearInterval(stopGameInterval);
-    }
+    clearStopGameIntervalIfItAlreadyExists();
+    setStopGameIntervalAndClearIt();
+}
+
+function setStopGameIntervalAndClearIt(){
     stopGameInterval = setInterval(() => {
         if (world.character.energy === 0) {
             wasGameWon = false;
@@ -116,7 +117,13 @@ function manageStopGameInterval() {
             stopGame('winning');
             clearInterval(stopGameInterval);
         }
-    }, 5000); // 2000
+    }, 5000);
+}
+
+function clearStopGameIntervalIfItAlreadyExists(){
+    if (stopGameInterval) {
+        clearInterval(stopGameInterval);
+    }
 }
 
 /**
@@ -138,9 +145,17 @@ function startGame() {
  */
 
 function stopGame(string) {
+    breakUpFunctionIfisGamePayingAlreadyFalse();
+    manageStyleAndVariablesWhenStoppingGame(string);
+}
+
+function breakUpFunctionIfisGamePayingAlreadyFalse(){
     if (!isGamePlaying) {
         return;
     }
+}
+
+function manageStyleAndVariablesWhenStoppingGame(string){
     manageStyleWhenGameIsStopped();
     manageStyleDependingOnWinndingOrLosing(string);
     isGamePlaying = false;
