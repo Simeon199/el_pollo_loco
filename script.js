@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
+            // addAllEventListenersWhenInitGame();
         }
     }
 });
@@ -248,6 +249,7 @@ async function handlePlayIconEventListener(){
     if(playIcon){
         playIcon.addEventListener('click', async () => {
             await executeJavaScriptLoadingFilesAndInitGame();
+            addAllRemainingEventListenersWhenInitGame(isTouch);
         });
     }
 }
@@ -409,15 +411,6 @@ async function loadLogicDependingOnDeviceType(){
 //         closeOverlay('explain-game-container');
 //     });
 // }
-
-// loadScript without async approach
-
-function loadScript(src){
-    let script = document.createElement('script');
-    script.src = src;
-    script.defer = true;
-    document.head.appendChild(script);
-}
 
 function loadCSS(href){
     let link = document.createElement('link');

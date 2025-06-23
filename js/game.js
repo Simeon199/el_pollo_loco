@@ -39,7 +39,7 @@ function init() {
     // addAllEventListenersWhenInitGame();
     setRemainingObjectsAndVariablesWhenInitGame();
     // muteUnmuteSound(soundIsMuted);
-    // controlTurnOnTurnOffIcon();
+    controlTurnOnTurnOffIcon();
     timePointWhenGameInitialized = new Date().getTime();
 }
 
@@ -66,13 +66,13 @@ function setStylingOfInitializedGame(){
  * If the sound is unmuted, it displays the "sound on" icon.
  */
 
-// function controlTurnOnTurnOffIcon() {
-//     if (soundIsMuted) {
-//         showTurningSoundOffIcon();
-//     } else {
-//         showTurningSoundOnIcon();
-//     }
-// }
+function controlTurnOnTurnOffIcon() {
+    if (soundIsMuted) {
+        showTurningSoundOffIcon();
+    } else {
+        showTurningSoundOnIcon();
+    }
+}
 
 /**
  * Mutes all game sounds by updating the sound state variables. Sets `soundOn` to `false` and `soundIsMuted` to `true` to reflect

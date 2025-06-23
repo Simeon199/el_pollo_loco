@@ -4,10 +4,12 @@ let momentKeySpaceWasReleased = 0;
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
  */
 
-function addAllEventListenersWhenInitGame() {
-    setGlobalVariablesInTouchEvent(); 
-    touchStartHandler();
-    touchEndHandler();
+function addAllRemainingEventListenersWhenInitGame(isTouch) {
+    if(isTouch){
+        setGlobalVariablesInTouchEvent(); 
+        touchStartHandler();
+        touchEndHandler();
+    }
 }
 
 function setGlobalVariablesInTouchEvent(){

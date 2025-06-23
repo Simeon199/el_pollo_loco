@@ -2,9 +2,12 @@ let isSoundIconInteraction = false;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let momentKeySpaceWasReleased = 0;
 
-function addAllEventListenersWhenInitGame() {
-    handleKeyUpEvents();
-    handleKeyDownEvents();
+function addAllRemainingEventListenersWhenInitGame(isTouch) {
+    if(!isTouch){
+        handleKeyUpEvents();
+        handleKeyDownEvents();
+        manageSoundIconEventListeners();
+    }
 }
 
 function handleKeyUpEvents(){
@@ -122,6 +125,38 @@ function keyDownHandler(event) {
 }
 
 /**
+ * Handles 'keyup' events by resetting keyboard states based on key codes. Stops specific game actions based on the arrow keys, spacebar, and 'D' key.
+ *
+ * @param {KeyboardEvent} event - The keyup event containing key code data.
+ */
+
+function keyUpHandler(event) {
+    if (keyRightReleasedAndCharacterWithinBorder(event)) {
+        keyboard.RIGHT = false;
+        world.audioManager.muteSound(true, 'walking_sound');
+    }
+    if (keyLeftReleasedAndCharacterWithinBorder(event)) {
+        keyboard.LEFT = false;
+        world.audioManager.muteSound(true, 'walking_sound');
+    }
+    if (event.keyCode == 38) {
+        keyboard.UP = false;
+    }
+    if (event.keyCode == 40) {
+        keyboard.DOWN = false;
+    }
+    if (event.keyCode == 32) {
+        keyboard.SPACE = false;
+        world.character.isKeySpaceReleased = true;
+        this.momentKeySpaceWasReleased = new Date().getTime();
+    }
+    if (event.keyCode == 68) {
+        world.utilityClass.checkThrowObjects();
+        keyboard.keyD = false;
+    }
+}
+
+/**
  * Checks if the character is alive and not hurt.
  * 
  * @returns {boolean} - Returns `true` if the character is alive and hurt, returns `false` otherwise.
@@ -155,38 +190,6 @@ function prepareForThrowingRight() {
         keyboard.leftForThrow = false;
     }
     keyboard.rightForThrow = true;
-}
-
-/**
- * Handles 'keyup' events by resetting keyboard states based on key codes. Stops specific game actions based on the arrow keys, spacebar, and 'D' key.
- *
- * @param {KeyboardEvent} event - The keyup event containing key code data.
- */
-
-function keyUpHandler(event) {
-    if (keyRightReleasedAndCharacterWithinBorder(event)) {
-        keyboard.RIGHT = false;
-        world.audioManager.muteSound(true, 'walking_sound');
-    }
-    if (keyLeftReleasedAndCharacterWithinBorder(event)) {
-        keyboard.LEFT = false;
-        world.audioManager.muteSound(true, 'walking_sound');
-    }
-    if (event.keyCode == 38) {
-        keyboard.UP = false;
-    }
-    if (event.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-    if (event.keyCode == 32) {
-        keyboard.SPACE = false;
-        world.character.isKeySpaceReleased = true;
-        this.momentKeySpaceWasReleased = new Date().getTime();
-    }
-    if (event.keyCode == 68) {
-        world.utilityClass.checkThrowObjects();
-        keyboard.keyD = false;
-    }
 }
 
 /**

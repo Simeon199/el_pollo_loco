@@ -1,4 +1,22 @@
 /**
+ * Adds click event listeners to the sound icon elements.
+ * 
+ * When either the 'sound-off-icon' or 'sound-on-icon' is clicked,
+ * the `turnSoundOnOrOff` function is triggered to toggle the sound state.
+ */
+
+function manageSoundIconEventListeners(){
+    let soundOff = document.getElementById('sound-off-icon');
+    let soundOn = document.getElementById('sound-on-icon');
+    soundOff.addEventListener('click', () => {
+        turnSoundOnOrOff();
+    });
+    soundOn.addEventListener('click', () => {
+        turnSoundOnOrOff();
+    });
+}
+
+/**
  * Stops all sounds in the game world, including background music and enemy sounds.
  * Pauses the background music and enemy-specific sounds if they are playing.
  */
@@ -44,6 +62,7 @@ function turnSoundOnOrOff() {
  */
 
 function showTurningSoundOffIcon() {
+    console.log('showTurningSoundOffTriggered');
     soundOn = false;
     document.getElementById('sound-off-icon').style.display = 'flex';
     document.getElementById('sound-on-icon').style.display = 'none'
@@ -55,6 +74,7 @@ function showTurningSoundOffIcon() {
  */
 
 function showTurningSoundOnIcon() {
+    console.log('showTurningSoundOnTriggered');
     soundOn = true;
     document.getElementById('sound-off-icon').style.display = 'none';
     document.getElementById('sound-on-icon').style.display = 'flex';
@@ -221,22 +241,4 @@ function toggleSoundIconBasedOnSoundIsMuted() {
     } else {
         document.getElementById('sound-on-icon').style.display = 'flex';
     }
-}
-
-/**
- * Adds click event listeners to the sound icon elements.
- * 
- * When either the 'sound-off-icon' or 'sound-on-icon' is clicked,
- * the `turnSoundOnOrOff` function is triggered to toggle the sound state.
- */
-
-function manageSoundIconEventListeners(){
-    let soundOff = document.getElementById('sound-off-icon');
-    let soundOn = document.getElementById('sound-on-icon');
-    soundOff.addEventListener('click', () => {
-        turnSoundOnOrOff();
-    });
-    soundOn.addEventListener('click', () => {
-        turnSoundOnOrOff();
-    });
 }
