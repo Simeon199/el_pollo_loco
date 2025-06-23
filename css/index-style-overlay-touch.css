@@ -12,14 +12,14 @@
     display: none;
 }
 
-.all-icons-button-container-small-version button {
+/* .all-icons-button-container-small-version button {
     font-size: 18px;
     background-color: gold;
     border: 1px solid black;
     border-radius: 16px;
     padding: 8px;
     cursor: pointer;
-}
+} */
 
 #icon-and-settings-container-in-intro-image {
     display: none;
@@ -99,7 +99,7 @@
 
 /* .links-images properties */
 
-.links-images {
+/* .links-images {
     position: absolute;
     top: 0;
     left: 0;
@@ -114,11 +114,11 @@
 .links-images a {
     display: flex;
     text-decoration: none;
-}
+} */
 
 /* .main-title-properties-division properties  */
 
-.main-title-properties {
+/* .main-title-properties {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -145,7 +145,7 @@
 
 .control-panel-everything {
     display: none;
-}
+} */
 
 /* legal notice and privacy policy section */
 
@@ -160,14 +160,14 @@
     width: 112px;
 }
 
-.h2-title-section {
+/* .h2-title-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 16px;
-}
+} */
 
-.h2-title-section h2 {
+/* .h2-title-section h2 {
     font-family: playpensans;
     font-size: 24px;
     transition: transform 500ms ease-in-out;
@@ -176,7 +176,7 @@
 .h2-title-section h2:hover {
     cursor: pointer;
     transform: scale(1.05);
-}
+} */
 
 /* legal notice and privacy-policy-overlay */
 
@@ -376,12 +376,12 @@
     background-color: rgb(95, 81, 3)
 }
 
-.all-icons-button-container {
-    font-family: 'playpensans';
-    font-size: 18px;
-    position: fixed;
+.all-icons-button-container h2 {
+    font-family: 'playpensans light';
+    font-size: 16px;
+    /* position: fixed;
     left: 16px;
-    bottom: 24px;
+    bottom: 24px; */
 }
 
 /* .all-icons-container properties */

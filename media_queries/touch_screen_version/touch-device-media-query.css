@@ -1,6 +1,6 @@
 @media(hover: none) {
 
-    #losing-image img { /* Werte ehemals in % */
+    #losing-image img {
         width: 100dvw;
         height: 100dvh;
     }
@@ -37,7 +37,7 @@
         width: 30%;
     }
 
-    #intro-image img:nth-child(1) { /* Ehemals in % alle Werte */ 
+    #intro-image img:nth-child(1) {
         width: 100dvw;
         height: 100dvh;
     }
@@ -59,7 +59,6 @@
     }
 
     .icon-and-settings-container {
-        z-index: 1000;
         position: absolute;
         top: 0;
         right: 1%;
@@ -82,12 +81,65 @@
         height: 100%;
     }
 
-    .all-icons-button-container {
-        display: none;
-    }
+    /* .links-images properties */
 
     .links-images {
-        display: none;
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        gap: 24px;
+        border: 2px solid black;
+        border-radius: 16px;
+        background-color: rgba(136, 161, 44, 0.9);
+        z-index: 1000;
+    }
+
+    .links-images img {
+        width: 48px;
+    }
+
+    .links-images a {
+        display: flex;
+        text-decoration: none;
+    }
+
+    /* legal notice and privacy policy section */
+
+    .legal-notice-and-privacy-policy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .h2-title-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .h2-title-section h2 {
+        font-family: 'playpensans light';
+        font-size: 16px;
+        transition: transform 500ms ease-in-out;
+    }
+
+    .main-title-properties {
+        text-align: center;
+    }
+
+    .main-title-properties h2 {
+        font-family: 'playpensans light';
+        font-size: 16px;
+    }
+
+    .h2-title-section h2:hover {
+        cursor: pointer;
+        transform: scale(1.05);
     }
 
     .game-functions-container h2 {
@@ -120,20 +172,6 @@
         width: 100%;
         bottom: 1%;
         right: unset;
-    }
-
-    #all-icons-container-mini-version {
-        width: 100%;
-        height: 100%;
-        gap: 0;
-    }
-
-    .all-icons-button-container-small-version button {
-        font-size: 20px;
-    }
-
-    .main-title-properties img {
-        width: 48px;
     }
 
     .spacebar {
@@ -181,10 +219,6 @@
         max-width: 80px;
         text-align: center;
     }
-
-    /* .control-key-image-container {
-        max-width: 130px;
-    } */
 
     .spacebar p {
         font-family: 'playpensans light';
@@ -264,13 +298,6 @@
 }
 
 @media(max-width: 500px) and (hover: none) {
-    .main-title-properties img {
-        width: 32px;
-    }
-
-    .all-icons-button-container-small-version button {
-        font-size: 12px;
-    }
 
     #intro-image img:nth-child(2) {
         width: 40px;

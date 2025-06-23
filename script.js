@@ -52,7 +52,7 @@ let desktopCSS = [
 ];
 
 let touchCSS = [
-    "css/index-style-overlay.css",
+    "css/index-style-overlay-touch.css",
     "css/index-style-canvas.css",  
     "media_queries/touch_screen_version/touch-device-media-query.css", 
     "media_queries/touch_screen_version/media-queries-portrait-and-height.css"
