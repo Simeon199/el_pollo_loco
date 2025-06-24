@@ -94,7 +94,7 @@
         gap: 24px;
         border: 2px solid black;
         border-radius: 16px;
-        background-color: rgba(136, 161, 44, 0.9);
+        background-color: rgba(235, 220, 93, 0.9);
         z-index: 1000;
     }
 
@@ -113,6 +113,23 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        border: 1px solid black;
+        border-radius: 16px;
+        padding: 4px;
+        background-color: goldenrod;
+    }
+
+     .main-title-properties {
+        border: 1px solid black;
+        border-radius: 16px;
+        padding: 4px;
+        text-align: center;
+        background-color: goldenrod;
+    }
+
+    .main-title-properties h2 {
+        font-family: 'playpensans light';
+        font-size: 16px;
     }
 
     .h2-title-section {
@@ -126,15 +143,6 @@
         font-family: 'playpensans light';
         font-size: 16px;
         transition: transform 500ms ease-in-out;
-    }
-
-    .main-title-properties {
-        text-align: center;
-    }
-
-    .main-title-properties h2 {
-        font-family: 'playpensans light';
-        font-size: 16px;
     }
 
     .h2-title-section h2:hover {
