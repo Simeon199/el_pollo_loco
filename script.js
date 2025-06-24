@@ -139,9 +139,27 @@ async function loadTouchDeviceHTML(){
 async function addEventListenersToTouchDevice(){
     handleSettingsEventListener();    
     handleShowAllIconsEventListener();
-    handlePrivacyPolicyEventListener();
-    handleImprintEventListener();
+    handlePrivacyAndImprintEventListeners();
     await handlePlayIconEventListener();
+}
+
+function handlePrivacyAndImprintEventListeners(){
+    let privacyImprint = document.getElementById('privacy-and-imprint-pop-up');
+    if(privacyImprint){
+        privacyImprint.addEventListener('click', () => {
+            openOverlay('imprint-and-privacy-policy-overlay');
+            handleImprintAndPrivacyOverlayEventListeners();
+        });
+    }
+}
+
+function handleImprintAndPrivacyOverlayEventListeners(){
+    let imprintPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay');
+    if(imprintPrivacyOverlay){
+        imprintPrivacyOverlay.addEventListener('click', () => {
+            closeOverlay('imprint-and-privacy-policy-overlay');
+        });
+    }
 }
 
 function isLocationIndexPage(){
@@ -269,6 +287,8 @@ function redirectToLegalNoticePage() {
  * 
  * @param {string} overlayId - The ID of the overlay element to close.
  */
+
+// Hier sollte noch optionalerweise mit event target gearbeitet werden, um unvorhersehbares Verhalten zu unterbinden 
 
 function closeOverlay(overlayId){
     let overlay = document.getElementById(`${overlayId}`);

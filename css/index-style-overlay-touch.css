@@ -109,7 +109,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(110, 110, 110, 0.9);
+    background-color: rgb(84 93 33 / 80%);
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -123,11 +123,12 @@
     top: 16px;
     right: 16px;
     width: 72px;
+    display: none;
 }
 
 .imprint-privacy-wrapper {
-    border: 4px solid black;
-    background-color: rgb(196, 196, 196);
+    border: 2px solid black;
+    background-color: rgb(201 201 37);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -140,8 +141,8 @@
 }
 
 .imprint-privacy-wrapper h2 {
-    font-family: playpensans;
-    font-size: 64px;
+    font-family: 'playpensans light';
+    font-size: 40px;
     color: rgb(12, 11, 11);
     text-align: center;
 }
