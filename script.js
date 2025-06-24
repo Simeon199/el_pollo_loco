@@ -155,11 +155,43 @@ function handlePrivacyAndImprintEventListeners(){
 
 function handleImprintAndPrivacyOverlayEventListeners(){
     let imprintPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay');
+    let imprint = document.getElementById('imprint');
+    let privacy = document.getElementById('privacy');
     if(imprintPrivacyOverlay){
-        imprintPrivacyOverlay.addEventListener('click', () => {
-            closeOverlay('imprint-and-privacy-policy-overlay');
+        imprintPrivacyOverlay.addEventListener('click', (event) => {
+            if(event.target === imprintPrivacyOverlay){
+                closeOverlay('imprint-and-privacy-policy-overlay');
+            } else if(event.target === imprint){
+                redirectToLegalNoticePage();
+                event.stopPropagation();
+            } else if(event.target === privacy){
+                redirectToPrivacyPolicyPage();
+                event.stopPropagation();
+            }
         });
     }
+}
+
+function handlePrivacyPolicyEventListener(){
+    let privacy = document.getElementById('privacy');
+    if(privacy){
+        privacy.addEventListener('click', () => {
+            redirectToPrivacyPolicyPage();
+        });
+    }
+}
+
+function handleImprintEventListener(){
+    let imprint = document.getElementById('imprint');
+    if(imprint){
+        imprint.addEventListener('click', () => {
+            redirectToLegalNoticePage();
+        });
+    }
+}
+
+function handleImprintPrivacyWrapperEventListener(){
+    console.log('Hier muss noch eine Funktion rein.');
 }
 
 function isLocationIndexPage(){
@@ -234,35 +266,21 @@ async function handleSettingsEventListener(){
 function handleOverlayEventListener(id){ 
     let overlay = document.getElementById(id);
     if(overlay){
-        overlay.addEventListener('click', () => {
+        overlay.addEventListener('click', () => { 
             closeOverlay(id);
             removeDivElementFromDOM(id);
         });
     }
 }
 
+function preventBubbling(event) {
+    event.stopPropagation();
+}
+
 function removeDivElementFromDOM(id){
     let divElement = document.getElementById(id);
     if(divElement && divElement.children.length === 0){
         divElement.remove();
-    }
-}
-
-function handlePrivacyPolicyEventListener(){
-    let privacy = document.getElementById('privacy');
-    if(privacy){
-        privacy.addEventListener('click', () => {
-            redirectToPrivacyPolicyPage();
-        });
-    }
-}
-
-function handleImprintEventListener(){
-    let imprint = document.getElementById('imprint');
-    if(imprint){
-        imprint.addEventListener('click', () => {
-            redirectToLegalNoticePage();
-        });
     }
 }
 
