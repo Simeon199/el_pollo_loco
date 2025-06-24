@@ -53,7 +53,7 @@
     }
 
     .control-panel-everything {
-        display: flex;
+        display: none;
         justify-content: space-around;
         width: 100%;
     }
@@ -177,6 +177,7 @@
     }
 
     .screen-control-container {
+        display: flex;
         width: 100%;
         bottom: 1%;
         right: unset;

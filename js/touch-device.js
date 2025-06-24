@@ -9,7 +9,13 @@ function addAllRemainingEventListenersWhenInitGame(isTouch) {
         setGlobalVariablesInTouchEvent(); 
         touchStartHandler();
         touchEndHandler();
+        settingStyleForTouchDevice();
     }
+}
+
+function settingStyleForTouchDevice(){
+    document.getElementById('links-images').style.display = 'none';
+    document.getElementById('control-panel-everything').style.display = 'flex';
 }
 
 function setGlobalVariablesInTouchEvent(){

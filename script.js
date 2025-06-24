@@ -190,10 +190,6 @@ function handleImprintEventListener(){
     }
 }
 
-function handleImprintPrivacyWrapperEventListener(){
-    console.log('Hier muss noch eine Funktion rein.');
-}
-
 function isLocationIndexPage(){
     return window.location.pathname.endsWith('/index.html');
 }
@@ -271,10 +267,6 @@ function handleOverlayEventListener(id){
             removeDivElementFromDOM(id);
         });
     }
-}
-
-function preventBubbling(event) {
-    event.stopPropagation();
 }
 
 function removeDivElementFromDOM(id){
@@ -361,96 +353,3 @@ function loadCSS(href){
     link.href = href;
     document.head.appendChild(link);
 }
-
-// function addAllEventListeners(){
-//     handleTouchAndDesktopSharedEventListeners();
-//     handleSettingIconListener();
-//     handleAllIConsMiniVersionListener();
-//     handlePlayIconListener(); 
-//     handleExplainGameSmallVersionIconListener(); 
-//     handleImprintAndPrivacyIconListener(); 
-//     handleIconSourceListener();
-//     handlePrivacyListener();
-//     handleImprintListener();
-//     handleWinningButtonImageListener();
-//     handleLosingButtonImageListener();
-//     handleImprintAndPrivacyOverlayListener();
-//     handleAllIconsButtonListener();
-//     handleAllIconsContainerOverlayListener();
-//     handleExplainGameContainerListener();
-// }
-
-// function handleSettingIconListener(){
-//     let settingsIcon = document.getElementById('cartwheel-image-container');
-//     if(settingsIcon){
-//         settingsIcon.addEventListener('click', async () => {
-//             await loadTemplate('../templates/explain-game.html', 'explain-game-container');
-//             openOverlay('explain-game-container');
-//         });
-//     }
-// }
-
-// function handleAllIConsMiniVersionListener(){
-//     let allIconsMiniVersion = document.getElementById('all-icons-container-mini-version');
-//     if(allIconsMiniVersion){
-//         allIconsMiniVersion.addEventListener('click', (event) => {
-//             preventBubbling(event);
-//         });
-//         allIconsMiniVersion.querySelector('img').addEventListener('click', () => {
-//             closeOverlay('all-icons-container-overlay');
-//         });
-//     }
-// }
-
-// function handlePlayIconListener(){
-//     let playIcon = document.getElementById('playIcon');
-//     playIcon.addEventListener('click', async () => {
-//         startGame();
-//         manageSoundIconEventListeners();
-//     });
-// }
-
-// function handleExplainGameSmallVersionIconListener(){
-//     let explainGameSmallVersionIcon = document.getElementById('explain-game-container-small-version');
-//     explainGameSmallVersionIcon.addEventListener('click', async () => {
-//         await loadTemplate('../templates/explain-game.html', 'explain-game-container');
-//         openOverlay('explain-game-container');
-//     });
-// }
-
-// function handleImprintAndPrivacyIconListener(){
-//     let imprintAndPrivacyIcon = document.getElementById('overlay-icon-for-imprint-privacy');
-//     imprintAndPrivacyIcon.addEventListener('click', async () => {
-//         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
-//         openOverlay('imprint-and-privacy-policy-overlay');
-//     });
-// }
-
-// function handleImprintAndPrivacyOverlayListener(){
-//     let imprintAndPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay').querySelector('img');
-//     imprintAndPrivacyOverlay.addEventListener('click', () => {
-//         closeOverlay('imprint-and-privacy-policy-overlay');
-//     });
-// }
-
-// function handleAllIconsButtonListener(){
-//     let allIconsButton = document.querySelectorAll('.all-icons-button-container')[0];
-//     allIconsButton.addEventListener('click', async () => {
-//         await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
-//         openOverlay('all-icons-container-overlay');
-//     });
-// }
-
-// function handleAllIconsContainerOverlayListener(){
-//     let allIconsContainerOverlay = document.getElementById('all-icons-container-overlay');
-//     allIconsContainerOverlay.addEventListener('click', () => {
-//         closeOverlay('all-icons-container-overlay');
-//     });
-// }
-
-// function handleExplainGameContainerListener(){
-//     let explainGameContainer = document.getElementById('explain-game-container');
-//     explainGameContainer.addEventListener('click', () => {
-//         closeOverlay('explain-game-container');
-//     });
-// }
