@@ -70,22 +70,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
         }
+        // loadSharedGameLogic();
     }
 });
-
-function showLoadingSpinner(){
-    let loadingOverlay = document.getElementById('loadingOverlay');
-    if(loadingOverlay){
-        loadingOverlay.style.display = 'none';
-    }
-}
-
-function hideLoadingSpinner() {
-    let loadingOverlay = document.getElementById('loadingOverlay');
-    if(loadingOverlay && loadingOverlay.style.display === 'flex'){
-        loadingOverlay.style.display = 'none';
-    }
-}
 
 /* The following code serves only development purposes. It checks if a user is switching between desktop and touch device mode within the browser developer tools. */
 
@@ -313,8 +300,6 @@ function redirectToLegalNoticePage() {
  * @param {string} overlayId - The ID of the overlay element to close.
  */
 
-// Hier sollte noch optionalerweise mit event target gearbeitet werden, um unvorhersehbares Verhalten zu unterbinden 
-
 function closeOverlay(overlayId){
     let overlay = document.getElementById(`${overlayId}`);
     if (!overlay.classList.contains('d-none')) {
@@ -351,9 +336,23 @@ async function handlePlayIconEventListener(){
     }
 }
 
+function showLoadingSpinner(){
+    let loadingOverlay = document.getElementById('loadingOverlay');
+    if(loadingOverlay && loadingOverlay.style.display === 'none'){
+        loadingOverlay.style.display = 'none';
+    }
+}
+
+function hideLoadingSpinner() {
+    let loadingOverlay = document.getElementById('loadingOverlay');
+    if(loadingOverlay && loadingOverlay.style.display === 'flex'){
+        loadingOverlay.style.display = 'none';
+    }
+}
+
 async function executeJavaScriptLoadingFilesAndInitGame(){
     if(!gameScriptsLoaded){
-        await loadSharedGameLogic();
+        // await loadSharedGameLogic();
         await loadLogicDependingOnDeviceType();
         gameScriptsLoaded = true;
         startGame();

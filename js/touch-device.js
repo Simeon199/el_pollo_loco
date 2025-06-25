@@ -205,7 +205,7 @@ function handleButtonLeftTouchEnd(){
             keyboard.LEFT = false;
             world.audioManager.muteSound(true, 'walking_sound');
             buttonLeftTouch.style.background = 'wheat';
-        });
+        }, {passive: false});
     }
 }
 

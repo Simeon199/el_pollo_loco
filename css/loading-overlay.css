@@ -8,7 +8,7 @@
     color: rgb(62, 124, 62);
     font-family: 'playpensans';
     font-size: 24px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 9999;
