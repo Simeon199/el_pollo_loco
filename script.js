@@ -73,6 +73,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+function showLoadingSpinner(){
+    let loadingOverlay = document.getElementById('loadingOverlay');
+    if(loadingOverlay){
+        loadingOverlay.style.display = 'none';
+    }
+}
+
+function hideLoadingSpinner() {
+    let loadingOverlay = document.getElementById('loadingOverlay');
+    if(loadingOverlay && loadingOverlay.style.display === 'flex'){
+        loadingOverlay.style.display = 'none';
+    }
+}
+
 /* The following code serves only development purposes. It checks if a user is switching between desktop and touch device mode within the browser developer tools. */
 
 function reloadSiteIfDeviceTypeSwitches(){
@@ -325,8 +339,14 @@ async function handlePlayIconEventListener(){
     let playIcon = document.getElementById('playIcon');
     if(playIcon){
         playIcon.addEventListener('click', async () => {
+            if(isTouch){
+                showLoadingSpinner();
+            }
             await executeJavaScriptLoadingFilesAndInitGame();
             addAllRemainingEventListenersWhenInitGame(isTouch);
+            if(isTouch){
+                hideLoadingSpinner();
+            }
         });
     }
 }

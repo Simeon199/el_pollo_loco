@@ -18,9 +18,9 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     gap: 20px;
-    align-items: center;
 }
 
 .spinner {
@@ -29,7 +29,7 @@
     height: 80px;
     border: 8px solid white;
     border-top: 8px solid rgb(1, 94, 1);
-    border-radius: 50%; /* ehemals 50% */
+    border-radius: 50%; 
     animation: spin 1s linear infinite;
 }
 
