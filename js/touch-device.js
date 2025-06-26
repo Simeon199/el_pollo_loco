@@ -299,12 +299,12 @@ function showMessageToTurnDevice() {
  */
 
 function makeContainersDisappearIfTheyAreStillThere() {
-    if (document.getElementById('intro-image') !== 'none') {
+    if (document.getElementById('intro-image').style.display !== 'none') {
         document.getElementById('intro-image').style.display = 'none';
     } else if (document.getElementById('winning-image') !== 'none') {
         document.getElementById('winning-image').style.display = 'none';
-    } else if (document.getElementById('losing-image') !== 'none') {
-        document.getElementById('losing-image') = 'none';
+    } else if (document.getElementById('losing-image').style.display !== 'none') {
+        document.getElementById('losing-image').style.display = 'none';
     }
 }
 

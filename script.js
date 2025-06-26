@@ -5,74 +5,46 @@ let touchScreenVersionPath = '../templates/touch-screen-version.html';
 let desktopVersionPath = '../templates/desktop-version.html';
 let canvasContainerPath = '../templates/canvas-container.html';
 
-let gameJS = [ 
-    "models/drawable-object.class.js",
-    "models/movable-object.class.js",
-    "models/characterImages.class.js",
-    "models/character.class.js",
-    "models/chicken.class.js",
-    "models/baby-chicken.class.js",
-    "models/clouds.class.js",
-    "models/background-object.class.js",
-    "models/audio-manager.js",
-    "models/world.class.js",
-    "models/utility.js",
-    "models/keyboard.class.js",
-    "models/levels.class.js",
-    "models/endbossImages.class.js",
-    "models/endboss.class.js",
-    "models/status-bar.class.js",
-    "models/bottle-bar.class.js",
-    "models/endboss-bar.class.js",
-    "models/coin-bar.class.js",
-    "models/throwable-object.class.js",
-    "models/bottle.class.js",
-    "models/coin.class.js",
-    "levels/level1.js",
-    "js/game.js"
-];
-
-let touchJS = [
-    "js/audio-related.js", 
-    "js/touch-device.js",
-    "shared/shared.js"
-];
-
-let desktopJS = [
-    "js/audio-related.js", 
-    "js/desktop-device.js",
-    "shared/shared.js"
-];
-
-let desktopCSS = [
-    "css/index-style-overlay.css", 
-    "css/index-style-canvas.css", 
-    "media_queries/desktop_version/normal-desktop-size-media-query.css", 
-    "media_queries/desktop_version/big-desktop-size-media-query.css"
-];
-
-let touchCSS = [
-    "css/loading-overlay.css",
-    "css/index-style-overlay-touch.css",
-    "css/index-style-canvas.css",  
-    "media_queries/touch_screen_version/touch-device-media-query.css", 
-    "media_queries/touch_screen_version/media-queries-portrait-and-height.css"
-]; 
-
 document.addEventListener('DOMContentLoaded', async () => {
     reloadSiteIfDeviceTypeSwitches();
     if(isLocationIndexPage()){
         if(isTouchDevice()){
             isTouch = true;
-            loadTouchDeviceCSS();
+            loadBundledCSS('dist/touch.bundle.min.css');
+            await loadBundledJS('dist/touch.bundle.min.js');
+            // loadTouchDeviceCSS();
             await loadTouchDeviceHTML();
         } else {
-            loadDesktopDeviceCSS();
+            loadBundledCSS('dist/desktop.bundle.min.css');
+            await loadBundledJS('dist/desktop.bundle.min.js');
+            // loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
         }
         // loadSharedGameLogic();
     }
 });
+
+/* NEW METHODS FOR BUNDLED FILES - START */
+
+function loadBundledJS(jsPath){
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = jsPath;
+        script.defer = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function loadBundledCSS(cssPath){
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssPath;
+    document.head.appendChild(link);
+}
+
+/* NEW METHODS FOR BUNDLED FILES - FINISH */
 
 /* The following code serves only development purposes. It checks if a user is switching between desktop and touch device mode within the browser developer tools. */
 
@@ -120,6 +92,7 @@ function loadDesktopDeviceCSS(){
 
 async function loadDesktopDeviceHTML(){
     await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
+    // await loadSharedGameLogic();
     await addEventListenersToDesktopDevice();
 }
 
@@ -133,6 +106,7 @@ async function addEventListenersToDesktopDevice(){
 
 async function loadTouchDeviceHTML(){
     await loadTemplate(`${touchScreenVersionPath}`, 'touch-screen-version');
+    // await loadSharedGameLogic();
     await addEventListenersToTouchDevice();
 }
 
@@ -204,8 +178,8 @@ function isTouchDevice(){
     );
 }
 
-function loadSharedGameLogic(){
-    return loadScriptsSequentially(gameJS);
+async function loadSharedGameLogic(){
+    return await loadScriptsSequentially(gameJS);
 }
 
 async function loadScriptsSequentially(scripts){
@@ -324,14 +298,14 @@ async function handlePlayIconEventListener(){
     let playIcon = document.getElementById('playIcon');
     if(playIcon){
         playIcon.addEventListener('click', async () => {
-            if(isTouch){
-                showLoadingSpinner();
-            }
+            // if(isTouch){
+            //     showLoadingSpinner();
+            // }
             await executeJavaScriptLoadingFilesAndInitGame();
             addAllRemainingEventListenersWhenInitGame(isTouch);
-            if(isTouch){
-                hideLoadingSpinner();
-            }
+            // if(isTouch){
+            //     hideLoadingSpinner();
+            // }
         });
     }
 }
