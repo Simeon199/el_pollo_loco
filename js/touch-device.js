@@ -5,10 +5,10 @@ let momentKeySpaceWasReleased = 0;
  */
 
 function addAllRemainingEventListenersWhenInitGame(isTouch) {
-    if(isTouch){
+    if(isTouch && isGamePlaying){
         setGlobalVariablesInTouchEvent(); 
-        touchStartHandler();
-        touchEndHandler();
+        // touchStartHandler();
+        // touchEndHandler();
         settingStyleForTouchDevice();
     }
 }
@@ -21,10 +21,64 @@ function settingStyleForTouchDevice(){
 function setGlobalVariablesInTouchEvent(){
     document.addEventListener('touchstart', (event) => {
         settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-    });
-    document.addEventListener('touchend', () => {
+        let target = event.target;
+        if(target.classList.contains('touch-control')){
+            event.preventDefault();
+
+            switch(target.id){
+                case 'buttonLeft':
+                    prepareForThrowingLeft();
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+                case 'buttonRight':
+                    prepareForThrowingRight();
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+                case 'buttonUp':
+                case 'spacebar':
+                    keyboard.SPACE = true;
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+                case 'buttonThrow':
+                    keyboard.keyD = true;
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+            }
+        }
+    }, {passive: false});
+    document.addEventListener('touchend', (event) => {
         settingGlobalVariablesInKeyUpOrTouchEndEvent();
-    });
+
+        let target = event.target
+        if(target.classList.contains('touch-control')){
+            event.preventDefault();
+
+            switch(target.id){
+                case 'buttonLeft':
+                    keyboard.LEFT = false;
+                    world.audioManager.muteSound(true, 'walking_sound');
+                    target.style.background = 'wheat';
+                    break;
+                case 'buttonRight':
+                    keyboard.RIGHT = false;
+                    world.audioManager.muteSound(true, 'walking_sound');
+                    target.style.background = 'wheat';
+                    break;
+                case 'buttonUp':
+                case 'spacebar':
+                    keyboard.SPACE = false;
+                    world.character.isKeySpaceReleased = true;
+                    momentKeySpaceWasReleased = new Date().getTime();
+                    target.style.background = 'wheat';
+                    break;
+                case 'buttonThrow':
+                    world.utilityClass.checkThrowObjects();
+                    keyboard.keyD = false;
+                    target.style.background = 'wheat';
+                    break;
+            }
+        }
+    }, {passive: false});
 }
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
@@ -95,26 +149,26 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
     world.character.isKeyPressed = isKeyPressed;
 }
 
-function touchStartHandler() { 
-    if (isGamePlaying) {
-        handleButtonLeftTouchStart();
-        handleButtonRightTouchStart();
-        handleJumpTouchStart();
-        handleSpacebarTouchStart();
-        handleThrowTouchStart();
-    }
-}
+// function touchStartHandler() { 
+//     if (isGamePlaying) {
+//         handleButtonLeftTouchStart();
+//         handleButtonRightTouchStart();
+//         handleJumpTouchStart();
+//         handleSpacebarTouchStart();
+//         handleThrowTouchStart();
+//     }
+// }
 
-function handleButtonLeftTouchStart(){
-    let buttonLeftTouch = document.getElementById('buttonLeft');
-    if(buttonLeftTouch){
-        buttonLeftTouch.addEventListener('touchstart', (event) => {
-            event.preventDefault();
-            prepareForThrowingLeft();
-            buttonLeftTouch.style.background = 'rgb(75, 61, 35)';
-        }, {passive: false});
-    }
-}
+// function handleButtonLeftTouchStart(){
+//     let buttonLeftTouch = document.getElementById('buttonLeft');
+//     if(buttonLeftTouch){
+//         buttonLeftTouch.addEventListener('touchstart', (event) => {
+//             event.preventDefault();
+//             prepareForThrowingLeft();
+//             buttonLeftTouch.style.background = 'rgb(75, 61, 35)';
+//         }, {passive: false});
+//     }
+// }
 
 /**
  * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
@@ -129,16 +183,16 @@ function prepareForThrowingLeft() {
     keyboard.leftForThrow = true;
 }
 
-function handleButtonRightTouchStart(){
-    let buttonRightTouch = document.getElementById('buttonRight');
-    if(buttonRightTouch){
-        buttonRightTouch.addEventListener('touchstart', (event) => {
-            event.preventDefault();
-            prepareForThrowingRight();
-            buttonRightTouch.style.background = 'rgb(75, 61, 35)';
-        }, {passive: false});
-    }
-}
+// function handleButtonRightTouchStart(){
+//     let buttonRightTouch = document.getElementById('buttonRight');
+//     if(buttonRightTouch){
+//         buttonRightTouch.addEventListener('touchstart', (event) => {
+//             event.preventDefault();
+//             prepareForThrowingRight();
+//             buttonRightTouch.style.background = 'rgb(75, 61, 35)';
+//         }, {passive: false});
+//     }
+// }
 
 /**
  * Prepares the player to throw an object to the right by setting the appropriate keyboard properties.
@@ -153,110 +207,110 @@ function prepareForThrowingRight() {
     keyboard.rightForThrow = true;
 }
 
-function handleSpacebarTouchStart(){
-    let spacebarTouch = document.getElementById('spacebar');
-    let buttonUpTouch = document.getElementById('buttonUp');
-    if(spacebarTouch){
-        spacebarTouch.addEventListener('touchstart', (event) => {
-            event.preventDefault();
-            keyboard.SPACE = true;
-            buttonUpTouch.style.background = 'rgb(75, 61, 35)';
-        }, {passive: false});
-    }
-}
+// function handleSpacebarTouchStart(){
+//     let spacebarTouch = document.getElementById('spacebar');
+//     let buttonUpTouch = document.getElementById('buttonUp');
+//     if(spacebarTouch){
+//         spacebarTouch.addEventListener('touchstart', (event) => {
+//             event.preventDefault();
+//             keyboard.SPACE = true;
+//             buttonUpTouch.style.background = 'rgb(75, 61, 35)';
+//         }, {passive: false});
+//     }
+// }
 
-function handleJumpTouchStart(){
-    let buttonUpTouch = document.getElementById('buttonUp');
-    if(buttonUpTouch){
-        buttonUpTouch.addEventListener('touchstart', (event) => {
-            event.preventDefault();
-            keyboard.SPACE = true;
-            buttonUpTouch.style.background = 'rgb(75, 61, 35)';
-        }, {passive: false});
-    }
-}
+// function handleJumpTouchStart(){
+//     let buttonUpTouch = document.getElementById('buttonUp');
+//     if(buttonUpTouch){
+//         buttonUpTouch.addEventListener('touchstart', (event) => {
+//             event.preventDefault();
+//             keyboard.SPACE = true;
+//             buttonUpTouch.style.background = 'rgb(75, 61, 35)';
+//         }, {passive: false});
+//     }
+// }
 
-function handleThrowTouchStart(){
-    let buttonThrowTouch = document.getElementById('buttonThrow');
-    if(buttonThrowTouch){
-        buttonThrowTouch.addEventListener('touchstart', (event) => {
-            event.preventDefault();
-            keyboard.keyD = true;
-            buttonThrowTouch.style.background = 'rgb(75, 61, 35)';
-        }, {passive: false});
-    }
-}
+// function handleThrowTouchStart(){
+//     let buttonThrowTouch = document.getElementById('buttonThrow');
+//     if(buttonThrowTouch){
+//         buttonThrowTouch.addEventListener('touchstart', (event) => {
+//             event.preventDefault();
+//             keyboard.keyD = true;
+//             buttonThrowTouch.style.background = 'rgb(75, 61, 35)';
+//         }, {passive: false});
+//     }
+// }
 
-function touchEndHandler() {
-    if (isGamePlaying) { 
-        handleButtonLeftTouchEnd();
-        handleButtonRightTouchEnd();
-        handleJumpTouchEnd();
-        handleSpacebarTouchEnd();
-        handleThrowTouchEnd();
-    }
-}
+// function touchEndHandler() {
+//     if (isGamePlaying) { 
+//         handleButtonLeftTouchEnd();
+//         handleButtonRightTouchEnd();
+//         handleJumpTouchEnd();
+//         handleSpacebarTouchEnd();
+//         handleThrowTouchEnd();
+//     }
+// }
 
-function handleButtonLeftTouchEnd(){
-    let buttonLeftTouch = document.getElementById('buttonLeft');
-    if(buttonLeftTouch){
-        buttonLeftTouch.addEventListener('touchend', (event) => {
-            event.preventDefault();
-            keyboard.LEFT = false;
-            world.audioManager.muteSound(true, 'walking_sound');
-            buttonLeftTouch.style.background = 'wheat';
-        }, {passive: false});
-    }
-}
+// function handleButtonLeftTouchEnd(){
+//     let buttonLeftTouch = document.getElementById('buttonLeft');
+//     if(buttonLeftTouch){
+//         buttonLeftTouch.addEventListener('touchend', (event) => {
+//             event.preventDefault();
+//             keyboard.LEFT = false;
+//             world.audioManager.muteSound(true, 'walking_sound');
+//             buttonLeftTouch.style.background = 'wheat';
+//         }, {passive: false});
+//     }
+// }
 
-function handleButtonRightTouchEnd(){
-    let buttonRightTouch = document.getElementById('buttonRight');
-    if(buttonRightTouch){
-        buttonRightTouch.addEventListener('touchend', (event) => {
-            event.preventDefault();
-            keyboard.RIGHT = false;
-            world.audioManager.muteSound(true, 'walking_sound');
-            buttonRightTouch.style.background = 'wheat';
-        }, {passive: false});
-    }
-}
+// function handleButtonRightTouchEnd(){
+//     let buttonRightTouch = document.getElementById('buttonRight');
+//     if(buttonRightTouch){
+//         buttonRightTouch.addEventListener('touchend', (event) => {
+//             event.preventDefault();
+//             keyboard.RIGHT = false;
+//             world.audioManager.muteSound(true, 'walking_sound');
+//             buttonRightTouch.style.background = 'wheat';
+//         }, {passive: false});
+//     }
+// }
 
-function handleJumpTouchEnd(){
-    let buttonUpTouch = document.getElementById('buttonUp');
-    buttonUpTouch.addEventListener('touchend', (event) => {
-        event.preventDefault();
-        keyboard.SPACE = false;
-        world.character.isKeySpaceReleased = true;
-        momentKeySpaceWasReleased = new Date().getTime();
-        buttonUpTouch.style.background = 'wheat';
-    }, {passive: false});
-}
+// function handleJumpTouchEnd(){
+//     let buttonUpTouch = document.getElementById('buttonUp');
+//     buttonUpTouch.addEventListener('touchend', (event) => {
+//         event.preventDefault();
+//         keyboard.SPACE = false;
+//         world.character.isKeySpaceReleased = true;
+//         momentKeySpaceWasReleased = new Date().getTime();
+//         buttonUpTouch.style.background = 'wheat';
+//     }, {passive: false});
+// }
 
-function handleSpacebarTouchEnd(){
-    let spacebarTouch = document.getElementById('spacebar');
-    let buttonUpTouch = document.getElementById('buttonUp');
-    if(spacebarTouch){
-        spacebarTouch.addEventListener('touchend', (event) => {
-            event.preventDefault();
-            keyboard.SPACE = false;
-            world.character.isKeySpaceReleased = true;
-            momentKeySpaceWasReleased = new Date().getTime();
-            buttonUpTouch.style.background = 'wheat';
-        }, {passive: false});
-    }
-}
+// function handleSpacebarTouchEnd(){
+//     let spacebarTouch = document.getElementById('spacebar');
+//     let buttonUpTouch = document.getElementById('buttonUp');
+//     if(spacebarTouch){
+//         spacebarTouch.addEventListener('touchend', (event) => {
+//             event.preventDefault();
+//             keyboard.SPACE = false;
+//             world.character.isKeySpaceReleased = true;
+//             momentKeySpaceWasReleased = new Date().getTime();
+//             buttonUpTouch.style.background = 'wheat';
+//         }, {passive: false});
+//     }
+// }
 
-function handleThrowTouchEnd(){
-    let buttonThrowTouch = document.getElementById('buttonThrow');
-    if(buttonThrowTouch){
-        buttonThrowTouch.addEventListener('touchend', (event) => {
-            event.preventDefault();
-            world.utilityClass.checkThrowObjects();
-            keyboard.keyD = false;
-            buttonThrowTouch.style.background = 'wheat';
-        }, {passive: false});
-    }
-}
+// function handleThrowTouchEnd(){
+//     let buttonThrowTouch = document.getElementById('buttonThrow');
+//     if(buttonThrowTouch){
+//         buttonThrowTouch.addEventListener('touchend', (event) => {
+//             event.preventDefault();
+//             world.utilityClass.checkThrowObjects();
+//             keyboard.keyD = false;
+//             buttonThrowTouch.style.background = 'wheat';
+//         }, {passive: false});
+//     }
+// }
 
 /**
  * Displays the canvas and hides the intro image when the screen orientation is correct.

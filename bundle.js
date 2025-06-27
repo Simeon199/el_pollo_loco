@@ -30,13 +30,13 @@ let gameJS = [
 ];
 
 let touchJS = [
-    "js/audio-related.js", 
+    "js/audio.js", 
     "js/touch-device.js",
     "shared/shared.js"
 ];
 
 let desktopJS = [
-    "js/audio-related.js", 
+    "js/audio.js", 
     "js/desktop-device.js",
     "shared/shared.js"
 ];

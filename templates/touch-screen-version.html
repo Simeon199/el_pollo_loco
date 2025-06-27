@@ -45,7 +45,6 @@
 </div>
 
 <div id="imprint-and-privacy-policy-overlay" class="imprint-and-privacy-policy-overlay d-none">
-    <!-- <img src="assets/close.png" alt="close"> -->
     <div id="imprint-privacy-wrapper" class="imprint-privacy-wrapper">
         <h2 id="privacy">Privacy Policy</h2>
         <h2 id="imprint">Imprint</h2>
@@ -53,32 +52,34 @@
 </div>
 
 
-<div class="canvas-container" id="canvas-container">
+<div id="canvas-container" class="canvas-container">
     <canvas id="canvas" width="720" height="480"></canvas>
     <div class="sound-container">
-        <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon">
-        <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon">
+        <img id="sound-off-icon" src="assets/sound_off.png" alt="sound_off">
+        <img id="sound-on-icon" src="assets/sound_on.png" alt="sound_png">
     </div>
 </div>
 
-<div class="screen-control-container" id="screen-control-container">
-    <div class="control-panel-everything" id="control-panel-everything">
-        <div class="control-panel-left-right" id="control-panel-left-right">
+<div id="screen-control-container" class="screen-control-container">
+    <div id="control-panel-everything" class="control-panel-everything">
+        <div id="control-panel-left-right" class="control-panel-left-right">
             <div class="control-key-image-container">
-                <img src="assets/left_arrow.png" alt="left" id="buttonLeft">
+                <img src="assets/left_arrow.png" alt="left" id="buttonLeft" class="touch-control">
             </div>
             <div class="control-key-image-container">
-                <img src="assets/right_arrow.png" alt="right" id="buttonRight">
+                <img src="assets/right_arrow.png" alt="right" id="buttonRight" class="touch-control">
             </div>
         </div>
-        <div class="control-panel-throw-jump" id="control-panel-throw-jump">
+        <div id="control-panel-throw-jump" class="control-panel-throw-jump">
             <div class="control-key-image-container">
-                <div class="spacebar" id="buttonUp">
-                    <p id="spacebar">Spacebar</p>
+                <div id="buttonUp" class="spacebar touch-control">
+                    <p id="spacebar" class="touch-control">
+                        Spacebar
+                    </p>
                 </div>
             </div>
             <div class="control-key-image-container">
-                <img src="assets/letter_d_white.png" id="buttonThrow" alt="letter-d">
+                <img src="assets/letter_d_white.png" id="buttonThrow" class="touch-control" alt="letter-d">
             </div>
         </div>
     </div>

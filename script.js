@@ -1,3 +1,14 @@
+// === CURRENTLY UNUSED FLAGS - START ===
+
+// let isSoundIconInteraction = false;
+// let timePassedWhenKeyReleased;
+// let timeDifferenceBetweenKeyDPressedReleased = 0;
+// let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
+// let momentKeySpaceWasPressed = 0;
+// let momentKeySpaceWasReleased = 0;
+
+// === CURRENTLY UNUSED FLAGS - END ===
+
 let gameScriptsLoaded = false;
 let isExplainContainerOpen = false;
 let isTouch = false;
@@ -12,12 +23,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             isTouch = true;
             loadBundledCSS('dist/touch.bundle.min.css');
             await loadBundledJS('dist/touch.bundle.min.js');
-            // loadTouchDeviceCSS();
             await loadTouchDeviceHTML();
         } else {
             loadBundledCSS('dist/desktop.bundle.min.css');
             await loadBundledJS('dist/desktop.bundle.min.js');
-            // loadDesktopDeviceCSS();
             await loadDesktopDeviceHTML();
         }
         // loadSharedGameLogic();
@@ -327,19 +336,19 @@ function hideLoadingSpinner() {
 async function executeJavaScriptLoadingFilesAndInitGame(){
     if(!gameScriptsLoaded){
         // await loadSharedGameLogic();
-        await loadLogicDependingOnDeviceType();
+        // await loadLogicDependingOnDeviceType();
         gameScriptsLoaded = true;
         startGame();
     }    
 }
 
-async function loadLogicDependingOnDeviceType(){
-    if(isTouch){
-        await loadScriptsSequentially(touchJS);
-    } else {
-        await loadScriptsSequentially(desktopJS);
-    }
-}
+// async function loadLogicDependingOnDeviceType(){
+//     if(isTouch){
+//         await loadScriptsSequentially(touchJS);
+//     } else {
+//         await loadScriptsSequentially(desktopJS);
+//     }
+// }
 
 function loadCSS(href){
     let link = document.createElement('link');
