@@ -17,21 +17,64 @@ let desktopVersionPath = '../templates/desktop-version.html';
 let canvasContainerPath = '../templates/canvas-container.html';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    await initDeviceHTMLAndLogic();
     reloadSiteIfDeviceTypeSwitches();
+
+    document.addEventListener('click', () => {
+        console.log('Hier Event Delegation');
+    })
+});
+
+async function initDeviceHTMLAndLogic(){
     if(isLocationIndexPage()){
         if(isTouchDevice()){
-            isTouch = true;
-            loadBundledCSS('dist/touch.bundle.min.css');
-            await loadBundledJS('dist/touch.bundle.min.js');
-            await loadTouchDeviceHTML();
+            await setUpTouchDevice();
         } else {
-            loadBundledCSS('dist/desktop.bundle.min.css');
-            await loadBundledJS('dist/desktop.bundle.min.js');
-            await loadDesktopDeviceHTML();
+            await setUpDesktopDevice();
         }
-        // loadSharedGameLogic();
     }
-});
+}
+
+function isLocationIndexPage(){
+    return window.location.pathname.endsWith('/index.html');
+}
+
+function isTouchDevice(){
+    return (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+    );
+}
+
+async function setUpTouchDevice(){
+    isTouch = true;
+    loadBundledCSS('dist/touch.bundle.min.css');
+    await includeHTML('include-touch-html');
+    await addEventListenersToTouchDevice();
+    await loadBundledJS('dist/touch.bundle.min.js');
+}
+
+async function setUpDesktopDevice(){
+    loadBundledCSS('dist/desktop.bundle.min.css');
+    await includeHTML('include-desktop-html');
+    await addEventListenersToDesktopDevice();
+    await loadBundledJS('dist/desktop.bundle.min.js');
+}
+
+async function includeHTML(deviceTypeHTML){
+    let includeElements = document.querySelectorAll(`[${deviceTypeHTML}]`);
+    for(let i=0; i < includeElements.length; i++){
+        let element = includeElements[i];
+        let file = element.getAttribute(`${deviceTypeHTML}`);
+        let resp = await(fetch(file));
+        if(resp.ok){
+            element.innerHTML = await resp.text();
+        } else {
+            element.innerHTML = 'Page not found';
+        }
+    }
+}
 
 /* NEW METHODS FOR BUNDLED FILES - START */
 
@@ -87,23 +130,7 @@ function isNeitherPointerCoarseNorHoverNoneAndTouchDevice(mq_one, mq_two){
     return (!mq_one || !mq_two.matches) && isTouch;
 }
 
-function loadTouchDeviceCSS(){
-    touchCSS.forEach(link => {
-        loadCSS(link);
-    });
-}
-
-function loadDesktopDeviceCSS(){
-    desktopCSS.forEach(link => {
-        loadCSS(link);
-    });
-}
-
-async function loadDesktopDeviceHTML(){
-    await loadTemplate(`${desktopVersionPath}`, 'desktop-version');
-    // await loadSharedGameLogic();
-    await addEventListenersToDesktopDevice();
-}
+/*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
 
 async function addEventListenersToDesktopDevice(){
     handleSettingsEventListener();    
@@ -112,14 +139,6 @@ async function addEventListenersToDesktopDevice(){
     handleImprintEventListener();
     await handlePlayIconEventListener();
 }
-
-async function loadTouchDeviceHTML(){
-    await loadTemplate(`${touchScreenVersionPath}`, 'touch-screen-version');
-    // await loadSharedGameLogic();
-    await addEventListenersToTouchDevice();
-}
-
-// Hier muss noch die Pop-Up-Funktionalität für Imprint und Privacy Policy eingebaut werden
 
 async function addEventListenersToTouchDevice(){
     handleSettingsEventListener();    
@@ -175,53 +194,6 @@ function handleImprintEventListener(){
     }
 }
 
-function isLocationIndexPage(){
-    return window.location.pathname.endsWith('/index.html');
-}
-
-function isTouchDevice(){
-    return (
-        'ontouchstart' in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia('(pointer: coarse)').matches
-    );
-}
-
-async function loadSharedGameLogic(){
-    return await loadScriptsSequentially(gameJS);
-}
-
-async function loadScriptsSequentially(scripts){
-    for(const src of scripts){
-        await loadScriptAsync(src);
-    }
-}
-
-function loadScriptAsync(src){
-    return new Promise((resolve, reject) => {
-        let script = document.createElement('script');
-        script.src = src;
-        script.defer = true;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-    });
-}
-
-/**
- * Loads an HTML template from a URL and inserts it into a placeholder element.
- * 
- * @async
- * @param {string} url - The URL of the HTML template to fetch.
- * @param {string} placeholderId - The ID of the element where the HTML content will be injected.
- */
-
-async function loadTemplate(url, placeholderId){
-    let response = await fetch(url);
-    let html = await response.text();
-    document.getElementById(placeholderId).innerHTML = html;
-}
-
 async function handleShowAllIconsEventListener(){
     let iconsButton = document.getElementById('all-icons-button');
     if(iconsButton){
@@ -254,6 +226,18 @@ function handleOverlayEventListener(id){
     }
 }
 
+async function handlePlayIconEventListener(){
+    let playIcon = document.getElementById('playIcon');
+    if(playIcon){
+        playIcon.addEventListener('click', async () => {
+            await executeJavaScriptLoadingFilesAndInitGame();
+            addAllRemainingEventListenersWhenInitGame(isTouch);
+        });
+    }
+}
+
+/*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
+
 function removeDivElementFromDOM(id){
     let divElement = document.getElementById(id);
     if(divElement && divElement.children.length === 0){
@@ -261,27 +245,13 @@ function removeDivElementFromDOM(id){
     }
 }
 
-/**
- * Redirects the user to the privacy policy page.
- */
-
 function redirectToPrivacyPolicyPage(){
     window.location.href = "./privacy_policy/privacy_policy.html";
 }
 
-/**
- * Redirects the user to the legal notice page.
- */
-
 function redirectToLegalNoticePage() {
     window.location.href = "./legal_notice/legal_notice.html";
 }
-
-/**
- * Closes the overlay element by adding the 'd-none' class to hide it.
- * 
- * @param {string} overlayId - The ID of the overlay element to close.
- */
 
 function closeOverlay(overlayId){
     let overlay = document.getElementById(`${overlayId}`);
@@ -290,32 +260,10 @@ function closeOverlay(overlayId){
     }
 }
 
-/**
- * Opens the overlay element by removing the 'd-none' class to make it visible.
- * 
- * @param {string} overlayId - The ID of the overlay element to open.
- */
-
 function openOverlay(overlayId){
     let overlay = document.getElementById(`${overlayId}`);
     if(overlay.classList.contains('d-none')){
         overlay.classList.remove('d-none');
-    }
-}
-
-async function handlePlayIconEventListener(){
-    let playIcon = document.getElementById('playIcon');
-    if(playIcon){
-        playIcon.addEventListener('click', async () => {
-            // if(isTouch){
-            //     showLoadingSpinner();
-            // }
-            await executeJavaScriptLoadingFilesAndInitGame();
-            addAllRemainingEventListenersWhenInitGame(isTouch);
-            // if(isTouch){
-            //     hideLoadingSpinner();
-            // }
-        });
     }
 }
 
@@ -335,24 +283,7 @@ function hideLoadingSpinner() {
 
 async function executeJavaScriptLoadingFilesAndInitGame(){
     if(!gameScriptsLoaded){
-        // await loadSharedGameLogic();
-        // await loadLogicDependingOnDeviceType();
         gameScriptsLoaded = true;
         startGame();
     }    
-}
-
-// async function loadLogicDependingOnDeviceType(){
-//     if(isTouch){
-//         await loadScriptsSequentially(touchJS);
-//     } else {
-//         await loadScriptsSequentially(desktopJS);
-//     }
-// }
-
-function loadCSS(href){
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    document.head.appendChild(link);
 }
