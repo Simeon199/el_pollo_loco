@@ -1,10 +1,12 @@
 let showAllIconsPopUp = {
     html: '../templates/icons-container.html',
     setUp(container){
-        let closeBtn = container.querySelector('.closeBtn');
-        closeBtn.addEventListener('click', () => {
-            container.remove();
-        });
+        function onClick(event){
+            if(event.target.matches('.closeBtn')){
+                container.remove();
+            }
+        }
+        container.addEventListener('click', onClick);
     }
 };
 
