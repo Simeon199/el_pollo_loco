@@ -1,3 +1,6 @@
+import explainGamePopUp from './pop-up-components/explain-game-container.js';
+import showAllIconsPopUp from './pop-up-components/show-all-icons-pop-up.js';
+
 // === CURRENTLY UNUSED FLAGS - START ===
 
 // let isSoundIconInteraction = false;
@@ -16,51 +19,66 @@ let touchScreenVersionPath = '../templates/touch-screen-version.html';
 let desktopVersionPath = '../templates/desktop-version.html';
 let canvasContainerPath = '../templates/canvas-container.html';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await initDeviceHTMLAndLogic();
-    reloadSiteIfDeviceTypeSwitches();
-
-    document.addEventListener('click', () => {
-        console.log('Hier Event Delegation');
-    })
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', async (event) => {
+        if(event.target.matches('#settings-container') || event.target.matches('.img-size')){
+            let divRef = document.getElementById('explain-game-container');
+            await loadComponent(explainGamePopUp, divRef);
+        } else if(event.target.matches('#button-container') || event.target.matches('#icon-button')){
+            let divRef = document.getElementById('all-icons-container-overlay');
+            await loadComponent(showAllIconsPopUp ,divRef);
+        }
+    });
 });
 
-async function initDeviceHTMLAndLogic(){
-    if(isLocationIndexPage()){
-        if(isTouchDevice()){
-            await setUpTouchDevice();
-        } else {
-            await setUpDesktopDevice();
-        }
-    }
+async function loadComponent(component, divRef){
+    let response = await fetch(component.html);
+    let html = await response.text();
+    divRef.innerHTML = html;
+    component.setUp(divRef);
 }
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     await initDeviceHTMLAndLogic();
+//     reloadSiteIfDeviceTypeSwitches();
+// });
+
+// async function initDeviceHTMLAndLogic(){
+//     if(isLocationIndexPage()){
+//         if(isTouchDevice()){
+//             await setUpTouchDevice();
+//         } else {
+//             await setUpDesktopDevice();
+//         }
+//     }
+// }
 
 function isLocationIndexPage(){
     return window.location.pathname.endsWith('/index.html');
 }
 
-function isTouchDevice(){
-    return (
-        'ontouchstart' in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia('(pointer: coarse)').matches
-    );
-}
+// function isTouchDevice(){
+//     return (
+//         'ontouchstart' in window ||
+//         navigator.maxTouchPoints > 0 ||
+//         window.matchMedia('(pointer: coarse)').matches
+//     );
+// }
 
-async function setUpTouchDevice(){
-    isTouch = true;
-    loadBundledCSS('dist/touch.bundle.min.css');
-    await includeHTML('include-touch-html');
-    await addEventListenersToTouchDevice();
-    await loadBundledJS('dist/touch.bundle.min.js');
-}
+// async function setUpTouchDevice(){
+//     isTouch = true;
+//     loadBundledCSS('dist/touch.bundle.min.css');
+//     await includeHTML('include-touch-html');
+//     await addEventListenersToTouchDevice();
+//     await loadBundledJS('dist/touch.bundle.min.js');
+// }
 
-async function setUpDesktopDevice(){
-    loadBundledCSS('dist/desktop.bundle.min.css');
-    await includeHTML('include-desktop-html');
-    await addEventListenersToDesktopDevice();
-    await loadBundledJS('dist/desktop.bundle.min.js');
-}
+// async function setUpDesktopDevice(){
+//     loadBundledCSS('dist/desktop.bundle.min.css');
+//     await includeHTML('include-desktop-html');
+//     await addEventListenersToDesktopDevice();
+//     await loadBundledJS('dist/desktop.bundle.min.js');
+// }
 
 async function includeHTML(deviceTypeHTML){
     let includeElements = document.querySelectorAll(`[${deviceTypeHTML}]`);
@@ -132,30 +150,30 @@ function isNeitherPointerCoarseNorHoverNoneAndTouchDevice(mq_one, mq_two){
 
 /*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
 
-async function addEventListenersToDesktopDevice(){
-    handleSettingsEventListener();    
-    handleShowAllIconsEventListener();
-    handlePrivacyPolicyEventListener();
-    handleImprintEventListener();
-    await handlePlayIconEventListener();
-}
+// async function addEventListenersToDesktopDevice(){
+//     handleSettingsEventListener();    
+//     handleShowAllIconsEventListener();
+//     handlePrivacyPolicyEventListener();
+//     handleImprintEventListener();
+//     await handlePlayIconEventListener();
+// }
 
-async function addEventListenersToTouchDevice(){
-    handleSettingsEventListener();    
-    handleShowAllIconsEventListener();
-    handlePrivacyAndImprintEventListeners();
-    await handlePlayIconEventListener();
-}
+// async function addEventListenersToTouchDevice(){
+//     handleSettingsEventListener();    
+//     handleShowAllIconsEventListener();
+//     handlePrivacyAndImprintEventListeners();
+//     await handlePlayIconEventListener();
+// }
 
-function handlePrivacyAndImprintEventListeners(){
-    let privacyImprint = document.getElementById('privacy-and-imprint-pop-up');
-    if(privacyImprint){
-        privacyImprint.addEventListener('click', () => {
-            openOverlay('imprint-and-privacy-policy-overlay');
-            handleImprintAndPrivacyOverlayEventListeners();
-        });
-    }
-}
+// function handlePrivacyAndImprintEventListeners(){
+//     let privacyImprint = document.getElementById('privacy-and-imprint-pop-up');
+//     if(privacyImprint){
+//         privacyImprint.addEventListener('click', () => {
+//             openOverlay('imprint-and-privacy-policy-overlay');
+//             handleImprintAndPrivacyOverlayEventListeners();
+//         });
+//     }
+// }
 
 function handleImprintAndPrivacyOverlayEventListeners(){
     let imprintPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay');

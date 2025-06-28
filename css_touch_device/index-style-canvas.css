@@ -43,14 +43,14 @@ body {
     font-family: 'sombrero', 'Arial', 'Helvetica', 'sans-serif';
 }
 
-.envelope-all-container {
+/* .envelope-all-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100dvh;
     width: 100dvw;
-}
+} */
 
 /* All sections HTML-Sections */
 

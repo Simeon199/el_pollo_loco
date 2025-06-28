@@ -1,6 +1,6 @@
 /* All overlay sections */
 
-#overlay {
+#overlay-desktop {
     height: 100dvh;
     width: 100dvw;
     display: flex;
@@ -12,13 +12,22 @@
     display: none;
 }
 
+.all-icons-button-container-small-version button {
+    font-size: 18px;
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
 #icon-and-settings-container-in-intro-image {
     display: none;
 }
 
 /* #intro-image properties */
 
-#intro-image {
+#intro-image-desktop {
     position: relative;
     display: flex;
     align-items: center;
@@ -26,12 +35,12 @@
     gap: 16px;
 }
 
-#intro-image img:nth-child(1) {
+#intro-image-desktop img:nth-child(1) {
     width: 720px;
     height: 480px;
 }
 
-#intro-image img:nth-child(2) {
+#intro-image-desktop img:nth-child(2) {
     position: absolute;
     bottom: 2%;
     right: calc((100% - 48px)/2);
@@ -41,18 +50,18 @@
     transition: transform 500ms ease-in-out;
 }
 
-#intro-image img:nth-child(2):hover {
+#intro-image-desktop img:nth-child(2):hover {
     transform: scale(1.05);
 }
 
-#intro-image button:hover {
+#intro-image-desktop button:hover {
     background-color: rgb(95, 81, 3);
     transform: scale(1.05);
 }
 
 /* #winning-image properties */
 
-#winning-image {
+#winning-image-desktop {
     display: none;
     z-index: 11;
 }
@@ -68,7 +77,7 @@
     justify-content: end;
 }
 
-#winning-image img {
+#winning-image-desktop img {
     margin-top: 42px;
     width: 720px;
     height: 480px;
@@ -76,16 +85,66 @@
 
 /* #losing-image properties */
 
-#losing-image {
+#losing-image-desktop {
     width: 100dvw;
     height: 100dvh;
     display: none;
     justify-content: center;
 }
 
-#losing-image img {
+#losing-image-desktop img {
     width: 100%;
     height: 100%;
+}
+
+/* .links-images properties */
+
+.links-images-desktop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.links-images-desktop a {
+    display: flex;
+    text-decoration: none;
+}
+
+/* .main-title-properties-division properties  */
+
+.main-title-properties {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    font-family: 'playpensans';
+    font-size: 16px;
+    transition: transform 500ms ease-in-out;
+}
+
+.main-title-properties h3 {
+    font-family: 'playpensans light';
+    font-size: 16px;
+    text-align: center;
+}
+
+.main-title-properties img {
+    width: 112px;
+}
+
+.main-title-properties:hover {
+    transform: scale(1.05);
+}
+
+.control-panel-everything {
+    display: none;
 }
 
 /* legal notice and privacy policy section */
@@ -101,6 +160,24 @@
     width: 112px;
 }
 
+.h2-title-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+.h2-title-section h2 {
+    font-family: playpensans;
+    font-size: 24px;
+    transition: transform 500ms ease-in-out;
+}
+
+.h2-title-section h2:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 /* legal notice and privacy-policy-overlay */
 
 .imprint-and-privacy-policy-overlay {
@@ -109,7 +186,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(84 93 33 / 80%);
+    background-color: rgba(110, 110, 110, 0.9);
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -123,25 +200,27 @@
     top: 16px;
     right: 16px;
     width: 72px;
-    display: none;
 }
 
 .imprint-privacy-wrapper {
-    border: 2px solid black;
-    background-color: rgb(201 201 37);
+    border: 4px solid black;
+    background-color: rgb(196, 196, 196);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 32px;
     padding: 16px;
 }
 
+.imprint-privacy-wrapper a {
+    text-decoration: none;
+}
+
 .imprint-privacy-wrapper h2 {
-    font-family: 'playpensans light';
-    font-size: 40px;
+    font-family: playpensans;
+    font-size: 64px;
     color: rgb(12, 11, 11);
     text-align: center;
-    padding: 0;
 }
 
 /*all-icons-container and its overlay */
@@ -297,16 +376,19 @@
     background-color: rgb(95, 81, 3)
 }
 
-.all-icons-button-container h2 {
-    font-family: 'playpensans light';
-    font-size: 16px;
+.all-icons-button-container {
+    font-family: 'playpensans';
+    font-size: 18px;
+    position: fixed;
+    left: 16px;
+    bottom: 24px;
 }
 
 /* .all-icons-container properties */
 
 .all-icons-button-container button {
     font-size: 18px;
-    background-color: goldenrod;
+    background-color: gold;
     border: 1px solid black;
     border-radius: 16px;
     padding: 8px;

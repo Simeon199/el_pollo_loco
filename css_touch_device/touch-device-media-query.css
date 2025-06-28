@@ -1,11 +1,25 @@
-@media(hover: none) {
 
-    #losing-image img {
+@media(hover: none) and (pointer: coarse){
+
+    .ui-touch {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    .ui-desktop {
+        display: none;
+    }
+
+    #losing-image-touch img {
         width: 100dvw;
         height: 100dvh;
     }
 
-    #winning-image img {
+    #winning-image-touch img {
         margin-top: unset;
         width: 45%;
         height: auto;
@@ -37,12 +51,12 @@
         width: 30%;
     }
 
-    #intro-image img:nth-child(1) {
+    #intro-image-touch img:nth-child(1) {
         width: 100dvw;
         height: 100dvh;
     }
 
-    #intro-image img:nth-child(2) {
+    #intro-image-touch img:nth-child(2) {
         width: 60px;
         right: calc((100% - 60px) / 2);
     }
@@ -83,7 +97,7 @@
 
     /* .links-images properties */
 
-    .links-images {
+    .links-images-touch {
         position: absolute;
         top: 1%;
         right: 1%;
@@ -98,11 +112,11 @@
         z-index: 1000;
     }
 
-    .links-images img {
+    .links-images-touch img {
         width: 48px;
     }
 
-    .links-images a {
+    .links-images-touch a {
         display: flex;
         text-decoration: none;
     }
@@ -197,7 +211,7 @@
 }
 
 
-@media(min-width: 1025px) and (hover: none) {
+@media(min-width: 1025px) and (hover: none) and (pointer: coarse) {
     .control-panel-everything img {
         width: 80px;
         padding: 4px;
@@ -213,7 +227,7 @@
     }
 }
 
-@media(max-width: 1024px) and (hover: none) {
+@media(max-width: 1024px) and (hover: none) and (pointer: coarse){
     .control-panel-everything img {
         width: 60px;
         padding: 4px;
@@ -236,7 +250,7 @@
     }
 }
 
-@media(max-width: 950px) and (hover: none) {
+@media(max-width: 950px) and (hover: none) and (pointer: coarse) {
     .control-panel-everything img {
         width: 48px;
         padding: 4px;
@@ -294,7 +308,7 @@
     }
 }
 
-@media(max-width: 600px){
+@media(max-width: 600px) and (hover: none) and (pointer: coarse){
     .imprint-and-privacy-policy-overlay img {
         width: 32px;
         top: 8px;
@@ -306,7 +320,7 @@
     }
 }
 
-@media(max-width: 500px) and (hover: none) {
+@media(max-width: 500px) and (hover: none) and (pointer: coarse) {
 
     #intro-image img:nth-child(2) {
         width: 40px;

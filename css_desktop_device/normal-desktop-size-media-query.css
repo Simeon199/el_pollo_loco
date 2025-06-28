@@ -1,14 +1,27 @@
 @media(hover: hover) {
-    #intro-image {
+    .ui-desktop {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    .ui-touch {
+        display: none;
+    }
+
+    #intro-image-desktop {
         height: auto;
         justify-content: center;
     }
 
-    #intro-image img:nth-child(2) {
+    #intro-image-desktop img:nth-child(2) {
         bottom: 2%;
     }
 
-    #overlay {
+    #overlay-desktop {
         height: 100dvh;
         width: 100dvw;
         /* overflow: hidden; */
@@ -17,14 +30,14 @@
         align-items: center;
     }
 
-    .screen-control-container {
+    /* .screen-control-container {
         display: flex;
         justify-content: center;
         z-index: 10001;
         position: absolute;
         bottom: 2%;
         right: 1%;
-    }
+    } */
 }
 
 @media(max-width: 1000px) and (max-height: 1000px) and (hover: hover) {

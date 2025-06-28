@@ -4,16 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./assets/chicken.png">
-    <script src="script.js"></script>
-    <script src="dist/game.bundle.min.js"></script>
+    <link rel="stylesheet" href="css_desktop_device/desktop.css">
+    <link rel="stylesheet" href="shared/fonts.css">
+    <script type="module" src="script.js"></script>
     <title>El Pollo Loco</title>
 </head>
 <body>
-    <div class="envelope-all-container">
-        <div id="desktop-version" include-desktop-html="templates/desktop-version.html"></div>
-        <div id="touch-screen-version" include-touch-html="templates/touch-screen-version.html"></div>
-        <div id="explain-game-container" class="explain-game-container d-none"></div>
-        <div id="all-icons-container-overlay" class="all-icons-container-overlay d-none"></div>
+
+    <div id="ui-desktop" class="ui-desktop">
+        <div id="links-images-desktop">
+            <div class="legal-notice-and-privacy-policy-desktop img-links ">
+                <img src="assets/notice.png" alt="notice" class="img-size">
+                <div class="h2-title-section">
+                    <h2 id="privacy">Privacy Policy</h2>
+                    <h2 id="imprint">Imprint</h2>
+                </div>
+            </div>
+            <h1 id="title">El Pollo Loco</h1>
+            <div id="settings-container" class="img-links">
+                <img src="assets/cartwheel.png" alt="cartwheel" class="img-size">
+                <h2>Settings</h2>
+            </div>
+        </div>
+
+        <div id="intro-image-desktop">
+            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image" class="fade-in-image">
+            <img src="assets/playIcon_2.png" alt="Play" id="playIcon" class="img-play">
+        </div>
+
+        <div id="winning-image-desktop" class="d-none">
+            <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image" class="fade-in-image">
+            <button id="play-again-after-winning" class="button-style">Play Again</button>
+        </div>
+
+        <div id="losing-image-desktop" class="d-none">
+            <img src="img/9_intro_outro_screens/game_over/game over!.png" alt="Losing-Image" class="fade-in-image">
+            <button id="play-again-after-losing" class="button-style">Play Again</button>
+        </div>
+
+        <div id="canvas-container" class="canvas-container d-none">
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <div class="sound-container d-none">
+                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon">
+                <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon">
+            </div>
+        </div>
+
+        <div id="button-container">
+            <button id="icon-button" class="button-style">Icon Sources</button>
+        </div>
     </div>
+
+    <div id="ui-touch" class="ui-touch">
+        <div id="links-images-touch" class="links-images">
+            <div id="privacy-and-imprint-pop-up" class="legal-notice-and-privacy-policy">
+                <img src="assets/notice.png" alt="notice">
+                <div class="h2-title-section">
+                    <h2>Privacy & Imprint</h2>
+                </div>
+            </div>
+            <div id="settings-container" class="main-title-properties">
+                <img src="assets/cartwheel.png" alt="cartwheel" id="settings-image">
+                <h2>Settings</h2>
+            </div>
+            <div class="all-icons-button-container">
+                <button id="all-icons-button">
+                    <h2>Icon</h2>
+                    <h2>Sources</h2>
+                </button>
+            </div>
+        </div>
+        <div id="overlay-touch" class="overlay">
+            <div id="intro-image-touch">
+                <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
+                <img src="assets/playIcon_2.png" alt="Play" id="playIcon">
+            </div>
+            <div id="winning-image-touch">
+                <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image">
+                <button id="play-again-after-winning" class="button-style">Play Again</button>
+            </div>
+            <div id="losing-image-touch">
+                <img src="img/9_intro_outro_screens/game_over/game over!.png" alt="Losing-Image">
+                <button id="play-again-after-losing" class="button-style">Play Again</button>
+            </div>
+            <div id="message-to-turn-device">
+                <button>
+                    Please Turn Your Device To Play The Game!
+                </button>
+            </div>
+        </div>
+        <div id="loadingOverlay">
+            <div class="loadingContent">
+                <p>Bitte haben Sie einen Augenblick Geduld. Das Spiel wird geladen...</p>
+                <div class="spinner"></div>
+            </div>
+        </div>
+        <div id="imprint-and-privacy-policy-overlay" class="imprint-and-privacy-policy-overlay d-none">
+            <div id="imprint-privacy-wrapper" class="imprint-privacy-wrapper">
+                <h2 id="privacy">Privacy Policy</h2>
+                <h2 id="imprint">Imprint</h2>
+            </div>
+        </div>
+        <div id="canvas-container-touch" class="canvas-container">
+            <canvas id="canvas-touch" width="720" height="480"></canvas>
+            <div class="sound-container-touch">
+                <img id="sound-off-icon" src="assets/sound_off.png" alt="sound_off">
+                <img id="sound-on-icon" src="assets/sound_on.png" alt="sound_png">
+            </div>
+        </div>
+        <div id="screen-control-container" class="screen-control-container">
+            <div id="control-panel-everything" class="control-panel-everything">
+                <div id="control-panel-left-right" class="control-panel-left-right">
+                    <div class="control-key-image-container">
+                        <img src="assets/left_arrow.png" alt="left" id="buttonLeft" class="touch-control">
+                    </div>
+                    <div class="control-key-image-container">
+                        <img src="assets/right_arrow.png" alt="right" id="buttonRight" class="touch-control">
+                    </div>
+                </div>
+                <div id="control-panel-throw-jump" class="control-panel-throw-jump">
+                    <div class="control-key-image-container">
+                        <div id="buttonUp" class="spacebar touch-control">
+                            <p id="spacebar" class="touch-control">
+                                Spacebar
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-key-image-container">
+                        <img src="assets/letter_d_white.png" id="buttonThrow" class="touch-control" alt="letter-d">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="explain-game-container" class="explain-game-container d-none"></div>
+    <div id="all-icons-container-overlay" class="all-icons-container-overlay d-none"></div>
+    
 </body>
 </html>

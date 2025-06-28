@@ -1,6 +1,6 @@
 /* All overlay sections */
 
-#overlay {
+#overlay-touch {
     height: 100dvh;
     width: 100dvw;
     display: flex;
@@ -12,22 +12,13 @@
     display: none;
 }
 
-.all-icons-button-container-small-version button {
-    font-size: 18px;
-    background-color: gold;
-    border: 1px solid black;
-    border-radius: 16px;
-    padding: 8px;
-    cursor: pointer;
-}
-
 #icon-and-settings-container-in-intro-image {
     display: none;
 }
 
 /* #intro-image properties */
 
-#intro-image {
+#intro-image-touch {
     position: relative;
     display: flex;
     align-items: center;
@@ -35,12 +26,12 @@
     gap: 16px;
 }
 
-#intro-image img:nth-child(1) {
+#intro-image-touch img:nth-child(1) {
     width: 720px;
     height: 480px;
 }
 
-#intro-image img:nth-child(2) {
+#intro-image-touch img:nth-child(2) {
     position: absolute;
     bottom: 2%;
     right: calc((100% - 48px)/2);
@@ -97,56 +88,6 @@
     height: 100%;
 }
 
-/* .links-images properties */
-
-.links-images {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 16px;
-    padding-left: 16px;
-}
-
-.links-images a {
-    display: flex;
-    text-decoration: none;
-}
-
-/* .main-title-properties-division properties  */
-
-.main-title-properties {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-    cursor: pointer;
-    font-family: 'playpensans';
-    font-size: 16px;
-    transition: transform 500ms ease-in-out;
-}
-
-.main-title-properties h3 {
-    font-family: 'playpensans light';
-    font-size: 16px;
-    text-align: center;
-}
-
-.main-title-properties img {
-    width: 112px;
-}
-
-.main-title-properties:hover {
-    transform: scale(1.05);
-}
-
-.control-panel-everything {
-    display: none;
-}
-
 /* legal notice and privacy policy section */
 
 .legal-notice-and-privacy-policy {
@@ -160,24 +101,6 @@
     width: 112px;
 }
 
-.h2-title-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-}
-
-.h2-title-section h2 {
-    font-family: playpensans;
-    font-size: 24px;
-    transition: transform 500ms ease-in-out;
-}
-
-.h2-title-section h2:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
 /* legal notice and privacy-policy-overlay */
 
 .imprint-and-privacy-policy-overlay {
@@ -186,7 +109,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(110, 110, 110, 0.9);
+    background-color: rgb(84 93 33 / 80%);
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -200,27 +123,25 @@
     top: 16px;
     right: 16px;
     width: 72px;
+    display: none;
 }
 
 .imprint-privacy-wrapper {
-    border: 4px solid black;
-    background-color: rgb(196, 196, 196);
+    border: 2px solid black;
+    background-color: rgb(201 201 37);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 64px;
     padding: 16px;
 }
 
-.imprint-privacy-wrapper a {
-    text-decoration: none;
-}
-
 .imprint-privacy-wrapper h2 {
-    font-family: playpensans;
-    font-size: 64px;
+    font-family: 'playpensans light';
+    font-size: 40px;
     color: rgb(12, 11, 11);
     text-align: center;
+    padding: 0;
 }
 
 /*all-icons-container and its overlay */
@@ -376,19 +297,16 @@
     background-color: rgb(95, 81, 3)
 }
 
-.all-icons-button-container {
-    font-family: 'playpensans';
-    font-size: 18px;
-    position: fixed;
-    left: 16px;
-    bottom: 24px;
+.all-icons-button-container h2 {
+    font-family: 'playpensans light';
+    font-size: 16px;
 }
 
 /* .all-icons-container properties */
 
 .all-icons-button-container button {
     font-size: 18px;
-    background-color: gold;
+    background-color: goldenrod;
     border: 1px solid black;
     border-radius: 16px;
     padding: 8px;

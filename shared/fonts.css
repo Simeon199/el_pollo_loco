@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'damion';
+    src: url('../fonts/Damion-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans light';
+    src: url('../fonts/PlaypenSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'playpensans';
+    src: url('../fonts/PlaypenSans-Medium.ttf') format('truetype');
+}
