@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadComponent(component, divId){
     let divRef = document.getElementById(`${divId}`);
-    console.log('divRef value: ', divRef);
     let response = await fetch(component.html);
     let html = await response.text();
     divRef.innerHTML = html;

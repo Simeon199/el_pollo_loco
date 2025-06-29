@@ -1,32 +1,3 @@
-* {
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    width: 100dvw;
-    height: 100dvh;
-    background-image: url('../assets/desert_3.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.ui-desktop {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-.ui-touch {
-    display: none;
-}
-
 #links-images-desktop {
     display: flex;
     justify-content: space-between;
@@ -214,30 +185,19 @@ body {
 
 /* === THE FOLLOWING CLASSES COULD BE SHARED CLASSES === */
 
-.d-none {
-    display: none;
-}
-
-.d-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.closeBtn {
+/* .closeBtn {
     width: 56px;
     cursor: pointer;
     height: auto;
     position: absolute;
     top: 2%;
-    right: 3%;
+    right: 2%;
 }
 
 .img-size {
     width: 72px;
     height: auto;
-}
+} */
 
 .img-links {
     display: flex;
@@ -267,11 +227,6 @@ body {
 .button-style:hover {
     cursor: pointer;
     transform: scale(1.05);
-}
-
-.img-play {
-    width: 56px;
-    height: auto;
 }
 
 .img-play:hover {
