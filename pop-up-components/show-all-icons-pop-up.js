@@ -1,9 +1,10 @@
 let showAllIconsPopUp = {
     html: '../templates/icons-container.html',
-    setUp(container){
+    setUp(container){ 
+        container.classList.remove('d-none');
         function onClick(event){
             if(event.target.matches('.closeBtn')){
-                container.remove();
+                container.classList.add('d-none');
             }
         }
         container.addEventListener('click', onClick);
