@@ -1,5 +1,5 @@
-@media(hover: hover) and (pointer: fine){
-    .ui-desktop {
+@media(hover: hover) and (pointer: fine) and (min-width: 1024px){
+    #ui-desktop {
         height: 100%;
         width: 100%;
         display: flex;
@@ -10,7 +10,130 @@
         padding-right: 16px;
     }
 
-    .ui-touch {
+    #title {
+        text-decoration: underline;
+    }
+
+    #settings-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #settings-container:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    .fade-in-image {
+        width: 720px;
+        height: 480px;
+    }
+
+
+    #ui-touch {
         display: none;
+    }
+
+    #links-images-desktop {
+        display: flex;
+    }
+
+    #links-images-desktop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-top: 16px;
+        font-family: 'playpensans';
+    }
+
+    #intro-image-desktop {
+        position: relative;
+        width: 720px;
+        height: 480px;
+    }
+
+    #intro-image-desktop img:nth-child(2) {
+        position: absolute;
+        bottom: 8px;
+        left: calc((100% - 64px) / 2);
+    }
+
+    #button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 16px;
+    }
+
+    #privacy:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+
+    #imprint:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+@media(hover: hover) and (pointer: fine) and (max-width: 1024px){
+    #ui-desktop{
+        display: flex;
+        justify-content: center;
+        padding-right: 0;
+        padding-left: 0;
+        overflow: hidden;
+    }
+
+    #links-images-desktop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'playpensans light';
+        font-size: 18px;
+        position: absolute;
+        top: 1%;
+        width: 90%;
+        padding: 16px;
+        z-index: 10;
+        border: 2px solid black;
+        border-radius: 16px;
+        background-color: goldenrod;
+    }
+
+    #title {
+        display: none;
+    }
+
+    #intro-image-desktop {
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    #intro-image-desktop {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #ui-touch {
+        display: none;
+    }
+
+    .fade-in-image {
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    #button-container {
+        display: none;
+    }
+
+    #intro-image-desktop img:nth-child(2) {
+        position: absolute;
+        bottom: 8px;
+        left: calc((100% - 64px) / 2);
+        width: 64px;
     }
 }

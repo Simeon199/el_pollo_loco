@@ -12,59 +12,6 @@ body {
     background-repeat: no-repeat;
 }
 
-#links-images-desktop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding-top: 16px;
-    font-family: 'playpensans';
-}
-
-#title {
-    text-decoration: underline;
-}
-
-#settings-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#settings-container:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-#intro-image-desktop {
-    position: relative;
-    width: 720px;
-    height: 480px;
-}
-
-#intro-image-desktop img:nth-child(2) {
-    position: absolute;
-    bottom: 8px;
-    left: calc((100% - 64px) / 2);
-}
-
-#button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding-bottom: 16px;
-}
-
-#privacy:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
-#imprint:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
 /* === OVERLAYS AND POP UPS === */
 
 .all-icons-container-overlay {
@@ -208,10 +155,10 @@ body {
     align-items: center;
 }
 
-.img-play {
+/* .img-play {
     width: 56px;
     height: auto;
-}
+} */
 
 .closeBtn {
     width: 56px;
@@ -236,11 +183,6 @@ body {
     gap: 8px;
 }
 
-.fade-in-image {
-    width: 720px;
-    height: 480px;
-}
-
 .button-style {
     border: 2px solid black;
     padding: 8px;
@@ -257,7 +199,7 @@ body {
     transform: scale(1.05);
 }
 
-.img-play:hover {
+/* .img-play:hover {
     transform: scale(1.05);
     cursor: pointer;
-}
+} */
