@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(event.target.matches('#settings-container') || event.target.matches('.img-size')){
             let divId = 'explain-game-container';
             await loadComponent(explainGamePopUp, divId);
-        } else if(event.target.matches('#button-container') || event.target.matches('#icon-button')){
+        } else if(event.target.matches('#button-container') || event.target.matches('#icon-button')){  
             let divId = 'all-icons-container-overlay';
             await loadComponent(showAllIconsPopUp, divId);
         }
@@ -39,60 +39,8 @@ async function loadComponent(component, divId){
     component.setUp(divRef);
 }
 
-// document.addEventListener('DOMContentLoaded', async () => {
-//     await initDeviceHTMLAndLogic();
-//     reloadSiteIfDeviceTypeSwitches();
-// });
-
-// async function initDeviceHTMLAndLogic(){
-//     if(isLocationIndexPage()){
-//         if(isTouchDevice()){
-//             await setUpTouchDevice();
-//         } else {
-//             await setUpDesktopDevice();
-//         }
-//     }
-// }
-
 // function isLocationIndexPage(){
 //     return window.location.pathname.endsWith('/index.html');
-// }
-
-// function isTouchDevice(){
-//     return (
-//         'ontouchstart' in window ||
-//         navigator.maxTouchPoints > 0 ||
-//         window.matchMedia('(pointer: coarse)').matches
-//     );
-// }
-
-// async function setUpTouchDevice(){
-//     isTouch = true;
-//     loadBundledCSS('dist/touch.bundle.min.css');
-//     await includeHTML('include-touch-html');
-//     await addEventListenersToTouchDevice();
-//     await loadBundledJS('dist/touch.bundle.min.js');
-// }
-
-// async function setUpDesktopDevice(){
-//     loadBundledCSS('dist/desktop.bundle.min.css');
-//     await includeHTML('include-desktop-html');
-//     await addEventListenersToDesktopDevice();
-//     await loadBundledJS('dist/desktop.bundle.min.js');
-// }
-
-// async function includeHTML(deviceTypeHTML){
-//     let includeElements = document.querySelectorAll(`[${deviceTypeHTML}]`);
-//     for(let i=0; i < includeElements.length; i++){
-//         let element = includeElements[i];
-//         let file = element.getAttribute(`${deviceTypeHTML}`);
-//         let resp = await(fetch(file));
-//         if(resp.ok){
-//             element.innerHTML = await resp.text();
-//         } else {
-//             element.innerHTML = 'Page not found';
-//         }
-//     }
 // }
 
 /* NEW METHODS FOR BUNDLED FILES - START */
@@ -117,133 +65,7 @@ async function loadComponent(component, divId){
 
 /* NEW METHODS FOR BUNDLED FILES - FINISH */
 
-/* The following code serves only development purposes. It checks if a user is switching between desktop and touch device mode within the browser developer tools. */
-
-// function reloadSiteIfDeviceTypeSwitches(){
-//     let mq_one = window.matchMedia('(pointer: coarse)');
-//     let mq_two = window.matchMedia('(hover: none)');
-//     function checkAndReload(){
-//         if(isSwitchingBetweenDeviceTypesIsHappening(mq_one, mq_two)){
-//             window.location.reload();
-//         }
-//     }
-//     mq_one.addEventListener('change', checkAndReload);
-//     mq_two.addEventListener('change', checkAndReload);
-// }
-
-/* Checks whether a user is switching from desktop type touch touch type or vice versa inside the browser dev tools*/
-
-// function isSwitchingBetweenDeviceTypesIsHappening(mq_one, mq_two){
-//     return isPointerCoarseAndHoverNoneAndNotTouchDevice(mq_one, mq_two) || isNeitherPointerCoarseNorHoverNoneAndTouchDevice(mq_one, mq_two);
-// }
-
-/* Checks if the user has switched to a touch-like environment but the app is still in desktop mode */
-
-// function isPointerCoarseAndHoverNoneAndNotTouchDevice(mq_one, mq_two){
-//     return mq_one.matches && mq_two.matches && !isTouch;
-// }
-
-/* Checks if the user has switched to desktop-like environment but the app is still in touch mode */
-
-// function isNeitherPointerCoarseNorHoverNoneAndTouchDevice(mq_one, mq_two){
-//     return (!mq_one || !mq_two.matches) && isTouch;
-// }
-
 /*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
-
-// async function addEventListenersToDesktopDevice(){
-//     handleSettingsEventListener();    
-//     handleShowAllIconsEventListener();
-//     handlePrivacyPolicyEventListener();
-//     handleImprintEventListener();
-//     await handlePlayIconEventListener();
-// }
-
-// async function addEventListenersToTouchDevice(){
-//     handleSettingsEventListener();    
-//     handleShowAllIconsEventListener();
-//     handlePrivacyAndImprintEventListeners();
-//     await handlePlayIconEventListener();
-// }
-
-// function handlePrivacyAndImprintEventListeners(){
-//     let privacyImprint = document.getElementById('privacy-and-imprint-pop-up');
-//     if(privacyImprint){
-//         privacyImprint.addEventListener('click', () => {
-//             openOverlay('imprint-and-privacy-policy-overlay');
-//             handleImprintAndPrivacyOverlayEventListeners();
-//         });
-//     }
-// }
-
-// function handleImprintAndPrivacyOverlayEventListeners(){
-//     let imprintPrivacyOverlay = document.getElementById('imprint-and-privacy-policy-overlay');
-//     let imprint = document.getElementById('imprint');
-//     let privacy = document.getElementById('privacy');
-//     if(imprintPrivacyOverlay){
-//         imprintPrivacyOverlay.addEventListener('click', (event) => {
-//             if(event.target === imprintPrivacyOverlay){
-//                 closeOverlay('imprint-and-privacy-policy-overlay');
-//             } else if(event.target === imprint){
-//                 redirectToLegalNoticePage();
-//                 event.stopPropagation();
-//             } else if(event.target === privacy){
-//                 redirectToPrivacyPolicyPage();
-//                 event.stopPropagation();
-//             }
-//         });
-//     }
-// }
-
-// function handlePrivacyPolicyEventListener(){
-//     let privacy = document.getElementById('privacy');
-//     if(privacy){
-//         privacy.addEventListener('click', () => {
-//             redirectToPrivacyPolicyPage();
-//         });
-//     }
-// }
-
-// function handleImprintEventListener(){
-//     let imprint = document.getElementById('imprint');
-//     if(imprint){
-//         imprint.addEventListener('click', () => {
-//             redirectToLegalNoticePage();
-//         });
-//     }
-// }
-
-// async function handleShowAllIconsEventListener(){
-//     let iconsButton = document.getElementById('all-icons-button');
-//     if(iconsButton){
-//         iconsButton.addEventListener('click', async () => {
-//             await loadTemplate('../templates/icons-container.html', 'all-icons-container-overlay');
-//             openOverlay('all-icons-container-overlay');
-//             handleOverlayEventListener('all-icons-container-overlay');
-//         });
-//     }
-// }
-
-// async function handleSettingsEventListener(){
-//     let settings = document.getElementById('cartwheel-image-container');
-//     if(settings){
-//         settings.addEventListener('click', async () => {
-//             await loadTemplate('../templates/explain-game.html', 'explain-game-container');
-//             openOverlay('explain-game-container');
-//             handleOverlayEventListener('explain-game-container');
-//         });
-//     }
-// }
-
-// function handleOverlayEventListener(id){ 
-//     let overlay = document.getElementById(id);
-//     if(overlay){
-//         overlay.addEventListener('click', () => { 
-//             closeOverlay(id);
-//             removeDivElementFromDOM(id);
-//         });
-//     }
-// }
 
 // async function handlePlayIconEventListener(){
 //     let playIcon = document.getElementById('playIcon');
@@ -257,33 +79,12 @@ async function loadComponent(component, divId){
 
 /*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
 
-// function removeDivElementFromDOM(id){
-//     let divElement = document.getElementById(id);
-//     if(divElement && divElement.children.length === 0){
-//         divElement.remove();
-//     }
-// }
-
 // function redirectToPrivacyPolicyPage(){
 //     window.location.href = "./privacy_policy/privacy_policy.html";
 // }
 
 // function redirectToLegalNoticePage() {
 //     window.location.href = "./legal_notice/legal_notice.html";
-// }
-
-// function closeOverlay(overlayId){
-//     let overlay = document.getElementById(`${overlayId}`);
-//     if (!overlay.classList.contains('d-none')) {
-//         overlay.classList.add('d-none');
-//     }
-// }
-
-// function openOverlay(overlayId){
-//     let overlay = document.getElementById(`${overlayId}`);
-//     if(overlay.classList.contains('d-none')){
-//         overlay.classList.remove('d-none');
-//     }
 // }
 
 // function showLoadingSpinner(){

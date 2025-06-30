@@ -1,4 +1,4 @@
-@media(hover: hover) and (pointer: fine) and (min-width: 1024px){
+@media(hover: hover) and (pointer: fine) and (min-width: 1024px) and (orientation: landscape){
     #ui-desktop {
         height: 100%;
         width: 100%;
@@ -81,9 +81,13 @@
         cursor: pointer;
         transform: scale(1.05);
     }
+
+    #message-to-turn-device {
+        display: none;
+    }
 }
 
-@media(hover: hover) and (pointer: fine) and (max-width: 1024px){
+@media(hover: hover) and (pointer: fine) and (max-width: 1024px) and (orientation: landscape){
     #ui-desktop{
         display: flex;
         justify-content: center;
@@ -177,5 +181,45 @@
     .img-links:hover {
         background-color: rgb(129, 96, 52);
         cursor: pointer;
+    }
+
+    #message-to-turn-device {
+        display: none;
+    }
+}
+
+@media(hover: hover) and (pointer: fine) and (max-width: 1024px) and (orientation: portrait){
+    #message-to-turn-device {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 100dvh;
+        width: 100dvw;
+        background-color: rgba(10, 10, 10, 0.5);
+    }
+
+    .message-to-turn-device-wrapper {
+        width: 80%;
+    }
+
+    .message-to-turn-device-wrapper h2 {
+        font-family: 'playpensans light';
+        font-size: 48px;
+        text-align: center;
+        padding-right: 16px;
+        padding-left: 16px;
+        border: 2px solid black;
+        color: black;
+        border-radius: 16px;
+        background: #d96d1085;
+    }
+
+    .ui-touch {
+        display: none;
+    }
+
+    #ui-desktop {
+        display: none;
     }
 }
