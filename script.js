@@ -21,15 +21,22 @@ import showAllIconsPopUp from './pop-up-components/show-all-icons-pop-up.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', async (event) => {
-        if(event.target.matches('#settings-container') || event.target.matches('.img-size')){
-            let divId = 'explain-game-container';
-            await loadComponent(explainGamePopUp, divId);
-        } else if(event.target.matches('#button-container') || event.target.matches('#icon-button')){  
-            let divId = 'all-icons-container-overlay';
-            await loadComponent(showAllIconsPopUp, divId);
+        if(isSettingsDesktopContainerClicked(event)){
+            showExplainGamePopUp();
+        } else if(isOneOfDesktopButtonContainersClicked(event)){  
+            showAllIconSourcesPopUp();
+        } else if(isDesktopImprintLinkClicked(event)){
+            redirectToImprintPage();
+        } else if(isDesktopPrivacyPolicyLinkClicked(event)){
+            redirectToPrivacyPolicyPage();
         }
     });
 });
+
+async function showAllIconSourcesPopUp(){
+    let divId = 'all-icons-container-overlay';
+    await loadComponent(showAllIconsPopUp, divId);
+}
 
 async function loadComponent(component, divId){
     let divRef = document.getElementById(`${divId}`);
@@ -37,6 +44,35 @@ async function loadComponent(component, divId){
     let html = await response.text();
     divRef.innerHTML = html;
     component.setUp(divRef);
+}
+
+async function showExplainGamePopUp(){
+    let divId = 'explain-game-container';
+    await loadComponent(explainGamePopUp, divId);
+}
+
+function isSettingsDesktopContainerClicked(event){
+    return event.target.closest('#settings-container');
+}
+
+function isOneOfDesktopButtonContainersClicked(event){
+    return event.target.closest('#button-container') || event.target.closest('#icon-button-top');
+}
+
+function isDesktopImprintLinkClicked(event){
+    return event.target.closest('#imprint');
+}
+
+function isDesktopPrivacyPolicyLinkClicked(event){
+    return event.target.closest('#privacy');
+}
+
+function redirectToImprintPage() {
+    window.location.href = "./legal_notice/legal_notice.html";
+}
+
+function redirectToPrivacyPolicyPage(){
+    window.location.href = "./privacy_policy/privacy_policy.html";
 }
 
 // function isLocationIndexPage(){
@@ -75,16 +111,6 @@ async function loadComponent(component, divId){
 //             addAllRemainingEventListenersWhenInitGame(isTouch);
 //         });
 //     }
-// }
-
-/*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
-
-// function redirectToPrivacyPolicyPage(){
-//     window.location.href = "./privacy_policy/privacy_policy.html";
-// }
-
-// function redirectToLegalNoticePage() {
-//     window.location.href = "./legal_notice/legal_notice.html";
 // }
 
 // function showLoadingSpinner(){

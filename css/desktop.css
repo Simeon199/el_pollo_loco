@@ -144,6 +144,12 @@
         background: burlywood;
     }
 
+    .h2-title-section h2 span:hover {
+        color: #fffb00;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
     #icon-button-top:hover {
         cursor: pointer;
         background-color: rgb(129, 96, 52);
