@@ -154,6 +154,17 @@
         background-color: rgb(129, 96, 52);
     }
 
+    .button-style {
+        border: 2px solid black;
+        padding: 8px;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: bolder;
+        cursor: pointer;
+        font-family: 'playpensans';
+        background: rgb(175, 151, 16);
+    }
+
     #button-container {
         display: none;
     }
