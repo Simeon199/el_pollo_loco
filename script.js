@@ -1,5 +1,5 @@
-import explainGamePopUp from './pop-up-components/explain-game-container.js';
-import showAllIconsPopUp from './pop-up-components/show-all-icons-pop-up.js';
+import explainGamePopUp from './components/explain-game-container.js';
+import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
 
 // === CURRENTLY UNUSED FLAGS - START ===
 
@@ -21,14 +21,27 @@ import showAllIconsPopUp from './pop-up-components/show-all-icons-pop-up.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', async (event) => {
-        if(isSettingsDesktopContainerClicked(event)){
-            showExplainGamePopUp();
-        } else if(isOneOfDesktopButtonContainersClicked(event)){  
-            showAllIconSourcesPopUp();
-        } else if(isDesktopImprintLinkClicked(event)){
-            redirectToImprintPage();
-        } else if(isDesktopPrivacyPolicyLinkClicked(event)){
-            redirectToPrivacyPolicyPage();
+        if(isLocationIndexPage()){
+            console.log('I am on index site!');
+            if(isSettingsDesktopContainerClicked(event)){
+                showExplainGamePopUp();
+            } else if(isOneOfDesktopButtonContainersClicked(event)){  
+                showAllIconSourcesPopUp();
+            } else if(isDesktopImprintLinkClicked(event)){
+                redirectToImprintPage();
+            } else if(isDesktopPrivacyPolicyLinkClicked(event)){
+                redirectToPrivacyPolicyPage();
+            } 
+        } else if(isLocationPrivacyPolicy()){
+            console.log('I am on the privacy policy page!');
+            if(isBackToGameContainerClicked(event)){
+                redirectToPlayPage();
+            }
+        } else if(isLocationImprintPage()){
+            console.log('I am on imprint site!');
+            if(isBackToGameContainerClicked(event)){
+                redirectToPlayPage();
+            }
         }
     });
 });
@@ -51,6 +64,19 @@ async function showExplainGamePopUp(){
     await loadComponent(explainGamePopUp, divId);
 }
 
+/**
+ * Redirects the user to the play page.
+ */
+
+function redirectToPlayPage() {
+    window.location.href = "../index.html";
+}
+
+function isBackToGameContainerClicked(event){
+    console.log('back to game page wird getriggert!');
+    return event.target.closest('#back-to-game-page');
+}
+
 function isSettingsDesktopContainerClicked(event){
     return event.target.closest('#settings-container');
 }
@@ -68,16 +94,24 @@ function isDesktopPrivacyPolicyLinkClicked(event){
 }
 
 function redirectToImprintPage() {
-    window.location.href = "./legal_notice/legal_notice.html";
+    window.location.href = "./imprint/imprint.html";
 }
 
 function redirectToPrivacyPolicyPage(){
     window.location.href = "./privacy_policy/privacy_policy.html";
 }
 
-// function isLocationIndexPage(){
-//     return window.location.pathname.endsWith('/index.html');
-// }
+function isLocationIndexPage(){
+    return window.location.pathname.endsWith('/index.html');
+}
+
+function isLocationPrivacyPolicy(){
+    return window.location.pathname.endsWith('/privacy_policy/privacy_policy.html');
+}
+
+function isLocationImprintPage(){
+    return window.location.pathname.endsWith('/imprint/imprint.html');
+}
 
 /* NEW METHODS FOR BUNDLED FILES - START */
 

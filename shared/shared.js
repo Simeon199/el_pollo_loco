@@ -6,46 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function isLocationPrivacyPolicy(){
-    return window.location.pathname.endsWith('/privacy_policy/privacy_policy.html');
-}
+// function handlePrivacyEventListeners(){
+//     document.getElementById('link-to-imprint').addEventListener('click', () => {
+//         toLegalNoticePage();
+//     });
+//     document.getElementById("back-to-game-page").addEventListener('click', () => {
+//         redirectToPlayPage();
+//     });
+// }
 
-function isLocationImprintPage(){
-    return window.location.pathname.endsWith('/legal_notice/legal_notice.html');
-}
-
-function handlePrivacyEventListeners(){
-    document.getElementById('link-to-imprint').addEventListener('click', () => {
-        toLegalNoticePage();
-    });
-    document.getElementById("back-to-game-page").addEventListener('click', () => {
-        redirectToPlayPage();
-    });
-}
-
-function handleImprintEventListeners(){
-    document.getElementById('link-to-privacy-policy').addEventListener('click', () => {
-        toPrivacyPolicyPage();
-    });
-    document.getElementById("back-to-game-page").addEventListener('click', () => {
-        redirectToPlayPage();
-    });
-}
+// function handleImprintEventListeners(){
+//     document.getElementById('link-to-privacy-policy').addEventListener('click', () => {
+//         toPrivacyPolicyPage();
+//     });
+//     document.getElementById("back-to-game-page").addEventListener('click', () => {
+//         redirectToPlayPage();
+//     });
+// }
 
 function toPrivacyPolicyPage(){
     window.location.href = "../privacy_policy/privacy_policy.html";
 }
 
 function toLegalNoticePage(){
-    window.location.href = "../legal_notice/legal_notice.html";
-}
-
-/**
- * Redirects the user to the play page.
- */
-
-function redirectToPlayPage() {
-    window.location.href = "../index.html";
+    window.location.href = "../imprint/imprint.html";
 }
 
 /**
