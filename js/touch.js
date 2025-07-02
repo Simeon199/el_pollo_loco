@@ -1,4 +1,4 @@
-let momentKeySpaceWasReleased = 0;
+// let momentKeySpaceWasReleased = 0;
 
 /**
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.

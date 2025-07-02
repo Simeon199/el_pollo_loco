@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function handleClickEventsOnIndexPage(){
+function handleClickEventsOnIndexPage(event){
     if(isSettingsDesktopContainerClicked(event)){
         showExplainGamePopUp();
     } else if(isOneOfDesktopButtonContainersClicked(event)){  
@@ -40,7 +40,14 @@ function handleClickEventsOnIndexPage(){
         redirectToImprintPage();
     } else if(isDesktopPrivacyPolicyLinkClicked(event)){
         redirectToPrivacyPolicyPage();
-    } 
+    } else if(isPlayIconClicked(event)){
+        startGame();
+    }
+}
+
+function isPlayIconClicked(event){
+    console.log('Play Icon was clicked on Desktop Version: ', event);
+    return event.target.closest('#playIcon')
 }
 
 function handleClickEventsOnLinksOnPrivacyPolicyPage(event){

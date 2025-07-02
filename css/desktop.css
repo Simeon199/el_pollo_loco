@@ -1,4 +1,4 @@
-@media(hover: hover) and (pointer: fine) and (min-width: 1024px) and (orientation: landscape){
+@media(hover: hover) and (min-width: 1024px) and (orientation: landscape){
     #ui-desktop {
         height: 100%;
         width: 100%;
@@ -65,6 +65,24 @@
         left: calc((100% - 64px) / 2);
     }
 
+    #canvas-container {
+        position: relative;
+    }
+
+    .sound-container {
+        display: flex;
+    }
+
+    #sound-off-icon, #sound-on-icon {
+        position: absolute;
+        right: 5%;
+        top: 15%;
+        border: 2px solid black;
+        background: burlywood;
+        width: 40px;
+        cursor: pointer;
+    }
+
     #button-container {
         display: flex;
         justify-content: center;
@@ -87,7 +105,7 @@
     }
 }
 
-@media(hover: hover) and (pointer: fine) and (max-width: 1024px) and (orientation: landscape){
+@media(hover: hover) and (max-width: 1024px) and (orientation: landscape){
     #ui-desktop{
         display: flex;
         justify-content: center;
@@ -125,6 +143,23 @@
         width: 100%;
         overflow: hidden;
     }
+
+    #canvas-container {
+        position: relative;
+    }
+
+    .sound-container {
+        position: absolute;
+        display: flex;
+    }
+
+    /* #sound-off-icon,
+    #sound-on-icon {
+        display: flex;
+        width: 32px;
+        position: absolute;
+        top: 0;
+    } */
 
     #ui-touch {
         display: none;
@@ -204,7 +239,7 @@
     }
 }
 
-@media(hover: hover) and (pointer: fine) and (max-width: 1024px) and (orientation: portrait){
+@media(hover: hover) and (max-width: 1024px) and (orientation: portrait){
     #message-to-turn-device {
         display: flex;
         justify-content: center;
@@ -231,7 +266,7 @@
         background: #d96d1085;
     }
 
-    .ui-touch {
+    #ui-touch {
         display: none;
     }
 

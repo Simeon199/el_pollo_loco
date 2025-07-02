@@ -58,8 +58,9 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
 }
 
 function setStylingOfInitializedGame(){
-    document.getElementById('intro-image').style.display = 'none';
-    document.getElementById('canvas-container').style.display = 'flex';
+    document.getElementById('intro-image-desktop').classList.add('d-none');
+    document.getElementById('canvas-container').classList.remove('d-none');
+    document.getElementById('canvas-container').classList.add('d-flex');
 }
 
 /**
@@ -131,9 +132,9 @@ function clearStopGameIntervalIfItAlreadyExists(){
  */
 
 function startGame() {
-    if(isTouchDevice()){
-        setCanvasElementsRightInCaseOfRightOrientation();
-    }
+    // if(isTouchDevice()){
+    //     setCanvasElementsRightInCaseOfRightOrientation();
+    // }
     isGamePlaying = true;
     init();
 }

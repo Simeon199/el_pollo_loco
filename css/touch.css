@@ -14,15 +14,15 @@
     background: rgb(175, 151, 16);
 }
 
-@media(hover: none) and (pointer: coarse) and (orientation: landscape){
-    .ui-touch {
+@media(hover: none) and (orientation: landscape){
+    #ui-touch {
         display: flex;
         position: relative;
         width: 100dvw;
         height: 100dvh;
     }
 
-    .ui-desktop {
+    #ui-desktop {
         display: none;
     }
 
@@ -85,7 +85,7 @@
     }
 }
 
-@media(hover: none) and (pointer: coarse) and (orientation: portrait){
+@media(hover: none) and (orientation: portrait){
     #ui-desktop {
         display: none;
     }

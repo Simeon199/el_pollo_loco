@@ -9,6 +9,33 @@
     <link rel="stylesheet" href="css/touch.css">
     <link rel="stylesheet" href="css/shared.css">
     <script type="module" src="script.js"></script>
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/characterImages.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/baby-chicken.class.js"></script>
+    <script src="models/clouds.class.js"></script>
+    <script src="models/background-object.class.js"></script>
+    <script src="models/audio-manager.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="models/utility.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/levels.class.js"></script>
+    <script src="models/endbossImages.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="models/status-bar.class.js"></script>
+    <script src="models/bottle-bar.class.js"></script>
+    <script src="models/endboss-bar.class.js"></script>
+    <script src="models/coin-bar.class.js"></script>
+    <script src="models/throwable-object.class.js"></script>
+    <script src="models/bottle.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/desktop.js"></script>
+    <script src="js/touch.js"></script>
     <title>El Pollo Loco</title>
 </head>
 <body>
@@ -54,8 +81,8 @@
 
         <div id="canvas-container" class="canvas-container d-none">
             <canvas id="canvas" width="720" height="480"></canvas>
-            <div class="sound-container d-none">
-                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon">
+            <div class="sound-container">
+                <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" class="d-none">
                 <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon">
             </div>
         </div>

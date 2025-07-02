@@ -62,9 +62,10 @@ function turnSoundOnOrOff() {
  */
 
 function showTurningSoundOffIcon() {
-    soundOn = false;
-    document.getElementById('sound-off-icon').style.display = 'flex';
-    document.getElementById('sound-on-icon').style.display = 'none'
+    console.log('I just was clicked!');
+    // soundOn = false;
+    // document.getElementById('sound-off-icon').style.display = 'flex';
+    // document.getElementById('sound-on-icon').style.display = 'none'
 }
 
 /**
@@ -73,9 +74,10 @@ function showTurningSoundOffIcon() {
  */
 
 function showTurningSoundOnIcon() {
-    soundOn = true;
-    document.getElementById('sound-off-icon').style.display = 'none';
-    document.getElementById('sound-on-icon').style.display = 'flex';
+    console.log('I was just clicked!');
+    // soundOn = true;
+    // document.getElementById('sound-off-icon').style.display = 'none';
+    // document.getElementById('sound-on-icon').style.display = 'flex';
 }
 
 /**
@@ -211,8 +213,9 @@ function controlMuteCondition() {
  */
 
 function manageSoundOnSoundOffWhenGameIsntPlaying() {
-    document.getElementById('sound-off-icon').style.display = 'none';
-    document.getElementById('sound-on-icon').style.display = 'flex';
+    console.log('I was just clicked');
+    // document.getElementById('sound-off-icon').style.display = 'none';
+    // document.getElementById('sound-on-icon').style.display = 'flex';
 }
 
 /**
@@ -220,13 +223,14 @@ function manageSoundOnSoundOffWhenGameIsntPlaying() {
  */
 
 function manageLogicOfSoundOnOrSoundOff() {
-    if (soundOn) {
-        document.getElementById('sound-off-icon').style.display = 'none';
-        document.getElementById('sound-on-icon').style.display = 'flex';
-    } else {
-        document.getElementById('sound-off-icon').style.display = 'flex';
-        document.getElementById('sound-on-icon').style.display = 'none';
-    }
+    console.log('I was just clicked');
+    // if (soundOn) {
+    //     document.getElementById('sound-off-icon').style.display = 'none';
+    //     document.getElementById('sound-on-icon').style.display = 'flex';
+    // } else {
+    //     document.getElementById('sound-off-icon').style.display = 'flex';
+    //     document.getElementById('sound-on-icon').style.display = 'none';
+    // }
 }
 
 /**
@@ -234,11 +238,12 @@ function manageLogicOfSoundOnOrSoundOff() {
  */
 
 function toggleSoundIconBasedOnSoundIsMuted() {
-    if (soundIsMuted) {
-        document.getElementById('sound-off-icon').style.display = 'flex';
-    } else {
-        document.getElementById('sound-on-icon').style.display = 'flex';
-    }
+    console.log('I was just clicked');
+    // if (soundIsMuted) {
+    //     document.getElementById('sound-off-icon').style.display = 'flex';
+    // } else {
+    //     document.getElementById('sound-on-icon').style.display = 'flex';
+    // }
 }
 
 /**
