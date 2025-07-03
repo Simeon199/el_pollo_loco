@@ -29,6 +29,68 @@ document.addEventListener('DOMContentLoaded', () => {
             handleClickEventsOnLinksOnImprintPage(event);
         }
     });
+
+    document.addEventListener('touchstart', (event) => {
+        // settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+        let target = event.target;
+        if(target.classList.contains('touch-control')){
+            event.preventDefault();
+            switch(target.id){
+                case 'buttonLeft':
+                    prepareForThrowingLeft();
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+                case 'buttonRight':
+                    prepareForThrowingRight();
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+                case 'buttonUp':
+                case 'spacebar':
+                    keyboard.SPACE = true;
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+                case 'buttonThrow':
+                    keyboard.keyD = true;
+                    target.style.background = 'rgb(75, 61, 35)';
+                    break;
+            }
+        }
+    }, {passive: false});
+
+    document.addEventListener('touchend', (event) => {
+        // settingGlobalVariablesInKeyUpOrTouchEndEvent();
+        let target = event.target
+        if(target.classList.contains('touch-control')){
+            event.preventDefault();
+            switch(target.id){
+                case 'buttonLeft':
+                    keyboard.LEFT = false;
+                    world.audioManager.muteSound(true, 'walking_sound');
+                    target.style.background = 'wheat';
+                    break;
+                case 'buttonRight':
+                    keyboard.RIGHT = false;
+                    world.audioManager.muteSound(true, 'walking_sound');
+                    target.style.background = 'wheat';
+                    break;
+                case 'buttonUp':
+                case 'spacebar':
+                    keyboard.SPACE = false;
+                    world.character.isKeySpaceReleased = true;
+                    momentKeySpaceWasReleased = new Date().getTime();
+                    target.style.background = 'wheat';
+                    break;
+                case 'buttonThrow':
+                    world.utilityClass.checkThrowObjects();
+                    keyboard.keyD = false;
+                    target.style.background = 'wheat';
+                    break;
+            }
+        } else if(target.closest('#playIcon')){ // Dies wird fälschlicherweise als KlickEvent registriert!
+            startGame();
+            settingStyleForTouchDevice();
+        }
+    }, {passive: false});
 });
 
 function handleClickEventsOnIndexPage(event){
@@ -42,11 +104,21 @@ function handleClickEventsOnIndexPage(event){
         redirectToPrivacyPolicyPage();
     } else if(isPlayIconClicked(event)){
         startGame();
+    } else if(isSoundIconClicked(event)){
+        turnSoundOnOrOff();
     }
 }
 
+function isSoundIconClicked(event){
+    if(event.target.closest('#sound-on-icon')){
+        showTurningSoundOffIcon();
+    } else if(event.target.closest('#sound-off-icon')){
+        showTurningSoundOnIcon()
+    }
+    return event.target.closest('#sound-on-icon') || event.target.closest('#sound-off-icon');
+}
+
 function isPlayIconClicked(event){
-    console.log('Play Icon was clicked on Desktop Version: ', event);
     return event.target.closest('#playIcon')
 }
 

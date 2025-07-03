@@ -5,7 +5,7 @@
  * the `turnSoundOnOrOff` function is triggered to toggle the sound state.
  */
 
-function manageSoundIconEventListeners(){
+function manageSoundIconEventListeners(){ // Event delegation necessary here!
     let soundOff = document.getElementById('sound-off-icon');
     let soundOn = document.getElementById('sound-on-icon');
     soundOff.addEventListener('click', () => {
@@ -62,8 +62,13 @@ function turnSoundOnOrOff() {
  */
 
 function showTurningSoundOffIcon() {
-    console.log('I just was clicked!');
-    // soundOn = false;
+    soundOn = false;
+    let soundOnIcon = document.getElementById('sound-on-icon');
+    let soundOffIcon = document.getElementById('sound-off-icon');
+    if(soundOffIcon.classList.contains('d-none')){
+        soundOffIcon.classList.remove('d-none');
+        soundOnIcon.classList.add('d-none');
+    }
     // document.getElementById('sound-off-icon').style.display = 'flex';
     // document.getElementById('sound-on-icon').style.display = 'none'
 }
@@ -74,8 +79,13 @@ function showTurningSoundOffIcon() {
  */
 
 function showTurningSoundOnIcon() {
-    console.log('I was just clicked!');
-    // soundOn = true;
+    soundOn = true;
+    let soundOnIcon = document.getElementById('sound-on-icon');
+    let soundOffIcon = document.getElementById('sound-off-icon');
+    if(soundOnIcon.classList.contains('d-none')){
+        soundOnIcon.classList.remove('d-none');
+        soundOffIcon.classList.add('d-none');
+    }
     // document.getElementById('sound-off-icon').style.display = 'none';
     // document.getElementById('sound-on-icon').style.display = 'flex';
 }

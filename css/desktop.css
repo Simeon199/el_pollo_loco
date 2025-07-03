@@ -40,10 +40,6 @@
 
     #links-images-desktop {
         display: flex;
-    }
-
-    #links-images-desktop {
-        display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
@@ -114,8 +110,8 @@
         overflow: hidden;
     }
 
-    #links-images-desktop {
-        display: flex;
+    #links-images-desktop { /* display: flex */
+        display: none;
         justify-content: space-between;
         align-items: center;
         font-family: 'playpensans light';
@@ -139,27 +135,14 @@
         height: 100dvh;
     }
 
-    #intro-image-desktop {
-        width: 100%;
-        overflow: hidden;
-    }
-
     #canvas-container {
         position: relative;
     }
 
-    .sound-container {
+    .sound-container { /* display: none später wieder entfernen */
         position: absolute;
-        display: flex;
+        display: none;
     }
-
-    /* #sound-off-icon,
-    #sound-on-icon {
-        display: flex;
-        width: 32px;
-        position: absolute;
-        top: 0;
-    } */
 
     #ui-touch {
         display: none;
@@ -204,7 +187,7 @@
         display: none;
     }
 
-    #intro-image-desktop img:nth-child(2) {
+    #intro-image-desktop img:nth-child(2) { 
         position: absolute;
         bottom: 8px;
         left: calc((100% - 64px) / 2);

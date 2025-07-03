@@ -12,71 +12,18 @@ function addAllRemainingEventListenersWhenInitGame(isTouch) {
 }
 
 function settingStyleForTouchDevice(){
-    document.getElementById('links-images').style.display = 'none';
-    document.getElementById('control-panel-everything').style.display = 'flex';
-}
-
-function setGlobalVariablesInTouchEvent(){
-    document.addEventListener('touchstart', (event) => {
-        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-        let target = event.target;
-        if(target.classList.contains('touch-control')){
-            event.preventDefault();
-
-            switch(target.id){
-                case 'buttonLeft':
-                    prepareForThrowingLeft();
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-                case 'buttonRight':
-                    prepareForThrowingRight();
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-                case 'buttonUp':
-                case 'spacebar':
-                    keyboard.SPACE = true;
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-                case 'buttonThrow':
-                    keyboard.keyD = true;
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-            }
-        }
-    }, {passive: false});
-    document.addEventListener('touchend', (event) => {
-        settingGlobalVariablesInKeyUpOrTouchEndEvent();
-
-        let target = event.target
-        if(target.classList.contains('touch-control')){
-            event.preventDefault();
-
-            switch(target.id){
-                case 'buttonLeft':
-                    keyboard.LEFT = false;
-                    world.audioManager.muteSound(true, 'walking_sound');
-                    target.style.background = 'wheat';
-                    break;
-                case 'buttonRight':
-                    keyboard.RIGHT = false;
-                    world.audioManager.muteSound(true, 'walking_sound');
-                    target.style.background = 'wheat';
-                    break;
-                case 'buttonUp':
-                case 'spacebar':
-                    keyboard.SPACE = false;
-                    world.character.isKeySpaceReleased = true;
-                    momentKeySpaceWasReleased = new Date().getTime();
-                    target.style.background = 'wheat';
-                    break;
-                case 'buttonThrow':
-                    world.utilityClass.checkThrowObjects();
-                    keyboard.keyD = false;
-                    target.style.background = 'wheat';
-                    break;
-            }
-        }
-    }, {passive: false});
+    let uiDesktop = document.getElementById('ui-desktop');
+    let loadingOverlay = document.getElementById('loadingOverlay');
+    let canvasContainerTouch = document.getElementById('canvas-container-touch');
+    if(!uiDesktop.classList.contains('d-none')){
+        uiDesktop.classList.add('d-none');
+    }
+    if(loadingOverlay.classList.contains('d-none')){
+        loadingOverlay.classList.remove('d-none');
+    }
+    if(canvasContainerTouch.classList.contains('d-none')){
+        canvasContainerTouch.classList.remove('d-none');
+    }
 }
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {

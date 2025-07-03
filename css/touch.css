@@ -26,6 +26,10 @@
         display: none;
     }
 
+    #links-images-desktop {
+        display: none;
+    }
+
     #message-to-turn-device {
         display: none;
     }

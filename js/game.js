@@ -132,9 +132,6 @@ function clearStopGameIntervalIfItAlreadyExists(){
  */
 
 function startGame() {
-    // if(isTouchDevice()){
-    //     setCanvasElementsRightInCaseOfRightOrientation();
-    // }
     isGamePlaying = true;
     init();
 }
