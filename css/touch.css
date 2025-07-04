@@ -14,16 +14,16 @@
     background: rgb(175, 151, 16);
 }
 
-@media(hover: none) and (orientation: landscape){
+@media(hover: none) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape){
     #ui-touch {
-        display: flex;
+        display: flex !important;
         position: relative;
         width: 100dvw;
         height: 100dvh;
     }
 
     #ui-desktop {
-        display: none;
+        display: none !important;
     }
 
     #links-images-desktop {

@@ -2,12 +2,16 @@
     #ui-desktop {
         height: 100%;
         width: 100%;
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
         padding-left: 16px;
         padding-right: 16px;
+    }
+
+    #ui-touch {
+        display: none !important;
     }
 
     #title {
@@ -32,10 +36,6 @@
     .fade-in-image {
         width: 720px;
         height: 480px;
-    }
-
-    #ui-touch {
-        display: none;
     }
 
     #links-images-desktop {
