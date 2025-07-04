@@ -78,59 +78,6 @@ body {
     text-decoration: underline;
 }
 
-.control-keys {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.control-keys h3 {
-    font-family: 'playpensans';
-}
-
-.control-key-image-container {
-    width: 145px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.control-keys img {
-    width: 96px;
-}
-
-.spacebar{
-    padding: 12px;
-    border: 4px solid black;
-}
-
-.spacebar p {
-    font-family: 'playpensans';
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.spacebar-without-styling {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 4px solid black;
-    padding: 4px;
-}
-
-.spacebar-without-styling p {
-    font-family: 'playpensans';
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.control-key-style {
-    min-width: 280px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-}
-
 .game-notification {
     display: flex;
     flex-direction: column;

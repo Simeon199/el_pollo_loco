@@ -13,26 +13,12 @@ function addAllRemainingEventListenersWhenInitGame(isTouch) {
 
 function settingStyleForTouchDevice(){
     document.getElementById('ui-touch').style.display = 'none';
-    let canvasContainerTouch = document.getElementById('canvas-container-touch');
-    if(canvasContainerTouch.classList.contains('d-none')){
-        canvasContainerTouch.classList.remove('d-none');
+    document.getElementById('canvas-container').classList.remove('d-none');
+    if(document.getElementById('canvas-container').classList.contains('d-flex')){
+        document.getElementById('canvas-container').classList.remove('d-flex');
     }
+    document.getElementById('screen-control-container').classList.remove('d-none');
 }
-
-// function settingStyleForTouchDevice(){
-//     let uiDesktop = document.getElementById('ui-desktop');
-//     let loadingOverlay = document.getElementById('loadingOverlay');
-//     let canvasContainerTouch = document.getElementById('canvas-container-touch');
-//     if(!uiDesktop.classList.contains('d-none')){
-//         uiDesktop.classList.add('d-none');
-//     }
-//     if(loadingOverlay.classList.contains('d-none')){
-//         loadingOverlay.classList.remove('d-none');
-//     }
-//     if(canvasContainerTouch.classList.contains('d-none')){
-//         canvasContainerTouch.classList.remove('d-none');
-//     }
-// }
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);

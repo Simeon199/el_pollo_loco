@@ -41,7 +41,6 @@
 <body>
 
     <div id="ui-desktop" class="ui-desktop">
-
         <div id="links-images-desktop">
             <div class="legal-notice-and-privacy-policy-desktop img-links ">
                 <img src="assets/notice.png" alt="notice" class="img-size">
@@ -90,10 +89,33 @@
             <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" class="d-none">
             <img src="assets/sound_on.png" alt="sound_png" id="sound-on-icon">
         </div>
+        <div id="screen-control-container" class="screen-control-container d-none">
+            <div id="control-panel-everything" class="control-panel-everything">
+                <div id="control-panel-left-right" class="control-panel-styling">
+                    <div class="control-key-image-container">
+                        <img src="assets/left_arrow.png" alt="left" id="buttonLeft" class="touch-control">
+                    </div>
+                    <div class="control-key-image-container">
+                        <img src="assets/right_arrow.png" alt="right" id="buttonRight" class="touch-control">
+                    </div>
+                </div>
+                <div id="control-panel-throw-jump" class="control-panel-styling">
+                    <div class="control-key-image-container">
+                        <div id="buttonUp" class="spacebar touch-control">
+                            <p id="spacebar" class="touch-control">
+                                Spacebar
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-key-image-container">
+                        <img src="assets/letter_d_white.png" id="buttonThrow" class="touch-control" alt="letter-d">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="ui-touch" class="ui-touch">
-
         <div id="links-images-touch" class="links-images">
             <div id="privacy-and-imprint-pop-up" class="legal-notice-and-privacy-policy text-styling">
                 <img src="assets/notice.png" alt="notice" class="img-size">
@@ -140,37 +162,6 @@
             <div id="imprint-privacy-wrapper" class="imprint-privacy-wrapper">
                 <h2 id="privacy">Privacy Policy</h2>
                 <h2 id="imprint">Imprint</h2>
-            </div>
-        </div>
-        <!-- <div id="canvas-container-touch" class="canvas-container d-none">
-            <canvas id="canvas-touch" width="720" height="480"></canvas>
-            <div class="sound-container-touch">
-                <img id="sound-off-icon" src="assets/sound_off.png" alt="sound_off" class="d-none">
-                <img id="sound-on-icon" src="assets/sound_on.png" alt="sound_png" class="d-none">
-            </div>
-        </div> -->
-        <div id="screen-control-container" class="screen-control-container d-none">
-            <div id="control-panel-everything" class="control-panel-everything">
-                <div id="control-panel-left-right" class="control-panel-left-right">
-                    <div class="control-key-image-container">
-                        <img src="assets/left_arrow.png" alt="left" id="buttonLeft" class="touch-control">
-                    </div>
-                    <div class="control-key-image-container">
-                        <img src="assets/right_arrow.png" alt="right" id="buttonRight" class="touch-control">
-                    </div>
-                </div>
-                <div id="control-panel-throw-jump" class="control-panel-throw-jump">
-                    <div class="control-key-image-container">
-                        <div id="buttonUp" class="spacebar touch-control">
-                            <p id="spacebar" class="touch-control">
-                                Spacebar
-                            </p>
-                        </div>
-                    </div>
-                    <div class="control-key-image-container">
-                        <img src="assets/letter_d_white.png" id="buttonThrow" class="touch-control" alt="letter-d">
-                    </div>
-                </div>
             </div>
         </div>
     </div>

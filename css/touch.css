@@ -88,6 +88,35 @@
         width: 100dvw;
     }
 
+    #screen-control-container {
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        bottom: 5%;
+        width: 80%;
+    }
+
+    #control-panel-everything {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .control-panel-styling {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .touch-control {
+        width: 40px;
+        border: 2px solid black;
+        background-color: wheat;
+        padding: 4px;
+    }
+
     .sound-container {
         position: absolute;
         top: 15%;
