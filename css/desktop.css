@@ -62,7 +62,9 @@
     }
 
     #canvas-container {
-        position: relative;
+        position: fixed;
+        top: calc((100dvh - 480px) / 2);
+        right: calc((100dvw - 720px) / 2);
     }
 
     .sound-container {
@@ -110,8 +112,8 @@
         overflow: hidden;
     }
 
-    #links-images-desktop { /* display: flex */
-        display: none;
+    #links-images-desktop { 
+        display: flex;
         justify-content: space-between;
         align-items: center;
         font-family: 'playpensans light';
@@ -139,9 +141,8 @@
         position: relative;
     }
 
-    .sound-container { /* display: none später wieder entfernen */
+    .sound-container { 
         position: absolute;
-        display: none;
     }
 
     #ui-touch {

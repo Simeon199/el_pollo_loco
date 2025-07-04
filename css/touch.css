@@ -16,14 +16,14 @@
 
 @media(hover: none) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape){
     #ui-touch {
-        display: flex !important;
+        display: flex;
         position: relative;
         width: 100dvw;
         height: 100dvh;
     }
 
     #ui-desktop {
-        display: none !important;
+        display: none;
     }
 
     #links-images-desktop {
@@ -75,6 +75,29 @@
         height: auto;
         width: 56px;
         right: calc((100dvw - 56px) / 2);
+    }
+
+    #canvas-container {
+        height: 100dvh;
+        width: 100dvw;
+        position: relative;
+    }
+
+    #canvas {
+        height: 100dvh;
+        width: 100dvw;
+    }
+
+    .sound-container {
+        position: absolute;
+        top: 15%;
+        right: 5%;
+    }
+
+    .sound-container img {
+        width: 32px;
+        border: 2px solid black;
+        background: wheat;
     }
 
     .button-style {

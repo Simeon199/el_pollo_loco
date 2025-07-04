@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.style.background = 'wheat';
                     break;
             }
-        } else if(target.closest('#playIcon')){ // Dies wird fälschlicherweise als KlickEvent registriert!
+        } else if(target.closest('#playIcon')){
             startGame();
             settingStyleForTouchDevice();
         }
