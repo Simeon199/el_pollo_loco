@@ -10,6 +10,22 @@
         padding-right: 16px;
     }
 
+    .text-styling {
+        text-align: center;
+        font-family: 'playpensans light';
+        font-size: 14px;
+    }
+
+    .button-style {
+        border: 2px solid black;
+        padding: 8px;
+        border-radius: 16px;
+        font-size: 14px;
+        cursor: pointer;
+        font-family: 'playpensans';
+        background: rgb(175, 151, 16);
+    }
+
     #ui-touch {
         display: none !important;
     }
