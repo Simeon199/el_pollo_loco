@@ -20,6 +20,12 @@ import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
 // let canvasContainerPath = '../templates/canvas-container.html';
 
 document.addEventListener('DOMContentLoaded', () => {
+   handleAllClickEvents();
+   handleAllTouchStartEvents();
+   handleAllTouchEndEvents();
+});
+
+function handleAllClickEvents(){
     document.addEventListener('click', async (event) => {
         if(isLocationIndexPage()){
             handleClickEventsOnIndexPage(event);
@@ -29,74 +35,148 @@ document.addEventListener('DOMContentLoaded', () => {
             handleClickEventsOnLinksOnImprintPage(event);
         }
     });
+}
 
+function handleAllTouchStartEvents(){
     document.addEventListener('touchstart', (event) => {
-        // settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
         let target = event.target;
-        if(target.classList.contains('touch-control')){
-            event.preventDefault();
-            switch(target.id){
-                case 'buttonLeft':
-                    prepareForThrowingLeft();
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-                case 'buttonRight':
-                    prepareForThrowingRight();
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-                case 'buttonUp':
-                case 'spacebar':
-                    keyboard.SPACE = true;
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-                case 'buttonThrow':
-                    keyboard.keyD = true;
-                    target.style.background = 'rgb(75, 61, 35)';
-                    break;
-            }
-        } else if(target.closest('#exit-game-container')){
-            target.style.background = 'rgb(75, 61, 35)';
+        if(areTouchControlButtonsTouched(target)){
+            preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target);
+        } else if(isExitGameContainerTouched(target)){
+            setExitGameContainersButtonStyle(target);
         }
     }, {passive: false});
+}
 
+function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
+    event.preventDefault();
+    handleSwitchCasesForTouchStartControlButtons(target);
+}
+
+function setExitGameContainersButtonStyle(target){
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function handleAllTouchEndEvents(){
     document.addEventListener('touchend', (event) => {
-        // settingGlobalVariablesInKeyUpOrTouchEndEvent();
         let target = event.target
-        if(target.classList.contains('touch-control')){
-            event.preventDefault();
-            switch(target.id){
-                case 'buttonLeft':
-                    keyboard.LEFT = false;
-                    world.audioManager.muteSound(true, 'walking_sound');
-                    target.style.background = 'wheat';
-                    break;
-                case 'buttonRight':
-                    keyboard.RIGHT = false;
-                    world.audioManager.muteSound(true, 'walking_sound');
-                    target.style.background = 'wheat';
-                    break;
-                case 'buttonUp':
-                case 'spacebar':
-                    keyboard.SPACE = false;
-                    world.character.isKeySpaceReleased = true;
-                    momentKeySpaceWasReleased = new Date().getTime();
-                    target.style.background = 'wheat';
-                    break;
-                case 'buttonThrow':
-                    world.utilityClass.checkThrowObjects();
-                    keyboard.keyD = false;
-                    target.style.background = 'wheat';
-                    break;
-            }
-        } else if(target.closest('#exit-game-container')){
-            target.style.background = 'wheat';
-            resetGame();
-        } else if(target.closest('#playIcon')){
-            startGame();
-            settingStyleForTouchDevice();
+        if(areTouchControlButtonsTouched(target)){
+           preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target);
+        } else if(isExitGameContainerTouched(target)){
+            setStyleForExitGameContainerAndResetGame(target);
+        } else if(isPlayIconTouched(target)){
+            startGameAndSetStyleForTouchDevice();
         }
     }, {passive: false});
-});
+}
+
+function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
+     event.preventDefault();
+     handleSwitchCasesForTouchEndControlButtons(target);
+}
+
+function setStyleForExitGameContainerAndResetGame(target){
+    target.style.background = 'wheat';
+    resetGame();
+}
+
+function isPlayIconTouched(target){
+    return target.closest('#playIcon');
+}
+
+function startGameAndSetStyleForTouchDevice(){
+    startGame();
+    settingStyleForTouchDevice();
+}
+
+function areTouchControlButtonsTouched(target){
+    return target.classList.contains('touch-control');
+}
+
+function isExitGameContainerTouched(target){
+    return target.closest('#exit-game-container');
+}
+
+function handleSwitchCasesForTouchStartControlButtons(target){
+    switch(target.id){
+        case 'buttonLeft':
+            setCaseForTouchStartButtonLeft(target);
+            break;
+        case 'buttonRight':
+            setCaseForTouchStartButtonRight(target);
+            break;
+        case 'buttonUp':
+        case 'spacebar':
+            setCaseForTouchStartSpaceBar(target);
+            break;
+        case 'buttonThrow':
+            setCaseForTouchStartButtonThrow(target)
+            break;
+    }
+}
+
+function setCaseForTouchStartButtonLeft(target){
+    prepareForThrowingLeft();
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setCaseForTouchStartButtonRight(target){
+    prepareForThrowingRight();
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setCaseForTouchStartSpaceBar(target){
+    keyboard.SPACE = true;
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setCaseForTouchStartButtonThrow(target){
+    keyboard.keyD = true;
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function handleSwitchCasesForTouchEndControlButtons(target){
+    switch(target.id){
+        case 'buttonLeft':
+            setCaseForTouchEndButtonLeft(target);
+            break;
+        case 'buttonRight':
+            setCaseForTouchEndButtonRight(target);
+            break;
+        case 'buttonUp':
+        case 'spacebar':
+            setCaseForTouchEndSpaceBar(target);
+            break;
+        case 'buttonThrow':
+            setCaseForTouchEndButtonThrow(target);
+            break;
+    }
+}
+
+function setCaseForTouchEndButtonLeft(target){
+    keyboard.LEFT = false;
+    world.audioManager.muteSound(true, 'walking_sound');
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchEndButtonRight(target){
+    keyboard.RIGHT = false;
+    world.audioManager.muteSound(true, 'walking_sound');
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchEndSpaceBar(target){
+    keyboard.SPACE = false;
+    world.character.isKeySpaceReleased = true;
+    momentKeySpaceWasReleased = new Date().getTime();
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchEndButtonThrow(target){
+    world.utilityClass.checkThrowObjects();
+    keyboard.keyD = false;
+    target.style.background = 'wheat';
+}
 
 function handleClickEventsOnIndexPage(event){
     if(isSettingsDesktopContainerClicked(event)){
