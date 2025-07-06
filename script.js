@@ -12,7 +12,6 @@ import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
 
 // === CURRENTLY UNUSED FLAGS - END ===
 
-// let gameScriptsLoaded = false;
 // let isExplainContainerOpen = false;
 // let isTouch = false;
 // let touchScreenVersionPath = '../templates/touch-screen-version.html';
@@ -204,7 +203,7 @@ function isSoundIconClicked(event){
 }
 
 function isPlayIconClicked(event){
-    return event.target.closest('#playIcon')
+    return event.target.closest('#playIcon');
 }
 
 function handleClickEventsOnLinksOnPrivacyPolicyPage(event){
@@ -289,6 +288,8 @@ function isLocationImprintPage(){
     return window.location.pathname.endsWith('/imprint/imprint.html');
 }
 
+/* === GEHE ALS NÄCHSTES, DIE FOLGENDEN METHODEN AN === */
+
 /* NEW METHODS FOR BUNDLED FILES - START */
 
 // function loadBundledJS(jsPath){
@@ -313,16 +314,6 @@ function isLocationImprintPage(){
 
 /*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
 
-// async function handlePlayIconEventListener(){
-//     let playIcon = document.getElementById('playIcon');
-//     if(playIcon){
-//         playIcon.addEventListener('click', async () => {
-//             await executeJavaScriptLoadingFilesAndInitGame();
-//             addAllRemainingEventListenersWhenInitGame(isTouch);
-//         });
-//     }
-// }
-
 // function showLoadingSpinner(){
 //     let loadingOverlay = document.getElementById('loadingOverlay');
 //     if(loadingOverlay && loadingOverlay.style.display === 'none'){
@@ -334,135 +325,5 @@ function isLocationImprintPage(){
 //     let loadingOverlay = document.getElementById('loadingOverlay');
 //     if(loadingOverlay && loadingOverlay.style.display === 'flex'){
 //         loadingOverlay.style.display = 'none';
-//     }
-// }
-
-// async function executeJavaScriptLoadingFilesAndInitGame(){
-//     if(!gameScriptsLoaded){
-//         gameScriptsLoaded = true;
-//         startGame();
-//     }    
-// }
-
-/* === ALL METHODS FROM SHARED.JS === */
-
-// function preventBubbling(event) {
-//     event.stopPropagation();
-// }
-
-// function hideCanvasContainer() { 
-//     document.getElementById('canvas-container').style.display = 'none';
-// }
-
-// function changeStyleWhenLosing() {
-//     hideIntroImageIfVisible();
-//     handleRemainingStyleInCaseOfLosing();
-// }
-
-// function handleRemainingStyleInCaseOfLosing(){
-//     document.getElementById('losing-image').style.display = 'flex';
-//     document.getElementById('losing-image').classList.add('losing-image-properties');
-//     document.getElementById('main-title').style.display = 'none';
-// }
-
-// function hideIntroImageIfVisible(){
-//     if (isIntroImageVisible()) {
-//         document.getElementById('intro-image').style.display = 'none';
-//     }
-// }
-
-// function isIntroImageVisible(){
-//     return document.getElementById('intro-image').style.display !== 'none';
-// }
-
-// function changeStyleWhenWinning() {
-//     hideIntroImageIfVisible();
-//     handleRemainingStyleInCaseOfWinning();
-// }
-
-// function handleRemainingStyleInCaseOfWinning(){
-//     document.getElementById('winning-image').style.display = 'flex';
-//     document.getElementById('winning-image').classList.add('winning-image-properties');
-//     document.getElementById('main-title').style.display = 'none';
-// }
-
-// function manageStyleWhenGameIsStopped() { // string
-//     clearAllIntervals();
-//     stopAllSounds();
-//     isGamePlaying = false;
-//     document.getElementById('canvas').style.display = 'none';
-//     hideCanvasContainer();
-//     exitFullscreen();
-// }
-
-// function manageStyleDependingOnWinndingOrLosing(string) {
-//     prepareDisplayWinningLosingStyle();
-//     if (string === 'losing') {
-//         changeStyleWhenLosing(string);
-//     } else if (string === 'winning') {
-//         changeStyleWhenWinning(string);
-//     } else {
-//         resetGame();
-//     }
-// }
-
-// function prepareDisplayWinningLosingStyle() {
-//     document.getElementById('overlay').style.display = 'flex';
-//     if (document.getElementById('intro-image').style.display !== 'none') {
-//         document.getElementById('intro-image').style.display = 'none';
-//     }
-// }
-
-// function settingUpStyleWhenPlayAgainButtonPressed() {
-//     setCanvasContainerVisibleIfHidden();
-//     setCanvasVisibleIfHidden();
-//     hideLosingImageIfVisible();
-//     hideWinningImageIfVisible();
-//     setMainTitleVisibleIfDesktopDevice();
-// }
-
-// function setCanvasContainerVisibleIfHidden(){
-//     if(isCanvasContainerHidden()){
-//         document.getElementById('canvas-container').style.display = 'flex';
-//     }
-// }
-
-// function isCanvasContainerHidden(){
-//     return document.getElementById('canvas-container').style.display === 'none';
-// }
-
-// function setCanvasVisibleIfHidden(){
-//     if(isCanvasHidden()){
-//         document.getElementById('canvas').style.display = 'block';
-//     }
-// }
-
-// function isCanvasHidden(){
-//     return document.getElementById('canvas').style.display === 'none';
-// }
-
-// function hideLosingImageIfVisible(){
-//     if(isLosingImageVisible()){
-//         document.getElementById('losing-image').style.display = 'none'
-//     }
-// }
-
-// function isLosingImageVisible(){
-//     return document.getElementById('losing-image').style.display !== 'none';
-// }
-
-// function hideWinningImageIfVisible(){
-//     if(isWinningImageVisible()){
-//         document.getElementById('winning-image').style.display = 'none';
-//     }
-// }
-
-// function isWinningImageVisible(){
-//     return document.getElementById('winning-image').style.display !== 'none';
-// }
-
-// function setMainTitleVisibleIfDesktopDevice(){
-//     if (!isTouch) {
-//         document.getElementById('main-title').style.display = 'block';
 //     }
 // }
