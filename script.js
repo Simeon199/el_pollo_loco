@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.style.background = 'rgb(75, 61, 35)';
                     break;
             }
+        } else if(target.closest('#exit-game-container')){
+            target.style.background = 'rgb(75, 61, 35)';
         }
     }, {passive: false});
 
@@ -86,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.style.background = 'wheat';
                     break;
             }
+        } else if(target.closest('#exit-game-container')){
+            target.style.background = 'wheat';
+            resetGame();
         } else if(target.closest('#playIcon')){
             startGame();
             settingStyleForTouchDevice();

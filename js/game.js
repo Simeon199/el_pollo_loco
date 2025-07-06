@@ -164,10 +164,7 @@ function manageStyleAndVariablesWhenStoppingGame(string){
  */
 
 function resetGame() {
-    document.getElementById('canvas').style.display = 'none';
-    document.getElementById('intro-image').style.display = 'block';
-    isGamePlaying = false;
-    world = null;
+    window.location.reload();
 }
 
 /**

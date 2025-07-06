@@ -81,6 +81,7 @@
         height: 100dvh;
         width: 100dvw;
         position: relative;
+        overflow: hidden;
     }
 
     .sound-and-exit-container {
