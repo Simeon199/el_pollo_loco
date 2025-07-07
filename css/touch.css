@@ -1,7 +1,8 @@
-@media(hover: none) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape){
+@media(hover: none) and (max-width: 1024px) and (orientation: landscape){
     #ui-touch {
-        display: flex;
         position: relative;
+        width: 100dvw;
+        height: 100dvh;
     }
 
     #ui-desktop {
@@ -57,12 +58,18 @@
     }
 
     #overlay-touch {
+        overflow-y: hidden;
+        position: relative;
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    .overlay-touch {
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        overflow-y: hidden;
     }
 
     #intro-image-touch img:nth-child(1) {
@@ -176,15 +183,31 @@
         border: 2px solid black;
         padding: 8px;
         border-radius: 16px;
-        font-size: 14px;
+        font-size: 20px;
         font-weight: bolder;
         cursor: pointer;
-        font-family: 'playpensans light';
-        background: rgb(175, 151, 16);
+        font-family: 'playpensans';
+        background: gold;
+    }
+
+    #losing-image-touch {
+        width: 100%;
+        height: 100%;
+    } 
+
+    #losing-image-touch img {
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    #losing-image-touch button {
+        position: absolute;
+        right: calc((100dvw - 126px) / 2);
+        bottom: 20%;
     }
 }
 
-@media(hover: none) and (orientation: portrait){
+@media(hover: none) and (orientation: portrait) and (max-width: 1024px){
     #ui-desktop {
         display: none;
     }
@@ -212,7 +235,7 @@
     }
 
     .message-to-turn-device-wrapper h2 {
-        font-family: 'playpensans light';
+        font-family: 'damion';
         font-size: 48px;
         text-align: center;
         padding-right: 16px;

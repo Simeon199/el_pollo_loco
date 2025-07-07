@@ -340,7 +340,6 @@ function hideContainerIfVisible(container){
 }
 
 function showWinningImageDependingOnUsedDevice(){
-    // debugger;
     if(deviceTypeActivated['desktop']){
         showContainerIfHidden('winning-image-desktop');    
     } else if(deviceTypeActivated['touch']){
@@ -350,12 +349,17 @@ function showWinningImageDependingOnUsedDevice(){
 
 
 function showLosingImageDependingOnUsedDevice(){
-    // debugger;
     if(deviceTypeActivated['desktop']){
         showContainerIfHidden('losing-image-desktop');
     } else if(deviceTypeActivated['touch']){
+        addRemainingStyleTouch();
         showContainerIfHidden('losing-image-touch');    
     }
+}
+
+function addRemainingStyleTouch(){
+    document.getElementById('ui-touch').classList.remove('d-none');
+    document.getElementById('overlay-touch').classList.remove('overlay-touch');
 }
 
 function isGamerLosing(string){
@@ -368,7 +372,6 @@ function isGamerWinning(string){
 
 function showContainerIfHidden(container){
     let containerToShow = document.getElementById(`${container}`);
-    console.log(containerToShow.classList.contains('d-none'));
     if(containerToShow.classList.contains('d-none')){
         containerToShow.classList.remove('d-none');
     }

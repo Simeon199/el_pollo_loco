@@ -103,9 +103,8 @@ body {
     align-items: center;
 }
 
-.fill-out-fullscreen {
-    width: 100dvw;
-    height: 100dvh;
+.only-display-flex {
+    display: flex;
 }
 
 .closeBtn {
