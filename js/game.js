@@ -274,26 +274,6 @@ function isCanvasContainerHidden(){
     return document.getElementById('canvas-container').style.display === 'none';
 }
 
-function hideLosingImageIfVisible(){
-    if(isLosingImageVisible()){
-        document.getElementById('losing-image').style.display = 'none'
-    }
-}
-
-function isLosingImageVisible(){
-    return document.getElementById('losing-image').style.display !== 'none';
-}
-
-function hideWinningImageIfVisible(){
-    if(isWinningImageVisible()){
-        document.getElementById('winning-image').style.display = 'none';
-    }
-}
-
-function isWinningImageVisible(){
-    return document.getElementById('winning-image').style.display !== 'none';
-}
-
 function hideCanvasContainer() { 
     document.getElementById('canvas-container').style.display = 'none';
 }
@@ -309,11 +289,72 @@ function manageStyleWhenGameIsStopped() {
 function manageStyleDependingOnWinndingOrLosing(string) {
     prepareDisplayWinningLosingStyle();
     if (isGamerLosing(string)) {
-        changeStyleWhenLosing(string);
+        changeStyleWhenLosing();
     } else if (isGamerWinning(string)) {
-        changeStyleWhenWinning(string);
+        changeStyleWhenWinning();
     } else {
         resetGame();
+    }
+}
+
+function prepareDisplayWinningLosingStyle() {
+    hideContainerIfVisible('canvas-container');
+    decideIfTouchOrDesktopVersionIsActive();
+    hideIntroImageDependingOnUsedDevice();
+}
+
+
+function changeStyleWhenLosing() {
+    hideIntroImageDependingOnUsedDevice();
+    handleRemainingStyleInCaseOfLosing();
+}
+
+function handleRemainingStyleInCaseOfLosing(){
+    // decideIfTouchOrDesktopVersionIsActive();
+    showLosingImageDependingOnUsedDevice();
+}
+
+function changeStyleWhenWinning() {
+    hideIntroImageDependingOnUsedDevice();
+    handleRemainingStyleInCaseOfWinning();
+}
+
+function handleRemainingStyleInCaseOfWinning(){
+    // decideIfTouchOrDesktopVersionIsActive();
+    showWinningImageDependingOnUsedDevice();
+}
+
+function hideIntroImageDependingOnUsedDevice(){
+    if(deviceTypeActivated['desktop']){
+        hideContainerIfVisible('intro-image-desktop');
+    } else if(deviceTypeActivated['touch']){
+        hideContainerIfVisible('intro-image-touch');
+    }
+}
+
+function hideContainerIfVisible(container){
+    let containerToHide = document.getElementById(`${container}`);
+    if(!containerToHide.classList.contains('d-none')){
+        containerToHide.classList.add('d-none');
+    }
+}
+
+function showWinningImageDependingOnUsedDevice(){
+    // debugger;
+    if(deviceTypeActivated['desktop']){
+        showContainerIfHidden('winning-image-desktop');    
+    } else if(deviceTypeActivated['touch']){
+        showContainerIfHidden('winning-image-touch');
+    }
+}
+
+
+function showLosingImageDependingOnUsedDevice(){
+    // debugger;
+    if(deviceTypeActivated['desktop']){
+        showContainerIfHidden('losing-image-desktop');
+    } else if(deviceTypeActivated['touch']){
+        showContainerIfHidden('losing-image-touch');    
     }
 }
 
@@ -325,74 +366,11 @@ function isGamerWinning(string){
     return string === 'winning';
 }
 
-function changeStyleWhenLosing() {
-    hideIntroImageDependingOnUsedDevice();
-    handleRemainingStyleInCaseOfLosing();
-}
-
-function handleRemainingStyleInCaseOfLosing(){
-    document.getElementById('losing-image').style.display = 'flex';
-    document.getElementById('losing-image').classList.add('losing-image-properties');
-    document.getElementById('main-title').style.display = 'none';
-}
-
-function changeStyleWhenWinning() {
-    hideIntroImageDependingOnUsedDevice();
-    handleRemainingStyleInCaseOfWinning();
-}
-
-function handleRemainingStyleInCaseOfWinning(){
-    decideIfTouchOrDesktopVersionIsActive();
-    // document.getElementById('winning-image').style.display = 'flex';
-    // document.getElementById('winning-image').classList.add('winning-image-properties');
-    // document.getElementById('main-title').style.display = 'none';
-}
-
-function isIntroImageVisible(){
-    return document.getElementById('intro-image').style.display !== 'none';
-}
-
-function prepareDisplayWinningLosingStyle() {
-    hideContainerIfVisible('canvas-container');
-    decideIfTouchOrDesktopVersionIsActive();
-    hideIntroImageDependingOnUsedDevice();
-}
-
-function showWinningImageDependingOnUsedDevice(){
-    if(deviceTypeActivated['desktop']){
-        showContainerIfHidden('winning-image-desktop');    
-    } else if(deviceTypeActivated['touch']){
-        showContainerIfHidden('winning-image-touch');
-    }
-}
-
-function showLosingImageDependingOnUsedDevice(){
-    if(deviceTypeActivated['desktop']){
-        showContainerIfHidden('losing-image-desktop');
-    } else if(deviceTypeActivated['touch']){
-        showContainerIfHidden('losing-image-touch');    
-    }
-}
-
-function hideIntroImageDependingOnUsedDevice(){
-    if(deviceTypeActivated['desktop']){
-        hideContainerIfVisible('intro-image-desktop');
-    } else if(deviceTypeActivated['touch']){
-        hideContainerIfVisible('intro-image-touch');
-    }
-}
-
 function showContainerIfHidden(container){
     let containerToShow = document.getElementById(`${container}`);
+    console.log(containerToShow.classList.contains('d-none'));
     if(containerToShow.classList.contains('d-none')){
         containerToShow.classList.remove('d-none');
-    }
-}
-
-function hideContainerIfVisible(container){
-    let containerToHide = document.getElementById(`${container}`);
-    if(!containerToHide.classList.contains('d-none')){
-        containerToHide.classList.add('d-none');
     }
 }
 
@@ -408,5 +386,6 @@ function decideIfTouchOrDesktopVersionIsActive(){
 
 function isDeviceTypeDeactivated(deviceType){
     let device = document.getElementById(`${deviceType}`);
-    return device.style.display === 'none';
+    let displayValue = window.getComputedStyle(device).display;
+    return displayValue === 'none';
 }

@@ -103,6 +103,11 @@ body {
     align-items: center;
 }
 
+.fill-out-fullscreen {
+    width: 100dvw;
+    height: 100dvh;
+}
+
 .closeBtn {
     width: 56px;
     cursor: pointer;
