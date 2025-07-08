@@ -294,16 +294,16 @@ function isWinningImageVisible(){
     return document.getElementById('winning-image').style.display !== 'none';
 }
 
-function hideCanvasContainer() { 
-    document.getElementById('canvas-container').style.display = 'none';
-}
+// function hideCanvasContainer() { 
+//     document.getElementById('canvas-container').style.display = 'none';
+// }
 
 function manageStyleWhenGameIsStopped() {
     clearAllIntervals();
     stopAllSounds();
     isGamePlaying = false;
-    hideCanvasContainer();
-    exitFullscreen();
+    // hideCanvasContainer();
+    // exitFullscreen();
 }
 
 function manageStyleDependingOnWinndingOrLosing(string) {
@@ -327,35 +327,12 @@ function isGamerWinning(string){
 
 function changeStyleWhenLosing() {
     hideIntroImageDependingOnUsedDevice();
-    handleRemainingStyleInCaseOfLosing();
-}
-
-function handleRemainingStyleInCaseOfLosing(){
-    document.getElementById('losing-image').style.display = 'flex';
-    document.getElementById('losing-image').classList.add('losing-image-properties');
-    document.getElementById('main-title').style.display = 'none';
+    showLosingImageDependingOnUsedDevice();
 }
 
 function changeStyleWhenWinning() {
     hideIntroImageDependingOnUsedDevice();
-    handleRemainingStyleInCaseOfWinning();
-}
-
-function handleRemainingStyleInCaseOfWinning(){
-    decideIfTouchOrDesktopVersionIsActive();
-    // document.getElementById('winning-image').style.display = 'flex';
-    // document.getElementById('winning-image').classList.add('winning-image-properties');
-    // document.getElementById('main-title').style.display = 'none';
-}
-
-function isIntroImageVisible(){
-    return document.getElementById('intro-image').style.display !== 'none';
-}
-
-function prepareDisplayWinningLosingStyle() {
-    hideContainerIfVisible('canvas-container');
-    decideIfTouchOrDesktopVersionIsActive();
-    hideIntroImageDependingOnUsedDevice();
+    showWinningImageDependingOnUsedDevice();
 }
 
 function showWinningImageDependingOnUsedDevice(){
@@ -374,12 +351,29 @@ function showLosingImageDependingOnUsedDevice(){
     }
 }
 
-function hideIntroImageDependingOnUsedDevice(){
+function isIntroImageVisible(){
+    return document.getElementById('intro-image').style.display !== 'none';
+}
+
+function prepareDisplayWinningLosingStyle() {
+    hideContainerIfVisible('canvas-container');
+    decideIfTouchOrDesktopVersionIsActive();
+    hideIntroImageDependingOnUsedDevice();
+}
+
+function hideIntroImageDependingOnUsedDevice(){ // Fehlerquelle: Ich komme ständig in diese falsche Abfrage rein!
     if(deviceTypeActivated['desktop']){
+        // console.log('desktop version is activated!', deviceTypeActivated);
         hideContainerIfVisible('intro-image-desktop');
+        // reactivateProperUI('ui-desktop');
     } else if(deviceTypeActivated['touch']){
         hideContainerIfVisible('intro-image-touch');
+        reactivateProperUI('ui-touch');
     }
+}
+
+function reactivateProperUI(device){
+    document.getElementById(`${device}`).style.display = 'flex';
 }
 
 function showContainerIfHidden(container){
@@ -397,13 +391,19 @@ function hideContainerIfVisible(container){
 }
 
 function decideIfTouchOrDesktopVersionIsActive(){
-    if(isDeviceTypeDeactivated('ui-desktop')){ 
+    if(isDeviceTypeDeactivated('ui-desktop')){
+        deviceTypeActivated['desktop'] = true;
+        deviceTypeActivated['touch'] = false; 
+        setLinksImagesDependingOnDeviceType('links-images-desktop');
+    } else if(isDeviceTypeDeactivated('ui-touch')){
         deviceTypeActivated['desktop'] = false;
         deviceTypeActivated['touch'] = true;
-    } else if(isDeviceTypeDeactivated('ui-touch')){
-        deviceTypeActivated['desktop'] = true;
-        deviceTypeActivated['touch'] = false;
+        setLinksImagesDependingOnDeviceType('links-images-touch');
     }
+}
+
+function setLinksImagesDependingOnDeviceType(deviceType){
+    document.getElementById(`${deviceType}`).style.display = 'none';
 }
 
 function isDeviceTypeDeactivated(deviceType){

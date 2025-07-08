@@ -187,9 +187,21 @@ function handleClickEventsOnIndexPage(event){
     } else if(isDesktopPrivacyPolicyLinkClicked(event)){
         redirectToPrivacyPolicyPage();
     } else if(isPlayIconClicked(event)){
-        startGame();
+        startGameAndSetStyleForDesktopDevice();
     } else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
+    }
+}
+
+function startGameAndSetStyleForDesktopDevice(){
+    startGame();
+    setStyleForDesktopDevice();
+}
+
+function setStyleForDesktopDevice(){
+    let uiTouch = document.getElementById('ui-touch');
+    if(uiTouch.style.display !== 'none'){
+        uiTouch.style.display = 'none'
     }
 }
 

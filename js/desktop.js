@@ -206,8 +206,6 @@ function keyRightReleasedAndCharacterWithinBorder(event) {
     return event.keyCode == 39 || world.character.x >= world.level.level_end_x;
 }
 
-// Eventuell in shared-Ordner;
-
 /**
  * Exits fullscreen mode and resets fullscreen-related flags.
  */
@@ -219,6 +217,8 @@ function exitFullscreen() {
     isFullscreenActivated = false;
     isChangingToFullscreen = false;
 }
+
+// Die beiden folgenden Event Listener in die script-Datei mit Event Delegation 
 
 function handleWinningButtonImageListener(){
     let winningImageButton = document.getElementById('play-again-after-winning');
