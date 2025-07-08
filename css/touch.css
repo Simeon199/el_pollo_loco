@@ -1,5 +1,6 @@
 @media(hover: none) and (max-width: 1024px) and (orientation: landscape){
     #ui-touch {
+        display: flex;
         position: relative;
         width: 100dvw;
         height: 100dvh;
@@ -183,10 +184,10 @@
         border: 2px solid black;
         padding: 8px;
         border-radius: 16px;
-        font-size: 20px;
+        font-size: 14px;
         font-weight: bolder;
         cursor: pointer;
-        font-family: 'playpensans';
+        font-family: 'playpensans light';
         background: gold;
     }
 
@@ -207,7 +208,7 @@
     }
 }
 
-@media(hover: none) and (orientation: portrait) and (max-width: 1024px){
+@media(hover: none) and (max-width: 1024px) and (orientation: portrait){
     #ui-desktop {
         display: none;
     }

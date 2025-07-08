@@ -103,10 +103,6 @@ body {
     align-items: center;
 }
 
-.only-display-flex {
-    display: flex;
-}
-
 .closeBtn {
     width: 56px;
     cursor: pointer;

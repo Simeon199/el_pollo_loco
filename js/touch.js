@@ -23,7 +23,7 @@ function removeLinksImagesFromPlayScreen(){
 }
 
 function prepareUiTouchScreenAndCanvasContainer(){
-    document.getElementById('ui-touch').classList.add('d-none');
+    // document.getElementById('ui-touch').classList.add('d-none');
     document.getElementById('canvas-container').classList.remove('d-none');
     if(document.getElementById('canvas-container').classList.contains('d-flex')){
         document.getElementById('canvas-container').classList.remove('d-flex');
