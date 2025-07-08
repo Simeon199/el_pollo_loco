@@ -1,4 +1,4 @@
-@media(hover: hover) and (min-width: 1024px) and (orientation: landscape){
+@media(hover: hover) and (orientation: landscape), (min-width: 1024px) and (orientation: landscape){
     #ui-desktop {
         height: 100%;
         width: 100%;
@@ -140,7 +140,7 @@
     }
 }
 
-@media(hover: hover) and (max-width: 1024px) and (orientation: landscape){
+@media(hover: hover) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape){
     #ui-desktop{
         display: flex;
         justify-content: center;
@@ -256,7 +256,7 @@
     }
 }
 
-@media(hover: hover) and (max-width: 1024px) and (orientation: portrait){
+@media(hover: hover) and (orientation: portrait){
     #message-to-turn-device {
         display: flex;
         justify-content: center;
