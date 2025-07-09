@@ -1,5 +1,45 @@
-@media(hover: none) and (orientation: landscape) and (min-width: 1024px), 
-(hover: none) and (orientation: landscape) and (max-width: 1024px){
+@media(hover: none) and (orientation: portrait){
+    #ui-desktop {
+        display: none !important;
+    }
+    
+    #links-images-touch {
+        display: none;
+    }
+
+    #overlay-touch {
+        display: none;
+    }
+
+    #message-to-turn-device {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 100dvh;
+        width: 100dvw;
+        background-color: rgba(10, 10, 10, 0.5);
+    }
+
+    .message-to-turn-device-wrapper {
+        width: 80%;
+    }
+
+    .message-to-turn-device-wrapper h2 {
+        font-family: 'damion';
+        font-size: 40px;
+        text-align: center;
+        padding-right: 16px;
+        padding-left: 16px;
+        border: 2px solid black;
+        color: black;
+        border-radius: 16px;
+        background: gold;
+    }
+}
+
+@media(min-width: 1024px) and (orientation: landscape) and (hover: none), 
+(max-width: 1024px) and (hover: none) and (orientation: landscape) {
     #ui-touch {
         display: flex !important;
         position: relative;
@@ -222,46 +262,6 @@
         font-weight: bolder;
         cursor: pointer;
         font-family: 'playpensans';
-        background: gold;
-    }
-}
-
-@media(hover: none) and (orientation: portrait), (pointer: coarse) and (orientation: portrait){
-    #ui-desktop {
-        display: none !important;
-    }
-    
-    #links-images-touch {
-        display: none;
-    }
-
-    #overlay-touch {
-        display: none;
-    }
-
-    #message-to-turn-device {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        height: 100dvh;
-        width: 100dvw;
-        background-color: rgba(10, 10, 10, 0.5);
-    }
-
-    .message-to-turn-device-wrapper {
-        width: 80%;
-    }
-
-    .message-to-turn-device-wrapper h2 {
-        font-family: 'damion';
-        font-size: 40px;
-        text-align: center;
-        padding-right: 16px;
-        padding-left: 16px;
-        border: 2px solid black;
-        color: black;
-        border-radius: 16px;
         background: gold;
     }
 }

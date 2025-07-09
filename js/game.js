@@ -64,6 +64,7 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
 
 function setStylingOfInitializedGame(){
     document.getElementById('intro-image-desktop').classList.add('d-none');
+    document.getElementById('links-images-desktop').style.display = 'none';
     document.getElementById('canvas-container').classList.remove('d-none');
     document.getElementById('canvas-container').classList.add('d-flex');
 }
@@ -363,12 +364,13 @@ function prepareDisplayWinningLosingStyle() {
 
 function hideIntroImageDependingOnUsedDevice(){ // Fehlerquelle: Ich komme ständig in diese falsche Abfrage rein!
     if(deviceTypeActivated['desktop']){
-        // console.log('desktop version is activated!', deviceTypeActivated);
+        console.log('desktop version is activated!', deviceTypeActivated);
         hideContainerIfVisible('intro-image-desktop');
-        // reactivateProperUI('ui-desktop');
+        reactivateProperUI('ui-desktop');
     } else if(deviceTypeActivated['touch']){
+        console.log('touch version is activated!', deviceTypeActivated);
         hideContainerIfVisible('intro-image-touch');
-        // reactivateProperUI('ui-touch');
+        reactivateProperUI('ui-touch');
     }
 }
 
