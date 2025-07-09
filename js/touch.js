@@ -4,15 +4,15 @@
  * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
  */
 
-function addAllRemainingEventListenersWhenInitGame(isTouch) {
-    if(isTouch && isGamePlaying){
-        setGlobalVariablesInTouchEvent(); 
-        settingStyleForTouchDevice();
-    }
-}
+// function addAllRemainingEventListenersWhenInitGame(isTouch) {
+//     if(isTouch && isGamePlaying){
+//         setGlobalVariablesInTouchEvent(); 
+//         settingStyleForTouchDevice();
+//     }
+// }
 
 function settingStyleForTouchDevice(){
-    document.getElementById('ui-touch').style.display = 'none';
+    // document.getElementById('ui-touch').style.display = 'none';
     document.getElementById('canvas-container').classList.remove('d-none');
     if(document.getElementById('canvas-container').classList.contains('d-flex')){
         document.getElementById('canvas-container').classList.remove('d-flex');
@@ -21,13 +21,15 @@ function settingStyleForTouchDevice(){
 }
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-    if (!world.character.isSoundIconInteraction) {
-        setKeyPressedVariablesRight(event);
-        someKeyWasPressedAgain = new Date().getTime();
-        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-        world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-        world.character.isKeyPressed = isKeyPressed;
+    if(!event.target.closest('#playIcon')){
+        world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+        if (!world.character.isSoundIconInteraction) {
+            setKeyPressedVariablesRight(event);
+            someKeyWasPressedAgain = new Date().getTime();
+            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+            world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+            world.character.isKeyPressed = isKeyPressed;
+        }
     }
 }
 
@@ -81,11 +83,13 @@ function setKeyPressedVariablesRight(event) {
  * Sets global variables when a key or touch event ends.
  */
 
-function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
-    isKeyPressed = false;
-    lastTimeKeyPressed = new Date().getTime();
-    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyPressed = isKeyPressed;
+function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
+    if(!event.target.closest('#playIcon')){
+        isKeyPressed = false;
+        lastTimeKeyPressed = new Date().getTime();
+        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+        world.character.isKeyPressed = isKeyPressed;
+    }
 }
 
 /**

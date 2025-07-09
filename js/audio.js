@@ -69,8 +69,6 @@ function showTurningSoundOffIcon() {
         soundOffIcon.classList.remove('d-none');
         soundOnIcon.classList.add('d-none');
     }
-    // document.getElementById('sound-off-icon').style.display = 'flex';
-    // document.getElementById('sound-on-icon').style.display = 'none'
 }
 
 /**
@@ -86,8 +84,6 @@ function showTurningSoundOnIcon() {
         soundOnIcon.classList.remove('d-none');
         soundOffIcon.classList.add('d-none');
     }
-    // document.getElementById('sound-off-icon').style.display = 'none';
-    // document.getElementById('sound-on-icon').style.display = 'flex';
 }
 
 /**

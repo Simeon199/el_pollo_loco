@@ -256,7 +256,7 @@
     }
 }
 
-@media(hover: hover) and (orientation: portrait), (pointer: fine) and (orientation: portrait){
+@media(hover: hover) and (orientation: portrait){
     #message-to-turn-device {
         display: flex;
         justify-content: center;

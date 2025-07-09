@@ -368,7 +368,7 @@ function hideIntroImageDependingOnUsedDevice(){ // Fehlerquelle: Ich komme stän
         // reactivateProperUI('ui-desktop');
     } else if(deviceTypeActivated['touch']){
         hideContainerIfVisible('intro-image-touch');
-        reactivateProperUI('ui-touch');
+        // reactivateProperUI('ui-touch');
     }
 }
 

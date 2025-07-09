@@ -12,12 +12,6 @@ import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
 
 // === CURRENTLY UNUSED FLAGS - END ===
 
-// let isExplainContainerOpen = false;
-// let isTouch = false;
-// let touchScreenVersionPath = '../templates/touch-screen-version.html';
-// let desktopVersionPath = '../templates/desktop-version.html';
-// let canvasContainerPath = '../templates/canvas-container.html';
-
 document.addEventListener('DOMContentLoaded', () => {
    handleAllClickEvents();
    handleAllTouchStartEvents();
@@ -39,6 +33,7 @@ function handleAllClickEvents(){
 function handleAllTouchStartEvents(){
     document.addEventListener('touchstart', (event) => {
         let target = event.target;
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
         if(areTouchControlButtonsTouched(target)){
             preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target);
         } else if(isExitGameContainerTouched(target)){
@@ -59,6 +54,7 @@ function setExitGameContainersButtonStyle(target){
 function handleAllTouchEndEvents(){
     document.addEventListener('touchend', (event) => {
         let target = event.target
+        settingGlobalVariablesInKeyUpOrTouchEndEvent(event);
         if(areTouchControlButtonsTouched(target)){
            preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target);
         } else if(isExitGameContainerTouched(target)){
