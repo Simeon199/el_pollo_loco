@@ -199,9 +199,9 @@ function startGameAndSetStyleForDesktopDevice(){
 }
 
 function setStyleForDesktopDevice(){
-    let uiTouch = document.getElementById('ui-touch');
-    if(uiTouch.style.display !== 'none'){
-        uiTouch.style.display = 'none'
+    let uiDesktop = document.getElementById('ui-desktop');
+    if(uiDesktop.style.display !== 'none'){
+        uiDesktop.style.display = 'none'
     }
 }
 

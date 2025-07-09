@@ -1,13 +1,14 @@
-@media(hover: none) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape){
+@media(hover: none) and (orientation: landscape) and (max-width: 1024px), 
+(pointer: coarse) and (orientation: landscape) and (max-width: 1024px){
     #ui-touch {
-        display: flex;
+        display: flex !important;
         position: relative;
         width: 100dvw;
         height: 100dvh;
     }
 
     #ui-desktop {
-        display: none;
+        display: none !important;
     }
 
     #links-images-desktop {
@@ -225,7 +226,7 @@
     }
 }
 
-@media(hover: none) and (orientation: portrait){
+@media(hover: none) and (orientation: portrait), (pointer: coarse) and (orientation: portrait){
     #ui-desktop {
         display: none;
     }
