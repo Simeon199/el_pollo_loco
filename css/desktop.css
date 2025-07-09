@@ -1,10 +1,8 @@
-
-@media(min-width: 1024px) and (orientation: landscape) and (hover: hover), 
-(min-width: 1024px) and (orientation: landscape) and (pointer: fine){
+@media(min-width: 1024px) and (orientation: landscape) and (hover: hover){
     #ui-desktop {
         height: 100%;
         width: 100%;
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
@@ -29,7 +27,7 @@
     }
 
     #ui-touch {
-        display: none !important;
+        display: none;
     }
 
     #title {
@@ -142,8 +140,7 @@
     }
 }
 
-@media(hover: hover) and (max-width: 1024px) and (orientation: landscape), 
-(pointer: fine) and (max-width: 1024px) and (orientation: landscape){
+@media(hover: hover) and (max-width: 1024px) and (orientation: landscape){
     #ui-desktop{
         display: flex;
         justify-content: center;
@@ -165,7 +162,7 @@
         z-index: 10;
         border: 2px solid black;
         border-radius: 16px;
-        background-color: goldenrod;
+        background-color: gold;
     }
 
     #title {
@@ -275,15 +272,15 @@
     }
 
     .message-to-turn-device-wrapper h2 {
-        font-family: 'playpensans light';
-        font-size: 48px;
+        font-family: 'damion';
+        font-size: 40px;
         text-align: center;
         padding-right: 16px;
         padding-left: 16px;
         border: 2px solid black;
         color: black;
         border-radius: 16px;
-        background: #d96d1085;
+        background: gold;
     }
 
     #ui-touch {

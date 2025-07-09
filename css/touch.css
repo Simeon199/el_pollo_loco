@@ -1,5 +1,5 @@
-@media(hover: none) and (orientation: landscape) and (max-width: 1024px), 
-(pointer: coarse) and (orientation: landscape) and (max-width: 1024px){
+@media(hover: none) and (orientation: landscape) and (min-width: 1024px), 
+(hover: none) and (orientation: landscape) and (max-width: 1024px){
     #ui-touch {
         display: flex !important;
         position: relative;
@@ -228,7 +228,7 @@
 
 @media(hover: none) and (orientation: portrait), (pointer: coarse) and (orientation: portrait){
     #ui-desktop {
-        display: none;
+        display: none !important;
     }
     
     #links-images-touch {
@@ -254,14 +254,14 @@
     }
 
     .message-to-turn-device-wrapper h2 {
-        font-family: 'playpensans light';
-        font-size: 48px;
+        font-family: 'damion';
+        font-size: 40px;
         text-align: center;
         padding-right: 16px;
         padding-left: 16px;
         border: 2px solid black;
         color: black;
         border-radius: 16px;
-        background: #d96d1085;
+        background: gold;
     }
 }
