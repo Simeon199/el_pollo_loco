@@ -10,32 +10,26 @@
         padding-right: 16px;
     }
 
-    .text-styling {
-        text-align: center;
-        font-family: 'playpensans light';
-        font-size: 14px;
-    }
-
-    .button-style {
-        border: 2px solid black;
-        padding: 8px;
-        border-radius: 16px;
-        font-size: 14px;
-        cursor: pointer;
-        font-family: 'playpensans';
-        background: rgb(175, 151, 16);
-    }
-
     #ui-touch {
         display: none;
     }
 
-    #title {
-        text-decoration: underline;
+    #links-images-touch {
+        display: none;
     }
 
-    #links-images-button {
+    #message-to-turn-device {
         display: none;
+    }
+
+    .button-style {
+        cursor: pointer;
+        font-size: 14px;
+        font-family: 'playpensans light';
+    }
+
+    #title {
+        text-decoration: underline;
     }
 
     #settings-container {
@@ -52,15 +46,6 @@
     .fade-in-image {
         width: 720px;
         height: 480px;
-    }
-
-    #links-images-desktop {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding-top: 16px;
-        font-family: 'playpensans';
     }
 
     #intro-image-desktop {
@@ -134,10 +119,6 @@
         cursor: pointer;
         transform: scale(1.05);
     }
-
-    #message-to-turn-device {
-        display: none;
-    }
 }
 
 @media(max-width: 1024px) and (orientation: landscape) and (hover: hover){
@@ -149,20 +130,12 @@
         overflow: hidden;
     }
 
-    #links-images-desktop { 
+    #links-images-desktop {
+        display: none;
+    }
+
+    #links-images-touch {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: 'playpensans light';
-        font-size: 18px;
-        position: absolute;
-        top: 1%;
-        width: 90%;
-        padding: 16px;
-        z-index: 10;
-        border: 2px solid black;
-        border-radius: 16px;
-        background-color: gold;
     }
 
     #title {
@@ -172,56 +145,6 @@
     #intro-image-desktop {
         width: 100dvw;
         height: 100dvh;
-    }
-
-    #canvas-container {
-        height: 100dvh;
-        width: 100dvw;
-        position: relative;
-        overflow: hidden;
-    }
-
-    canvas {
-        height: 100dvh;
-        width: 100dvw;
-    }
-
-    .sound-and-exit-container {
-        position: absolute;
-        right: 5%;
-        top: 15%;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .exit-game-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 2px solid black;
-        padding: 4px;
-        border-radius: 12px;
-        background: wheat;
-    }
-
-    .sound-container img {
-        width: 40px;
-        padding: 4px;
-        border: 2px solid black;
-        border-radius: 12px;
-        background: wheat;
-    }
-
-    .exit-game-container img {
-        width: 40px;
-    }
-
-    .exit-game-container p {
-        font-family: 'playpensans';
-        font-size: 14px;
-        font-weight: bold;
     }
 
     #ui-touch {
@@ -239,11 +162,10 @@
         border: 2px solid black;
         border-radius: 16px;
         padding: 8px;
-        background: burlywood;
+        background: gold;
     }
 
     .h2-title-section h2 span:hover {
-        color: #fffb00;
         cursor: pointer;
     }
 
@@ -256,10 +178,10 @@
         border: 2px solid black;
         padding: 8px;
         border-radius: 16px;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bolder;
         cursor: pointer;
-        font-family: 'playpensans';
+        font-family: 'playpensans light';
         background: rgb(175, 151, 16);
     }
 
@@ -289,7 +211,7 @@
         padding: 8px;
         border: 2px solid black;
         border-radius: 16px;
-        background: burlywood;
+        background: gold;
     }
 
     .img-links:hover {
@@ -298,42 +220,6 @@
     }
 
     #message-to-turn-device {
-        display: none;
-    }
-}
-
-@media(hover: hover) and (orientation: portrait){
-    #message-to-turn-device {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        height: 100dvh;
-        width: 100dvw;
-        background-color: rgba(10, 10, 10, 0.5);
-    }
-
-    .message-to-turn-device-wrapper {
-        width: 80%;
-    }
-
-    .message-to-turn-device-wrapper h2 {
-        font-family: 'damion';
-        font-size: 40px;
-        text-align: center;
-        padding-right: 16px;
-        padding-left: 16px;
-        border: 2px solid black;
-        color: black;
-        border-radius: 16px;
-        background: gold;
-    }
-
-    #ui-touch {
-        display: none;
-    }
-
-    #ui-desktop {
         display: none;
     }
 }

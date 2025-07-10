@@ -67,6 +67,13 @@ function setStylingOfInitializedGame(){
     document.getElementById('links-images-desktop').style.display = 'none';
     document.getElementById('canvas-container').classList.remove('d-none');
     document.getElementById('canvas-container').classList.add('d-flex');
+    addScreenControlPanelIfTouchDevice();
+}
+
+function addScreenControlPanelIfTouchDevice(){
+    if('ontouchstart' in window || navigator.maxTouchPoints > 0){
+        document.getElementById('screen-control-container').style.display = 'flex';
+    }
 }
 
 /**

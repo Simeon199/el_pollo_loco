@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/desktop.css">
     <link rel="stylesheet" href="css/touch.css">
+    <link rel="stylesheet" href="css/canvas.css">
+    <link rel="stylesheet" href="css/portrait.css">
     <script type="module" src="script.js"></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -40,6 +42,7 @@
 </head>
 <body>
 
+    <!-- HTML structure for desktop devices -->
     <div id="ui-desktop" class="ui-desktop">
         <div id="links-images-desktop">
             <div class="legal-notice-and-privacy-policy-desktop img-links ">
@@ -52,9 +55,6 @@
                         <span>Imprint</span>
                     </h2>
                 </div>
-            </div>
-            <div id="links-images-button">
-                <button id="icon-button-top">Icon Sources</button>
             </div>
             <h1 id="title">El Pollo Loco</h1>
             <div id="settings-container" class="img-links">
@@ -73,17 +73,25 @@
         </div>
     </div>
 
-    <div class="winning-and-losing-overlay">
-        <div id="winning-image-desktop" class="d-none">
-            <img src="img/9_intro_outro_screens/win/win_2.png" alt="Winning-Image" class="fade-in-image">
-            <button id="play-again-after-winning" class="button-style">Play Again</button>
-        </div>
+     <!-- HTML structure for touch devices -->
 
-        <div id="losing-image-desktop" class="d-none">
-            <img src="img/9_intro_outro_screens/game_over/game over!.png" alt="Losing-Image" class="fade-in-image">
-            <button id="play-again-after-losing" class="button-style">Play Again</button>
+    <div id="ui-touch" class="ui-touch">
+        <div id="overlay-touch" class="overlay">
+            <div id="intro-image-touch">
+                <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
+                <img src="assets/playIcon_2.png" id="playIcon" class="img-play" alt="Play">
+            </div>
+        </div>
+        
+        <div id="imprint-and-privacy-policy-overlay" class="imprint-and-privacy-policy-overlay d-none">
+            <div id="imprint-privacy-wrapper" class="imprint-privacy-wrapper">
+                <h2 id="privacy">Privacy Policy</h2>
+                <h2 id="imprint">Imprint</h2>
+            </div>
         </div>
     </div>
+
+    <!-- HTML structure for the canvas container where the game is taking place -->
 
     <div id="canvas-container" class="canvas-container d-none">
         <canvas id="canvas" width="720" height="480"></canvas>
@@ -125,54 +133,48 @@
         </div>
     </div>
 
-    <div id="ui-touch" class="ui-touch">
-        <div id="links-images-touch" class="links-images">
-            <div id="privacy-and-imprint-pop-up" class="legal-notice-and-privacy-policy text-styling">
-                <img src="assets/notice.png" alt="notice" class="img-size">
-                <div class="h2-title-section">
-                    <h2>Privacy & Imprint</h2>
-                </div>
-            </div>
-
-            <div id="settings-container" class="text-styling">
-                <img src="assets/cartwheel.png" id="settings-image-touch" class="img-size" alt="cartwheel">
-                <h2>Settings</h2>
-            </div>
-
-            <div class="all-icons-button-container text-styling">
-                <button id="all-icons-button" class="button-style">
-                    <h2>Icon</h2>
-                    <h2>Sources</h2>
-                </button>
-            </div>
-        </div>
-
-        <div id="overlay-touch" class="overlay">
-            <div id="intro-image-touch">
-                <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Intro-Image">
-                <img src="assets/playIcon_2.png" id="playIcon" class="img-play" alt="Play">
-            </div>
-        </div>
-        
-        <!-- <div id="loadingOverlay" class="d-none">
-            <div class="loadingContent">
-                <p>Bitte haben Sie einen Augenblick Geduld. Das Spiel wird geladen...</p>
-                <div class="spinner"></div>
-            </div>
-        </div> -->
-        <div id="imprint-and-privacy-policy-overlay" class="imprint-and-privacy-policy-overlay d-none">
-            <div id="imprint-privacy-wrapper" class="imprint-privacy-wrapper">
-                <h2 id="privacy">Privacy Policy</h2>
-                <h2 id="imprint">Imprint</h2>
-            </div>
-        </div>
-    </div>
+    <!-- Opens the settings pop up that explains the game -->
 
     <div id="explain-game-container" class="explain-game-container d-none"></div>
+
+    <!-- Opens the pop up which contains the sources of all used icons in this game -->
+    
     <div id="all-icons-container-overlay" class="all-icons-container-overlay d-none"></div>
+    
+    <!-- Opens the pop up that is shown if the user wins the game -->
+
+    <div class="winning-overlay" class="d-none"></div>
+
+    <!-- Opens the pop up that is shown if the user loses the game -->
+
+    <div class="losing-overlay" class="d-none"></div>
+
+    <!-- Notification that is displayed if the user is holding the screen in portrait orientation -->
+
     <div id="message-to-turn-device">
         <div class="message-to-turn-device-wrapper">
             <h2>Please Turn Your Device To Play The Game!</h2>
+        </div>
+    </div>
+
+    <!-- HTML structure for settings/imrpint and privacy for small desktop and/or touch devices -->
+
+    <div id="links-images-touch" class="links-images">
+        <div id="privacy-and-imprint-pop-up" class="legal-notice-and-privacy-policy text-styling">
+            <img src="assets/notice.png" alt="notice" class="img-size">
+            <div class="h2-title-section">
+                <h2>Privacy & Imprint</h2>
+            </div>
+        </div>
+        <div id="settings-container" class="text-styling">
+            <img src="assets/cartwheel.png" id="settings-image-touch" class="img-size" alt="cartwheel">
+            <h2>Settings</h2>
+        </div>
+        <div class="all-icons-button-container text-styling">
+            <button id="all-icons-button" class="button-style">
+                <h2>Icon</h2>
+                <h2>Sources</h2>
+            </button>
         </div>
     </div>
     

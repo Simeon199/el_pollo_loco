@@ -1,0 +1,43 @@
+@media(hover: hover) and (orientation: portrait), (hover: none) and (orientation: portrait){
+    #message-to-turn-device {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 100dvh;
+        width: 100dvw;
+        background-color: rgba(10, 10, 10, 0.5);
+    }
+
+    .message-to-turn-device-wrapper {
+        width: 80%;
+    }
+
+    .message-to-turn-device-wrapper h2 {
+        font-family: 'damion';
+        font-size: 40px;
+        text-align: center;
+        padding-right: 16px;
+        padding-left: 16px;
+        border: 2px solid black;
+        color: black;
+        border-radius: 16px;
+        background: gold;
+    }
+
+    #ui-touch {
+        display: none;
+    }
+
+    #ui-desktop {
+        display: none;
+    }
+
+    #links-images-touch {
+        display: none;
+    }
+
+    #overlay-touch {
+        display: none;
+    }
+}

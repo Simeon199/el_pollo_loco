@@ -1,16 +1,7 @@
 import explainGamePopUp from './components/explain-game-container.js';
 import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
-
-// === CURRENTLY UNUSED FLAGS - START ===
-
-// let isSoundIconInteraction = false;
-// let timePassedWhenKeyReleased;
-// let timeDifferenceBetweenKeyDPressedReleased = 0;
-// let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
-// let momentKeySpaceWasPressed = 0;
-// let momentKeySpaceWasReleased = 0;
-
-// === CURRENTLY UNUSED FLAGS - END ===
+// import winningOverlay from './components/winning-overlay.js';
+// import losingOverlay from './components/losing-overlay.js';
 
 document.addEventListener('DOMContentLoaded', () => {
    handleAllClickEvents();
@@ -42,15 +33,6 @@ function handleAllTouchStartEvents(){
     }, {passive: false});
 }
 
-function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
-    event.preventDefault();
-    handleSwitchCasesForTouchStartControlButtons(target);
-}
-
-function setExitGameContainersButtonStyle(target){
-    target.style.background = 'rgb(75, 61, 35)';
-}
-
 function handleAllTouchEndEvents(){
     document.addEventListener('touchend', (event) => {
         let target = event.target
@@ -63,6 +45,15 @@ function handleAllTouchEndEvents(){
             startGameAndSetStyleForTouchDevice();
         }
     }, {passive: false});
+}
+
+function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
+    event.preventDefault();
+    handleSwitchCasesForTouchStartControlButtons(target);
+}
+
+function setExitGameContainersButtonStyle(target){
+    target.style.background = 'rgb(75, 61, 35)';
 }
 
 function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
@@ -295,43 +286,3 @@ function isLocationPrivacyPolicy(){
 function isLocationImprintPage(){
     return window.location.pathname.endsWith('/imprint/imprint.html');
 }
-
-/* === GEHE ALS NÄCHSTES, DIE FOLGENDEN METHODEN AN === */
-
-/* NEW METHODS FOR BUNDLED FILES - START */
-
-// function loadBundledJS(jsPath){
-//     return new Promise((resolve, reject) => {
-//         const script = document.createElement('script');
-//         script.src = jsPath;
-//         script.defer = true;
-//         script.onload = resolve;
-//         script.onerror = reject;
-//         document.head.appendChild(script);
-//     });
-// }
-
-// function loadBundledCSS(cssPath){
-//     const link = document.createElement('link');
-//     link.rel = 'stylesheet';
-//     link.href = cssPath;
-//     document.head.appendChild(link);
-// }
-
-/* NEW METHODS FOR BUNDLED FILES - FINISH */
-
-/*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
-
-// function showLoadingSpinner(){
-//     let loadingOverlay = document.getElementById('loadingOverlay');
-//     if(loadingOverlay && loadingOverlay.style.display === 'none'){
-//         loadingOverlay.style.display = 'none';
-//     }
-// }
-
-// function hideLoadingSpinner() {
-//     let loadingOverlay = document.getElementById('loadingOverlay');
-//     if(loadingOverlay && loadingOverlay.style.display === 'flex'){
-//         loadingOverlay.style.display = 'none';
-//     }
-// }
