@@ -64,10 +64,17 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
 
 function setStylingOfInitializedGame(){
     document.getElementById('intro-image-desktop').classList.add('d-none');
-    document.getElementById('links-images-desktop').style.display = 'none';
     document.getElementById('canvas-container').classList.remove('d-none');
     document.getElementById('canvas-container').classList.add('d-flex');
+    hideLinksImagesDesktopForSmallDevices();
     addScreenControlPanelIfTouchDevice();
+}
+
+function hideLinksImagesDesktopForSmallDevices(){
+    let linksImagesDesktop = document.getElementById('links-images-desktop')
+    if(window.innerWidth < 1024 && linksImagesDesktop.style.display !== 'none'){
+        linksImagesDesktop.style.display = 'none';
+    }
 }
 
 function addScreenControlPanelIfTouchDevice(){

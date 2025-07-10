@@ -94,13 +94,6 @@ body {
     display: none;
 }
 
-.d-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .closeBtn {
     width: 56px;
     cursor: pointer;

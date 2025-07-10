@@ -187,7 +187,7 @@ function startGameAndSetStyleForDesktopDevice(){
 
 function setStyleForDesktopDevice(){
     let uiDesktop = document.getElementById('ui-desktop');
-    if(uiDesktop.style.display !== 'none'){
+    if(uiDesktop.style.display !== 'none' && window.innerWidth < 1024){
         uiDesktop.style.display = 'none'
     }
 }

@@ -44,6 +44,16 @@
     font-size: 16px;
 }
 
+@media(min-width: 1024px) and (orientation: landscape) and (hover: hover){
+    #ui-touch {
+        display: none;
+    }
+
+    #ui-desktop {
+        display: flex;
+    }
+}
+
 @media(max-width: 1024px) and (orientation: landscape) and (hover: hover),
 (max-width: 1024px) and (orientation: landscape) and (hover: none) {
 

@@ -14,12 +14,27 @@
         display: none;
     }
 
+    #links-images-desktop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        font-family: 'playpensans';
+        font-size: 18px;
+    }
+
     #links-images-touch {
         display: none;
     }
 
     #message-to-turn-device {
         display: none;
+    }
+
+    #icon-button {
+        font-size: 16px;
+        font-family: 'playpensans';
+        cursor: pointer;
     }
 
     .button-style {
@@ -182,7 +197,7 @@
         font-weight: bolder;
         cursor: pointer;
         font-family: 'playpensans light';
-        background: rgb(175, 151, 16);
+        background: gold;
     }
 
     #button-container {
@@ -191,9 +206,9 @@
 
     #intro-image-desktop img:nth-child(2) { 
         position: absolute;
-        bottom: 8px;
-        left: calc((100% - 64px) / 2);
-        width: 64px;
+        bottom: 1%;
+        left: calc((100% - 56px) / 2);
+        width: 56px;
         cursor: pointer;
     }
 
