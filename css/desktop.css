@@ -2,17 +2,17 @@
     #ui-desktop {
         height: 100%;
         width: 100%;
-        display: flex;
+        /* display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-between; */
         padding-left: 16px;
         padding-right: 16px;
     }
 
-    #ui-touch {
+    /* #ui-touch {
         display: none;
-    }
+    } */
 
     #links-images-desktop {
         display: flex;
@@ -138,8 +138,8 @@
 
 @media(max-width: 1024px) and (orientation: landscape) and (hover: hover){
     #ui-desktop{
-        display: flex;
-        justify-content: center;
+        /* display: flex;
+        justify-content: center; */
         padding-right: 0;
         padding-left: 0;
         overflow: hidden;
@@ -149,9 +149,9 @@
         display: none;
     }
 
-    #links-images-touch {
+    /* #links-images-touch {
         display: flex;
-    }
+    } */
 
     #title {
         display: none;
@@ -162,9 +162,9 @@
         height: 100dvh;
     }
 
-    #ui-touch {
+    /* #ui-touch {
         display: none;
-    }
+    } */
 
     .fade-in-image {
         width: 100dvw;

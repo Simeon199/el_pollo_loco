@@ -63,24 +63,10 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
 }
 
 function setStylingOfInitializedGame(){
-    document.getElementById('intro-image-desktop').classList.add('d-none');
     document.getElementById('canvas-container').classList.remove('d-none');
-    document.getElementById('canvas-container').classList.add('d-flex');
-    hideLinksImagesDesktopForSmallDevices();
-    addScreenControlPanelIfTouchDevice();
-}
-
-function hideLinksImagesDesktopForSmallDevices(){
-    let linksImagesDesktop = document.getElementById('links-images-desktop')
-    if(window.innerWidth < 1024 && linksImagesDesktop.style.display !== 'none'){
-        linksImagesDesktop.style.display = 'none';
-    }
-}
-
-function addScreenControlPanelIfTouchDevice(){
-    if('ontouchstart' in window || navigator.maxTouchPoints > 0){
-        document.getElementById('screen-control-container').style.display = 'flex';
-    }
+    hideContainerIfVisible('ui-touch');
+    hideContainerIfVisible('ui-desktop');
+    hideContainerIfVisible('links-images-touch'); // d-flex und d-flex-gap noch entfernen!
 }
 
 /**
@@ -376,13 +362,11 @@ function prepareDisplayWinningLosingStyle() {
     hideIntroImageDependingOnUsedDevice();
 }
 
-function hideIntroImageDependingOnUsedDevice(){ // Fehlerquelle: Ich komme ständig in diese falsche Abfrage rein!
+function hideIntroImageDependingOnUsedDevice(){
     if(deviceTypeActivated['desktop']){
-        console.log('desktop version is activated!', deviceTypeActivated);
         hideContainerIfVisible('intro-image-desktop');
         reactivateProperUI('ui-desktop');
     } else if(deviceTypeActivated['touch']){
-        console.log('touch version is activated!', deviceTypeActivated);
         hideContainerIfVisible('intro-image-touch');
         reactivateProperUI('ui-touch');
     }

@@ -4,10 +4,34 @@ import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
 // import losingOverlay from './components/losing-overlay.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-   handleAllClickEvents();
-   handleAllTouchStartEvents();
-   handleAllTouchEndEvents();
+    checkDeviceForMobileOrDesktopType();
+    handleAllClickEvents();
+    handleAllTouchStartEvents();
+    handleAllTouchEndEvents();
 });
+
+function  checkDeviceForMobileOrDesktopType(){
+    if('ontouchstart' in window || navigator.maxTouchPoints > 0){
+        let uiTouch = document.getElementById('ui-touch');
+        uiTouch.classList.remove('d-none');
+        handleLinksImagesTouchStyle();
+    } else {
+        let uiDesktop = document.getElementById('ui-desktop');
+        uiDesktop.classList.remove('d-none');
+        uiDesktop.classList.add('d-flex');
+        uiDesktop.classList.add('d-flex-column');
+        if(window.innerWidth < 1024){
+            handleLinksImagesTouchStyle();
+        }
+    }
+}
+
+function handleLinksImagesTouchStyle(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    linksImagesTouch.classList.remove('d-none');
+    linksImagesTouch.classList.add('d-flex');
+    linksImagesTouch.classList.add('d-flex-gap');
+}
 
 function handleAllClickEvents(){
     document.addEventListener('click', async (event) => {

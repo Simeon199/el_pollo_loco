@@ -1,12 +1,12 @@
 @media(min-width: 1024px) and (orientation: landscape) and (hover: none), 
 (max-width: 1024px) and (hover: none) and (orientation: landscape) {
-    #ui-desktop {
-        display: none !important;
-    }
+    /* #ui-desktop {
+        display: none;
+    } */
     
     #ui-touch {
-        display: flex !important;
-        position: relative;
+        /* display: flex;
+        position: relative; */
         width: 100dvw;
         height: 100dvh;
     }
