@@ -26,84 +26,24 @@ let deviceTypeActivated = {
     'touch': false
 }
 
-/**
- * Deletes the current game world instance and clears all active intervals. Ensures no game logic persists from a previous game session.
- */
-
-function deleteWorldInstance() {
-    if (world) {
-        clearAllIntervals();
-        world = null;
-    }
-}
-
-/**
- * Initializes the game by resetting all variables and listeners. Sets up a fresh game world and begins with default configurations.
- */
-
-function init() {
-    deleteWorldInstance();
-    setRemainingObjectsAndVariablesWhenInitGame();
-    muteUnmuteSound(soundIsMuted);
-    controlTurnOnTurnOffIcon();
-    initializeTimePointWhenGameStarted();
-}
-
-function initializeTimePointWhenGameStarted(){
-    timePointWhenGameInitialized = new Date().getTime();
-}
-
-/**
- * Sets up essential game objects and variables needed for game initialization. Creates the game world, sets the canvas context, and verifies character states.
- */
-
-function setRemainingObjectsAndVariablesWhenInitGame() {
-    setWorldAndContextObjects();
-    checkIfEnemyOrCharacterIsDead();
-    setHasGameStartedValue();
-    setStylingOfInitializedGame();
-}
-
-function setWorldAndContextObjects(){
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
-    ctx = canvas.getContext('2d');
-}
-
-function setHasGameStartedValue(){
-    hasGameStarted = true;
-}
-
-function setStylingOfInitializedGame(){
-    showCanvasWhenGameStarts();
-    hideAllNeededStylingsWhenGameInitialized();
-}
-
-function showCanvasWhenGameStarts(){
-    document.getElementById('canvas-container').classList.remove('d-none');
-}
-
-function hideAllNeededStylingsWhenGameInitialized(){
-    hideContainerIfVisible('ui-touch');
-    hideContainerIfVisible('ui-desktop');
-    hideIntroImageDependingOnUsedDevice();
-    removeLinksImagesTouchIfStillPresent();
-}
-
 function removeLinksImagesTouchIfStillPresent(){
-    let linksImagesTouch = document.getElementById('links-images-touch');
-    if(linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-flex-gap')){
-        linksImagesTouch.classList.remove('d-flex-gap');
+    if(doesLinksImagesTouchContainsFlexboxAttributes()){
+        let linksImagesTouch = document.getElementById('links-images-touch');
+        linksImagesTouch.classList.remove('d-gap');
         linksImagesTouch.classList.remove('d-flex');
         linksImagesTouch.classList.add('d-none');
     }
-    console.log('Here comes the logic'); // d-flex and d-flex-gap
+}
+
+function doesLinksImagesTouchContainsFlexboxAttributes(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-gap'); 
 }
 
 function hideIntroImageDependingOnUsedDevice(){
     if(isDeviceMobileTypeOrOfSmallSize()){
         hideContainerIfVisible('intro-image-touch');
-    } else {
+    } else if(!isDeviceMobileTypeOrOfSmallSize()) {
         hideContainerIfVisible('intro-image-desktop');
     }
 }
@@ -116,11 +56,6 @@ function isTouch(){
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
-/**
- * Controls the display of the sound icon based on the current mute state. If the sound is muted, it displays the "sound off" icon.
- * If the sound is unmuted, it displays the "sound on" icon.
- */
-
 function controlTurnOnTurnOffIcon() {
     if (soundIsMuted) {
         showTurningSoundOffIcon();
@@ -129,31 +64,10 @@ function controlTurnOnTurnOffIcon() {
     }
 }
 
-/**
- * Mutes all game sounds by updating the sound state variables. Sets `soundOn` to `false` and `soundIsMuted` to `true` to reflect
- * that the game sounds are turned off.
- */
-
 function muteGameSounds() {
     soundOn = false;
     soundIsMuted = true;
 }
-
-/**
- * If the game is not currently playing (`isGamePlaying` is `false`), the function exits early. If the game is playing, it calls 
- * `manageStopGameInterval()` to handle any necessary game interval adjustments.
- */
-
-function checkIfEnemyOrCharacterIsDead() {
-    if (!isGamePlaying) {
-        return;
-    }
-    manageStopGameInterval();
-}
-
-/**
- * Periodically checks if the character or enemies are dead and stops the game accordingly.
- */
 
 function manageStopGameInterval() {
     clearStopGameIntervalIfItAlreadyExists();
@@ -196,20 +110,76 @@ function clearStopGameIntervalIfItAlreadyExists(){
     }
 }
 
-/**
- * Starts the game, initializes necessary elements, and handles screen orientation.
- */
-
 function startGame() {
     isGamePlaying = true;
     init();
 }
 
-/**
- * Stops the game and manages the style based on the outcome (winning or losing).
- * 
- * @param {string} string - The outcome of the game, either 'winning' or 'losing'.
- */
+function init() {
+    deleteWorldInstance();
+    setRemainingObjectsAndVariablesWhenInitGame();
+    muteUnmuteSound(soundIsMuted);
+    controlTurnOnTurnOffIcon();
+    initializeTimePointWhenGameStarted();
+}
+
+function deleteWorldInstance() {
+    if (world) {
+        clearAllIntervals();
+        world = null;
+    }
+}
+
+function setRemainingObjectsAndVariablesWhenInitGame() {
+    setWorldAndContextObjects();
+    checkIfEnemyOrCharacterIsDead();
+    setHasGameStartedValue();
+    setStylingOfInitializedGame();
+}
+
+function setWorldAndContextObjects(){
+    canvas = document.getElementById("canvas");
+    world = new World(canvas, keyboard);
+    ctx = canvas.getContext('2d');
+}
+
+function checkIfEnemyOrCharacterIsDead() {
+    if (!isGamePlaying) {
+        return;
+    }
+    manageStopGameInterval();
+}
+
+function setHasGameStartedValue(){
+    hasGameStarted = true;
+}
+
+function setStylingOfInitializedGame(){
+    showCanvasWhenGameStarts();
+    hideAllNeededStylingsWhenGameInitialized();
+}
+
+function showCanvasWhenGameStarts(){
+    document.getElementById('canvas-container').classList.remove('d-none');
+}
+
+function hideAllNeededStylingsWhenGameInitialized(){
+    hideContainerIfVisible('ui-touch');
+    hideIntroImageDependingOnUsedDevice();
+    removeLinksImagesTouchIfStillPresent();
+}
+
+function hideIntroImageDependingOnUsedDevice(){
+    if(!isTouch()){ 
+        hideContainerIfVisible('intro-image-desktop');
+    } else if(isTouch()){
+        hideContainerIfVisible('intro-image-touch');
+    }
+}
+
+function initializeTimePointWhenGameStarted(){
+    timePointWhenGameInitialized = new Date().getTime();
+}
 
 function stopGame(string) {
     breakUpFunctionIfisGamePayingAlreadyFalse();
@@ -228,19 +198,9 @@ function manageStyleAndVariablesWhenStoppingGame(string){
     isGamePlaying = false;
 }
 
-/**
- * Resets the game, hiding the canvas and showing the intro image.
- */
-
 function resetGame() {
     window.location.reload();
 }
-
-/**
- * Checks if the world object exists.
- * 
- * @returns {boolean} - Returns true if the world exists, else false.
- */
 
 function doesWorldExist() {
     if (world) {
@@ -250,12 +210,6 @@ function doesWorldExist() {
     }
 }
 
-/**
- * Checks if the character exists in the world.
- * 
- * @returns {boolean} - Returns true if the character exists, else false.
- */
-
 function doesCharacterExistInWorld() {
     if (world.character) {
         return true;
@@ -263,12 +217,6 @@ function doesCharacterExistInWorld() {
         return false;
     }
 }
-
-/**
- * Checks if enemies exist in the world.
- * 
- * @returns {boolean} - Returns true if enemies exist in the world, else false.
- */
 
 function doEnemiesExistInWorld() {
     if (doesWorldLevelsAndEnemiesObjectsExist()) {
@@ -282,29 +230,17 @@ function doesWorldLevelsAndEnemiesObjectsExist(){
     return world && world.level && world.level.enemies && world.level.enemies.length > 0; 
 }
 
-/**
- * Clears all active intervals in the game.
- */
-
 function clearAllIntervals() {
     for (let i = 1; i < 99999; i++) {
         window.clearInterval(i);
     }
 }
 
-/**
- * Sets the global variable `isGamePlaying` to true if it is currently false. Ensures that the game state reflects an active game session.
- */
-
 function setIsGamePlayingTrueIfFalse() {
     if (isGamePlaying == false) {
         isGamePlaying = true;
     }
 }
-
-/**
- * Resets the game state to allow the player to start a new game. Invokes the init()-method which starts a new game session.
- */
 
 function playAgain() {
     setWasGameWonWhenPlayAgainActivated();
@@ -370,16 +306,20 @@ function isWinningImageVisible(){
     return document.getElementById('winning-image').style.display !== 'none';
 }
 
-// function hideCanvasContainer() { 
-//     document.getElementById('canvas-container').style.display = 'none';
-// }
-
 function manageStyleWhenGameIsStopped() {
     clearAllIntervals();
     stopAllSounds();
     isGamePlaying = false;
-    // hideCanvasContainer();
+    hideContainerIfVisible('canvas-container');
     // exitFullscreen();
+}
+
+async function loadComponent(component, divId){
+    let divRef = document.getElementById(`${divId}`);
+    let response = await fetch(component.html);
+    let html = await response.text();
+    divRef.innerHTML = html;
+    component.setUp(divRef);
 }
 
 function manageStyleDependingOnWinndingOrLosing(string) {
@@ -411,24 +351,44 @@ function changeStyleWhenWinning() {
     showWinningImageDependingOnUsedDevice();
 }
 
-function showWinningImageDependingOnUsedDevice(){
-    if(deviceTypeActivated['desktop']){
-        showContainerIfHidden('winning-image-desktop');    
-    } else if(deviceTypeActivated['touch']){
-        showContainerIfHidden('winning-image-touch');
+async function showWinningImageDependingOnUsedDevice(){
+    if(!isTouch()){ 
+        await showWinningImageForDesktopDevice();
+        // showContainerIfHidden('winning-image-desktop');    
+    } else if(isTouch()){
+        await showWinningImageForTouchDevice();
+        // showContainerIfHidden('winning-image-touch');
     }
 }
 
-function showLosingImageDependingOnUsedDevice(){
-    if(deviceTypeActivated['desktop']){
-        showContainerIfHidden('losing-image-desktop');
-    } else if(deviceTypeActivated['touch']){
-        showContainerIfHidden('losing-image-touch');    
+async function showWinningImageForDesktopDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(winningOverlay, divId);
+}
+
+async function showWinningImageForTouchDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(winningOverlay, divId);
+}
+
+async function showLosingImageDependingOnUsedDevice(){
+    if(!isTouch()){
+        await showLosingImageForDesktopDevice();
+        // showContainerIfHidden('losing-image-desktop');
+    } else if(isTouch()){
+        await showLosingImageForTouchDevice();
+        // showContainerIfHidden('losing-image-touch');    
     }
 }
 
-function isIntroImageVisible(){
-    return document.getElementById('intro-image').style.display !== 'none';
+async function showLosingImageForDesktopDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(losingOverlay, divId);
+}
+
+async function showLosingImageForTouchDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(losingOverlay, divId);
 }
 
 function prepareDisplayWinningLosingStyle() {
@@ -437,36 +397,39 @@ function prepareDisplayWinningLosingStyle() {
     hideIntroImageDependingOnUsedDevice();
 }
 
-function hideIntroImageDependingOnUsedDevice(){
-    if(deviceTypeActivated['desktop']){
-        hideContainerIfVisible('intro-image-desktop');
-        reactivateProperUI('ui-desktop');
-    } else if(deviceTypeActivated['touch']){
-        hideContainerIfVisible('intro-image-touch');
-        reactivateProperUI('ui-touch');
+// function showContainerIfHidden(container){
+//     let containerToShow = document.getElementById(`${container}`);
+//     if(containerToShow.classList.contains('d-none')){
+//         containerToShow.classList.remove('d-none');
+//     }
+// }
+
+function hideUiDesktopIfVisible(){
+    if(doesUiDesktopContainFlexboxClasses()){
+        hideUiDesktopStyle();
+        hideContainerIfVisible('ui-desktop');
     }
 }
 
-function reactivateProperUI(device){
-    document.getElementById(`${device}`).style.display = 'flex';
+function hideUiDesktopStyle(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.classList.remove('d-column');
+    uiDesktop.classList.remove('d-flex');
 }
 
-function showContainerIfHidden(container){
-    let containerToShow = document.getElementById(`${container}`);
-    if(containerToShow.classList.contains('d-none')){
-        containerToShow.classList.remove('d-none');
-    }
+function doesUiDesktopContainFlexboxClasses(){
+    return uiDesktop.classList.contains('d-flex') && uiDesktop.classList.contains('d-column'); 
 }
 
 function hideContainerIfVisible(container){
     let containerToHide = document.getElementById(`${container}`);
     if(!containerToHide.classList.contains('d-none')){
         containerToHide.classList.add('d-none');
-    }
+    } 
 }
 
 function decideIfTouchOrDesktopVersionIsActive(){
-    if(isDeviceTypeDeactivated('ui-desktop')){
+    if(isDeviceTypeDeactivated('ui-desktop')){ 
         deviceTypeActivated['desktop'] = true;
         deviceTypeActivated['touch'] = false; 
         setLinksImagesDependingOnDeviceType('links-images-desktop');

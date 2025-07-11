@@ -41,14 +41,27 @@ function showUiDesktopStyle(){
     let uiDesktop = document.getElementById('ui-desktop');
     uiDesktop.classList.remove('d-none');
     uiDesktop.classList.add('d-flex');
-    uiDesktop.classList.add('d-flex-column');
+    uiDesktop.classList.add('d-column');
 }
+
+// === CURRENTLY NOT NEEDED FUNCTION START ===
+
+// function hideUiDesktopStyleIfVisible(){
+//     let uiDesktop = document.getElementById('ui-desktop');
+//     if(uiDesktop.classList.contains('d-flex') && uiDesktop.classList.contains('d-column')){
+//         uiDesktop.classList.remove('d-column');
+//         uiDesktop.classList.remove('d-flex');
+//         hideContainerIfVisible('ui-desktop');
+//     }
+// }
+
+// === CURRENTLY NOT NEEDED FUNCTION FINISH ===
 
 function handleLinksImagesTouchStyle(){
     let linksImagesTouch = document.getElementById('links-images-touch');
     linksImagesTouch.classList.remove('d-none');
     linksImagesTouch.classList.add('d-flex');
-    linksImagesTouch.classList.add('d-flex-gap');
+    linksImagesTouch.classList.add('d-gap');
 }
 
 function handleAllClickEvents(){

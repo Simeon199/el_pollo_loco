@@ -130,10 +130,6 @@ body {
 }
 
 #links-images-touch {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px; */
     position: absolute;
     top: 1%;
     right: 1%;
@@ -150,11 +146,11 @@ body {
     align-items: center;
 }
 
-.d-flex-column {
+.d-column {
     flex-direction: column;
 }
 
-.d-flex-gap {
+.d-gap {
     gap: 16px;
 }
 

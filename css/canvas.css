@@ -43,17 +43,7 @@
     font-size: 16px;
 }
 
-@media(min-width: 1024px) and (orientation: landscape) { /* and (hover: hover) */
-    #ui-touch {
-        display: none;
-    }
-
-    #ui-desktop {
-        display: flex;
-    }
-}
-
-@media(max-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) { /* and (hover: hover), and (hover: none) */
+@media(max-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) {
 
     #canvas-container {
         position: relative;

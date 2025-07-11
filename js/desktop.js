@@ -210,13 +210,13 @@ function keyRightReleasedAndCharacterWithinBorder(event) {
  * Exits fullscreen mode and resets fullscreen-related flags.
  */
 
-function exitFullscreen() {
-    if (document.fullscreenElement) {
-        document.exitFullscreen();
-    }
-    isFullscreenActivated = false;
-    isChangingToFullscreen = false;
-}
+// function exitFullscreen() {
+//     if (document.fullscreenElement) {
+//         document.exitFullscreen();
+//     }
+//     isFullscreenActivated = false;
+//     isChangingToFullscreen = false;
+// }
 
 // Die beiden folgenden Event Listener in die script-Datei mit Event Delegation 
 
