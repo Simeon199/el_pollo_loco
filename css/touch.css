@@ -1,5 +1,4 @@
-@media(min-width: 1024px) and (orientation: landscape) and (hover: none), 
-(max-width: 1024px) and (hover: none) and (orientation: landscape) {
+@media(min-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) { /* and (hover: none) */
     /* #ui-desktop {
         display: none;
     } */

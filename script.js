@@ -10,20 +10,38 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAllTouchEndEvents();
 });
 
-function  checkDeviceForMobileOrDesktopType(){
-    if('ontouchstart' in window || navigator.maxTouchPoints > 0){
-        let uiTouch = document.getElementById('ui-touch');
-        uiTouch.classList.remove('d-none');
+function checkDeviceForMobileOrDesktopType(){
+    if(isTouch()){
+        showUiTouchStyle();
         handleLinksImagesTouchStyle();
     } else {
-        let uiDesktop = document.getElementById('ui-desktop');
-        uiDesktop.classList.remove('d-none');
-        uiDesktop.classList.add('d-flex');
-        uiDesktop.classList.add('d-flex-column');
-        if(window.innerWidth < 1024){
-            handleLinksImagesTouchStyle();
-        }
+        showUiDesktopStyle();
+        handleDesktopStyleDependingOnScreenSize();
     }
+}
+
+function handleDesktopStyleDependingOnScreenSize(){
+    if(window.innerWidth < 1024 && !hasGameStarted){
+        handleLinksImagesTouchStyle();
+    } else if(window.innerWidth > 1024 && hasGameStarted){
+        hideContainerIfVisible('intro-image-desktop');
+    }
+}
+
+function isTouch(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+function showUiTouchStyle(){
+    let uiTouch = document.getElementById('ui-touch');
+    uiTouch.classList.remove('d-none');
+}
+
+function showUiDesktopStyle(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.classList.remove('d-none');
+    uiDesktop.classList.add('d-flex');
+    uiDesktop.classList.add('d-flex-column');
 }
 
 function handleLinksImagesTouchStyle(){

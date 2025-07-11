@@ -46,6 +46,10 @@ function init() {
     setRemainingObjectsAndVariablesWhenInitGame();
     muteUnmuteSound(soundIsMuted);
     controlTurnOnTurnOffIcon();
+    initializeTimePointWhenGameStarted();
+}
+
+function initializeTimePointWhenGameStarted(){
     timePointWhenGameInitialized = new Date().getTime();
 }
 
@@ -54,19 +58,62 @@ function init() {
  */
 
 function setRemainingObjectsAndVariablesWhenInitGame() {
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
-    ctx = canvas.getContext('2d');
+    setWorldAndContextObjects();
     checkIfEnemyOrCharacterIsDead();
-    hasGameStarted = true;
+    setHasGameStartedValue();
     setStylingOfInitializedGame();
 }
 
+function setWorldAndContextObjects(){
+    canvas = document.getElementById("canvas");
+    world = new World(canvas, keyboard);
+    ctx = canvas.getContext('2d');
+}
+
+function setHasGameStartedValue(){
+    hasGameStarted = true;
+}
+
 function setStylingOfInitializedGame(){
+    showCanvasWhenGameStarts();
+    hideAllNeededStylingsWhenGameInitialized();
+}
+
+function showCanvasWhenGameStarts(){
     document.getElementById('canvas-container').classList.remove('d-none');
+}
+
+function hideAllNeededStylingsWhenGameInitialized(){
     hideContainerIfVisible('ui-touch');
     hideContainerIfVisible('ui-desktop');
-    hideContainerIfVisible('links-images-touch'); // d-flex und d-flex-gap noch entfernen!
+    hideIntroImageDependingOnUsedDevice();
+    removeLinksImagesTouchIfStillPresent();
+}
+
+function removeLinksImagesTouchIfStillPresent(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    if(linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-flex-gap')){
+        linksImagesTouch.classList.remove('d-flex-gap');
+        linksImagesTouch.classList.remove('d-flex');
+        linksImagesTouch.classList.add('d-none');
+    }
+    console.log('Here comes the logic'); // d-flex and d-flex-gap
+}
+
+function hideIntroImageDependingOnUsedDevice(){
+    if(isDeviceMobileTypeOrOfSmallSize()){
+        hideContainerIfVisible('intro-image-touch');
+    } else {
+        hideContainerIfVisible('intro-image-desktop');
+    }
+}
+
+function isDeviceMobileTypeOrOfSmallSize(){
+    return isTouch() || window.innerWidth < 1024; 
+}
+
+function isTouch(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
 /**
@@ -115,16 +162,32 @@ function manageStopGameInterval() {
 
 function setStopGameIntervalAndClearIt(){
     stopGameInterval = setInterval(() => {
-        if (world.character.energy === 0) {
-            wasGameWon = false;
-            stopGame('losing');
-            clearInterval(stopGameInterval);
-        } else if (world.enemiesNumber <= 0) {
-            wasGameWon = true;
-            stopGame('winning');
-            clearInterval(stopGameInterval);
+        if (wasCharacterDefeatedByEnemies()) {
+            handleGameLostLogic();
+        } else if (hasEnemiesBeenDefeatedByCharacter()) {
+            handleGameWonLogic();
         }
     }, 5000);
+}
+
+function wasCharacterDefeatedByEnemies(){
+    return world.character.energy === 0;
+}
+
+function hasEnemiesBeenDefeatedByCharacter(){
+    return world.enemiesNumber <= 0;
+}
+
+function handleGameLostLogic(){
+    wasGameWon = false;
+    stopGame('losing');
+    clearInterval(stopGameInterval);
+}
+
+function handleGameWonLogic(){
+    wasGameWon = true;
+    stopGame('winning');
+    clearInterval(stopGameInterval);
 }
 
 function clearStopGameIntervalIfItAlreadyExists(){
@@ -208,11 +271,15 @@ function doesCharacterExistInWorld() {
  */
 
 function doEnemiesExistInWorld() {
-    if (world && world.level && world.level.enemies && world.level.enemies.length > 0) {
+    if (doesWorldLevelsAndEnemiesObjectsExist()) {
         return true;
     } else {
         return false;
     }
+}
+
+function doesWorldLevelsAndEnemiesObjectsExist(){
+    return world && world.level && world.level.enemies && world.level.enemies.length > 0; 
 }
 
 /**
@@ -240,11 +307,19 @@ function setIsGamePlayingTrueIfFalse() {
  */
 
 function playAgain() {
-    wasGameWon = null;
+    setWasGameWonWhenPlayAgainActivated();
     settingUpStyleWhenPlayAgainButtonPressed();
+    setFlagsWhenPlayAgainIsActivated();
+    init();
+}
+
+function setWasGameWonWhenPlayAgainActivated(){
+    wasGameWon = null;
+}
+
+function setFlagsWhenPlayAgainIsActivated(){
     hasGameStarted = false;
     isGamePlaying = true;
-    init();
 }
 
 function settingUpStyleWhenPlayAgainButtonPressed() {

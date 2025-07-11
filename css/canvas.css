@@ -43,7 +43,7 @@
     font-size: 16px;
 }
 
-@media(min-width: 1024px) and (orientation: landscape) and (hover: hover){
+@media(min-width: 1024px) and (orientation: landscape) { /* and (hover: hover) */
     #ui-touch {
         display: none;
     }
@@ -53,17 +53,19 @@
     }
 }
 
-@media(max-width: 1024px) and (orientation: landscape) and (hover: hover),
-(max-width: 1024px) and (orientation: landscape) and (hover: none) {
+@media(max-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) { /* and (hover: hover), and (hover: none) */
 
     #canvas-container {
         position: relative;
         overflow: hidden;
+        width: 100dvw;
+        height: 100dvh;
     }
 
     canvas {
         height: 100dvh;
         width: 100dvw;
+        overflow: hidden;
     }
 
     .sound-and-exit-container {
