@@ -315,14 +315,23 @@ function manageStyleWhenGameIsStopped() {
 }
 
 function manageStyleDependingOnWinndingOrLosing(string) {
+    console.log(string);
     prepareDisplayWinningLosingStyle();
-    if (isGamerLosing(string)) {
+    if (isGamerLosing()) {
         changeStyleWhenLosing();
-    } else if (isGamerWinning(string)) {
+    } else if (isGamerWinning()) {
         changeStyleWhenWinning();
     } else {
         resetGame();
     }
+}
+
+function isGamerLosing(){
+    return wasGameWon === false;
+}
+
+function isGamerWinning(){
+    return wasGameWon === true;
 }
 
 function prepareDisplayWinningLosingStyle() {

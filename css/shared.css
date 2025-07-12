@@ -122,6 +122,7 @@ body {
     padding: 8px;
     border-radius: 16px;
     background: gold;
+    filter: drop-shadow(4px 4px 6px black);
 }
 
 .button-style:hover {
@@ -138,6 +139,7 @@ body {
     border: 2px solid black;
     border-radius: 16px;
     background-color: #557738db;
+    filter: drop-shadow(2px 4px 6px black);
 }
 
 .d-flex {
@@ -158,4 +160,12 @@ body {
     text-align: center;
     font-family: 'playpensans light';
     font-size: 14px;
+}
+
+.additional-div-styling {
+    border: 1px solid black;
+    padding: 4px;
+    border-radius: 16px;
+    background: darkgoldenrod;
+    filter: drop-shadow(2px 4px 6px black);
 }

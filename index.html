@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/touch.css">
     <link rel="stylesheet" href="css/canvas.css">
     <link rel="stylesheet" href="css/portrait.css">
+    <link rel="stylesheet" href="css/outro.css">
     <script src="components/explain-game-container.js"></script>
     <script src="components/show-all-icons-pop-up.js"></script>
     <script src="components/winning-overlay.js"></script>
@@ -148,11 +149,11 @@
     
     <!-- Opens the pop up that is shown if the user wins the game -->
 
-    <div class="winning-overlay" class="d-none"></div>
+    <div id="winning-overlay" class="d-none"></div>
 
     <!-- Opens the pop up that is shown if the user loses the game -->
 
-    <div class="losing-overlay" class="d-none"></div>
+    <div id="losing-overlay" class="d-none"></div>
 
     <!-- Notification that is displayed if the user is holding the screen in portrait orientation -->
 
@@ -165,18 +166,18 @@
     <!-- HTML structure for settings/imrpint and privacy for small desktop and/or touch devices -->
 
     <div id="links-images-touch" class="d-none">
-        <div id="privacy-and-imprint-pop-up" class="legal-notice-and-privacy-policy text-styling">
+        <div id="privacy-and-imprint-pop-up" class="legal-notice-and-privacy-policy text-styling additional-div-styling">
             <img src="assets/notice.png" alt="notice" class="img-size">
             <div class="h2-title-section">
                 <h2>Privacy & Imprint</h2>
             </div>
         </div>
-        <div id="settings-container" class="text-styling">
+        <div id="settings-container" class="text-styling additional-div-styling">
             <img src="assets/cartwheel.png" id="settings-image-touch" class="img-size" alt="cartwheel">
             <h2>Settings</h2>
         </div>
         <div class="all-icons-button-container text-styling">
-            <button id="all-icons-button" class="button-style">
+            <button id="all-icons-button" class="text-styling additional-div-styling">
                 <h2>Icon</h2>
                 <h2>Sources</h2>
             </button>
