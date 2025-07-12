@@ -1,0 +1,98 @@
+#screen-control-container {
+    position: absolute;
+    bottom: 5%;
+    width: 80dvw;
+    right: calc((100dvw - 80dvw)/2);
+}
+
+#control-panel-everything {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.control-panel-styling {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.touch-control {
+    width: 48px;
+    border: 2px solid black;
+    background-color: wheat;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+#control-panel-throw-jump {
+    width: 22% !important;
+}
+
+#buttonUp {
+    width: 64px !important;
+    height: 48px !important;
+    display: flex;
+    align-items: center;
+}
+
+#spacebar {
+    border: none;
+    font-family: 'playpensans';
+    font-weight: bold;
+    font-size: 16px;
+}
+
+@media(max-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) {
+
+    #canvas-container {
+        position: relative;
+        overflow: hidden;
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    canvas {
+        height: 100dvh;
+        width: 100dvw;
+        overflow: hidden;
+    }
+
+    .sound-and-exit-container {
+        position: absolute;
+        right: 5%;
+        top: 15%;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .exit-game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid black;
+        padding: 4px;
+        border-radius: 12px;
+        background: wheat;
+    }
+
+    .sound-container img {
+        width: 40px;
+        padding: 4px;
+        border: 2px solid black;
+        border-radius: 12px;
+        background: wheat;
+    }
+
+    .exit-game-container img {
+        width: 40px;
+    }
+
+    .exit-game-container p {
+        font-family: 'playpensans';
+        font-size: 14px;
+        font-weight: bold;
+    }
+}

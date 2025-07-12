@@ -1,28 +1,102 @@
-import explainGamePopUp from './components/explain-game-container.js';
-import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
+async function showAllIconSourcesPopUp(){
+    let divId = 'all-icons-container-overlay';
+    await loadComponent(showAllIconsPopUp, divId);
+}
 
-// === CURRENTLY UNUSED FLAGS - START ===
+async function loadComponent(component, divId){
+    let divRef = document.getElementById(`${divId}`);
+    let response = await fetch(component.html);
+    let html = await response.text();
+    divRef.innerHTML = html;
+    component.setUp(divRef);
+}
 
-// let isSoundIconInteraction = false;
-// let timePassedWhenKeyReleased;
-// let timeDifferenceBetweenKeyDPressedReleased = 0;
-// let timeDifferenceBetweenKeyDReleasedAndLaterPressed = 0;
-// let momentKeySpaceWasPressed = 0;
-// let momentKeySpaceWasReleased = 0;
+async function showExplainGamePopUp(){
+    let divId = 'explain-game-container';
+    await loadComponent(explainGamePopUp, divId);
+}
 
-// === CURRENTLY UNUSED FLAGS - END ===
+async function showLosingImageForDesktopDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(losingOverlay, divId);
+}
 
-// let isExplainContainerOpen = false;
-// let isTouch = false;
-// let touchScreenVersionPath = '../templates/touch-screen-version.html';
-// let desktopVersionPath = '../templates/desktop-version.html';
-// let canvasContainerPath = '../templates/canvas-container.html';
+async function showLosingImageForTouchDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(losingOverlay, divId);
+}
+
+async function showWinningImageForDesktopDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(winningOverlay, divId);
+}
+
+async function showWinningImageForTouchDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(winningOverlay, divId);
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
-   handleAllClickEvents();
-   handleAllTouchStartEvents();
-   handleAllTouchEndEvents();
+    checkDeviceForMobileOrDesktopType();
+    handleAllClickEvents();
+    handleAllTouchStartEvents();
+    handleAllTouchEndEvents();
 });
+
+function checkDeviceForMobileOrDesktopType(){
+    if(isTouch()){
+        showUiTouchStyle();
+        handleLinksImagesTouchStyle();
+    } else {
+        showUiDesktopStyle();
+        handleDesktopStyleDependingOnScreenSize();
+    }
+}
+
+function handleDesktopStyleDependingOnScreenSize(){
+    if(window.innerWidth < 1024 && !hasGameStarted){
+        handleLinksImagesTouchStyle();
+    } else if(window.innerWidth > 1024 && hasGameStarted){
+        hideContainerIfVisible('intro-image-desktop');
+    }
+}
+
+function isTouch(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+function showUiTouchStyle(){
+    let uiTouch = document.getElementById('ui-touch');
+    uiTouch.classList.remove('d-none');
+}
+
+function showUiDesktopStyle(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.classList.remove('d-none');
+    uiDesktop.classList.add('d-flex');
+    uiDesktop.classList.add('d-column');
+}
+
+// === CURRENTLY NOT NEEDED FUNCTION START ===
+
+// function hideUiDesktopStyleIfVisible(){
+//     let uiDesktop = document.getElementById('ui-desktop');
+//     if(uiDesktop.classList.contains('d-flex') && uiDesktop.classList.contains('d-column')){
+//         uiDesktop.classList.remove('d-column');
+//         uiDesktop.classList.remove('d-flex');
+//         hideContainerIfVisible('ui-desktop');
+//     }
+// }
+
+// === CURRENTLY NOT NEEDED FUNCTION FINISH ===
+
+function handleLinksImagesTouchStyle(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    linksImagesTouch.classList.remove('d-none');
+    linksImagesTouch.classList.add('d-flex');
+    linksImagesTouch.classList.add('d-gap');
+}
 
 function handleAllClickEvents(){
     document.addEventListener('click', async (event) => {
@@ -39,10 +113,25 @@ function handleAllClickEvents(){
 function handleAllTouchStartEvents(){
     document.addEventListener('touchstart', (event) => {
         let target = event.target;
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
         if(areTouchControlButtonsTouched(target)){
             preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target);
         } else if(isExitGameContainerTouched(target)){
             setExitGameContainersButtonStyle(target);
+        }
+    }, {passive: false});
+}
+
+function handleAllTouchEndEvents(){
+    document.addEventListener('touchend', (event) => {
+        let target = event.target
+        settingGlobalVariablesInKeyUpOrTouchEndEvent(event);
+        if(areTouchControlButtonsTouched(target)){
+           preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target);
+        } else if(isExitGameContainerTouched(target)){
+            setStyleForExitGameContainerAndResetGame(target);
+        } else if(isPlayIconTouched(target)){
+            startGameAndSetStyleForTouchDevice();
         }
     }, {passive: false});
 }
@@ -54,19 +143,6 @@ function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
 
 function setExitGameContainersButtonStyle(target){
     target.style.background = 'rgb(75, 61, 35)';
-}
-
-function handleAllTouchEndEvents(){
-    document.addEventListener('touchend', (event) => {
-        let target = event.target
-        if(areTouchControlButtonsTouched(target)){
-           preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target);
-        } else if(isExitGameContainerTouched(target)){
-            setStyleForExitGameContainerAndResetGame(target);
-        } else if(isPlayIconTouched(target)){
-            startGameAndSetStyleForTouchDevice();
-        }
-    }, {passive: false});
 }
 
 function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
@@ -187,9 +263,21 @@ function handleClickEventsOnIndexPage(event){
     } else if(isDesktopPrivacyPolicyLinkClicked(event)){
         redirectToPrivacyPolicyPage();
     } else if(isPlayIconClicked(event)){
-        startGame();
+        startGameAndSetStyleForDesktopDevice();
     } else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
+    }
+}
+
+function startGameAndSetStyleForDesktopDevice(){
+    startGame();
+    setStyleForDesktopDevice();
+}
+
+function setStyleForDesktopDevice(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    if(uiDesktop.style.display !== 'none' && window.innerWidth < 1024){
+        uiDesktop.style.display = 'none'
     }
 }
 
@@ -222,23 +310,23 @@ function handleClickEventsOnLinksOnImprintPage(event){
     }
 }
 
-async function showAllIconSourcesPopUp(){
-    let divId = 'all-icons-container-overlay';
-    await loadComponent(showAllIconsPopUp, divId);
-}
+// async function showAllIconSourcesPopUp(){
+//     let divId = 'all-icons-container-overlay';
+//     await loadComponent(showAllIconsPopUp, divId);
+// }
 
-async function loadComponent(component, divId){
-    let divRef = document.getElementById(`${divId}`);
-    let response = await fetch(component.html);
-    let html = await response.text();
-    divRef.innerHTML = html;
-    component.setUp(divRef);
-}
+// async function loadComponent(component, divId){
+//     let divRef = document.getElementById(`${divId}`);
+//     let response = await fetch(component.html);
+//     let html = await response.text();
+//     divRef.innerHTML = html;
+//     component.setUp(divRef);
+// }
 
-async function showExplainGamePopUp(){
-    let divId = 'explain-game-container';
-    await loadComponent(explainGamePopUp, divId);
-}
+// async function showExplainGamePopUp(){
+//     let divId = 'explain-game-container';
+//     await loadComponent(explainGamePopUp, divId);
+// }
 
 /**
  * Redirects the user to the play page.
@@ -287,43 +375,3 @@ function isLocationPrivacyPolicy(){
 function isLocationImprintPage(){
     return window.location.pathname.endsWith('/imprint/imprint.html');
 }
-
-/* === GEHE ALS NÄCHSTES, DIE FOLGENDEN METHODEN AN === */
-
-/* NEW METHODS FOR BUNDLED FILES - START */
-
-// function loadBundledJS(jsPath){
-//     return new Promise((resolve, reject) => {
-//         const script = document.createElement('script');
-//         script.src = jsPath;
-//         script.defer = true;
-//         script.onload = resolve;
-//         script.onerror = reject;
-//         document.head.appendChild(script);
-//     });
-// }
-
-// function loadBundledCSS(cssPath){
-//     const link = document.createElement('link');
-//     link.rel = 'stylesheet';
-//     link.href = cssPath;
-//     document.head.appendChild(link);
-// }
-
-/* NEW METHODS FOR BUNDLED FILES - FINISH */
-
-/*  === ALL EVENTLISTENERS HERE (TRY EVENT DELEGATION) - START === */
-
-// function showLoadingSpinner(){
-//     let loadingOverlay = document.getElementById('loadingOverlay');
-//     if(loadingOverlay && loadingOverlay.style.display === 'none'){
-//         loadingOverlay.style.display = 'none';
-//     }
-// }
-
-// function hideLoadingSpinner() {
-//     let loadingOverlay = document.getElementById('loadingOverlay');
-//     if(loadingOverlay && loadingOverlay.style.display === 'flex'){
-//         loadingOverlay.style.display = 'none';
-//     }
-// }

@@ -1,76 +1,32 @@
-@media(hover: none) and (max-width: 1024px) and (orientation: landscape){
+@media(min-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) {
+    
     #ui-touch {
-        display: flex;
-        position: relative;
         width: 100dvw;
         height: 100dvh;
-    }
-
-    #ui-desktop {
-        display: none;
-    }
-
-    #links-images-desktop {
-        display: none;
     }
 
     #message-to-turn-device {
         display: none;
     }
 
-    #links-images-touch {
-        position: absolute;
-        top: 1%;
-        right: 1%;
-        z-index: 100;
-        padding: 8px;
-        border: 2px solid black;
-        border-radius: 16px;
-        background-color: #557738db;
-    }
-
-    .links-images-touch {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
-    }
-
     .text-styling {
-        text-align: center;
         font-family: 'playpensans light';
         font-size: 14px;
     }
 
     .button-style {
-        border: 2px solid black;
-        padding: 8px;
-        border-radius: 16px;
         font-size: 14px;
-        cursor: pointer;
+        font-weight: bolder;
         font-family: 'playpensans light';
-        background: rgb(175, 151, 16);
     }
-
 
     #intro-image-touch {
         width: 100dvw;
         height: 100dvh;
-    }
-
-    #overlay-touch {
-        overflow-y: hidden;
-        position: relative;
-        width: 100dvw;
-        height: 100dvh;
-    }
-
-    .overlay-touch {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     #intro-image-touch img:nth-child(1) {
@@ -86,164 +42,45 @@
         right: calc((100dvw - 56px) / 2);
     }
 
-    #canvas-container {
-        height: 100dvh;
-        width: 100dvw;
+    #winning-image-touch {
         position: relative;
-        overflow: hidden;
-    }
-
-    .sound-and-exit-container {
-        position: absolute;
-        right: 5%;
-        top: 15%;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .exit-game-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 2px solid black;
-        padding: 4px;
-        border-radius: 12px;
-        background: wheat;
-    }
-
-    .sound-container img {
-        width: 40px;
-        padding: 4px;
-        border: 2px solid black;
-        border-radius: 12px;
-        background: wheat;
-    }
-
-    .exit-game-container img {
-        width: 40px;
-    }
-
-    .exit-game-container p {
-        font-family: 'playpensans';
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    #canvas {
         height: 100dvh;
         width: 100dvw;
     }
 
-    #screen-control-container {
+    #winning-image-touch img {
         position: absolute;
-        bottom: 5%;
-        width: 80dvw;
-        right: calc((100dvw - 80dvw)/2);
+        height: 100dvh;
+        width: 100dvw;
     }
 
-    #control-panel-everything {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .control-panel-styling {
-        display: flex;
-        justify-content: space-between;
-        width: 20%;
-    }
-
-    .touch-control {
-        width: 48px;
-        border: 2px solid black;
-        background-color: wheat;
-        padding: 4px;
-        border-radius: 12px;
-    }
-
-    #control-panel-throw-jump {
-        width: 22% !important;
-    }
-
-    #buttonUp {
-        width: 64px !important;
-        height: 48px !important;
-        display: flex;
-        align-items: center;
-    }
-
-    #spacebar {
-        border: none;
-        font-family: 'playpensans';
-        font-weight: bold;
-        font-size: 16px;
-    }
-
-    .button-style {
-        border: 2px solid black;
-        padding: 8px;
-        border-radius: 16px;
-        font-size: 14px;
-        font-weight: bolder;
-        cursor: pointer;
-        font-family: 'playpensans light';
-        background: gold;
+    #winning-image-touch button,
+    #losing-image-touch button {
+        position: absolute;
+        right: calc((100dvw - 126px) /2);
+        bottom: 20%;
     }
 
     #losing-image-touch {
-        width: 100%;
-        height: 100%;
-    } 
-
-    #losing-image-touch img {
-        width: 100dvw;
-        height: 100dvh;
-    }
-
-    #losing-image-touch button {
-        position: absolute;
-        right: calc((100dvw - 126px) / 2);
-        bottom: 20%;
-    }
-}
-
-@media(hover: none) and (max-width: 1024px) and (orientation: portrait){
-    #ui-desktop {
-        display: none;
-    }
-    
-    #links-images-touch {
-        display: none;
-    }
-
-    #overlay-touch {
-        display: none;
-    }
-
-    #message-to-turn-device {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         position: relative;
         height: 100dvh;
         width: 100dvw;
-        background-color: rgba(10, 10, 10, 0.5);
     }
 
-    .message-to-turn-device-wrapper {
-        width: 80%;
+    #losing-image-touch img {
+        position: absolute;
+        height: 100dvh;
+        width: 100dvw;
     }
 
-    .message-to-turn-device-wrapper h2 {
-        font-family: 'damion';
-        font-size: 48px;
-        text-align: center;
-        padding-right: 16px;
-        padding-left: 16px;
+    .play-again-button-style {
         border: 2px solid black;
-        color: black;
+        padding: 8px;
         border-radius: 16px;
-        background: #d96d1085;
+        font-size: 20px;
+        font-weight: bolder;
+        cursor: pointer;
+        font-family: 'playpensans';
+        background: gold;
     }
 }

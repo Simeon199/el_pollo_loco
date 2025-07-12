@@ -10,5 +10,3 @@ let showAllIconsPopUp = {
         container.addEventListener('click', onClick);
     }
 };
-
-export default showAllIconsPopUp;

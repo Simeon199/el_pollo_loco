@@ -12,8 +12,6 @@ body {
     background-repeat: no-repeat;
 }
 
-/* === OVERLAYS AND POP UPS === */
-
 .all-icons-container-overlay {
     position: absolute;
     top: 0;
@@ -96,13 +94,6 @@ body {
     display: none;
 }
 
-.d-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .closeBtn {
     width: 56px;
     cursor: pointer;
@@ -126,7 +117,45 @@ body {
     gap: 8px;
 }
 
+.button-style {
+    border: 2px solid black;
+    padding: 8px;
+    border-radius: 16px;
+    background: gold;
+}
+
 .button-style:hover {
     cursor: pointer;
     transform: scale(1.05);
+}
+
+#links-images-touch {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    z-index: 100;
+    padding: 8px;
+    border: 2px solid black;
+    border-radius: 16px;
+    background-color: #557738db;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.d-column {
+    flex-direction: column;
+}
+
+.d-gap {
+    gap: 16px;
+}
+
+.text-styling {
+    text-align: center;
+    font-family: 'playpensans light';
+    font-size: 14px;
 }
