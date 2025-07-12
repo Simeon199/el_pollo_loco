@@ -10,5 +10,3 @@ let explainGamePopUp = {
         container.addEventListener('click', onClick);
     }
 };
-
-export default explainGamePopUp;

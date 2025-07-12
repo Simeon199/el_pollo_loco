@@ -10,5 +10,3 @@ let winningOverlay = {
         container.addEventListener('click', onClick);
     }
 };
-
-export default winningOverlay;

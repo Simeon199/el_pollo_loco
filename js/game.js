@@ -314,14 +314,6 @@ function manageStyleWhenGameIsStopped() {
     // exitFullscreen();
 }
 
-async function loadComponent(component, divId){
-    let divRef = document.getElementById(`${divId}`);
-    let response = await fetch(component.html);
-    let html = await response.text();
-    divRef.innerHTML = html;
-    component.setUp(divRef);
-}
-
 function manageStyleDependingOnWinndingOrLosing(string) {
     prepareDisplayWinningLosingStyle();
     if (isGamerLosing(string)) {
@@ -361,16 +353,6 @@ async function showWinningImageDependingOnUsedDevice(){
     }
 }
 
-async function showWinningImageForDesktopDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(winningOverlay, divId);
-}
-
-async function showWinningImageForTouchDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(winningOverlay, divId);
-}
-
 async function showLosingImageDependingOnUsedDevice(){
     if(!isTouch()){
         await showLosingImageForDesktopDevice();
@@ -379,16 +361,6 @@ async function showLosingImageDependingOnUsedDevice(){
         await showLosingImageForTouchDevice();
         // showContainerIfHidden('losing-image-touch');    
     }
-}
-
-async function showLosingImageForDesktopDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(losingOverlay, divId);
-}
-
-async function showLosingImageForTouchDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(losingOverlay, divId);
 }
 
 function prepareDisplayWinningLosingStyle() {

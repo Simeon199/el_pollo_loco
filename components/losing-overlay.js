@@ -10,5 +10,3 @@ let losingOverlay = {
         container.addEventListener('click', onClick);
     }
 };
-
-export default losingOverlay;

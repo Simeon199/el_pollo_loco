@@ -1,7 +1,41 @@
-import explainGamePopUp from './components/explain-game-container.js';
-import showAllIconsPopUp from './components/show-all-icons-pop-up.js';
-// import winningOverlay from './components/winning-overlay.js';
-// import losingOverlay from './components/losing-overlay.js';
+async function showAllIconSourcesPopUp(){
+    let divId = 'all-icons-container-overlay';
+    await loadComponent(showAllIconsPopUp, divId);
+}
+
+async function loadComponent(component, divId){
+    let divRef = document.getElementById(`${divId}`);
+    let response = await fetch(component.html);
+    let html = await response.text();
+    divRef.innerHTML = html;
+    component.setUp(divRef);
+}
+
+async function showExplainGamePopUp(){
+    let divId = 'explain-game-container';
+    await loadComponent(explainGamePopUp, divId);
+}
+
+async function showLosingImageForDesktopDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(losingOverlay, divId);
+}
+
+async function showLosingImageForTouchDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(losingOverlay, divId);
+}
+
+async function showWinningImageForDesktopDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(winningOverlay, divId);
+}
+
+async function showWinningImageForTouchDevice(){
+    let divId = 'ui-desktop';
+    await loadComponent(winningOverlay, divId);
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
@@ -276,23 +310,23 @@ function handleClickEventsOnLinksOnImprintPage(event){
     }
 }
 
-async function showAllIconSourcesPopUp(){
-    let divId = 'all-icons-container-overlay';
-    await loadComponent(showAllIconsPopUp, divId);
-}
+// async function showAllIconSourcesPopUp(){
+//     let divId = 'all-icons-container-overlay';
+//     await loadComponent(showAllIconsPopUp, divId);
+// }
 
-async function loadComponent(component, divId){
-    let divRef = document.getElementById(`${divId}`);
-    let response = await fetch(component.html);
-    let html = await response.text();
-    divRef.innerHTML = html;
-    component.setUp(divRef);
-}
+// async function loadComponent(component, divId){
+//     let divRef = document.getElementById(`${divId}`);
+//     let response = await fetch(component.html);
+//     let html = await response.text();
+//     divRef.innerHTML = html;
+//     component.setUp(divRef);
+// }
 
-async function showExplainGamePopUp(){
-    let divId = 'explain-game-container';
-    await loadComponent(explainGamePopUp, divId);
-}
+// async function showExplainGamePopUp(){
+//     let divId = 'explain-game-container';
+//     await loadComponent(explainGamePopUp, divId);
+// }
 
 /**
  * Redirects the user to the play page.
