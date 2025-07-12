@@ -1,42 +1,3 @@
-async function showAllIconSourcesPopUp(){
-    let divId = 'all-icons-container-overlay';
-    await loadComponent(showAllIconsPopUp, divId);
-}
-
-async function loadComponent(component, divId){
-    let divRef = document.getElementById(`${divId}`);
-    let response = await fetch(component.html);
-    let html = await response.text();
-    divRef.innerHTML = html;
-    component.setUp(divRef);
-}
-
-async function showExplainGamePopUp(){
-    let divId = 'explain-game-container';
-    await loadComponent(explainGamePopUp, divId);
-}
-
-async function showLosingImageForDesktopDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(losingOverlay, divId);
-}
-
-async function showLosingImageForTouchDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(losingOverlay, divId);
-}
-
-async function showWinningImageForDesktopDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(winningOverlay, divId);
-}
-
-async function showWinningImageForTouchDevice(){
-    let divId = 'ui-desktop';
-    await loadComponent(winningOverlay, divId);
-}
-
-
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
@@ -77,19 +38,6 @@ function showUiDesktopStyle(){
     uiDesktop.classList.add('d-flex');
     uiDesktop.classList.add('d-column');
 }
-
-// === CURRENTLY NOT NEEDED FUNCTION START ===
-
-// function hideUiDesktopStyleIfVisible(){
-//     let uiDesktop = document.getElementById('ui-desktop');
-//     if(uiDesktop.classList.contains('d-flex') && uiDesktop.classList.contains('d-column')){
-//         uiDesktop.classList.remove('d-column');
-//         uiDesktop.classList.remove('d-flex');
-//         hideContainerIfVisible('ui-desktop');
-//     }
-// }
-
-// === CURRENTLY NOT NEEDED FUNCTION FINISH ===
 
 function handleLinksImagesTouchStyle(){
     let linksImagesTouch = document.getElementById('links-images-touch');
@@ -309,24 +257,6 @@ function handleClickEventsOnLinksOnImprintPage(event){
         redirectToPrivacyPolicyPage();
     }
 }
-
-// async function showAllIconSourcesPopUp(){
-//     let divId = 'all-icons-container-overlay';
-//     await loadComponent(showAllIconsPopUp, divId);
-// }
-
-// async function loadComponent(component, divId){
-//     let divRef = document.getElementById(`${divId}`);
-//     let response = await fetch(component.html);
-//     let html = await response.text();
-//     divRef.innerHTML = html;
-//     component.setUp(divRef);
-// }
-
-// async function showExplainGamePopUp(){
-//     let divId = 'explain-game-container';
-//     await loadComponent(explainGamePopUp, divId);
-// }
 
 /**
  * Redirects the user to the play page.

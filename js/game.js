@@ -21,11 +21,6 @@ let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
 
-let deviceTypeActivated = {
-    'desktop': false,
-    'touch': false
-}
-
 function removeLinksImagesTouchIfStillPresent(){
     if(doesLinksImagesTouchContainsFlexboxAttributes()){
         let linksImagesTouch = document.getElementById('links-images-touch');
@@ -94,13 +89,13 @@ function hasEnemiesBeenDefeatedByCharacter(){
 
 function handleGameLostLogic(){
     wasGameWon = false;
-    stopGame('losing');
+    stopGame();
     clearInterval(stopGameInterval);
 }
 
 function handleGameWonLogic(){
     wasGameWon = true;
-    stopGame('winning');
+    stopGame();
     clearInterval(stopGameInterval);
 }
 
@@ -159,10 +154,6 @@ function setStylingOfInitializedGame(){
     hideAllNeededStylingsWhenGameInitialized();
 }
 
-function showCanvasWhenGameStarts(){
-    document.getElementById('canvas-container').classList.remove('d-none');
-}
-
 function hideAllNeededStylingsWhenGameInitialized(){
     hideContainerIfVisible('ui-touch');
     hideIntroImageDependingOnUsedDevice();
@@ -181,9 +172,9 @@ function initializeTimePointWhenGameStarted(){
     timePointWhenGameInitialized = new Date().getTime();
 }
 
-function stopGame(string) {
+function stopGame() {
     breakUpFunctionIfisGamePayingAlreadyFalse();
-    manageStyleAndVariablesWhenStoppingGame(string);
+    manageStyleAndVariablesWhenStoppingGame();
 }
 
 function breakUpFunctionIfisGamePayingAlreadyFalse(){
@@ -192,9 +183,9 @@ function breakUpFunctionIfisGamePayingAlreadyFalse(){
     }
 }
 
-function manageStyleAndVariablesWhenStoppingGame(string){
+function manageStyleAndVariablesWhenStoppingGame(){
     manageStyleWhenGameIsStopped();
-    manageStyleDependingOnWinndingOrLosing(string);
+    manageStyleDependingOnWinndingOrLosing();
     isGamePlaying = false;
 }
 
@@ -244,7 +235,7 @@ function setIsGamePlayingTrueIfFalse() {
 
 function playAgain() {
     setWasGameWonWhenPlayAgainActivated();
-    settingUpStyleWhenPlayAgainButtonPressed();
+    showContainerIfHidden('canvas-container');    
     setFlagsWhenPlayAgainIsActivated();
     init();
 }
@@ -258,54 +249,6 @@ function setFlagsWhenPlayAgainIsActivated(){
     isGamePlaying = true;
 }
 
-function settingUpStyleWhenPlayAgainButtonPressed() {
-    setCanvasContainerVisibleIfHidden();
-    setCanvasVisibleIfHidden();
-    hideLosingImageIfVisible();
-    hideWinningImageIfVisible();
-    setMainTitleVisibleIfDesktopDevice();
-}
-
-function setCanvasVisibleIfHidden(){
-    if(isCanvasHidden()){
-        document.getElementById('canvas').style.display = 'block';
-    }
-}
-
-function isCanvasHidden(){
-    return document.getElementById('canvas').style.display === 'none';
-}
-
-function setCanvasContainerVisibleIfHidden(){
-    if(isCanvasContainerHidden()){
-        document.getElementById('canvas-container').style.display = 'flex';
-    }
-}
-
-function isCanvasContainerHidden(){
-    return document.getElementById('canvas-container').style.display === 'none';
-}
-
-function hideLosingImageIfVisible(){
-    if(isLosingImageVisible()){
-        document.getElementById('losing-image').style.display = 'none'
-    }
-}
-
-function isLosingImageVisible(){
-    return document.getElementById('losing-image').style.display !== 'none';
-}
-
-function hideWinningImageIfVisible(){
-    if(isWinningImageVisible()){
-        document.getElementById('winning-image').style.display = 'none';
-    }
-}
-
-function isWinningImageVisible(){
-    return document.getElementById('winning-image').style.display !== 'none';
-}
-
 function manageStyleWhenGameIsStopped() {
     clearAllIntervals();
     stopAllSounds();
@@ -314,8 +257,7 @@ function manageStyleWhenGameIsStopped() {
     // exitFullscreen();
 }
 
-function manageStyleDependingOnWinndingOrLosing(string) {
-    console.log(string);
+function manageStyleDependingOnWinndingOrLosing() {
     prepareDisplayWinningLosingStyle();
     if (isGamerLosing()) {
         changeStyleWhenLosing();
@@ -336,7 +278,6 @@ function isGamerWinning(){
 
 function prepareDisplayWinningLosingStyle() {
     hideContainerIfVisible('canvas-container');
-    decideIfTouchOrDesktopVersionIsActive();
     hideIntroImageDependingOnUsedDevice();
 }
 
@@ -354,78 +295,24 @@ function changeStyleWhenWinning() {
 async function showWinningImageDependingOnUsedDevice(){
     if(!isTouch()){ 
         await showWinningImageForDesktopDevice();
-        // showContainerIfHidden('winning-image-desktop');    
     } else if(isTouch()){
         await showWinningImageForTouchDevice();
-        // showContainerIfHidden('winning-image-touch');
     }
 }
 
 async function showLosingImageDependingOnUsedDevice(){
     if(!isTouch()){
         await showLosingImageForDesktopDevice();
-        // showContainerIfHidden('losing-image-desktop');
     } else if(isTouch()){
         await showLosingImageForTouchDevice();
-        // showContainerIfHidden('losing-image-touch');    
     }
 }
 
 function prepareDisplayWinningLosingStyle() {
     hideContainerIfVisible('canvas-container');
-    decideIfTouchOrDesktopVersionIsActive();
     hideIntroImageDependingOnUsedDevice();
-}
-
-// function showContainerIfHidden(container){
-//     let containerToShow = document.getElementById(`${container}`);
-//     if(containerToShow.classList.contains('d-none')){
-//         containerToShow.classList.remove('d-none');
-//     }
-// }
-
-function hideUiDesktopIfVisible(){
-    if(doesUiDesktopContainFlexboxClasses()){
-        hideUiDesktopStyle();
-        hideContainerIfVisible('ui-desktop');
-    }
-}
-
-function hideUiDesktopStyle(){
-    let uiDesktop = document.getElementById('ui-desktop');
-    uiDesktop.classList.remove('d-column');
-    uiDesktop.classList.remove('d-flex');
 }
 
 function doesUiDesktopContainFlexboxClasses(){
     return uiDesktop.classList.contains('d-flex') && uiDesktop.classList.contains('d-column'); 
-}
-
-function hideContainerIfVisible(container){
-    let containerToHide = document.getElementById(`${container}`);
-    if(!containerToHide.classList.contains('d-none')){
-        containerToHide.classList.add('d-none');
-    } 
-}
-
-function decideIfTouchOrDesktopVersionIsActive(){
-    if(isDeviceTypeDeactivated('ui-desktop')){ 
-        deviceTypeActivated['desktop'] = true;
-        deviceTypeActivated['touch'] = false; 
-        setLinksImagesDependingOnDeviceType('links-images-desktop');
-    } else if(isDeviceTypeDeactivated('ui-touch')){
-        deviceTypeActivated['desktop'] = false;
-        deviceTypeActivated['touch'] = true;
-        setLinksImagesDependingOnDeviceType('links-images-touch');
-    }
-}
-
-function setLinksImagesDependingOnDeviceType(deviceType){
-    document.getElementById(`${deviceType}`).style.display = 'none';
-}
-
-function isDeviceTypeDeactivated(deviceType){
-    let device = document.getElementById(`${deviceType}`);
-    let displayValue = window.getComputedStyle(device).display;
-    return displayValue === 'none';
 }
