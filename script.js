@@ -1,9 +1,22 @@
+let mqTouch = window.matchMedia('(hover: none)');
+let mqDesktop = window.matchMedia('(hover: hover)');
+
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
+    handleAllChangeEvents();
 });
+
+function handleAllChangeEvents(){
+    mqTouch.addEventListener('change', reloadOnDeviceTypeSwitch);
+    mqDesktop.addEventListener('change', reloadOnDeviceTypeSwitch);
+}
+
+function reloadOnDeviceTypeSwitch(){
+    window.location.reload();
+}
 
 function checkDeviceForMobileOrDesktopType(){
     if(isTouch()){

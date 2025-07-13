@@ -1,4 +1,4 @@
-@media(min-width: 1024px) and (orientation: landscape) {
+@media(min-width: 1025px) and (orientation: landscape) {
     #ui-desktop {
         height: 100%;
         width: 100%;
@@ -48,15 +48,15 @@
         cursor: pointer;
     }
 
-    .fade-in-image {
-        width: 720px;
-        height: 480px;
-    }
-
     .intro-image-desktop {
         position: absolute;
         right: calc((100dvw - 720px) / 2);
         bottom: calc((100dvh - 480px) / 2);
+        width: 720px;
+        height: 480px;
+    }
+
+    #intro-image-desktop img:nth-child(1){
         width: 720px;
         height: 480px;
     }
@@ -140,11 +140,6 @@
         display: none;
     }
 
-    .fade-in-image {
-        width: 100dvw;
-        height: 100dvh;
-    }
-
     #icon-button-top {
         font-family: 'playpensans';
         font-size: 24px;
@@ -176,6 +171,16 @@
 
     #button-container {
         display: none;
+    }
+
+    #intro-image-desktop {
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    #intro-image-desktop img:nth-child(1){
+        width: 100dvw;
+        height: 100dvh;
     }
 
     #intro-image-desktop img:nth-child(2) { 

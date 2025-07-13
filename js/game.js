@@ -189,7 +189,7 @@ function setContainerToFullscreenSize(divName){
 }
 
 function handleDesktopStyleDependingOnScreenSize(){
-    if(window.innerWidth < 1024){
+    if(window.innerWidth < 1025){
         handleLinksImagesTouchStyle();
     } else if(window.innerWidth > 1024){
         hideContainerIfVisible('intro-image-desktop');
