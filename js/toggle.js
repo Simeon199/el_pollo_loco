@@ -24,8 +24,19 @@ function showUiTouchStyle(){
 function showUiDesktopStyle(){
     let uiDesktop = document.getElementById('ui-desktop');
     uiDesktop.classList.remove('d-none');
-    // uiDesktop.classList.add('d-flex');
-    // uiDesktop.classList.add('d-column');
+    if(window.innerWidth < 1024){
+        let introImageDiv = document.getElementById('intro-image-desktop');
+        if(introImageDiv.classList.contains('intro-image-desktop')){
+            introImageDiv.classList.remove('intro-image-desktop');
+            introImageDiv.classList.add('intro-image-desktop-fullscreen-size');
+        }
+    } else if(window.innerWidth > 1024){
+        let introImageDiv = document.getElementById('intro-image-desktop');
+        if(introImageDiv.classList.contains('intro-image-desktop-fullscreen-size')){
+            introImageDiv.classList.remove('intro-image-desktop-fullscreen-size');
+            introImageDiv.classList.add('intro-image-desktop');
+        }
+    }
 }
 
 function handleLinksImagesTouchStyle(){

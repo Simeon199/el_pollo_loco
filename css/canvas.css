@@ -43,9 +43,22 @@
     font-size: 16px;
 }
 
-@media(max-width: 1024px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) {
+@media(min-width: 1025px) and (orientation: landscape) {
+    .canvas-container {
+        position: fixed;
+        top: calc((100dvh - 480px) / 2);
+        right: calc((100dvw - 720px) / 2);
+    }
 
-    #canvas-container {
+    canvas {
+        height: 480px;
+        width: 720px;
+    }
+}
+
+@media(max-width: 1024px) and (orientation: landscape){
+
+    .canvas-container {
         position: relative;
         overflow: hidden;
         width: 100dvw;
@@ -65,7 +78,9 @@
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
+        justify-content: space-between;
         gap: 16px;
+        width: clamp(100px, 15%, 200px);
     }
 
     .exit-game-container {

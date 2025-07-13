@@ -179,3 +179,8 @@ body {
     background: darkgoldenrod;
     filter: drop-shadow(2px 4px 6px black);
 }
+
+.intro-image-desktop-fullscreen-size {
+    width: 100dvw;
+    height: 100dvh;
+}
