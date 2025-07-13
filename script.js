@@ -9,41 +9,14 @@ function checkDeviceForMobileOrDesktopType(){
     if(isTouch()){
         showUiTouchStyle();
         handleLinksImagesTouchStyle();
-    } else {
+    } else if(!isTouch()) {
         showUiDesktopStyle();
-        handleDesktopStyleDependingOnScreenSize();
-    }
-}
-
-function handleDesktopStyleDependingOnScreenSize(){
-    if(window.innerWidth < 1024 && !hasGameStarted){
-        handleLinksImagesTouchStyle();
-    } else if(window.innerWidth > 1024 && hasGameStarted){
-        hideContainerIfVisible('intro-image-desktop');
+        // handleDesktopStyleDependingOnScreenSize();
     }
 }
 
 function isTouch(){
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-
-function showUiTouchStyle(){
-    let uiTouch = document.getElementById('ui-touch');
-    uiTouch.classList.remove('d-none');
-}
-
-function showUiDesktopStyle(){
-    let uiDesktop = document.getElementById('ui-desktop');
-    uiDesktop.classList.remove('d-none');
-    uiDesktop.classList.add('d-flex');
-    uiDesktop.classList.add('d-column');
-}
-
-function handleLinksImagesTouchStyle(){
-    let linksImagesTouch = document.getElementById('links-images-touch');
-    linksImagesTouch.classList.remove('d-none');
-    linksImagesTouch.classList.add('d-flex');
-    linksImagesTouch.classList.add('d-gap');
 }
 
 function handleAllClickEvents(){

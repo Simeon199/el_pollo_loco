@@ -164,9 +164,39 @@ function hideIntroImageDependingOnUsedDevice(){
     if(!isTouch()){ 
         hideContainerIfVisible('intro-image-desktop');
     } else if(isTouch()){
-        hideContainerIfVisible('intro-image-touch');
+        handleTouchStyleDependingOnScreenSize();
     }
 }
+
+/* Additional proper styling for touch/desktop devices when game initialized - Starting Point */
+
+function handleTouchStyleDependingOnScreenSize(){
+    hideContainerIfVisible('intro-image-touch');
+    if(isScreenMediumSizedAndGameHasStarted()){
+        setContainerToFullscreenSize('canvas-container');
+        setContainerToFullscreenSize('canvas');
+    }
+}
+
+function isScreenMediumSizedAndGameHasStarted(){
+    return window.innerWidth > 1024 && hasGameStarted;
+}
+
+function setContainerToFullscreenSize(divName){
+    let container = document.getElementById(`${divName}`);
+    container.style.width = '100dvw';
+    container.style.height = '100dvh';
+}
+
+function handleDesktopStyleDependingOnScreenSize(){
+    if(window.innerWidth < 1024){
+        handleLinksImagesTouchStyle();
+    } else if(window.innerWidth > 1024){
+        hideContainerIfVisible('intro-image-desktop');
+    }
+}
+
+/* Additional proper styling for touch/desktop devices when game initialized - Ending Point */
 
 function initializeTimePointWhenGameStarted(){
     timePointWhenGameInitialized = new Date().getTime();
