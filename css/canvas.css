@@ -43,7 +43,9 @@
     font-size: 16px;
 }
 
-@media(min-width: 1025px) and (orientation: landscape) {
+/* Für Touch-Geräte muss canvas immer die Proportionen 100dvw und 100dvh haben! */
+
+/* @media(min-width: 1025px) and (orientation: landscape) {
     .canvas-container {
         position: fixed;
         top: calc((100dvh - 480px) / 2);
@@ -54,7 +56,7 @@
         height: 480px;
         width: 720px;
     }
-}
+} */
 
 @media(max-width: 1024px) and (orientation: landscape){
 

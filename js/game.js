@@ -186,6 +186,7 @@ function setContainerToFullscreenSize(divName){
     let container = document.getElementById(`${divName}`);
     container.style.width = '100dvw';
     container.style.height = '100dvh';
+    container.style.overflow = 'hidden';
 }
 
 function handleDesktopStyleDependingOnScreenSize(){

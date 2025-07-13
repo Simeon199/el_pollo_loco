@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAllClickEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
-    handleAllChangeEvents();
+    // handleAllChangeEvents();
 });
 
 function handleAllChangeEvents(){
