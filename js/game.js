@@ -156,30 +156,40 @@ function setStylingOfInitializedGame(){
 
 function hideAllNeededStylingsWhenGameInitialized(){
     hideContainerIfVisible('ui-touch');
-    hideIntroImageDependingOnUsedDevice();
+    manageTouchDeviceVsDesktopDeviceStyle();
     removeLinksImagesTouchIfStillPresent();
 }
 
-function hideIntroImageDependingOnUsedDevice(){
-    if(!isTouch()){ 
-        hideContainerIfVisible('intro-image-desktop');
+function manageTouchDeviceVsDesktopDeviceStyle(){
+    if(isDesktop()){ 
+        handleDesktopDeviceVersion();
     } else if(isTouch()){
-        handleTouchStyleDependingOnScreenSize();
+        handleTouchStyleVersion();
     }
 }
 
-/* Additional proper styling for touch/desktop devices when game initialized - Starting Point */
+function isDesktop(){
+    return !isTouch();
+}
 
-function handleTouchStyleDependingOnScreenSize(){
-    hideContainerIfVisible('intro-image-touch');
-    if(isScreenMediumSizedAndGameHasStarted()){
+function handleDesktopDeviceVersion(){
+    hideContainerIfVisible('intro-image-desktop');
+    if(isBigDesktopSizeAndHasGameStarted()){
+        setCanvasContainerPropertiesForBigDesktop();
+        setCanvasPropertiesForBigDesktop();
+    } else if(isSmallDesktopSizeAndHasGameStarted()){
         setContainerToFullscreenSize('canvas-container');
         setContainerToFullscreenSize('canvas');
     }
 }
 
-function isScreenMediumSizedAndGameHasStarted(){
-    return window.innerWidth > 1024 && hasGameStarted;
+function setCanvasContainerPropertiesForBigDesktop(){
+    let canvasContainer = document.getElementById('canvas-container');
+    canvasContainer.style.width = '720px';
+    canvasContainer.style.height = '480px';
+    canvasContainer.style.position = 'absolute';
+    canvasContainer.style.right = 'calc((100dvw - 720px)/2)';
+    canvasContainer.style.bottom = 'calc((100dvh - 480px)/2)';
 }
 
 function setContainerToFullscreenSize(divName){
@@ -187,6 +197,28 @@ function setContainerToFullscreenSize(divName){
     container.style.width = '100dvw';
     container.style.height = '100dvh';
     container.style.overflow = 'hidden';
+}
+
+function setCanvasPropertiesForBigDesktop(){
+    let canvas = document.getElementById('canvas');
+    canvas.style.width = '720px';
+    canvas.style.height = '480px'; 
+}
+
+function isBigDesktopSizeAndHasGameStarted(){
+    return window.innerWidth > 1024 && hasGameStarted
+}
+
+function isSmallDesktopSizeAndHasGameStarted(){
+    return window.innerWidth < 1025 && hasGameStarted;
+}
+
+/* Additional proper styling for touch/desktop devices when game initialized - Starting Point */
+
+function handleTouchStyleVersion(){
+    hideContainerIfVisible('intro-image-touch');
+    setContainerToFullscreenSize('canvas-container');
+    setContainerToFullscreenSize('canvas');
 }
 
 function handleDesktopStyleDependingOnScreenSize(){

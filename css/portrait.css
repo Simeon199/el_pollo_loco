@@ -1,4 +1,4 @@
-@media(orientation: portrait){ /* (hover: none) and  */
+@media(orientation: portrait){
     #message-to-turn-device {
         display: flex;
         justify-content: center;
