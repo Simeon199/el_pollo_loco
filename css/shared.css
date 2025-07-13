@@ -115,6 +115,16 @@ body {
     justify-content: center;
     text-align: center;
     gap: 8px;
+    border: 2px solid black;
+    padding: 8px;
+    border-radius: 16px;
+    background: rgba(218, 165, 32, 0.85);
+    filter: drop-shadow(2px 4px 6px black);
+}
+
+.img-links:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .button-style {

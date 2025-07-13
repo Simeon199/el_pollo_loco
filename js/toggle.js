@@ -24,8 +24,8 @@ function showUiTouchStyle(){
 function showUiDesktopStyle(){
     let uiDesktop = document.getElementById('ui-desktop');
     uiDesktop.classList.remove('d-none');
-    uiDesktop.classList.add('d-flex');
-    uiDesktop.classList.add('d-column');
+    // uiDesktop.classList.add('d-flex');
+    // uiDesktop.classList.add('d-column');
 }
 
 function handleLinksImagesTouchStyle(){

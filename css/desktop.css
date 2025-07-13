@@ -1,4 +1,4 @@
-@media(min-width: 1024px) and (orientation: landscape) { /* and (hover: hover) */
+@media(min-width: 1024px) and (orientation: landscape) {
     #ui-desktop {
         height: 100%;
         width: 100%;
@@ -12,8 +12,9 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        font-family: 'playpensans';
+        font-family: 'playpensans light';
         font-size: 18px;
+        padding-top: 16px;
     }
 
     #links-images-touch {
@@ -46,7 +47,7 @@
         align-items: center;
     }
 
-    #settings-container:hover {
+    #settings-container h2:hover {
         transform: scale(1.05);
         cursor: pointer;
     }
@@ -57,9 +58,14 @@
     }
 
     #intro-image-desktop {
-        position: relative;
+        position: absolute;
+        right: calc((100dvw - 720px) / 2);
+        bottom: calc((100dvh - 480px) / 2);
         width: 720px;
         height: 480px;
+        /* position: relative;
+        width: 720px;
+        height: 480px; */
     }
 
     #intro-image-desktop img:nth-child(2) {
@@ -68,6 +74,10 @@
         width: 64px;
         cursor: pointer;
         left: calc((100% - 64px) / 2);
+    }
+
+    #intro-image-desktop img:nth-child(2):hover {
+        transform: scale(1.05);
     }
 
     #canvas-container {
@@ -112,10 +122,13 @@
     }
 
     #button-container {
-        display: flex;
+        position: absolute;
+        right: calc((100dvw - 188px) / 2);
+        bottom: 16px;
+        /* display: flex;
         justify-content: center;
         width: 100%;
-        padding-bottom: 16px;
+        padding-bottom: 16px; */
     }
 
     #privacy:hover {

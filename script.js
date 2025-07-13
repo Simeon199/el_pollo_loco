@@ -11,7 +11,6 @@ function checkDeviceForMobileOrDesktopType(){
         handleLinksImagesTouchStyle();
     } else if(!isTouch()) {
         showUiDesktopStyle();
-        // handleDesktopStyleDependingOnScreenSize();
     }
 }
 
