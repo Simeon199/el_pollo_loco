@@ -44,6 +44,7 @@ body {
     right: 0;
     bottom: 0;
     background-color: rgba(110, 110, 110, 0.5);
+    font-family: 'playpensans';
     z-index: 9999;
 }
 
@@ -75,53 +76,6 @@ body {
     font-size: xxx-large;
     text-decoration: underline;
 }
-
-/* === Hier zusätzlichen Code einfügen - Anfang === */
-
-.control-keys {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.control-key-style {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-}
-
-.control-key-style h3 {
-    font-family: 'playpensans';
-}
-
-.control-key-image-container {
-    width: clamp(100px, 189px, 250px);
-    display: flex;
-    justify-content: center;
-}
-
-.control-key-image-container img {
-    width: 100px;
-    padding: 8px;
-    border: 4px solid black;
-    border-radius: 16px;
-}
-
-.spacebar-styling {
-    border: 4px solid black;
-    padding: 16px;
-    border-radius: 16px;
-}
-
-.spacebar-styling p {
-    font-size: 32px;
-    font-family: 'playpensans';
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-/* === Hier zusätzlichen Code einfügen - Ende === */
 
 .game-notification {
     display: flex;
@@ -232,13 +186,20 @@ body {
     height: 100dvh;
 }
 
-@media(min-width: 1025px) and (orientation: landscape){
+@media(min-width: 1025px){
 
     .control-keys {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
         gap: 16px;
     }
 
     .control-key-style {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
         gap: 16px;
     }
 
@@ -251,18 +212,109 @@ body {
         display: flex;
         justify-content: center;
     }
+
+    .control-key-image-container img {
+        width: 100px;
+        padding: 8px;
+        border: 4px solid black;
+        border-radius: 16px;
+    }
+    
+    .spacebar-styling {
+        border: 4px solid black;
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .spacebar-styling p {
+        font-size: 32px;
+        font-family: 'playpensans';
+        font-weight: bold;
+        text-decoration: underline;
+    }
 }
 
-@media(max-width: 1024px) and (orientation: landscape){
+@media(max-width: 1024px){
+    .control-keys {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .control-key-style {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .control-key-style h3 {
+        font-size: 18px;
+    }
+
     .game-functions-container {
         width: 100%;
     }
 
-    .control-keys {
-        flex-direction: unset;
+    .control-key-image-container {
+        width: clamp(100px, 190px, 250px);
+        display: flex;
+        justify-content: center;
     }
 
-    /* .game-notification {
+    .control-key-image-container img {
+        width: 72px;
+        padding: 8px;
+        border: 2px solid black;
+        border-radius: 12px;
+    }
+
+    .spacebar-styling {
+        border: 2px solid black;
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .spacebar-styling p {
+        font-size: 24px;
+        font-weight: normal;
+        text-decoration: underline;
+    }
+
+    .game-notification {
+        padding: 12px;
+    }
+}
+
+@media(max-width: 932px){
+    .game-functions-container{
+        justify-content: center;
+    }
+
+    .game-functions-container h2 {
+        padding: 16px;
+        font-weight: normal;
+        font-size: 32px;
+        text-decoration: underline;
+    }
+
+    .game-notification {
         display: none;
-    } */
+    }
+
+    .control-keys {
+        gap: 8px;
+    }
+
+    .control-key-image-container img {
+        width: 64px;
+    }
+}
+
+@media(max-width: 882px){
+    .control-key-image-container img {
+        width: 56px;
+    }
 }
