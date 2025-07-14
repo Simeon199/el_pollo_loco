@@ -1,18 +1,6 @@
 // let momentKeySpaceWasReleased = 0;
 
-/**
- * Adds all essential event listeners needed when starting the game. Includes listeners for key and touch events.
- */
-
-// function addAllRemainingEventListenersWhenInitGame(isTouch) {
-//     if(isTouch && isGamePlaying){
-//         setGlobalVariablesInTouchEvent(); 
-//         settingStyleForTouchDevice();
-//     }
-// }
-
 function settingStyleForTouchDevice(){
-    // document.getElementById('ui-touch').style.display = 'none';
     document.getElementById('canvas-container').classList.remove('d-none');
     if(document.getElementById('canvas-container').classList.contains('d-flex')){
         document.getElementById('canvas-container').classList.remove('d-flex');
@@ -21,7 +9,7 @@ function settingStyleForTouchDevice(){
 }
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    if(!event.target.closest('#playIcon')){
+    if(!event.target.closest('#playIcon') && hasGameStarted){
         world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
         if (!world.character.isSoundIconInteraction) {
             setKeyPressedVariablesRight(event);
@@ -84,7 +72,7 @@ function setKeyPressedVariablesRight(event) {
  */
 
 function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
-    if(!event.target.closest('#playIcon')){
+    if(!event.target.closest('#playIcon') && hasGameStarted){
         isKeyPressed = false;
         lastTimeKeyPressed = new Date().getTime();
         world.character.lastTimeKeyPressed = lastTimeKeyPressed;
