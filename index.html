@@ -16,6 +16,7 @@
     <script src="components/show-all-icons-pop-up.js"></script>
     <script src="components/winning-overlay.js"></script>
     <script src="components/losing-overlay.js"></script>
+    <script src="components/privacy-imprint-overlay.js"></script>
     <script src="js/load.js"></script>
     <script src="script.js"></script>
     <script src="models/drawable-object.class.js"></script>
@@ -90,14 +91,10 @@
             <img src="assets/playIcon_2.png" id="playIcon" class="img-play" alt="Play">
         </div>
     </div>
-        
-        <div id="imprint-and-privacy-policy-overlay" class="imprint-and-privacy-policy-overlay d-none">
-            <div id="imprint-privacy-wrapper" class="imprint-privacy-wrapper">
-                <h2 id="privacy">Privacy Policy</h2>
-                <h2 id="imprint">Imprint</h2>
-            </div>
-        </div>
-    </div>
+
+    <!-- Opens the pop up that is shown if the user presses the privacy-imprint-button on mobile devices -->
+
+    <div id="privacy-imprint-overlay" class="d-none"></div>
 
     <!-- HTML structure for the canvas container where the game is taking place -->
 

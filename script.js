@@ -43,6 +43,22 @@ function handleAllClickEvents(){
     });
 }
 
+function handleClickEventsOnIndexPage(event){
+    if(isSettingsDesktopContainerClicked(event)){
+        showExplainGamePopUp();
+    } else if(isOneOfDesktopButtonContainersClicked(event)){  
+        showAllIconSourcesPopUp();
+    } else if(isDesktopImprintLinkClicked(event)){
+        redirectToImprintPage();
+    } else if(isDesktopPrivacyPolicyLinkClicked(event)){
+        redirectToPrivacyPolicyPage();
+    } else if(isPlayIconClicked(event)){
+        startGameAndSetStyleForDesktopDevice();
+    } else if(isSoundIconClicked(event)){
+        turnSoundOnOrOff();
+    }
+}
+
 function handleAllTouchStartEvents(){
     document.addEventListener('touchstart', (event) => {
         let target = event.target;
@@ -65,8 +81,15 @@ function handleAllTouchEndEvents(){
             setStyleForExitGameContainerAndResetGame(target);
         } else if(isPlayIconTouched(target)){
             startGameAndSetStyleForTouchDevice();
+        } else if(isPrivacyAndImprintButtonTouched(target)){
+            console.log('At least privacy and imprint overlay was clicked');
+            showPrivacyAndImprintOverlay();
         }
     }, {passive: false});
+}
+
+function isPrivacyAndImprintButtonTouched(target){
+    return target.closest('#privacy-and-imprint-pop-up');
 }
 
 function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
@@ -184,22 +207,6 @@ function setCaseForTouchEndButtonThrow(target){
     world.utilityClass.checkThrowObjects();
     keyboard.keyD = false;
     target.style.background = 'wheat';
-}
-
-function handleClickEventsOnIndexPage(event){
-    if(isSettingsDesktopContainerClicked(event)){
-        showExplainGamePopUp();
-    } else if(isOneOfDesktopButtonContainersClicked(event)){  
-        showAllIconSourcesPopUp();
-    } else if(isDesktopImprintLinkClicked(event)){
-        redirectToImprintPage();
-    } else if(isDesktopPrivacyPolicyLinkClicked(event)){
-        redirectToPrivacyPolicyPage();
-    } else if(isPlayIconClicked(event)){
-        startGameAndSetStyleForDesktopDevice();
-    } else if(isSoundIconClicked(event)){
-        turnSoundOnOrOff();
-    }
 }
 
 function startGameAndSetStyleForDesktopDevice(){

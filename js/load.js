@@ -35,3 +35,9 @@ async function showWinningImageForTouchDevice(){
     let divId = 'ui-desktop';
     await loadComponent(winningOverlay, divId);
 }
+
+async function showPrivacyAndImprintOverlay(){
+    console.log('showPrivacyAndImprintOverlay was clicked!');
+    let divId = 'privacy-imprint-overlay';
+    await loadComponent(privacyImprintOverlay, divId)
+}

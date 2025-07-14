@@ -186,6 +186,45 @@ body {
     height: 100dvh;
 }
 
+.privacy-imprint-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgb(107 107 107 / 95%);
+    font-family: 'playpensans';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.privacy-imprint-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.privacy-imprint-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.privacy-imprint-wrapper h2 {
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 16px;
+    background: aliceblue;
+    text-decoration: underline;
+}
+
+.privacy-imprint-wrapper img {
+    width: 64px;
+}
+
 @media(min-width: 1025px){
 
     .control-keys {
