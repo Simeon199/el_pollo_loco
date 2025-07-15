@@ -1,18 +1,66 @@
-// let privacyOrImprintTouchActivated = false;
 let mqTouch = window.matchMedia('(hover: none)');
 let mqDesktop = window.matchMedia('(hover: hover)');
+let mqMediumDesktop = window.matchMedia('(min-width: 1025px) and (orientation: landscape)');
+let mqSmallDesktop = window.matchMedia('(max-width: 1024px) and (orientation: landscape)');
+let privacyOrImprintTouchActivated = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
-    // handleAllChangeEvents();
+    handleAllChangeEvents();
 });
 
 function handleAllChangeEvents(){
-    mqTouch.addEventListener('change', reloadOnDeviceTypeSwitch);
-    mqDesktop.addEventListener('change', reloadOnDeviceTypeSwitch);
+    mqTouch.addEventListener('change', () => {
+        setTimeout(() => {
+            reloadOnDeviceTypeSwitch();
+        }, 100);
+    });
+    mqDesktop.addEventListener('change', () => {
+        setTimeout(() => {
+            reloadOnDeviceTypeSwitch();
+        }, 100);
+    });
+    mqMediumDesktop.addEventListener('change', (event) => {
+        if(event.matches){
+            if(isLinksImagesTouchVisible()){
+                hideLinksImagesTouchVisible();
+            }
+        }
+    });
+    mqSmallDesktop.addEventListener('change', (event) => {
+        if(event.matches){
+            if(isLinksImagesTouchHidden()){
+                showLinksImagesTouchVisible();
+            }
+        }
+    });
+}
+
+function showLinksImagesTouchVisible(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    linksImagesTouch.classList.remove('d-none');
+    linksImagesTouch.classList.add('d-flex');
+    linksImagesTouch.classList.add('d-gap');
+}
+
+function hideLinksImagesTouchVisible(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    linksImagesTouch.classList.remove('d-gap');
+    linksImagesTouch.classList.remove('d-flex');
+    linksImagesTouch.classList.add('d-none');
+}
+
+function isLinksImagesTouchVisible(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-gap') && !linksImagesTouch.classList.contains('d-none');
+}
+
+function isLinksImagesTouchHidden(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-none') && !linksImagesTouch.classList.contains('d-flex') && !linksImagesTouch.classList.contains('d-gap');
 }
 
 function checkDeviceForMobileOrDesktopType(){
