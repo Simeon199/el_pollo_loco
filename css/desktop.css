@@ -73,10 +73,6 @@
         transform: scale(1.05);
     }
 
-    .exit-game-container {
-        display: none;
-    }
-
     #button-container {
         position: absolute;
         right: calc((100dvw - 188px) / 2);

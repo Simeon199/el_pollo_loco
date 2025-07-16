@@ -132,6 +132,17 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
     setStylingOfInitializedGame();
 }
 
+function setStylingOfInitializedGame(){
+    showCanvasWhenGameStarts();
+    hideAllNeededStylingsWhenGameInitialized();
+}
+
+function hideAllNeededStylingsWhenGameInitialized(){
+    hideContainerIfVisible('ui-touch');
+    manageTouchDeviceVsDesktopDeviceStyle();
+    removeLinksImagesTouchIfStillPresent();
+}
+
 function setWorldAndContextObjects(){
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
@@ -149,17 +160,6 @@ function setHasGameStartedValue(){
     hasGameStarted = true;
 }
 
-function setStylingOfInitializedGame(){
-    showCanvasWhenGameStarts();
-    hideAllNeededStylingsWhenGameInitialized();
-}
-
-function hideAllNeededStylingsWhenGameInitialized(){
-    hideContainerIfVisible('ui-touch');
-    manageTouchDeviceVsDesktopDeviceStyle();
-    removeLinksImagesTouchIfStillPresent();
-}
-
 function manageTouchDeviceVsDesktopDeviceStyle(){
     if(isDesktop()){ 
         handleDesktopDeviceVersion();
@@ -175,35 +175,47 @@ function isDesktop(){
 function handleDesktopDeviceVersion(){
     hideContainerIfVisible('intro-image-desktop');
     if(isBigDesktopSizeAndHasGameStarted()){
+        hideExitGameDivIfVisible();
         setCanvasContainerPropertiesForBigDesktop();
         setCanvasPropertiesForBigDesktop();
     } else if(isSmallDesktopSizeAndHasGameStarted()){
+        showExitGameDivIfHidden();
         setContainerToFullscreenSize('canvas-container');
         setContainerToFullscreenSize('canvas');
     }
 }
 
-function setCanvasContainerPropertiesForBigDesktop(){
-    let canvasContainer = document.getElementById('canvas-container');
-    canvasContainer.style.width = '720px';
-    canvasContainer.style.height = '480px';
-    canvasContainer.style.position = 'absolute';
-    canvasContainer.style.right = 'calc((100dvw - 720px)/2)';
-    canvasContainer.style.bottom = 'calc((100dvh - 480px)/2)';
-}
+// function hideExitGameDivIfVisible(){
+//     let exitGameContainer = document.getElementById('exit-game-container');
+//     exitGameContainer.style.display = 'none';
+// }
 
-function setContainerToFullscreenSize(divName){
-    let container = document.getElementById(`${divName}`);
-    container.style.width = '100dvw';
-    container.style.height = '100dvh';
-    container.style.overflow = 'hidden';
-}
+// function showExitGameDivIfHidden(){
+//     let exitGameContainer = document.getElementById('exit-game-container');
+//     exitGameContainer.style.display = 'flex';
+// }
 
-function setCanvasPropertiesForBigDesktop(){
-    let canvas = document.getElementById('canvas');
-    canvas.style.width = '720px';
-    canvas.style.height = '480px'; 
-}
+// function setCanvasContainerPropertiesForBigDesktop(){
+//     let canvasContainer = document.getElementById('canvas-container');
+//     canvasContainer.style.width = '720px';
+//     canvasContainer.style.height = '480px';
+//     canvasContainer.style.position = 'absolute';
+//     canvasContainer.style.right = 'calc((100dvw - 720px)/2)';
+//     canvasContainer.style.bottom = 'calc((100dvh - 480px)/2)';
+// }
+
+// function setContainerToFullscreenSize(divName){
+//     let container = document.getElementById(`${divName}`);
+//     container.style.width = '100dvw';
+//     container.style.height = '100dvh';
+//     container.style.overflow = 'hidden';
+// }
+
+// function setCanvasPropertiesForBigDesktop(){
+//     let canvas = document.getElementById('canvas');
+//     canvas.style.width = '720px';
+//     canvas.style.height = '480px'; 
+// }
 
 function isBigDesktopSizeAndHasGameStarted(){
     return window.innerWidth > 1024 && hasGameStarted
@@ -315,9 +327,19 @@ function setFlagsWhenPlayAgainIsActivated(){
 function manageStyleWhenGameIsStopped() {
     clearAllIntervals();
     stopAllSounds();
-    isGamePlaying = false;
+    setIsGamePlayingToFalse();
     hideContainerIfVisible('canvas-container');
-    // exitFullscreen();
+    removePaddingFromUiDesktop();
+}
+
+function setIsGamePlayingToFalse(){
+    isGamePlaying = false;
+}
+
+function removePaddingFromUiDesktop(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.style.paddingRight = '0';
+    uiDesktop.style.paddingLeft = '0';
 }
 
 function manageStyleDependingOnWinndingOrLosing() {

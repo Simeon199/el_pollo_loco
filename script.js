@@ -109,7 +109,9 @@ function handleAllTouchStartEvents(){
         if(areTouchControlButtonsTouched(target)){
             preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target);
         } else if(isExitGameContainerTouched(target)){
-            setExitGameContainersButtonStyle(target);
+            setExitGameContainersButtonStyle();
+        } else if(isMainPageLinkTouched(target)){
+            changeMainPageLinkColorOnTouchStart();
         }
     }, {passive: false});
 }
@@ -121,15 +123,26 @@ function handleAllTouchEndEvents(){
         if(areTouchControlButtonsTouched(target)){
            preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target);
         } else if(isExitGameContainerTouched(target)){
-            setStyleForExitGameContainerAndResetGame(target);
+            setStyleForExitGameContainerAndResetGame();
         } else if(isPlayIconTouched(target)){
             startGameAndSetStyleForTouchDevice();
         } else if(isPrivacyAndImprintButtonTouched(target)){
             showPrivacyAndImprintOverlay();
         } else if(isAllIconButtonContainerTouched(target)){
             showAllIconSourcesPopUp();
+        } else if(isMainPageLinkTouched(target)){
+            redirectToPlayPage();
         }
     }, {passive: false});
+}
+
+function changeMainPageLinkColorOnTouchStart(){
+    let mainPageLink = document.getElementById('main-page-link');
+    mainPageLink.style.background = 'goldenrod';
+}
+
+function isMainPageLinkTouched(target){
+    return target.closest('#main-page-link');
 }
 
 function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
@@ -138,8 +151,8 @@ function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
 }
 
 function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
-     event.preventDefault();
-     handleSwitchCasesForTouchEndControlButtons(target);
+    event.preventDefault();
+    handleSwitchCasesForTouchEndControlButtons(target);
 }
 
 function handleSwitchCasesForTouchStartControlButtons(target){
@@ -195,8 +208,15 @@ function setCaseForTouchEndButtonThrow(target){
     target.style.background = 'wheat';
 }
 
-function setExitGameContainersButtonStyle(target){
-    target.style.background = 'rgb(75, 61, 35)';
+function setExitGameContainersButtonStyle(){
+    let exitGameContainer = document.getElementById('exit-game-container');
+    exitGameContainer.style.background = 'rgb(75, 61, 35)';
+}
+
+function setStyleForExitGameContainerAndResetGame(){
+    let exitGameContainer = document.getElementById('exit-game-container');
+    exitGameContainer.style.background = 'wheat';
+    resetGame();
 }
 
 function handleClickEventsOnLinksOnPrivacyPolicyPage(event){
@@ -213,11 +233,6 @@ function handleClickEventsOnLinksOnImprintPage(event){
     } else if(isDesktopPrivacyPolicyLinkClicked(event)){
         redirectToPrivacyPolicyPage();
     }
-}
-
-function setStyleForExitGameContainerAndResetGame(target){
-    target.style.background = 'wheat';
-    resetGame();
 }
 
 function startGameAndSetStyleForTouchDevice(){
