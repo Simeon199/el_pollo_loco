@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAllClickEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
-    handleAllChangeEvents();
+    // handleAllChangeEvents();
 });
 
 function handleAllChangeEvents(){
@@ -331,7 +331,7 @@ function isPlayIconClicked(event){
 }
 
 function areTouchControlButtonsTouched(target){
-    return target.classList.contains('touch-control');
+    return target.classList.contains('touched');
 }
 
 function isExitGameContainerTouched(target){

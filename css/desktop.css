@@ -73,39 +73,8 @@
         transform: scale(1.05);
     }
 
-    .sound-and-exit-container {
-        position: absolute;
-        right: 5%;
-        top: 15%;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        gap: 64px;
-    }
-
     .exit-game-container {
         display: none;
-    }
-
-    .exit-game-container img {
-        width: 40px;
-    }
-
-    .exit-game-container p {
-        font-family: 'playpensans';
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    #sound-off-icon, #sound-on-icon {
-        position: absolute;
-        right: 5%;
-        top: 15%;
-        border: 2px solid black;
-        background: wheat;
-        width: 40px;
-        cursor: pointer;
-        border-radius: 12px;
     }
 
     #button-container {
