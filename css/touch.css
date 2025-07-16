@@ -1,3 +1,81 @@
+.text-styling {
+    font-family: 'playpensans light';
+}
+
+#intro-image-touch img:nth-child(2){
+    position: absolute;
+    bottom: 1%;
+    height: auto;
+}
+
+.play-again-button-style {
+    font-family: 'playpensans';
+    font-weight: bolder;
+    cursor: pointer;
+    background: gold;
+    border: 2px solid black;
+    border-radius: 16px;
+}
+
+@media(min-width: 1025px) and (orientation: landscape){
+
+    .text-styling {
+        font-size: 16px;
+    }
+
+    #intro-image-touch img:nth-child(2){
+        width: 80px;
+        right: calc((100dvw - 80px) / 2);
+    }
+
+    .play-again-button-style {
+        padding: 12px;
+        font-size: 24px;
+    }
+}
+
+@media(max-width: 1024px) and (orientation: landscape){
+    .text-styling {
+        font-size: 14px;
+    }
+
+    #intro-image-touch img:nth-child(2){
+        width: 72px;
+        right: calc((100dvw - 72px) / 2);
+    }
+
+    .play-again-button-style {
+        padding: 8px;
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 932px) and (orientation: landscape){
+    .text-styling {
+        font-size: 12px;
+    }
+
+    #intro-image-touch img:nth-child(2){
+        width: 64px;
+        right: calc((100dvw - 64px) / 2);
+    }
+}
+
+@media(max-width: 882px) and (orientation: landscape){
+    .text-styling {
+        font-size: 10px;
+    }
+
+    #intro-image-touch img:nth-child(2){
+        width: 56px;
+        right: calc((100dvw - 56px) / 2);
+    }
+
+    .play-again-button-style {
+        font-size: 18px;
+    }
+}
+
 @media(min-width: 1025px) and (orientation: landscape), (max-width: 1024px) and (orientation: landscape) {
     
     #ui-touch {
@@ -7,11 +85,6 @@
 
     #message-to-turn-device {
         display: none;
-    }
-
-    .text-styling {
-        font-family: 'playpensans light';
-        font-size: 12px;
     }
 
     .button-style {
@@ -32,14 +105,6 @@
     #intro-image-touch img:nth-child(1) {
         width: 100dvw;
         height: 100dvh;
-    }
-
-    #intro-image-touch img:nth-child(2){
-        position: absolute;
-        bottom: 1%;
-        height: auto;
-        width: 56px;
-        right: calc((100dvw - 56px) / 2);
     }
 
     #winning-image-touch {
@@ -71,16 +136,5 @@
         position: absolute;
         height: 100dvh;
         width: 100dvw;
-    }
-
-    .play-again-button-style {
-        border: 2px solid black;
-        padding: 8px;
-        border-radius: 16px;
-        font-size: 20px;
-        font-weight: bolder;
-        cursor: pointer;
-        font-family: 'playpensans';
-        background: gold;
     }
 }

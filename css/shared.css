@@ -193,7 +193,7 @@ body {
     left: 0;
     bottom: 0;
     z-index: 1000;
-    background-color: rgb(107 107 107 / 95%);
+    background-color: #557738db;
     font-family: 'playpensans';
     display: flex;
     align-items: center;
@@ -356,5 +356,10 @@ body {
 @media(max-width: 882px){
     .control-key-image-container img {
         width: 56px;
+    }
+
+    .img-size {
+        width: 40px;
+        height: auto;
     }
 }

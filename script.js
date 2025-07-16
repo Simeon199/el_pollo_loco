@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAllClickEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
-    // handleAllChangeEvents();
+    handleAllChangeEvents();
 });
 
 function handleAllChangeEvents(){
@@ -143,39 +143,31 @@ function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
 }
 
 function handleSwitchCasesForTouchStartControlButtons(target){
-    switch(target.id){
-        case 'buttonLeft':
-            setCaseForTouchStartButtonLeft(target);
-            break;
-        case 'buttonRight':
-            setCaseForTouchStartButtonRight(target);
-            break;
-        case 'buttonUp':
-        case 'spacebar':
-            setCaseForTouchStartSpaceBar(target);
-            break;
-        case 'buttonThrow':
-            setCaseForTouchStartButtonThrow(target)
-            break;
+    if(target.closest('#buttonLeft')){
+        setCaseForTouchStartButtonLeft(target.closest('#buttonLeft'));
+    } else if(target.closest('#buttonRight')){
+        setCaseForTouchStartButtonRight(target.closest('#buttonRight'));
+    } else if(wasSpacebarDivTouched(target)){
+        setCaseForTouchStartSpaceBar(target.closest('#jumpButton'));
+    } else if(target.closest('#buttonThrow')){
+        setCaseForTouchStartButtonThrow(target.closest('#buttonThrow'));
     }
 }
 
 function handleSwitchCasesForTouchEndControlButtons(target){
-    switch(target.id){
-        case 'buttonLeft':
-            setCaseForTouchEndButtonLeft(target);
-            break;
-        case 'buttonRight':
-            setCaseForTouchEndButtonRight(target);
-            break;
-        case 'buttonUp':
-        case 'spacebar':
-            setCaseForTouchEndSpaceBar(target);
-            break;
-        case 'buttonThrow':
-            setCaseForTouchEndButtonThrow(target);
-            break;
+    if(target.closest('#buttonLeft')){
+        setCaseForTouchEndButtonLeft(target.closest('#buttonLeft'));
+    } else if(target.closest('#buttonRight')){
+        setCaseForTouchEndButtonRight(target.closest('#buttonRight'));
+    } else if(wasSpacebarDivTouched(target)){
+        setCaseForTouchEndSpaceBar(target.closest('#jumpButton'));
+    } else if(target.closest('#buttonThrow')){
+        setCaseForTouchEndButtonThrow(target.closest('#buttonThrow'));
     }
+}
+
+function wasSpacebarDivTouched(target){
+    return target.closest('#jumpButton') || target.closest('#buttonUp') || target.closest('spacebar');
 }
 
 function setCaseForTouchEndSpaceBar(target){
