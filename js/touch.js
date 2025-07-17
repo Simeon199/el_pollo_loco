@@ -21,23 +21,9 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     }
 }
 
-/**
- * Determines if the event is a touch event and whether the sound icon was triggered. Prevents further key handling if the event targets a sound icon.
- *
- * @param {Event} event - The touch event to evaluate.
- * @returns {boolean} - Returns `true` if the event is a touch event and the sound icon was triggered; otherwise, `false`.
- */
-
 function isEventOfTypeTouchAndSoundIconTriggered(event) {
     return event.type.startsWith('touch') && checkIfSoundIconWasTriggered(event) == true;
 }
-
-/**
- * Checks if the event target matches the sound-on or sound-off icons.
- *
- * @param {Event} event - The event object to check.
- * @returns {boolean} - Returns `true` if the event target is either the sound-on or sound-off icon; otherwise, `false`.
- */
 
 function checkIfSoundIconWasTriggered(event) {
     let soundOnIcon = document.getElementById('sound-on-icon');
@@ -51,12 +37,61 @@ function checkIfSoundIconWasTriggered(event) {
     }
 }
 
-/**
- * Sets key press variables based on the event type, ensuring proper handling for touch events. 
- * Skips setting variables if the event is a touch event and the sound icon is triggered.
- *
- * @param {Event} event - The event object that may be a key press or touch event.
- */
+function setCaseForTouchEndSpaceBar(target){
+    keyboard.SPACE = false;
+    world.character.isKeySpaceReleased = true;
+    momentKeySpaceWasReleased = new Date().getTime();
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchEndButtonLeft(target){
+    keyboard.LEFT = false;
+    world.audioManager.muteSound(true, 'walking_sound');
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchEndButtonRight(target){
+    keyboard.RIGHT = false;
+    world.audioManager.muteSound(true, 'walking_sound');
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchEndButtonThrow(target){
+    world.utilityClass.checkThrowObjects();
+    keyboard.keyD = false;
+    target.style.background = 'wheat';
+}
+
+function setCaseForTouchStartButtonLeft(target){
+    prepareForThrowingLeft();
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setCaseForTouchStartButtonRight(target){
+    prepareForThrowingRight();
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setCaseForTouchStartSpaceBar(target){
+    keyboard.SPACE = true;
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setCaseForTouchStartButtonThrow(target){
+    keyboard.keyD = true;
+    target.style.background = 'rgb(75, 61, 35)';
+}
+
+function setExitGameContainersButtonStyle(){
+    let exitGameContainer = document.getElementById('exit-game-container');
+    exitGameContainer.style.background = 'rgb(75, 61, 35)';
+}
+
+function setStyleForExitGameContainerAndResetGame(){
+    let exitGameContainer = document.getElementById('exit-game-container');
+    exitGameContainer.style.background = 'wheat';
+    resetGame();
+}
 
 function setKeyPressedVariablesRight(event) {
     if (isEventOfTypeTouchAndSoundIconTriggered(event)) {
@@ -67,10 +102,6 @@ function setKeyPressedVariablesRight(event) {
     }
 }
 
-/**
- * Sets global variables when a key or touch event ends.
- */
-
 function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
     if(!event.target.closest('#playIcon') && hasGameStarted){
         isKeyPressed = false;
@@ -80,11 +111,6 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
     }
 }
 
-/**
- * Prepares the player to throw an object to the left by setting the appropriate keyboard properties.
- * Sets `keyboard.LEFT` to true and ensures that `rightForThrow` is false while `leftForThrow` is true.
- */
-
 function prepareForThrowingLeft() {
     keyboard.LEFT = true;
     if (keyboard.rightForThrow == true) {
@@ -93,11 +119,6 @@ function prepareForThrowingLeft() {
     keyboard.leftForThrow = true;
 }
 
-/**
- * Prepares the player to throw an object to the right by setting the appropriate keyboard properties.
- * Sets `keyboard.RIGHT` to true and ensures that `leftForThrow` is false while `rightForThrow` is true.
- */
-
 function prepareForThrowingRight() { 
     keyboard.RIGHT = true;
     if (keyboard.leftForThrow == true) {
@@ -105,10 +126,6 @@ function prepareForThrowingRight() {
     }
     keyboard.rightForThrow = true;
 }
-
-/**
- * Stops the game and displays a message instructing the user to turn the device.
- */
 
 function stopGameAndShowTurnDeviceMessage() {
     activateMessageToTurnDevice();

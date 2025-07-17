@@ -7,6 +7,8 @@ let privacyOrImprintTouchActivated = false;
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
+    // handleKeyUpEvents();
+    // handleKeyDownEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
     handleAllChangeEvents();
@@ -39,29 +41,29 @@ function handleAllChangeEvents(){
     });
 }
 
-function showLinksImagesTouchVisible(){
-    let linksImagesTouch = document.getElementById('links-images-touch');
-    linksImagesTouch.classList.remove('d-none');
-    linksImagesTouch.classList.add('d-flex');
-    linksImagesTouch.classList.add('d-gap');
+function handleKeyUpEvents(){
+    document.addEventListener('keyup', (event) => { 
+        world.audioManager.muteSnorringSoundIfNecessary();
+        settingGlobalVariablesInKeyUpOrTouchEndEvent();
+        keyUpHandler(event);
+    });
 }
 
-function hideLinksImagesTouchVisible(){
-    let linksImagesTouch = document.getElementById('links-images-touch');
-    linksImagesTouch.classList.remove('d-gap');
-    linksImagesTouch.classList.remove('d-flex');
-    linksImagesTouch.classList.add('d-none');
+function handleKeyDownEvents(){
+    document.addEventListener('keydown', (event) => { 
+        world.audioManager.muteSnorringSoundIfNecessary();        
+        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
+        keyDownHandler(event);
+    });
 }
 
-function isLinksImagesTouchVisible(){
-    let linksImagesTouch = document.getElementById('links-images-touch');
-    return linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-gap') && !linksImagesTouch.classList.contains('d-none');
-}
+window.addEventListener('keyup', (event) => {
+    keyUpHandler(event);
+});
 
-function isLinksImagesTouchHidden(){
-    let linksImagesTouch = document.getElementById('links-images-touch');
-    return linksImagesTouch.classList.contains('d-none') && !linksImagesTouch.classList.contains('d-flex') && !linksImagesTouch.classList.contains('d-gap');
-}
+window.addEventListener('keydown', (event) => {
+    keyDownHandler(event);
+});
 
 function checkDeviceForMobileOrDesktopType(){
     if(isLocationWebPage('/index.html')){
@@ -82,6 +84,10 @@ function handleAllClickEvents(){
             handleClickEventsOnLinksOnPrivacyPolicyPage(event);
         } else if(isLocationWebPage('/imprint/imprint.html')){
             handleClickEventsOnLinksOnImprintPage(event);
+        } else if(isContainerTouchedOrClicked(target, '#play-again-after-winning')){
+            playAgain();
+        } else if(isContainerTouchedOrClicked(target, '#play-again-after-losing')){
+            playAgain();
         }
     });
 }
@@ -145,16 +151,6 @@ function handleAllTouchEndEvents(){
     }, {passive: false});
 }
 
-function changeBackgroundOfPlayAgainButtonPressed(playAgainId, color){
-    let playAgainRef = document.getElementById(`${playAgainId}`);
-    playAgainRef.style.background = `${color}`;
-}
-
-function changeMainPageLinkColorOnTouchStart(){
-    let mainPageLink = document.getElementById('main-page-link');
-    mainPageLink.style.background = 'goldenrod';
-}
-
 function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
     event.preventDefault();
     handleSwitchCasesForTouchStartControlButtons(target);
@@ -189,42 +185,6 @@ function handleSwitchCasesForTouchEndControlButtons(target){
     }
 }
 
-function setCaseForTouchEndSpaceBar(target){
-    keyboard.SPACE = false;
-    world.character.isKeySpaceReleased = true;
-    momentKeySpaceWasReleased = new Date().getTime();
-    target.style.background = 'wheat';
-}
-
-function setCaseForTouchEndButtonLeft(target){
-    keyboard.LEFT = false;
-    world.audioManager.muteSound(true, 'walking_sound');
-    target.style.background = 'wheat';
-}
-
-function setCaseForTouchEndButtonRight(target){
-    keyboard.RIGHT = false;
-    world.audioManager.muteSound(true, 'walking_sound');
-    target.style.background = 'wheat';
-}
-
-function setCaseForTouchEndButtonThrow(target){
-    world.utilityClass.checkThrowObjects();
-    keyboard.keyD = false;
-    target.style.background = 'wheat';
-}
-
-function setExitGameContainersButtonStyle(){
-    let exitGameContainer = document.getElementById('exit-game-container');
-    exitGameContainer.style.background = 'rgb(75, 61, 35)';
-}
-
-function setStyleForExitGameContainerAndResetGame(){
-    let exitGameContainer = document.getElementById('exit-game-container');
-    exitGameContainer.style.background = 'wheat';
-    resetGame();
-}
-
 function handleClickEventsOnLinksOnPrivacyPolicyPage(event){
     let target = event.target;
     if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
@@ -248,26 +208,6 @@ function startGameAndSetStyleForTouchDevice(){
     settingStyleForTouchDevice();
 }
 
-function setCaseForTouchStartButtonLeft(target){
-    prepareForThrowingLeft();
-    target.style.background = 'rgb(75, 61, 35)';
-}
-
-function setCaseForTouchStartButtonRight(target){
-    prepareForThrowingRight();
-    target.style.background = 'rgb(75, 61, 35)';
-}
-
-function setCaseForTouchStartSpaceBar(target){
-    keyboard.SPACE = true;
-    target.style.background = 'rgb(75, 61, 35)';
-}
-
-function setCaseForTouchStartButtonThrow(target){
-    keyboard.keyD = true;
-    target.style.background = 'rgb(75, 61, 35)';
-}
-
 function startGameAndSetStyleForDesktopDevice(){
     startGame();
     setStyleForDesktopDevice();
@@ -289,12 +229,12 @@ function isSoundIconClicked(event){
     return event.target.closest('#sound-on-icon') || event.target.closest('#sound-off-icon');
 }
 
-function isTouch(){
-    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-
 function reloadOnDeviceTypeSwitch(){
     window.location.reload();
+}
+
+function redirectToWebPage(url){
+    window.location.href = `${url}`;
 }
 
 function wasSpacebarDivTouched(target){
@@ -305,8 +245,6 @@ function isOneOfDesktopButtonContainersClicked(event){
     return event.target.closest('#button-container') || event.target.closest('#icon-button-top');
 }
 
-/* Function to simplify the code above */
-
 function isContainerTouchedOrClicked(target, containerRef){
     return target.closest(`${containerRef}`);
 }
@@ -315,10 +253,10 @@ function areTouchControlButtonsTouched(target){
     return target.classList.contains('touched');
 }
 
-function redirectToWebPage(url){
-    window.location.href = `${url}`;
-}
-
 function isLocationWebPage(url){
     return window.location.pathname.endsWith(`${url}`);
+}
+
+function isTouch(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
