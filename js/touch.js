@@ -1,24 +1,9 @@
-// let momentKeySpaceWasReleased = 0;
-
 function settingStyleForTouchDevice(){
     document.getElementById('canvas-container').classList.remove('d-none');
     if(document.getElementById('canvas-container').classList.contains('d-flex')){
         document.getElementById('canvas-container').classList.remove('d-flex');
     }
     document.getElementById('screen-control-container').classList.remove('d-none');
-}
-
-function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    if(!event.target.closest('#playIcon') && hasGameStarted){
-        world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-        if (!world.character.isSoundIconInteraction) {
-            setKeyPressedVariablesRight(event);
-            someKeyWasPressedAgain = new Date().getTime();
-            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-            world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-            world.character.isKeyPressed = isKeyPressed;
-        }
-    }
 }
 
 function isEventOfTypeTouchAndSoundIconTriggered(event) {
@@ -35,6 +20,16 @@ function checkIfSoundIconWasTriggered(event) {
     } else {
         return false;
     }
+}
+
+function showUiTouchStyle(){ 
+    let uiTouch = document.getElementById('ui-touch');
+    uiTouch.classList.remove('d-none');
+}
+
+function changeMainPageLinkColorOnTouchStart(){
+    let mainPageLink = document.getElementById('main-page-link');
+    mainPageLink.style.background = 'goldenrod';
 }
 
 function setCaseForTouchEndSpaceBar(target){
@@ -99,15 +94,6 @@ function setKeyPressedVariablesRight(event) {
     } else {
         wasRandomKeyOncePressed = true;
         isKeyPressed = true;
-    }
-}
-
-function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
-    if(!event.target.closest('#playIcon') && hasGameStarted){
-        isKeyPressed = false;
-        lastTimeKeyPressed = new Date().getTime();
-        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-        world.character.isKeyPressed = isKeyPressed;
     }
 }
 

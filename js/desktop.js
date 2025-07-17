@@ -2,38 +2,33 @@ let isSoundIconInteraction = false;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let momentKeySpaceWasReleased = 0;
 
-// function handleKeyUpEvents(){
-//     document.addEventListener('keyup', (event) => { 
-//         world.audioManager.muteSnorringSoundIfNecessary();
-//         settingGlobalVariablesInKeyUpOrTouchEndEvent();
-//         keyUpHandler(event);
-//     });
-// }
+function setCanvasContainerPropertiesForBigDesktop(){
+    let canvasContainer = document.getElementById('canvas-container');
+    canvasContainer.style.width = '720px';
+    canvasContainer.style.height = '480px';
+    canvasContainer.style.position = 'absolute';
+    canvasContainer.style.right = 'calc((100dvw - 720px)/2)';
+    canvasContainer.style.bottom = 'calc((100dvh - 480px)/2)';
+}
 
-// function handleKeyDownEvents(){
-//     document.addEventListener('keydown', (event) => { 
-//         world.audioManager.muteSnorringSoundIfNecessary();        
-//         settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
-//         keyDownHandler(event);
-//     });
-// }
+function setCanvasPropertiesForBigDesktop(){
+    let canvas = document.getElementById('canvas');
+    canvas.style.width = '720px';
+    canvas.style.height = '480px'; 
+}
 
-// window.addEventListener('keyup', (event) => {
-//     keyUpHandler(event);
-// });
+function showUiDesktopStyle(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.classList.remove('d-none');
+    if(window.innerWidth < 1025){
+        handleLinksImagesTouchStyle();
+    }
+}
 
-// window.addEventListener('keydown', (event) => {
-//     keyDownHandler(event);
-// });
-
-function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-    if (!world.character.isSoundIconInteraction) {
-        setKeyPressedVariablesRight(event);
-        someKeyWasPressedAgain = new Date().getTime();
-        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-        world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-        world.character.isKeyPressed = isKeyPressed;
+function setStyleForDesktopDevice(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    if(uiDesktop.style.display !== 'none' && window.innerWidth < 1024){
+        uiDesktop.style.display = 'none'
     }
 }
 
@@ -48,13 +43,6 @@ function setKeyPressedVariablesRight(event) {
 
 function isEventOfTypeTouchAndSoundIconTriggered(event) {
     return event.type.startsWith('touch') && checkIfSoundIconWasTriggered(event) == true;
-}
-
-function settingGlobalVariablesInKeyUpOrTouchEndEvent() {
-    isKeyPressed = false;
-    lastTimeKeyPressed = new Date().getTime();
-    world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-    world.character.isKeyPressed = isKeyPressed;
 }
 
 function keyDownHandler(event) {

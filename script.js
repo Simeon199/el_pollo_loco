@@ -7,8 +7,8 @@ let privacyOrImprintTouchActivated = false;
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
-    // handleKeyUpEvents();
-    // handleKeyDownEvents();
+    handleKeyUpEvents();
+    handleKeyDownEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
     handleAllChangeEvents();
@@ -43,27 +43,15 @@ function handleAllChangeEvents(){
 
 function handleKeyUpEvents(){
     document.addEventListener('keyup', (event) => { 
-        world.audioManager.muteSnorringSoundIfNecessary();
-        settingGlobalVariablesInKeyUpOrTouchEndEvent();
         keyUpHandler(event);
     });
 }
 
 function handleKeyDownEvents(){
     document.addEventListener('keydown', (event) => { 
-        world.audioManager.muteSnorringSoundIfNecessary();        
-        settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
         keyDownHandler(event);
     });
 }
-
-window.addEventListener('keyup', (event) => {
-    keyUpHandler(event);
-});
-
-window.addEventListener('keydown', (event) => {
-    keyDownHandler(event);
-});
 
 function checkDeviceForMobileOrDesktopType(){
     if(isLocationWebPage('/index.html')){
@@ -78,16 +66,17 @@ function checkDeviceForMobileOrDesktopType(){
 
 function handleAllClickEvents(){
     document.addEventListener('click', async (event) => {
+        let target = event.target;
         if(isLocationWebPage('/index.html')){
             handleClickEventsOnIndexPage(event);
         } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
-            handleClickEventsOnLinksOnPrivacyPolicyPage(event);
+            handleClickEventsOnLinksOnPrivacyPolicyPage(target);
         } else if(isLocationWebPage('/imprint/imprint.html')){
-            handleClickEventsOnLinksOnImprintPage(event);
-        } else if(isContainerTouchedOrClicked(target, '#play-again-after-winning')){
+            handleClickEventsOnLinksOnImprintPage(target);
+        } else if(isEitherPlayAgainAfterWinningOrLosingPressed(target)){
             playAgain();
-        } else if(isContainerTouchedOrClicked(target, '#play-again-after-losing')){
-            playAgain();
+        } else if(wasSoundIconPressed(target)){
+            turnSoundOnOrOff();
         }
     });
 }
@@ -185,8 +174,7 @@ function handleSwitchCasesForTouchEndControlButtons(target){
     }
 }
 
-function handleClickEventsOnLinksOnPrivacyPolicyPage(event){
-    let target = event.target;
+function handleClickEventsOnLinksOnPrivacyPolicyPage(target){
     if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
         redirectToWebPage('../index.html');
     } else if(isContainerTouchedOrClicked(target, '#imprint')){
@@ -194,11 +182,10 @@ function handleClickEventsOnLinksOnPrivacyPolicyPage(event){
     }
 }
 
-function handleClickEventsOnLinksOnImprintPage(event){
-    let target = event.target;
+function handleClickEventsOnLinksOnImprintPage(target){
     if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
         redirectToWebPage('../index.html');
-    } else if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
+    } else if(isContainerTouchedOrClicked(target, '#privacy')){
         redirectToWebPage('../privacy_policy/privacy_policy.html');
     }
 }
@@ -213,50 +200,24 @@ function startGameAndSetStyleForDesktopDevice(){
     setStyleForDesktopDevice();
 }
 
-function setStyleForDesktopDevice(){
-    let uiDesktop = document.getElementById('ui-desktop');
-    if(uiDesktop.style.display !== 'none' && window.innerWidth < 1024){
-        uiDesktop.style.display = 'none'
+function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
+    if(!event.target.closest('#playIcon') && typeof world !== 'undefined'){
+        world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+        if (!world.character.isSoundIconInteraction) {
+            setKeyPressedVariablesRight(event);
+            someKeyWasPressedAgain = new Date().getTime();
+            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+            world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+            world.character.isKeyPressed = isKeyPressed;
+        }
     }
 }
 
-function isSoundIconClicked(event){
-    if(event.target.closest('#sound-on-icon')){
-        showTurningSoundOffIcon();
-    } else if(event.target.closest('#sound-off-icon')){
-        showTurningSoundOnIcon()
+function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
+    if(!event.target.closest('#playIcon') && typeof world !== 'undefined'){
+        isKeyPressed = false;
+        lastTimeKeyPressed = new Date().getTime();
+        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+        world.character.isKeyPressed = isKeyPressed;
     }
-    return event.target.closest('#sound-on-icon') || event.target.closest('#sound-off-icon');
-}
-
-function reloadOnDeviceTypeSwitch(){
-    window.location.reload();
-}
-
-function redirectToWebPage(url){
-    window.location.href = `${url}`;
-}
-
-function wasSpacebarDivTouched(target){
-    return target.closest('#jumpButton') || target.closest('#buttonUp') || target.closest('spacebar');
-}
-
-function isOneOfDesktopButtonContainersClicked(event){
-    return event.target.closest('#button-container') || event.target.closest('#icon-button-top');
-}
-
-function isContainerTouchedOrClicked(target, containerRef){
-    return target.closest(`${containerRef}`);
-}
-
-function areTouchControlButtonsTouched(target){
-    return target.classList.contains('touched');
-}
-
-function isLocationWebPage(url){
-    return window.location.pathname.endsWith(`${url}`);
-}
-
-function isTouch(){
-    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }

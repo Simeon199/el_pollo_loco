@@ -1,14 +1,3 @@
-function manageSoundIconEventListeners(){ // Event delegation necessary here!
-    let soundOff = document.getElementById('sound-off-icon');
-    let soundOn = document.getElementById('sound-on-icon');
-    soundOff.addEventListener('click', () => {
-        turnSoundOnOrOff();
-    });
-    soundOn.addEventListener('click', () => {
-        turnSoundOnOrOff();
-    });
-}
-
 function stopAllSounds() {
     world.audioManager.pauseBackgroundMusic();
     for (let soundKey in world.audioManager.sounds) {
@@ -17,6 +6,15 @@ function stopAllSounds() {
             audioElement.pause();
         }
     }
+}
+
+function isSoundIconClicked(event){
+    if(event.target.closest('#sound-on-icon')){
+        showTurningSoundOffIcon();
+    } else if(event.target.closest('#sound-off-icon')){
+        showTurningSoundOnIcon()
+    }
+    return event.target.closest('#sound-on-icon') || event.target.closest('#sound-off-icon');
 }
 
 function unmuteGameSounds() {
