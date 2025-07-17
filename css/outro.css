@@ -52,10 +52,28 @@
     font-size: 16px;
 }
 
+@media(min-width: 1024px) and (orientation: landscape){
+    #main-page-link p {
+        font-size: 24px;
+    }
+
+    #main-page-link img {
+        width: 80px;
+    }
+}
+
 @media(min-height: 769px) and (orientation: landscape){
     #winning-image button, 
     #losing-image button {
         bottom: 20%;
+    }
+
+    #main-page-link p {
+        font-size: 20px;
+    }
+
+    #main-page-link img {
+        width: 64px;
     }
 }
 
@@ -63,6 +81,14 @@
     #winning-image button, 
     #losing-image button {
         bottom: 15%;
+    }
+
+    #main-page-link p {
+        font-size: 16px;
+    }
+
+    #main-page-link img {
+        width: 48px;
     }
 }
 

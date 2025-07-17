@@ -64,7 +64,7 @@ function isLinksImagesTouchHidden(){
 }
 
 function checkDeviceForMobileOrDesktopType(){
-    if(isLocationIndexPage()){
+    if(isLocationWebPage('/index.html')){
         if(isTouch()){
             showUiTouchStyle();
             handleLinksImagesTouchStyle();
@@ -76,26 +76,27 @@ function checkDeviceForMobileOrDesktopType(){
 
 function handleAllClickEvents(){
     document.addEventListener('click', async (event) => {
-        if(isLocationIndexPage()){
+        if(isLocationWebPage('/index.html')){
             handleClickEventsOnIndexPage(event);
-        } else if(isLocationPrivacyPolicy()){
+        } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
             handleClickEventsOnLinksOnPrivacyPolicyPage(event);
-        } else if(isLocationImprintPage()){
+        } else if(isLocationWebPage('/imprint/imprint.html')){
             handleClickEventsOnLinksOnImprintPage(event);
         }
     });
 }
 
 function handleClickEventsOnIndexPage(event){
-    if(isSettingsDesktopContainerClicked(event)){
+    let target = event.target;
+    if(isContainerTouchedOrClicked(target, '#settings-container')){
         showExplainGamePopUp();
     } else if(isOneOfDesktopButtonContainersClicked(event)){  
         showAllIconSourcesPopUp();
-    } else if(isDesktopImprintLinkClicked(event)){
-        redirectToImprintPage();
-    } else if(isDesktopPrivacyPolicyLinkClicked(event)){
-        redirectToPrivacyPolicyPage();
-    } else if(isPlayIconClicked(event)){
+    } else if(isContainerTouchedOrClicked(target, '#imprint')){
+        redirectToWebPage('../imprint/imprint.html');
+    } else if(isContainerTouchedOrClicked(target, '#privacy')){
+        redirectToWebPage('../privacy_policy/privacy_policy.html');
+    } else if(isContainerTouchedOrClicked(target, '#playIcon')){
         startGameAndSetStyleForDesktopDevice();
     } else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
@@ -108,10 +109,14 @@ function handleAllTouchStartEvents(){
         settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
         if(areTouchControlButtonsTouched(target)){
             preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target);
-        } else if(isExitGameContainerTouched(target)){
+        } else if(isContainerTouchedOrClicked(target, '#exit-game-container')){
             setExitGameContainersButtonStyle();
-        } else if(isMainPageLinkTouched(target)){
+        } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
             changeMainPageLinkColorOnTouchStart();
+        } else if(isContainerTouchedOrClicked(target, '#play-again-after-losing')){
+            changeBackgroundOfPlayAgainButtonPressed('play-again-after-losing', 'goldenrod');
+        } else if(isContainerTouchedOrClicked(target, '#play-again-after-winning')){
+            changeBackgroundOfPlayAgainButtonPressed('play-again-after-winning', 'goldenrod');
         }
     }, {passive: false});
 }
@@ -122,27 +127,32 @@ function handleAllTouchEndEvents(){
         settingGlobalVariablesInKeyUpOrTouchEndEvent(event);
         if(areTouchControlButtonsTouched(target)){
            preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target);
-        } else if(isExitGameContainerTouched(target)){
+        } else if(isContainerTouchedOrClicked(target, '#exit-game-container')){
             setStyleForExitGameContainerAndResetGame();
-        } else if(isPlayIconTouched(target)){
+        } else if(isContainerTouchedOrClicked(target, '#playIcon')){
             startGameAndSetStyleForTouchDevice();
-        } else if(isPrivacyAndImprintButtonTouched(target)){
+        } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
             showPrivacyAndImprintOverlay();
-        } else if(isAllIconButtonContainerTouched(target)){
+        } else if(isContainerTouchedOrClicked(target, '#all-icons-button')){
             showAllIconSourcesPopUp();
-        } else if(isMainPageLinkTouched(target)){
-            redirectToPlayPage();
+        } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
+            redirectToWebPage('../index.html');
+        } else if(isContainerTouchedOrClicked(target, '#play-again-after-losing')){
+            changeBackgroundOfPlayAgainButtonPressed('play-again-after-losing', 'gold');
+        } else if(isContainerTouchedOrClicked(target, '#play-again-after-winning')){
+            changeBackgroundOfPlayAgainButtonPressed('play-again-after-winning', 'gold');
         }
     }, {passive: false});
+}
+
+function changeBackgroundOfPlayAgainButtonPressed(playAgainId, color){
+    let playAgainRef = document.getElementById(`${playAgainId}`);
+    playAgainRef.style.background = `${color}`;
 }
 
 function changeMainPageLinkColorOnTouchStart(){
     let mainPageLink = document.getElementById('main-page-link');
     mainPageLink.style.background = 'goldenrod';
-}
-
-function isMainPageLinkTouched(target){
-    return target.closest('#main-page-link');
 }
 
 function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
@@ -177,10 +187,6 @@ function handleSwitchCasesForTouchEndControlButtons(target){
     } else if(target.closest('#buttonThrow')){
         setCaseForTouchEndButtonThrow(target.closest('#buttonThrow'));
     }
-}
-
-function wasSpacebarDivTouched(target){
-    return target.closest('#jumpButton') || target.closest('#buttonUp') || target.closest('spacebar');
 }
 
 function setCaseForTouchEndSpaceBar(target){
@@ -220,18 +226,20 @@ function setStyleForExitGameContainerAndResetGame(){
 }
 
 function handleClickEventsOnLinksOnPrivacyPolicyPage(event){
-    if(isBackToGameContainerClicked(event)){
-        redirectToPlayPage();
-    } else if(isDesktopImprintLinkClicked(event)){
-        redirectToImprintPage();
+    let target = event.target;
+    if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
+        redirectToWebPage('../index.html');
+    } else if(isContainerTouchedOrClicked(target, '#imprint')){
+        redirectToWebPage('../imprint/imprint.html');
     }
 }
 
 function handleClickEventsOnLinksOnImprintPage(event){
-    if(isBackToGameContainerClicked(event)){
-        redirectToPlayPage();
-    } else if(isDesktopPrivacyPolicyLinkClicked(event)){
-        redirectToPrivacyPolicyPage();
+    let target = event.target;
+    if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
+        redirectToWebPage('../index.html');
+    } else if(isContainerTouchedOrClicked(target, '#back-to-game-page')){
+        redirectToWebPage('../privacy_policy/privacy_policy.html');
     }
 }
 
@@ -285,74 +293,32 @@ function isTouch(){
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
-function redirectToImprintPage() {
-    window.location.href = "../imprint/imprint.html";
-}
-
-function redirectToPrivacyPolicyPage(){
-    window.location.href = "../privacy_policy/privacy_policy.html";
-}
-
-function redirectToPlayPage() {
-    window.location.href = "../index.html";
-}
-
 function reloadOnDeviceTypeSwitch(){
     window.location.reload();
 }
 
-function isLocationIndexPage(){
-    return window.location.pathname.endsWith('/index.html');
-}
-
-function isLocationPrivacyPolicy(){
-    return window.location.pathname.endsWith('/privacy_policy/privacy_policy.html');
-}
-
-function isLocationImprintPage(){
-    return window.location.pathname.endsWith('/imprint/imprint.html');
-}
-
-function isBackToGameContainerClicked(event){
-    return event.target.closest('#back-to-game-page');
-}
-
-function isSettingsDesktopContainerClicked(event){
-    return event.target.closest('#settings-container');
+function wasSpacebarDivTouched(target){
+    return target.closest('#jumpButton') || target.closest('#buttonUp') || target.closest('spacebar');
 }
 
 function isOneOfDesktopButtonContainersClicked(event){
     return event.target.closest('#button-container') || event.target.closest('#icon-button-top');
 }
 
-function isDesktopImprintLinkClicked(event){
-    return event.target.closest('#imprint');
-}
+/* Function to simplify the code above */
 
-function isDesktopPrivacyPolicyLinkClicked(event){
-    return event.target.closest('#privacy');
-}
-
-function isPlayIconClicked(event){
-    return event.target.closest('#playIcon');
+function isContainerTouchedOrClicked(target, containerRef){
+    return target.closest(`${containerRef}`);
 }
 
 function areTouchControlButtonsTouched(target){
     return target.classList.contains('touched');
 }
 
-function isExitGameContainerTouched(target){
-    return target.closest('#exit-game-container');
+function redirectToWebPage(url){
+    window.location.href = `${url}`;
 }
 
-function isPlayIconTouched(target){
-    return target.closest('#playIcon');
-}
-
-function isPrivacyAndImprintButtonTouched(target){
-    return target.closest('#privacy-and-imprint-pop-up');
-}
-
-function isAllIconButtonContainerTouched(target){
-    return target.closest('.all-icons-button-container');
+function isLocationWebPage(url){
+    return window.location.pathname.endsWith(`${url}`);
 }
