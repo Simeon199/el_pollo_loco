@@ -184,6 +184,8 @@ function setIsGamePlayingTrueIfFalse() {
     }
 }
 
+// Hier noch einmal zwischen Desktop und Touch Version unterscheiden
+
 function playAgain() {
     setWasGameWonWhenPlayAgainActivated();
     showContainerIfHidden('canvas-container');    
@@ -302,12 +304,13 @@ function isDesktop(){
     return !isTouch();
 }
 
-function handleDesktopDeviceVersion(){
+function handleDesktopDeviceVersion(){ // Diese Funktion scheint überhaupt nicht aufgerufen zu werden (laut debugger)
     hideContainerIfVisible('intro-image-desktop');
     if(isBigDesktopSizeAndHasGameStarted()){
         hideExitGameDivIfVisible();
         setCanvasContainerPropertiesForBigDesktop();
         setCanvasPropertiesForBigDesktop();
+        // showContainerIfHidden('ui-desktop');
     } else if(isSmallDesktopSizeAndHasGameStarted()){
         showExitGameDivIfHidden();
         setContainerToFullscreenSize('canvas-container');

@@ -177,7 +177,7 @@ body {
     border: 1px solid black;
     padding: 4px;
     border-radius: 16px;
-    background: darkgoldenrod;
+    background: goldenrod;
     filter: drop-shadow(2px 4px 6px black);
 }
 

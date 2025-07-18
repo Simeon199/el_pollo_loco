@@ -252,7 +252,7 @@ class Character extends MovableObject {
      */
 
     setRelevantGlobalVariablesForMovingCharacter() {
-        console.log('some key was pressed again: ', this.someKeyWasPressedAgain);
+        // console.log('some key was pressed again: ', this.someKeyWasPressedAgain);
         this.currentTime = new Date().getTime();
         this.timeCharacterExists = this.currentTime - this.timeSinceCharacterExists;
         this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain); // Umbennnen in timePassedSinceKeyPressed

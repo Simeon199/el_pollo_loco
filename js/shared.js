@@ -73,6 +73,11 @@ function isLinksImagesTouchHidden(){
     return linksImagesTouch.classList.contains('d-none') && !linksImagesTouch.classList.contains('d-flex') && !linksImagesTouch.classList.contains('d-gap');
 }
 
+function setDivBackgroundColor(divId, color){
+    let div = document.getElementById(`${divId}`);
+    div.style.background = `${color}`;
+}
+
 function reloadOnDeviceTypeSwitch(){
     window.location.reload();
 }

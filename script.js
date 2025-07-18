@@ -108,10 +108,20 @@ function handleAllTouchStartEvents(){
             setExitGameContainersButtonStyle();
         } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
             changeMainPageLinkColorOnTouchStart();
+        } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
+            setDivBackgroundColor('privacy-and-imprint-pop-up', 'gold');
+        } else if(isContainerTouchedOrClicked(target, '#all-icons-button')){
+            setDivBackgroundColor('all-icons-button', 'gold');
+        } else if(isContainerTouchedOrClicked(target, '#settings-container-touch')){
+            setDivBackgroundColor('settings-container-touch', 'gold');
         } else if(isContainerTouchedOrClicked(target, '#play-again-after-losing')){
             changeBackgroundOfPlayAgainButtonPressed('play-again-after-losing', 'goldenrod');
         } else if(isContainerTouchedOrClicked(target, '#play-again-after-winning')){
             changeBackgroundOfPlayAgainButtonPressed('play-again-after-winning', 'goldenrod');
+        } else if(isContainerTouchedOrClicked(target, '#imprint-touch')){
+            setDivBackgroundColor('imprint-touch', 'goldenrod');
+        } else if(isContainerTouchedOrClicked(target, '#privacy-touch')){
+            setDivBackgroundColor('privacy-touch', 'goldenrod');
         }
     }, {passive: false});
 }
@@ -127,15 +137,24 @@ function handleAllTouchEndEvents(){
         } else if(isContainerTouchedOrClicked(target, '#playIcon')){
             startGameAndSetStyleForTouchDevice();
         } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
+            setDivBackgroundColor('privacy-and-imprint-pop-up', 'goldenrod');
             showPrivacyAndImprintOverlay();
         } else if(isContainerTouchedOrClicked(target, '#all-icons-button')){
+            setDivBackgroundColor('all-icons-button', 'goldenrod');
             showAllIconSourcesPopUp();
+        } else if(isContainerTouchedOrClicked(target, '#settings-container-touch')){
+            setDivBackgroundColor('settings-container-touch', 'goldenrod');
+            showExplainGamePopUp();
         } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
             redirectToWebPage('../index.html');
         } else if(isContainerTouchedOrClicked(target, '#play-again-after-losing')){
             changeBackgroundOfPlayAgainButtonPressed('play-again-after-losing', 'gold');
         } else if(isContainerTouchedOrClicked(target, '#play-again-after-winning')){
             changeBackgroundOfPlayAgainButtonPressed('play-again-after-winning', 'gold');
+        } else if(isContainerTouchedOrClicked(target, '#imprint-touch')){
+            setDivBackgroundColor('imprint-touch', 'gold');
+        } else if(isContainerTouchedOrClicked(target, '#privacy-touch')){
+            setDivBackgroundColor('privacy-touch', 'gold');
         }
     }, {passive: false});
 }
