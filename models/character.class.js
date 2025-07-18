@@ -63,7 +63,7 @@ class Character extends MovableObject {
 
     manageAllCharacterAnimations() {
         setInterval(() => {
-            this.setRelevantGlobalVariablesForMovingCharacter();
+            this.setRelevantGlobalVariablesForMovingCharacter(); // => Wird diese Funktion überhaupt gebraucht? Schließlich werden in shared.js schon wichtige Eigenschaften für Character gesetzt!
             if (this.isBounced == true) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.shouldJumpAnimationBeExecuted()) {
@@ -223,7 +223,7 @@ class Character extends MovableObject {
      */
 
     shouldCharacterFallInSleepDueToInactivity() {
-        return this.conditionsToBeMetForSleeping() == true && !this.isSoundIconInteraction;
+        return this.conditionsToBeMetForSleeping() && !this.isSoundIconInteraction;
     }
 
     /**
@@ -252,9 +252,10 @@ class Character extends MovableObject {
      */
 
     setRelevantGlobalVariablesForMovingCharacter() {
+        console.log('some key was pressed again: ', this.someKeyWasPressedAgain);
         this.currentTime = new Date().getTime();
         this.timeCharacterExists = this.currentTime - this.timeSinceCharacterExists;
-        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain);
+        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain); // Umbennnen in timePassedSinceKeyPressed
     }
 
     /**
@@ -308,40 +309,9 @@ class Character extends MovableObject {
      */
 
     conditionsToBeMetForSleeping() {
-        return this.characterExistsFiveSecondsButNoButtonPressed() || this.keyWasntPressedForMoreThanFiveSeconds() || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
-    }
-
-    /**
-     * Determines if no key has been pressed and the character hasn't been attacked for more than five seconds.
-     * @returns {boolean} True if five seconds have passed without key presses or attacks, and all conditions for sleep animation are met.
-     */
-
-    keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() { // && this.wasRandomKeyOncePressed == true 
-        if (this.lastTimeKeyPressed !== 0) {
-            let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
-            return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
-                && timePassedWhenKeyReleased > 5000
-                && this.allVariablesThatMustBeTrueForSleepAnimation();
-        }
-        return false;
-    }
-
-    /**
-    * Checks if the character has existed for more than five seconds without any key being pressed.
-    * @returns {boolean} True if the character exists for over five seconds, no keys were pressed, and sleep conditions are met.
-    */
-
-    characterExistsFiveSecondsButNoButtonPressed() {
-        return this.timeCharacterExists > 5000 && this.wasRandomKeyOncePressed == false && this.allVariablesThatMustBeTrueForSleepAnimation();
-    }
-
-    /**
-     * Validates all conditions that must be true for the character to enter the sleep animation.
-     * @returns {boolean} True if the character is not pressing any keys, not being attacked, not jumping, not hurt and not dead.
-     */
-
-    allVariablesThatMustBeTrueForSleepAnimation() {
-        return this.isKeyPressed == false && this.isAttacked == false && this.isJumping == false && this.isHurt() == false && this.energy > 0;
+        return this.characterExistsFiveSecondsButNoButtonPressed() 
+        || this.keyWasntPressedForMoreThanFiveSeconds() 
+        // || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
 
     /**
@@ -350,7 +320,48 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedForMoreThanFiveSeconds() {
-        return this.timePassedWhenKeyPressed > 5000 && this.wasRandomKeyOncePressed == true && this.allVariablesThatMustBeTrueForSleepAnimation();
+        return this.timePassedWhenKeyPressed > 5000 
+        && this.wasRandomKeyOncePressed == true 
+        && this.allVariablesThatMustBeTrueForSleepAnimation();
+    }
+
+    /**
+     * Determines if no key has been pressed and the character hasn't been attacked for more than five seconds.
+     * @returns {boolean} True if five seconds have passed without key presses or attacks, and all conditions for sleep animation are met.
+     */
+
+    // keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
+    //     if (this.lastTimeKeyPressed !== 0 && this.wasRandomKeyOncePressed == true ) { 
+    //         let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
+    //         return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
+    //             && timePassedWhenKeyReleased > 5000
+    //             && this.allVariablesThatMustBeTrueForSleepAnimation();
+    //     }
+    //     return false;
+    // }
+
+    /**
+     * Validates all conditions that must be true for the character to enter the sleep animation.
+     * @returns {boolean} True if the character is not pressing any keys, not being attacked, not jumping, not hurt and not dead.
+     */
+
+    allVariablesThatMustBeTrueForSleepAnimation() {
+        return this.isKeyPressed == false 
+        && this.isAttacked == false 
+        && this.isJumping == false 
+        && this.isHurt() == false 
+        && this.energy > 0;
+    }
+
+    /**
+    * Checks if the character has existed for more than five seconds without any key being pressed.
+    * @returns {boolean} True if the character exists for over five seconds, no keys were pressed, and sleep conditions are met.
+    */
+
+    characterExistsFiveSecondsButNoButtonPressed() {
+        return this.timeCharacterExists > 5000 
+        && this.wasRandomKeyOncePressed == false 
+        && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
 
     /**

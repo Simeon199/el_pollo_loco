@@ -1,9 +1,10 @@
-function settingStyleForTouchDevice(){
-    document.getElementById('canvas-container').classList.remove('d-none');
-    if(document.getElementById('canvas-container').classList.contains('d-flex')){
-        document.getElementById('canvas-container').classList.remove('d-flex');
+function setKeyPressedVariablesRight(event) {
+    if (isEventOfTypeTouchAndSoundIconTriggered(event)) {
+        return;
+    } else {
+        wasRandomKeyOncePressed = true;
+        isKeyPressed = true;
     }
-    document.getElementById('screen-control-container').classList.remove('d-none');
 }
 
 function isEventOfTypeTouchAndSoundIconTriggered(event) {
@@ -20,6 +21,14 @@ function checkIfSoundIconWasTriggered(event) {
     } else {
         return false;
     }
+}
+
+function settingStyleForTouchDevice(){
+    document.getElementById('canvas-container').classList.remove('d-none');
+    if(document.getElementById('canvas-container').classList.contains('d-flex')){
+        document.getElementById('canvas-container').classList.remove('d-flex');
+    }
+    document.getElementById('screen-control-container').classList.remove('d-none');
 }
 
 function showUiTouchStyle(){ 
@@ -86,15 +95,6 @@ function setStyleForExitGameContainerAndResetGame(){
     let exitGameContainer = document.getElementById('exit-game-container');
     exitGameContainer.style.background = 'wheat';
     resetGame();
-}
-
-function setKeyPressedVariablesRight(event) {
-    if (isEventOfTypeTouchAndSoundIconTriggered(event)) {
-        return;
-    } else {
-        wasRandomKeyOncePressed = true;
-        isKeyPressed = true;
-    }
 }
 
 function prepareForThrowingLeft() {

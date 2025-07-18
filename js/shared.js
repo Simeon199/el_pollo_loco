@@ -80,3 +80,30 @@ function reloadOnDeviceTypeSwitch(){
 function redirectToWebPage(url){
     window.location.href = `${url}`;
 }
+
+function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
+    if(isPlayIconNotPressedAndWorldExistent(event)){
+        world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+        if (!world.character.isSoundIconInteraction) {
+            setKeyPressedVariablesRight(event);
+            someKeyWasPressedAgain = new Date().getTime();
+            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+            world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+            world.character.isKeyPressed = isKeyPressed;
+        }
+    }
+}
+
+function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
+    if(isPlayIconNotPressedAndWorldExistent(event)){
+        isKeyPressed = false;
+        lastTimeKeyPressed = new Date().getTime();
+        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
+        // world.character.someKeyWasPressedAgain = 0;
+        world.character.isKeyPressed = isKeyPressed;
+    }
+}
+
+function isPlayIconNotPressedAndWorldExistent(event){
+    return !event.target.closest('#playIcon') && typeof world !== 'undefined';
+}

@@ -199,25 +199,3 @@ function startGameAndSetStyleForDesktopDevice(){
     startGame();
     setStyleForDesktopDevice();
 }
-
-function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    if(!event.target.closest('#playIcon') && typeof world !== 'undefined'){
-        world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-        if (!world.character.isSoundIconInteraction) {
-            setKeyPressedVariablesRight(event);
-            someKeyWasPressedAgain = new Date().getTime();
-            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-            world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-            world.character.isKeyPressed = isKeyPressed;
-        }
-    }
-}
-
-function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
-    if(!event.target.closest('#playIcon') && typeof world !== 'undefined'){
-        isKeyPressed = false;
-        lastTimeKeyPressed = new Date().getTime();
-        world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-        world.character.isKeyPressed = isKeyPressed;
-    }
-}

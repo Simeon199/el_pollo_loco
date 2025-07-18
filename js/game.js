@@ -231,10 +231,6 @@ function isGamerWinning(){
     return wasGameWon === true;
 }
 
-// function doesUiDesktopContainFlexboxClasses(){
-//     return uiDesktop.classList.contains('d-flex') && uiDesktop.classList.contains('d-column'); 
-// }
-
 // All styling issues are displayed here:
 
 function handleTouchStyleVersion(){
