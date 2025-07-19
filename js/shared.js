@@ -91,10 +91,8 @@ function redirectToWebPage(url){
 }
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
-    // debugger;
     if(isPlayIconNotPressedAndWorldExistent(event)){
         world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-        // debugger;
         if (!world.character.isSoundIconInteraction) {
             setKeyPressedVariablesRight(event);
             someKeyWasPressedAgain = new Date().getTime();

@@ -63,7 +63,7 @@ class Character extends MovableObject {
 
     manageAllCharacterAnimations() {
         setInterval(() => {
-            this.setRelevantGlobalVariablesForMovingCharacter(); // => Wird diese Funktion überhaupt gebraucht? Schließlich werden in shared.js schon wichtige Eigenschaften für Character gesetzt!
+            this.setRelevantGlobalVariablesForMovingCharacter();
             if (this.isBounced == true) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.shouldJumpAnimationBeExecuted()) {
@@ -252,10 +252,9 @@ class Character extends MovableObject {
      */
 
     setRelevantGlobalVariablesForMovingCharacter() {
-        // console.log('some key was pressed again: ', this.someKeyWasPressedAgain);
         this.currentTime = new Date().getTime();
         this.timeCharacterExists = this.currentTime - this.timeSinceCharacterExists;
-        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain); // Umbennnen in timePassedSinceKeyPressed
+        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain);
     }
 
     /**
@@ -320,7 +319,6 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedForMoreThanFiveSeconds() {
-        // console.log('time passed when key pressed retrieved in keyWasntPressedForMoreThanFiveSeconds: ', this.timePassedWhenKeyPressed);
         return this.timePassedWhenKeyPressed > 5000 
         && this.wasRandomKeyOncePressed == true 
         && this.allVariablesThatMustBeTrueForSleepAnimation();

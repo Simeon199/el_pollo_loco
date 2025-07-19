@@ -121,15 +121,15 @@ class MovableObject extends DrawableObject {
 
     returnCorrectTolerance() {
         if (this.isCharacterAndAboveGround()) {
-            this.offsetRight = 60; // 60
-            this.offsetLeft = 60; // 60
-            this.offsetTop = 50; // 30
-            this.offsetBottom = 0; // 40
+            this.offsetRight = 60; 
+            this.offsetLeft = 60; 
+            this.offsetTop = 50; 
+            this.offsetBottom = 0; 
         } else if (this.isCharacterAndNotAboveGround()) {
-            this.offsetRight = 40; // 40
-            this.offsetLeft = 40; // 40
-            this.offsetTop = 0; // -10
-            this.offsetBottom = 0; // 0
+            this.offsetRight = 40;
+            this.offsetLeft = 40; 
+            this.offsetTop = 0; 
+            this.offsetBottom = 0; 
         }
     }
 
@@ -161,7 +161,7 @@ class MovableObject extends DrawableObject {
         if (this.isEndboss()) {
             this.energy -= 15;
         } else if (this.isCharacter()) {
-            this.energy -= 20;
+            this.energy -= (100/6);
         }
     }
 
