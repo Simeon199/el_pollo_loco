@@ -90,7 +90,7 @@ class ThrowableObject extends MovableObject {
     */
 
     handleSpeedAndGravityOfThrowedBottle() {
-        this.speedY = 25; // 30 oder 25
+        this.speedY = 25; 
         this.applyGravity();
     }
 
@@ -122,7 +122,7 @@ class ThrowableObject extends MovableObject {
 
     checkDirectionLeftOrRightMovingBottle(direction) {
         if (direction == 'right') {
-            this.x += 15; // 10 oder 12 oder 18 oder 15
+            this.x += 15; 
         } else if (direction == 'left') {
             this.x -= 15; // 10 oder 12 oder 18 oder 15
         }
@@ -147,7 +147,7 @@ class ThrowableObject extends MovableObject {
             setTimeout(() => {
                 clearInterval(this.intervalID);
                 this.img.src = '';
-            }, 200); // ehemals 200
+            }, 200); 
         }
     }
 

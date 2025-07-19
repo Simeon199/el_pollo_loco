@@ -52,7 +52,6 @@ class BottleBar extends StatusBar {
     updateTotalNumberOfBottles() {
         if (this.bottleAmount > 0) {
             this.bottleAmount = 15;
-            // this.bottleAmount -= 1;
         }
     }
 
@@ -95,7 +94,7 @@ class BottleBar extends StatusBar {
             return 3;
         } else if (this.isBottleRatioOfCertainSize(0.35, 0.55)) {
             return 2;
-        } else if (this.isBottleRatioOfCertainSize(0.15, 0.35)) {
+        } else if (this.isBottleRatioOfCertainSize(0.05, 0.35)) {
             return 1;
         } else {
             return 0;
