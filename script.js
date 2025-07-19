@@ -73,15 +73,11 @@ function handleAllClickEvents(){
             handleClickEventsOnLinksOnPrivacyPolicyPage(target);
         } else if(isLocationWebPage('/imprint/imprint.html')){
             handleClickEventsOnLinksOnImprintPage(target);
-        } else if(isEitherPlayAgainAfterWinningOrLosingPressed(target)){
-            playAgain();
-        } else if(wasSoundIconPressed(target)){
-            turnSoundOnOrOff();
-        }
+        } 
     });
 }
 
-function handleClickEventsOnIndexPage(event){
+function handleClickEventsOnIndexPage(event){ // Tipp: Mache Workaround mit PlayAgain, über das, der geeignete Style (Touch vs Desktop) aufgerufen wird!
     let target = event.target;
     if(isContainerTouchedOrClicked(target, '#settings-container')){
         showExplainGamePopUp();
@@ -95,7 +91,10 @@ function handleClickEventsOnIndexPage(event){
         startGameAndSetStyleForDesktopDevice();
     } else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
-    }
+    } 
+    // else if(isEitherPlayAgainAfterWinningOrLosingPressed(target)){
+    //     startGameAndSetStyleForDesktopDevice();
+    // } 
 }
 
 function handleAllTouchStartEvents(){

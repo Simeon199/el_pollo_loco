@@ -1,9 +1,13 @@
 async function loadComponent(component, divId){
     let divRef = document.getElementById(`${divId}`);
-    let response = await fetch(component.html);
-    let html = await response.text();
-    divRef.innerHTML = html;
-    component.setUp(divRef);
+    if(divRef){
+        let response = await fetch(component.html);
+        let html = await response.text();
+        divRef.innerHTML = html;
+        component.setUp(divRef);
+    } else {
+        console.log('Div ref is not accessible: ', divId, divRef);
+    }
 }
 
 async function showAllIconSourcesPopUp(){
@@ -17,22 +21,26 @@ async function showExplainGamePopUp(){
 }
 
 async function showLosingImageForDesktopDevice(){
-    let divId = 'ui-desktop';
+    // let divId = 'ui-desktop';
+    let divId = 'losing-overlay';
     await loadComponent(losingOverlay, divId);
 }
 
 async function showLosingImageForTouchDevice(){
-    let divId = 'ui-desktop';
+    // let divId = 'ui-desktop';
+    let divId = 'losing-overlay';
     await loadComponent(losingOverlay, divId);
 }
 
 async function showWinningImageForDesktopDevice(){
-    let divId = 'ui-desktop';
+    // let divId = 'ui-desktop';
+    let divId = 'winning-overlay';
     await loadComponent(winningOverlay, divId);
 }
 
 async function showWinningImageForTouchDevice(){
-    let divId = 'ui-desktop';
+    // let divId = 'ui-desktop';
+    let divId = 'winning-overlay'
     await loadComponent(winningOverlay, divId);
 }
 

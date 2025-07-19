@@ -186,12 +186,12 @@ function setIsGamePlayingTrueIfFalse() {
 
 // Hier noch einmal zwischen Desktop und Touch Version unterscheiden
 
-function playAgain() {
-    setWasGameWonWhenPlayAgainActivated();
-    showContainerIfHidden('canvas-container');    
-    setFlagsWhenPlayAgainIsActivated();
-    init();
-}
+// function playAgain() {
+//     setWasGameWonWhenPlayAgainActivated();
+//     showContainerIfHidden('canvas-container');    
+//     setFlagsWhenPlayAgainIsActivated();
+//     init();
+// }
 
 function setWasGameWonWhenPlayAgainActivated(){
     wasGameWon = null;
@@ -245,7 +245,10 @@ function handleDesktopStyleDependingOnScreenSize(){
     if(window.innerWidth < 1025){
         handleLinksImagesTouchStyle();
     } else if(window.innerWidth > 1024){
-        hideContainerIfVisible('intro-image-desktop');
+        let introImageDesktop = document.getElementById('intro-image-desktop');
+        if(introImageDesktop){
+            hideContainerIfVisible('intro-image-desktop');
+        }
     }
 }
 
@@ -267,6 +270,7 @@ function changeStyleWhenWinning() {
 
 async function showWinningImageDependingOnUsedDevice(){
     if(!isTouch()){ 
+        hideContainerIfVisible('ui-desktop');
         await showWinningImageForDesktopDevice();
     } else if(isTouch()){
         await showWinningImageForTouchDevice();
@@ -275,6 +279,7 @@ async function showWinningImageDependingOnUsedDevice(){
 
 async function showLosingImageDependingOnUsedDevice(){
     if(!isTouch()){
+        hideContainerIfVisible('ui-desktop');
         await showLosingImageForDesktopDevice();
     } else if(isTouch()){
         await showLosingImageForTouchDevice();
@@ -304,18 +309,32 @@ function isDesktop(){
     return !isTouch();
 }
 
-function handleDesktopDeviceVersion(){ // Diese Funktion scheint überhaupt nicht aufgerufen zu werden (laut debugger)
-    hideContainerIfVisible('intro-image-desktop');
+function handleDesktopDeviceVersion(){
+    let introImageDesktop = document.getElementById('intro-image-desktop');
+    if(introImageDesktop){
+        hideContainerIfVisible('intro-image-desktop');
+    }
     if(isBigDesktopSizeAndHasGameStarted()){
         hideExitGameDivIfVisible();
         setCanvasContainerPropertiesForBigDesktop();
         setCanvasPropertiesForBigDesktop();
-        // showContainerIfHidden('ui-desktop');
+        styleBigDesktopVersionProperly();
     } else if(isSmallDesktopSizeAndHasGameStarted()){
         showExitGameDivIfHidden();
         setContainerToFullscreenSize('canvas-container');
         setContainerToFullscreenSize('canvas');
     }
+}
+
+function styleBigDesktopVersionProperly(){
+    setUiDesktopPaddingSizes('16px');
+    showContainerIfHidden('ui-desktop');
+}
+
+function setUiDesktopPaddingSizes(size){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.style.paddingRight = `${size}`;
+    uiDesktop.style.paddingLeft = `${size}`;
 }
 
 function isBigDesktopSizeAndHasGameStarted(){
@@ -355,7 +374,10 @@ function hideIntroImageDependingOnUsedDevice(){
     if(isDeviceMobileTypeOrOfSmallSize()){
         hideContainerIfVisible('intro-image-touch');
     } else if(!isDeviceMobileTypeOrOfSmallSize()) {
-        hideContainerIfVisible('intro-image-desktop');
+        let introImageDesktop = document.getElementById('intro-image-desktop');
+        if(introImageDesktop){
+            hideContainerIfVisible('intro-image-desktop');
+        }
     }
 }
 

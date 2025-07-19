@@ -4,12 +4,12 @@ let winningOverlay = {
         container.classList.remove('d-none');
         function onClick(event){
             if(event.target.matches('#play-again-after-winning')){
+                // container.classList.add('d-none');
                 try {
-                    playAgain();
+                    startGame();
                 } catch (error) {
-                    console.error('Play Again doesnt work as expected', error);
+                    console.error('Startgame doesnt work as expected', error);
                 }
-                container.classList.add('d-none');
             }
         }
         container.addEventListener('click', onClick);

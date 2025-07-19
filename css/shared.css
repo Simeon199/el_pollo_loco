@@ -226,6 +226,13 @@ body {
     width: 64px;
 }
 
+#losing-overlay, 
+#winning-overlay  {
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+}
+
 @media(min-width: 1025px){
 
     .control-keys {

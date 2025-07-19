@@ -1,8 +1,12 @@
 function hideContainerIfVisible(container){
     let containerToHide = document.getElementById(`${container}`);
-    if(!containerToHide.classList.contains('d-none')){
-        containerToHide.classList.add('d-none');
-    } 
+    if(containerToHide){
+        if(!containerToHide.classList.contains('d-none')){
+            containerToHide.classList.add('d-none');
+        }
+    } else {
+        console.log('containerToHide doesnt exist: ', container, containerToHide);
+    }
 }
 
 function showContainerIfHidden(container){
@@ -104,7 +108,6 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
         isKeyPressed = false;
         lastTimeKeyPressed = new Date().getTime();
         world.character.lastTimeKeyPressed = lastTimeKeyPressed;
-        // world.character.someKeyWasPressedAgain = 0;
         world.character.isKeyPressed = isKeyPressed;
     }
 }
