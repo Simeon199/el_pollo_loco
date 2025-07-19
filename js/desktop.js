@@ -46,6 +46,7 @@ function isEventOfTypeTouchAndSoundIconTriggered(event) {
 }
 
 function keyDownHandler(event) {
+    settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
     if (isCharacterAliveAndNotHurt()) {
         if (event.keyCode == 39) {
             prepareForThrowingRight();
@@ -69,6 +70,7 @@ function keyDownHandler(event) {
 }
 
 function keyUpHandler(event) {
+    settingGlobalVariablesInKeyUpOrTouchEndEvent(event);
     if (keyRightReleasedAndCharacterWithinBorder(event)) {
         keyboard.RIGHT = false;
         world.audioManager.muteSound(true, 'walking_sound');

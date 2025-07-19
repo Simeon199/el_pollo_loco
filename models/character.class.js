@@ -311,7 +311,7 @@ class Character extends MovableObject {
     conditionsToBeMetForSleeping() {
         return this.characterExistsFiveSecondsButNoButtonPressed() 
         || this.keyWasntPressedForMoreThanFiveSeconds() 
-        // || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
+        || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
 
     /**
@@ -320,6 +320,7 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedForMoreThanFiveSeconds() {
+        // console.log('time passed when key pressed retrieved in keyWasntPressedForMoreThanFiveSeconds: ', this.timePassedWhenKeyPressed);
         return this.timePassedWhenKeyPressed > 5000 
         && this.wasRandomKeyOncePressed == true 
         && this.allVariablesThatMustBeTrueForSleepAnimation();
@@ -330,15 +331,15 @@ class Character extends MovableObject {
      * @returns {boolean} True if five seconds have passed without key presses or attacks, and all conditions for sleep animation are met.
      */
 
-    // keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
-    //     if (this.lastTimeKeyPressed !== 0 && this.wasRandomKeyOncePressed == true ) { 
-    //         let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
-    //         return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
-    //             && timePassedWhenKeyReleased > 5000
-    //             && this.allVariablesThatMustBeTrueForSleepAnimation();
-    //     }
-    //     return false;
-    // }
+    keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
+        if (this.lastTimeKeyPressed !== 0 && this.wasRandomKeyOncePressed == true ) { 
+            let timePassedWhenKeyReleased = Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
+            return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
+                && timePassedWhenKeyReleased > 5000
+                && this.allVariablesThatMustBeTrueForSleepAnimation();
+        }
+        return false;
+    }
 
     /**
      * Validates all conditions that must be true for the character to enter the sleep animation.

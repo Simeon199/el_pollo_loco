@@ -77,7 +77,7 @@ function handleAllClickEvents(){
     });
 }
 
-function handleClickEventsOnIndexPage(event){ // Tipp: Mache Workaround mit PlayAgain, über das, der geeignete Style (Touch vs Desktop) aufgerufen wird!
+function handleClickEventsOnIndexPage(event){
     let target = event.target;
     if(isContainerTouchedOrClicked(target, '#settings-container')){
         showExplainGamePopUp();
@@ -92,9 +92,6 @@ function handleClickEventsOnIndexPage(event){ // Tipp: Mache Workaround mit Play
     } else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
     } 
-    // else if(isEitherPlayAgainAfterWinningOrLosingPressed(target)){
-    //     startGameAndSetStyleForDesktopDevice();
-    // } 
 }
 
 function handleAllTouchStartEvents(){
