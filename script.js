@@ -89,7 +89,9 @@ function handleClickEventsOnIndexPage(event){
         redirectToWebPage('../privacy_policy/privacy_policy.html');
     } else if(isContainerTouchedOrClicked(target, '#playIcon')){
         startGameAndSetStyleForDesktopDevice();
-    } else if(isSoundIconClicked(event)){
+    } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
+        redirectToWebPage('../index.html');
+    }  else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
     } 
 }
