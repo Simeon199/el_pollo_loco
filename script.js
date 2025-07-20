@@ -48,18 +48,6 @@ function handleAllChangeEvents(){
     });
 }
 
-function handleKeyUpEvents(){
-    document.addEventListener('keyup', (event) => { 
-        keyUpHandler(event);
-    });
-}
-
-function handleKeyDownEvents(){
-    document.addEventListener('keydown', (event) => { 
-        keyDownHandler(event);
-    });
-}
-
 function checkDeviceForMobileOrDesktopType(){
     if(isLocationWebPage('/index.html')){
         if(isTouch()){
@@ -162,40 +150,6 @@ function handleAllTouchEndEvents(){
             setDivBackgroundColor('privacy-touch', 'gold');
         }
     }, {passive: false});
-}
-
-function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
-    event.preventDefault();
-    handleSwitchCasesForTouchStartControlButtons(target);
-}
-
-function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
-    event.preventDefault();
-    handleSwitchCasesForTouchEndControlButtons(target);
-}
-
-function handleSwitchCasesForTouchStartControlButtons(target){
-    if(target.closest('#buttonLeft')){
-        setCaseForTouchStartButtonLeft(target.closest('#buttonLeft'));
-    } else if(target.closest('#buttonRight')){
-        setCaseForTouchStartButtonRight(target.closest('#buttonRight'));
-    } else if(wasSpacebarDivTouched(target)){
-        setCaseForTouchStartSpaceBar(target.closest('#jumpButton'));
-    } else if(target.closest('#buttonThrow')){
-        setCaseForTouchStartButtonThrow(target.closest('#buttonThrow'));
-    }
-}
-
-function handleSwitchCasesForTouchEndControlButtons(target){
-    if(target.closest('#buttonLeft')){
-        setCaseForTouchEndButtonLeft(target.closest('#buttonLeft'));
-    } else if(target.closest('#buttonRight')){
-        setCaseForTouchEndButtonRight(target.closest('#buttonRight'));
-    } else if(wasSpacebarDivTouched(target)){
-        setCaseForTouchEndSpaceBar(target.closest('#jumpButton'));
-    } else if(target.closest('#buttonThrow')){
-        setCaseForTouchEndButtonThrow(target.closest('#buttonThrow'));
-    }
 }
 
 function handleClickEventsOnLinksOnPrivacyPolicyPage(target){

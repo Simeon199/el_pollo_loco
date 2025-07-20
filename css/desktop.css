@@ -1,7 +1,13 @@
 @media(min-width: 1025px) and (orientation: landscape) {
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
     #ui-desktop {
         height: 100%;
         width: 100%;
+        max-width: 1440px;
         padding-left: 16px;
         padding-right: 16px;
         position: fixed;
@@ -87,6 +93,32 @@
     #imprint:hover {
         cursor: pointer;
         transform: scale(1.05);
+    }
+}
+
+@media(min-width: 1440px) and (orientation: landscape){
+    #ui-desktop {
+        padding-left: 0;
+        padding-right: 0;
+        position: unset;
+    }
+    
+    .intro-image-desktop {
+        width: 840px;
+        height: 560px;
+        bottom: calc((100dvh - 560px) / 2);
+        right: calc((100dvw - 840px) / 2);
+    }
+
+    #intro-image-desktop img:nth-child(1) {
+        width: 840px;
+        height: 560px;
+    }
+
+    #intro-image-desktop img:nth-child(2) { 
+        left: calc((100% - 72px) / 2);
+        width: 72px;
+        cursor: pointer;
     }
 }
 

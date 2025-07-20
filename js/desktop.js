@@ -45,6 +45,18 @@ function isEventOfTypeTouchAndSoundIconTriggered(event) {
     return event.type.startsWith('touch') && checkIfSoundIconWasTriggered(event) == true;
 }
 
+function handleKeyUpEvents(){
+    document.addEventListener('keyup', (event) => { 
+        keyUpHandler(event);
+    });
+}
+
+function handleKeyDownEvents(){
+    document.addEventListener('keydown', (event) => { 
+        keyDownHandler(event);
+    });
+}
+
 function keyDownHandler(event) {
     settingGlobalVariablesInKeyDownOrTouchStartEvent(event);
     if (isCharacterAliveAndNotHurt()) {

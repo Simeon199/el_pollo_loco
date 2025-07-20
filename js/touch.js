@@ -36,6 +36,40 @@ function showUiTouchStyle(){
     uiTouch.classList.remove('d-none');
 }
 
+function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
+    event.preventDefault();
+    handleSwitchCasesForTouchStartControlButtons(target);
+}
+
+function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
+    event.preventDefault();
+    handleSwitchCasesForTouchEndControlButtons(target);
+}
+
+function handleSwitchCasesForTouchStartControlButtons(target){
+    if(target.closest('#buttonLeft')){
+        setCaseForTouchStartButtonLeft(target.closest('#buttonLeft'));
+    } else if(target.closest('#buttonRight')){
+        setCaseForTouchStartButtonRight(target.closest('#buttonRight'));
+    } else if(wasSpacebarDivTouched(target)){
+        setCaseForTouchStartSpaceBar(target.closest('#jumpButton'));
+    } else if(target.closest('#buttonThrow')){
+        setCaseForTouchStartButtonThrow(target.closest('#buttonThrow'));
+    }
+}
+
+function handleSwitchCasesForTouchEndControlButtons(target){
+    if(target.closest('#buttonLeft')){
+        setCaseForTouchEndButtonLeft(target.closest('#buttonLeft'));
+    } else if(target.closest('#buttonRight')){
+        setCaseForTouchEndButtonRight(target.closest('#buttonRight'));
+    } else if(wasSpacebarDivTouched(target)){
+        setCaseForTouchEndSpaceBar(target.closest('#jumpButton'));
+    } else if(target.closest('#buttonThrow')){
+        setCaseForTouchEndButtonThrow(target.closest('#buttonThrow'));
+    }
+}
+
 function changeMainPageLinkColorOnTouchStart(){
     let mainPageLink = document.getElementById('main-page-link');
     mainPageLink.style.background = 'goldenrod';
