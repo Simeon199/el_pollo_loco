@@ -21,10 +21,18 @@ let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
 
+/**
+ * Starts the game and initializes all necessary variables and objects.
+ */
+
 function startGame() {
     isGamePlaying = true;
     init();
 }
+
+/**
+ * Initializes the game by resetting the world, variables, and UI states.
+ */
 
 function init() {
     deleteWorldInstance();
@@ -34,12 +42,20 @@ function init() {
     initializeTimePointWhenGameStarted();
 }
 
+/**
+ * Deletes the current world instance and clears all intervals.
+ */
+
 function deleteWorldInstance() {
     if (world) {
         clearAllIntervals();
         world = null;
     }
 }
+
+/**
+ * Sets up world, context, and other variables when initializing the game.
+ */
 
 function setRemainingObjectsAndVariablesWhenInitGame() {
     setWorldAndContextObjects();
@@ -48,11 +64,19 @@ function setRemainingObjectsAndVariablesWhenInitGame() {
     setStylingOfInitializedGame();
 }
 
+/**
+ * Initializes the canvas, world, and context objects.
+ */
+
 function setWorldAndContextObjects(){
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     ctx = canvas.getContext('2d');
 }
+
+/**
+ * Checks if the enemy or character is dead and manages the stop game interval.
+ */
 
 function checkIfEnemyOrCharacterIsDead() {
     if (!isGamePlaying) {
@@ -61,24 +85,44 @@ function checkIfEnemyOrCharacterIsDead() {
     manageStopGameInterval();
 }
 
+/**
+ * Sets the hasGameStarted flag to true.
+ */
+
 function setHasGameStartedValue(){
     hasGameStarted = true;
 }
 
+/**
+ * Initializes the time point when the game started.
+ */
+
 function initializeTimePointWhenGameStarted(){
     timePointWhenGameInitialized = new Date().getTime();
 }
+
+/**
+ * Manages the interval that checks for game stop conditions.
+ */
 
 function manageStopGameInterval() {
     clearStopGameIntervalIfItAlreadyExists();
     setStopGameIntervalAndClearIt();
 }
 
+/**
+ * Clears the stop game interval if it already exists.
+ */
+
 function clearStopGameIntervalIfItAlreadyExists(){
     if (stopGameInterval) {
         clearInterval(stopGameInterval);
     }
 }
+
+/**
+ * Sets the interval to check for win/lose conditions and clears it when needed.
+ */
 
 function setStopGameIntervalAndClearIt(){
     stopGameInterval = setInterval(() => {
@@ -90,13 +134,27 @@ function setStopGameIntervalAndClearIt(){
     }, 5000);
 }
 
+/**
+ * Checks if the character was defeated by enemies.
+ * @returns {boolean}
+ */
+
 function wasCharacterDefeatedByEnemies(){
     return world.character.energy === 0;
 }
 
+/**
+ * Checks if all enemies have been defeated by the character.
+ * @returns {boolean}
+ */
+
 function hasEnemiesBeenDefeatedByCharacter(){
     return world.enemiesNumber <= 0;
 }
+
+/**
+ * Handles the logic when the game is lost.
+ */
 
 function handleGameLostLogic(){
     wasGameWon = false;
@@ -104,16 +162,28 @@ function handleGameLostLogic(){
     clearInterval(stopGameInterval);
 }
 
+/**
+ * Handles the logic when the game is won.
+ */
+
 function handleGameWonLogic(){
     wasGameWon = true;
     stopGame();
     clearInterval(stopGameInterval);
 }
 
+/**
+ * Stops the game and manages style and variables accordingly.
+ */
+
 function stopGame() {
     breakUpFunctionIfisGamePayingAlreadyFalse();
     manageStyleAndVariablesWhenStoppingGame();
 }
+
+/**
+ * Exits the function early if the game is already not playing.
+ */
 
 function breakUpFunctionIfisGamePayingAlreadyFalse(){
     if (!isGamePlaying) {
@@ -121,11 +191,19 @@ function breakUpFunctionIfisGamePayingAlreadyFalse(){
     }
 }
 
+/**
+ * Manages style and variables when the game is stopped.
+ */
+
 function manageStyleAndVariablesWhenStoppingGame(){
     manageStyleWhenGameIsStopped();
     manageStyleDependingOnWinndingOrLosing();
     isGamePlaying = false;
 }
+
+/**
+ * Handles UI and state changes when the game is stopped.
+ */
 
 function manageStyleWhenGameIsStopped() {
     clearAllIntervals();
@@ -135,15 +213,27 @@ function manageStyleWhenGameIsStopped() {
     removePaddingFromUiDesktop();
 }
 
+/**
+ * Sets the isGamePlaying flag to false.
+ */
+
 function setIsGamePlayingToFalse(){
     isGamePlaying = false;
 }
+
+/**
+ * Clears all intervals by iterating through a large range of possible interval IDs.
+ */
 
 function clearAllIntervals() {
     for (let i = 1; i < 99999; i++) {
         window.clearInterval(i);
     }
 }
+
+/**
+ * Manages the style depending on whether the player won or lost.
+ */
 
 function manageStyleDependingOnWinndingOrLosing() {
     prepareDisplayWinningLosingStyle();
@@ -156,14 +246,28 @@ function manageStyleDependingOnWinndingOrLosing() {
     }
 }
 
+/**
+ * Checks if the player lost the game.
+ * @returns {boolean}
+ */
+
 function isGamerLosing(){
     return wasGameWon === false;
 }
+
+/**
+ * Checks if the player won the game.
+ * @returns {boolean}
+ */
 
 function isGamerWinning(){
     return wasGameWon === true;
 }
 
+
+/**
+ * Resets the game by reloading the page.
+ */
 
 function resetGame() {
     window.location.reload();
