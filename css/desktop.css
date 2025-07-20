@@ -7,7 +7,7 @@
     #ui-desktop {
         height: 100%;
         width: 100%;
-        max-width: 1440px;
+        max-width: 1920px; /* 1440px */
         padding-left: 16px;
         padding-right: 16px;
         position: fixed;
@@ -96,10 +96,8 @@
     }
 }
 
-@media(min-width: 1440px) and (orientation: landscape){
+@media(min-width: 1920px) and (orientation: landscape){
     #ui-desktop {
-        padding-left: 0;
-        padding-right: 0;
         position: unset;
     }
     
@@ -119,6 +117,14 @@
         left: calc((100% - 72px) / 2);
         width: 72px;
         cursor: pointer;
+    }
+
+    #icon-button {
+        font-size: 20px;
+    }
+
+    #title {
+        font-size: 64px;
     }
 }
 

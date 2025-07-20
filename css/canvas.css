@@ -90,16 +90,12 @@
 @media(min-width: 1025px) and (orientation: landscape){
 
     .touch-control img {
-        width: 64px;
+        width: clamp(64px, 80px, 96px);
         padding: 8px;
     }
 
     .exit-game-container img {
         width: 64px;
-    }
-
-    .exit-game-container p {
-        font-size: 18px;
     }
 
     .control-button-image-container {
@@ -114,8 +110,13 @@
         width: clamp(100px, 18%, 200px);
     }
 
-    #sound-off-icon, #sound-on-icon {
+    #sound-off-icon, 
+    #sound-on-icon {
         width: 48px;
+    }
+
+    #spacebar {
+        font-size: 20px;
     }
 
     .exit-game-container img {
@@ -124,7 +125,7 @@
 
     .exit-game-container p {
         font-family: 'playpensans';
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
     }
 }
@@ -153,18 +154,29 @@
 
     .sound-and-exit-container {
         gap: 16px;
-        width: clamp(100px, 22%, 200px);
+        width: clamp(100px, 25%, 200px);
     }
 
-    #sound-off-icon, #sound-on-icon {
+    #sound-off-icon, 
+    #sound-on-icon {
         width: 40px;
+    }
+
+    #sound-off-icon:hover, 
+    #sound-on-icon:hover {
+        transform: scale(1.05);
+    }
+
+    .exit-game-container:hover {
+        cursor: pointer;
+        transform: scale(1.05);
     }
 
     .exit-game-container img {
-        width: 40px;
+        width: 56px;
     }
 
     .exit-game-container p {
-        font-size: 14px;
+        font-size: 18px;
     }
 }

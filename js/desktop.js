@@ -3,18 +3,42 @@ let timeDifferenceBetweenKeyDPressedReleased = 0;
 let momentKeySpaceWasReleased = 0;
 
 function setCanvasContainerPropertiesForBigDesktop(){
+    if(isDesktopOfBiggerSize()){
+        setCanvasContainerPropertyStyling('720px', '480px');
+    } else if(isDesktopOfVeryBigSize()){
+        setCanvasContainerPropertyStyling('840px', '560px');
+    }
+}
+
+function isDesktopOfBiggerSize(){
+    return window.innerWidth > 1024 && window.innerWidth < 1920;
+}
+
+function isDesktopOfVeryBigSize(){
+    return window.innerWidth >= 1920;
+}
+
+function setCanvasContainerPropertyStyling(width, height){
     let canvasContainer = document.getElementById('canvas-container');
-    canvasContainer.style.width = '720px';
-    canvasContainer.style.height = '480px';
+    canvasContainer.style.width = `${width}`; 
+    canvasContainer.style.height = `${height}`; 
     canvasContainer.style.position = 'absolute';
-    canvasContainer.style.right = 'calc((100dvw - 720px)/2)';
-    canvasContainer.style.bottom = 'calc((100dvh - 480px)/2)';
+    canvasContainer.style.right = `calc((100dvw - ${width})/2)`;
+    canvasContainer.style.bottom = `calc((100dvh - ${height})/2)`;
 }
 
 function setCanvasPropertiesForBigDesktop(){
+    if(isDesktopOfBiggerSize()){
+        setCanvasProperties('720px', '480px'); 
+    } else if(isDesktopOfVeryBigSize()){
+        setCanvasProperties('840px', '560px');
+    }
+}
+
+function setCanvasProperties(width, height){
     let canvas = document.getElementById('canvas');
-    canvas.style.width = '720px';
-    canvas.style.height = '480px'; 
+    canvas.style.width = `${width}`;
+    canvas.style.height = `${height}`; 
 }
 
 function showUiDesktopStyle(){

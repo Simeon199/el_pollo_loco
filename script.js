@@ -7,12 +7,12 @@ let privacyOrImprintTouchActivated = false;
 document.addEventListener('DOMContentLoaded', () => {
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
-    handleKeyUpEvents();
-    handleKeyDownEvents();
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
     handleAllChangeEvents();
     handleOrientationChange();
+    handleKeyUpEvents();
+    handleKeyDownEvents();
 });
 
 function handleOrientationChange(){
@@ -50,13 +50,24 @@ function handleAllChangeEvents(){
 
 function checkDeviceForMobileOrDesktopType(){
     if(isLocationWebPage('/index.html')){
-        if(isTouch()){
+        if(isTouch() || (isHeightToWidthRatioBelowThreshold() && isMinHeightBelowThreshold())){ // 
             showUiTouchStyle();
             handleLinksImagesTouchStyle();
         } else if(!isTouch()) {
             showUiDesktopStyle();
         }
     }
+}
+
+
+function isMinHeightBelowThreshold(){
+    let minHeightThreshold = 850;
+    return window.innerHeight < minHeightThreshold;
+}
+
+function isHeightToWidthRatioBelowThreshold(){
+    let ratio = 0.5;
+    return window.innerHeight / window.innerWidth < ratio; 
 }
 
 function handleAllClickEvents(){
@@ -90,6 +101,8 @@ function handleClickEventsOnIndexPage(event){
         turnSoundOnOrOff();
     } 
 }
+
+// Abhängigkeiten von der URL müssen analog zu dem Click-EventHandling (auf welcher Seite befindet man sich) hinzugefügt werden (für touchstart respektive touchend)!
 
 function handleAllTouchStartEvents(){
     document.addEventListener('touchstart', (event) => {

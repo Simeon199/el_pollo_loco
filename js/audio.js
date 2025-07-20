@@ -1,3 +1,16 @@
+function controlTurnOnTurnOffIcon() {
+    if (soundIsMuted) {
+        showTurningSoundOffIcon();
+    } else {
+        showTurningSoundOnIcon();
+    }
+}
+
+function muteGameSounds() {
+    soundOn = false;
+    soundIsMuted = true;
+}
+
 function stopAllSounds() {
     world.audioManager.pauseBackgroundMusic();
     for (let soundKey in world.audioManager.sounds) {
@@ -116,6 +129,34 @@ function muteUnmuteSound(mute) {
             world.audioManager.playBackgroundMusic();
         }
     }
+}
+
+function doesWorldExist() {
+    if (world) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function doesCharacterExistInWorld() {
+    if (world.character) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function doEnemiesExistInWorld() {
+    if (doesWorldLevelsAndEnemiesObjectsExist()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function doesWorldLevelsAndEnemiesObjectsExist(){
+    return world && world.level && world.level.enemies && world.level.enemies.length > 0; 
 }
 
 function controlMuteCondition() {

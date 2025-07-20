@@ -69,12 +69,16 @@ function hideLinksImagesTouchVisible(){
 
 function isLinksImagesTouchVisible(){
     let linksImagesTouch = document.getElementById('links-images-touch');
-    return linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-gap') && !linksImagesTouch.classList.contains('d-none');
+    return linksImagesTouch.classList.contains('d-flex') 
+    && linksImagesTouch.classList.contains('d-gap') 
+    && !linksImagesTouch.classList.contains('d-none');
 }
 
 function isLinksImagesTouchHidden(){
     let linksImagesTouch = document.getElementById('links-images-touch');
-    return linksImagesTouch.classList.contains('d-none') && !linksImagesTouch.classList.contains('d-flex') && !linksImagesTouch.classList.contains('d-gap');
+    return linksImagesTouch.classList.contains('d-none') 
+    && !linksImagesTouch.classList.contains('d-flex') 
+    && !linksImagesTouch.classList.contains('d-gap');
 }
 
 function setDivBackgroundColor(divId, color){
@@ -114,4 +118,163 @@ function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
 
 function isPlayIconNotPressedAndWorldExistent(event){
     return !event.target.closest('#playIcon') && typeof world !== 'undefined';
+}
+
+/* All the styling functions that originally were part of game.js are located here now! */
+
+function handleTouchStyleVersion(){
+    hideContainerIfVisible('intro-image-touch');
+    setContainerToFullscreenSize('canvas-container');
+    setContainerToFullscreenSize('canvas');
+    if(typeof world !== undefined && world){
+        showContainerIfHidden('screen-control-container');
+    }
+}
+
+function handleDesktopStyleDependingOnScreenSize(){
+    if(window.innerWidth < 1025){
+        handleLinksImagesTouchStyle();
+    } else if(window.innerWidth > 1024){
+        let introImageDesktop = document.getElementById('intro-image-desktop');
+        if(introImageDesktop){
+            hideContainerIfVisible('intro-image-desktop');
+        }
+    }
+}
+
+// function prepareDisplayWinningLosingStyle() {
+//     hideContainerIfVisible('canvas-container');
+//     hideIntroImageDependingOnUsedDevice();
+// }
+
+
+function changeStyleWhenLosing() {
+    hideIntroImageDependingOnUsedDevice();
+    showLosingImageDependingOnUsedDevice();
+}
+
+function changeStyleWhenWinning() {
+    hideIntroImageDependingOnUsedDevice();
+    showWinningImageDependingOnUsedDevice();
+}
+
+async function showWinningImageDependingOnUsedDevice(){
+    if(!isTouch()){ 
+        hideContainerIfVisible('ui-desktop');
+        await showWinningImageForDesktopDevice();
+    } else if(isTouch()){
+        await showWinningImageForTouchDevice();
+    }
+}
+
+async function showLosingImageDependingOnUsedDevice(){
+    if(!isTouch()){
+        hideContainerIfVisible('ui-desktop');
+        await showLosingImageForDesktopDevice();
+    } else if(isTouch()){
+        await showLosingImageForTouchDevice();
+    }
+}
+
+function prepareDisplayWinningLosingStyle() {
+    hideContainerIfVisible('canvas-container');
+    hideIntroImageDependingOnUsedDevice();
+}
+
+function removePaddingFromUiDesktop(){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.style.paddingRight = '0';
+    uiDesktop.style.paddingLeft = '0';
+}
+
+function manageTouchDeviceVsDesktopDeviceStyle(){
+    if(isDesktop()){ 
+        handleDesktopDeviceVersion();
+    } else if(isTouch()){
+        handleTouchStyleVersion();
+    }
+}
+
+function isDesktop(){
+    return !isTouch();
+}
+
+function handleDesktopDeviceVersion(){
+    let introImageDesktop = document.getElementById('intro-image-desktop');
+    if(introImageDesktop){
+        hideContainerIfVisible('intro-image-desktop');
+    }
+    if(isBigDesktopSizeAndHasGameStarted()){
+        hideExitGameDivIfVisible();
+        setCanvasContainerPropertiesForBigDesktop();
+        setCanvasPropertiesForBigDesktop();
+        styleBigDesktopVersionProperly();
+    } else if(isSmallDesktopSizeAndHasGameStarted()){
+        showExitGameDivIfHidden();
+        setContainerToFullscreenSize('canvas-container');
+        setContainerToFullscreenSize('canvas');
+    }
+}
+
+function styleBigDesktopVersionProperly(){
+    setUiDesktopPaddingSizes('16px');
+    showContainerIfHidden('ui-desktop');
+}
+
+function setUiDesktopPaddingSizes(size){
+    let uiDesktop = document.getElementById('ui-desktop');
+    uiDesktop.style.paddingRight = `${size}`;
+    uiDesktop.style.paddingLeft = `${size}`;
+}
+
+function isBigDesktopSizeAndHasGameStarted(){
+    return window.innerWidth > 1024 && hasGameStarted
+}
+
+function isSmallDesktopSizeAndHasGameStarted(){
+    return window.innerWidth < 1025 && hasGameStarted;
+}
+
+function setStylingOfInitializedGame(){
+    showCanvasWhenGameStarts();
+    hideAllNeededStylingsWhenGameInitialized();
+}
+
+function hideAllNeededStylingsWhenGameInitialized(){
+    hideContainerIfVisible('ui-touch');
+    manageTouchDeviceVsDesktopDeviceStyle();
+    removeLinksImagesTouchIfStillPresent();
+}
+
+function removeLinksImagesTouchIfStillPresent(){
+    if(doesLinksImagesTouchContainsFlexboxAttributes()){
+        let linksImagesTouch = document.getElementById('links-images-touch');
+        linksImagesTouch.classList.remove('d-gap');
+        linksImagesTouch.classList.remove('d-flex');
+        linksImagesTouch.classList.add('d-none');
+    }
+}
+
+function doesLinksImagesTouchContainsFlexboxAttributes(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-gap'); 
+}
+
+function hideIntroImageDependingOnUsedDevice(){
+    if(isDeviceMobileTypeOrOfSmallSize()){
+        hideContainerIfVisible('intro-image-touch');
+    } else if(!isDeviceMobileTypeOrOfSmallSize()) {
+        let introImageDesktop = document.getElementById('intro-image-desktop');
+        if(introImageDesktop){
+            hideContainerIfVisible('intro-image-desktop');
+        }
+    }
+}
+
+function isDeviceMobileTypeOrOfSmallSize(){
+    return isTouch() || window.innerWidth < 1024; 
+}
+
+function isTouch(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
