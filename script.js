@@ -12,7 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAllTouchStartEvents();
     handleAllTouchEndEvents();
     handleAllChangeEvents();
+    handleOrientationChange();
 });
+
+function handleOrientationChange(){
+    screen.orientation.addEventListener('change', () => {
+        window.location.reload();
+    });
+}
 
 function handleAllChangeEvents(){
     mqTouch.addEventListener('change', () => {

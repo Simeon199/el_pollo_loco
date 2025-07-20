@@ -186,13 +186,6 @@ function setIsGamePlayingTrueIfFalse() {
 
 // Hier noch einmal zwischen Desktop und Touch Version unterscheiden
 
-// function playAgain() {
-//     setWasGameWonWhenPlayAgainActivated();
-//     showContainerIfHidden('canvas-container');    
-//     setFlagsWhenPlayAgainIsActivated();
-//     init();
-// }
-
 function setWasGameWonWhenPlayAgainActivated(){
     wasGameWon = null;
 }
@@ -239,6 +232,9 @@ function handleTouchStyleVersion(){
     hideContainerIfVisible('intro-image-touch');
     setContainerToFullscreenSize('canvas-container');
     setContainerToFullscreenSize('canvas');
+    if(typeof world !== undefined && world){
+        showContainerIfHidden('screen-control-container');
+    }
 }
 
 function handleDesktopStyleDependingOnScreenSize(){
