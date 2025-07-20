@@ -76,6 +76,7 @@ class AudioManager {
                 }
                 this.playSound('snorring_sound');
             } else {
+                // debugger;
                 this.muteSound(true, 'snorring_sound');
             }
         }

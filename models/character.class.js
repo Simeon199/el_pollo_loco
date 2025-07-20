@@ -8,6 +8,7 @@ class Character extends MovableObject {
     isSoundIconInteraction = false;
     wasRandomKeyOncePressed = false;
     isKeyPressed = false;
+    isSleeping = false;
     timeThatPassedSinceKeySpaceReleased = 0;
     currentTime = 0;
     timeDifferenceBetweenNowAndLastHitFromEndboss = 0;
@@ -63,26 +64,35 @@ class Character extends MovableObject {
 
     manageAllCharacterAnimations() {
         setInterval(() => {
+            console.log('is character sleeping: ', this.isSleeping);
             this.setRelevantGlobalVariablesForMovingCharacter();
             if (this.isBounced == true) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.shouldJumpAnimationBeExecuted()) {
                 this.playAnimationMovingAndJumping();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.playMovingRightAnimationWithAudio();
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.playMovingLeftAnimationWithAudio();
             } else if (this.isBounced == true) {
                 this.animateCharacterJump();
             } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
-                this.setIsSleepingTrueAndPlayAnimation();
+                this.setIsSleepingTrue();
+            } else if(this.isSleeping){
+                this.playSleepAnimationWithAudio();
             } else if (this.isHurt()) {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_DEAD);
             } else if(this.isPepeSleepingButKeyPressedOrButtonTouched()){
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             } else {
+                this.setIsSleepingOnFalseIfSetTrue();
                 this.cancelIsSleepingAndPlayAnimation(this.IMAGES_CHILL);
             }
         }, 90); // 80
@@ -105,6 +115,13 @@ class Character extends MovableObject {
             }
             this.world.camera_x = -this.x + 200;
         }, 35); // 25
+    }
+
+    setIsSleepingOnFalseIfSetTrue() {
+        console.log('Ich bin ständig hier!');
+        if (this.isSleeping) {
+            this.isSleeping = false;
+        }
     }
 
     /**
@@ -182,7 +199,7 @@ class Character extends MovableObject {
      */
 
     cancelIsSleepingAndPlayAnimation(animationType) {
-        this.setIsSleepingOnFalseIfSetTrue();
+        // this.setIsSleepingOnFalseIfSetTrue();
         this.playAnimation(animationType);
     }
 
@@ -190,9 +207,9 @@ class Character extends MovableObject {
      * This function activates the sleeping state of the character and triggers the corresponding sleep animation along with the audio.
      */
 
-    setIsSleepingTrueAndPlayAnimation() {
+    setIsSleepingTrue() { // setIsSleepingTrueAndPlayAnimation
         this.isSleeping = true;
-        this.playSleepAnimationWithAudio();
+        // this.playSleepAnimationWithAudio();
     }
 
     /**
@@ -200,21 +217,19 @@ class Character extends MovableObject {
      * @returns {boolean} True if the space (jump) key and left/right movement keys were pressed together.
      */
 
-    wereJumpAndMoveBruttonPressedSimultaneously() {
-        this.setIsSleepingOnFalseIfSetTrue();
-        this.world.audioManager.muteWalkingSoundIfNecessary();
-        return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
-    }
+    // wereJumpAndMoveBruttonPressedSimultaneously() {
+    //     this.setIsSleepingOnFalseIfSetTrue();
+    //     this.world.audioManager.muteWalkingSoundIfNecessary();
+    //     return this.keySpaceWasPressed() && this.wasRightOrLeftKeyPressed();
+    // }
 
     /**
      * Plays the sleep animation and corresponding audio.
      */
 
     playSleepAnimationWithAudio() {
-        if (this.isSleeping) {
-            this.playAnimation(this.IMAGES_SLEEP);
-            this.world.audioManager.playSleepAudio();
-        }
+        this.playAnimation(this.IMAGES_SLEEP);
+        this.world.audioManager.playSleepAudio();
     }
 
     /**
@@ -232,7 +247,7 @@ class Character extends MovableObject {
      */
 
     keyRightPressedAndCharacterOnGround() {
-        this.setIsSleepingOnFalseIfSetTrue();
+        // this.setIsSleepingOnFalseIfSetTrue();
         return this.keyRightWasPressed() && !this.isAboveGround();
     }
 
@@ -242,7 +257,7 @@ class Character extends MovableObject {
      */
 
     keyLeftPressedAndCharacterOnGround() {
-        this.setIsSleepingOnFalseIfSetTrue();
+        // this.setIsSleepingOnFalseIfSetTrue();
         return this.keyLeftWasPressed() && !this.isAboveGround();
     }
 
@@ -264,7 +279,7 @@ class Character extends MovableObject {
      */
 
     characterGotHurtButEnjoysProtection() {
-        this.setIsSleepingOnFalseIfSetTrue();
+        // this.setIsSleepingOnFalseIfSetTrue();
         this.currentTime = new Date().getTime();
         if (this.timePassedBetweenNowAndLastHitAgainstCharacter()) {
             return true;
@@ -420,7 +435,7 @@ class Character extends MovableObject {
      */
 
     keySpaceWasPressed() {
-        this.setIsSleepingOnFalseIfSetTrue();
+        // this.setIsSleepingOnFalseIfSetTrue();
         return this.world.keyboard.SPACE;
     }
 
