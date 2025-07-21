@@ -99,11 +99,19 @@ function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
         world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
         if (!world.character.isSoundIconInteraction) {
             setKeyPressedVariablesRight(event);
+            setWasRandomKeyOncePressed();
             someKeyWasPressedAgain = new Date().getTime();
-            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
             world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
             world.character.isKeyPressed = isKeyPressed;
+            world.character.isSleeping = false;
         }
+    }
+}
+
+function setWasRandomKeyOncePressed(){
+    if(!wasRandomKeyOncePressed){
+        wasRandomKeyOncePressed = true;
+        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
     }
 }
 
@@ -146,7 +154,6 @@ function handleDesktopStyleDependingOnScreenSize(){
 //     hideContainerIfVisible('canvas-container');
 //     hideIntroImageDependingOnUsedDevice();
 // }
-
 
 function changeStyleWhenLosing() {
     hideIntroImageDependingOnUsedDevice();
