@@ -16,6 +16,7 @@ class Character extends MovableObject {
     lastTimeKeyPressed = 0;
     timeSinceCharacterExists = 0;
     timeCharacterExists = 0;
+    timePassedSinceKeyReleased = 0;
     height = 280;
     width = 130;
     y = 20;
@@ -64,42 +65,27 @@ class Character extends MovableObject {
 
     manageAllCharacterAnimations() {
         setInterval(() => {
-            console.log('is sleeping: ', this.isSleeping);
+            console.log('is sleeping value: ', this.isSleeping, this.timePassedSinceKeyReleased);
             this.setRelevantGlobalVariablesForMovingCharacter();
-            if (this.isBounced == true) {
+            if (this.isCharacterBouncing()) {            
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.shouldJumpAnimationBeExecuted()) {
-                // this.setIsSleepingOnFalseIfSetTrue();
                 this.playAnimationMovingAndJumping();
             } else if (this.keyRightPressedAndCharacterOnGround()) {
-                // this.setIsSleepingOnFalseIfSetTrue();
                 this.playMovingRightAnimationWithAudio();
             } else if (this.keyLeftPressedAndCharacterOnGround()) {
-                // this.setIsSleepingOnFalseIfSetTrue();
                 this.playMovingLeftAnimationWithAudio();
-            } else if (this.isBounced == true) {
-                this.animateCharacterJump();
-            } else if (this.shouldCharacterFallInSleepDueToInactivity()) {
-                this.setIsSleepingTrue();
-            } else if(this.isSleeping){
+            } else if(this.isCharacterSleeping()){
                 this.playSleepAnimationWithAudio();
+            } else if (this.shouldCharacterFallInSleepDueToInactivity()){
+                this.setIsSleepingTrue();
             } else if (this.isHurt()) {
-                this.setIsSleepingOnFalseIfSetTrue();
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isDead()) {
-                this.setIsSleepingOnFalseIfSetTrue();
                 this.playAnimation(this.IMAGES_DEAD);
             } else {
                 this.playAnimation(this.IMAGES_CHILL);
             }
-            // else if(this.isPepeSleepingButKeyPressedOrButtonTouched()){
-            //     this.setIsSleepingOnFalseIfSetTrue();
-            //     this.playAnimation(this.IMAGES_CHILL);
-            // } 
-            // else {
-            //     this.setIsSleepingOnFalseIfSetTrue();
-            //     this.playAnimation(this.IMAGES_CHILL);
-            // }
         }, 90); 
     }
 
@@ -122,12 +108,6 @@ class Character extends MovableObject {
         }, 35); 
     }
 
-    setIsSleepingOnFalseIfSetTrue() {
-        if (this.isSleeping) {
-            this.isSleeping = false;
-        }
-    }
-
     /**
      * Determines whether the jump animation should be executed. This is true if the jump and movement buttons are pressed simultaneously  or if the space key was pressed.
      * 
@@ -136,6 +116,14 @@ class Character extends MovableObject {
 
     shouldJumpAnimationBeExecuted() {
         return this.areJumpAndMoveButtonSimultaneouslyPressed() || this.keySpaceWasPressed();
+    }
+
+    isCharacterBouncing(){
+        return this.isBounced;
+    }
+
+    isCharacterSleeping(){
+        return this.isSleeping;
     }
 
     /**
@@ -222,16 +210,17 @@ class Character extends MovableObject {
         return this.conditionsToBeMetForSleeping() && !this.isSoundIconInteraction;
     }
 
-        /**
+    /**
      * Evaluates conditions required for the character to start sleeping.
      * @returns {boolean} Returns `true` if any of the sleep conditions are met, otherwise `false`.
      */
 
     conditionsToBeMetForSleeping() {
-        return this.characterExistsFiveSecondsButNoButtonPressed() || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
+        return this.characterExistsFiveSecondsButNoButtonPressed() 
+        || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
 
-      /**
+    /**
     * Checks if the character has existed for more than five seconds without any key being pressed.
     * @returns {boolean} True if the character exists for over five seconds, no keys were pressed, and sleep conditions are met.
     */
@@ -249,8 +238,8 @@ class Character extends MovableObject {
 
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
         if (this.wasSomeKeyAlreadyPressed()) { 
-            let timePassedWhenKeyReleased = this.calculateLastTimeKeyPressed();
-            returnConditionForSleepingState(timePassedWhenKeyReleased); 
+            this.timePassedSinceKeyReleased = this.calculateLastTimeKeyPressed();
+            this.returnConditionForSleepingState(); 
         }
         return false;
     }
@@ -263,9 +252,10 @@ class Character extends MovableObject {
         return Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
     }
 
-    returnConditionForSleepingState(timePassedWhenKeyReleased){
+    returnConditionForSleepingState(){
+        debugger;
         return this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
-                && timePassedWhenKeyReleased > 5000
+                && this.timePassedSinceKeyReleased > 5000
                 && this.wasRandomKeyOncePressed == true 
                 && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
@@ -280,7 +270,6 @@ class Character extends MovableObject {
         && this.isAttacked == false 
         && this.isJumping == false 
         && this.isHurt() == false 
-        && this.isSleeping == false
         && this.energy > 0;
     }
 
@@ -310,7 +299,8 @@ class Character extends MovableObject {
     setRelevantGlobalVariablesForMovingCharacter() {
         this.currentTime = new Date().getTime();
         this.timeCharacterExists = this.currentTime - this.timeSinceCharacterExists;
-        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain);
+        this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.lastTimeKeyPressed);
+        // this.timePassedWhenKeyPressed = Math.abs(this.currentTime - this.someKeyWasPressedAgain);
     }
 
     /**
@@ -424,15 +414,5 @@ class Character extends MovableObject {
 
     wasRightOrLeftKeyPressed() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
-    }
-
-    /**
-     * Checks if the main character is sleeping and if an arbitrary key or button was pressed.
-     * @returns {boolean} True if character is sleeping and if arbitrary key or button is pressed, false otherwise.
-     */
-
-    isPepeSleepingButKeyPressedOrButtonTouched(){
-        console.log('time passed when key pressed: ', this.timePassedWhenKeyPressed);
-        return this.isSleeping && timePassedWhenKeyPressed < 5000;
     }
 }

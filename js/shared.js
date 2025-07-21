@@ -97,21 +97,15 @@ function redirectToWebPage(url){
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     if(isPlayIconNotPressedAndWorldExistent(event)){
         world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
+        // debugger;
         if (!world.character.isSoundIconInteraction) {
             setKeyPressedVariablesRight(event);
-            setWasRandomKeyOncePressed();
             someKeyWasPressedAgain = new Date().getTime();
+            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
             world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
             world.character.isKeyPressed = isKeyPressed;
             world.character.isSleeping = false;
         }
-    }
-}
-
-function setWasRandomKeyOncePressed(){
-    if(!wasRandomKeyOncePressed){
-        wasRandomKeyOncePressed = true;
-        world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
     }
 }
 
@@ -149,11 +143,6 @@ function handleDesktopStyleDependingOnScreenSize(){
         }
     }
 }
-
-// function prepareDisplayWinningLosingStyle() {
-//     hideContainerIfVisible('canvas-container');
-//     hideIntroImageDependingOnUsedDevice();
-// }
 
 function changeStyleWhenLosing() {
     hideIntroImageDependingOnUsedDevice();
