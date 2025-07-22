@@ -64,27 +64,33 @@ class Character extends MovableObject {
 
     manageAllCharacterAnimations() {
         setInterval(() => {
+            // console.log('is sleeping: ', this.isSleeping);
+            // console.log('is attacked value: ', this.isAttacked);
             this.setRelevantGlobalVariablesForMovingCharacter();
-            // console.log('conditions to be met for sleeping: ', this.conditionsToBeMetForSleeping());
-            // this.testBooleans();
-            // this.testFunction();
-            if (this.isCharacterBouncing()) {            
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.shouldJumpAnimationBeExecuted()) {
-                this.playAnimationMovingAndJumping();
-            } else if (this.keyRightPressedAndCharacterOnGround()) {
-                this.playMovingRightAnimationWithAudio();
-            } else if (this.keyLeftPressedAndCharacterOnGround()) {
-                this.playMovingLeftAnimationWithAudio();
+            if(this.isHurt()) {
+                this.world.audioManager.playSleepAudio();
+                this.playAnimation(this.IMAGES_HURT);
             } else if(this.isCharacterSleeping()){
                 this.playSleepAnimationWithAudio();
-            } else if (this.conditionsToBeMetForSleeping()){
+            } else if(this.conditionsToBeMetForSleeping()){
                 this.setIsSleepingTrue();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isDead()) {
+            } else if(this.isCharacterBouncing()) {      
+                this.world.audioManager.playSleepAudio();      
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else if(this.shouldJumpAnimationBeExecuted()) {
+                this.world.audioManager.playSleepAudio();
+                this.playAnimationMovingAndJumping();
+            } else if(this.keyRightPressedAndCharacterOnGround()) {
+                this.world.audioManager.playSleepAudio();
+                this.playMovingRightAnimationWithAudio();
+            } else if(this.keyLeftPressedAndCharacterOnGround()) {
+                this.world.audioManager.playSleepAudio();
+                this.playMovingLeftAnimationWithAudio();
+            } else if(this.isDead()) {
+                this.world.audioManager.playSleepAudio();
                 this.playAnimation(this.IMAGES_DEAD);
             } else {
+                this.world.audioManager.playSleepAudio();
                 this.playAnimation(this.IMAGES_CHILL);
             }
         }, 90); 
@@ -125,6 +131,16 @@ class Character extends MovableObject {
 
     isCharacterSleeping(){
         return this.isSleeping;
+    }
+
+    /**
+    * Sets the `isSleeping` property to `false` if it is currently `true`.
+    */
+
+    setIsSleepingOnFalseIfSetTrue() {
+        if (this.isSleeping) {
+            this.isSleeping = false;
+        }
     }
 
     /**
@@ -234,7 +250,7 @@ class Character extends MovableObject {
      */
 
     keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds() {
-        if (this.wasSomeKeyAlreadyPressed()) { // wasSomeKeyAlreadyPressed muss an einer bestimmten Stelle true werden, darf nicht immer false sein!
+        if (this.wasSomeKeyAlreadyPressed()) {
             this.timePassedSinceKeyReleased = this.calculateLastTimeKeyPressed();
             return this.returnConditionForSleepingState(); 
         }
@@ -242,10 +258,6 @@ class Character extends MovableObject {
     }
 
     wasSomeKeyAlreadyPressed(){
-        // let boolean = this.lastTimeKeyPressed !== 0 && this.wasRandomKeyOncePressed == true;
-        // console.log('final boolean: ', boolean);
-        // console.log('last time key pressed: ', this.lastTimeKeyPressed);
-        // console.log('was random key once pressed: ', this.wasRandomKeyOncePressed);
         return this.lastTimeKeyPressed !== 0 && this.wasRandomKeyOncePressed == true;
     }
 
@@ -256,46 +268,11 @@ class Character extends MovableObject {
     // Zu viele Bedingungen werden hier gleichzeitig abgefragt => Besser: Aufteilen
 
     returnConditionForSleepingState(){ // this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
-        let conditionsToBeMetForSleepingState = {
-            'timePassedSinceKeyReleased': this.timePassedSinceKeyReleased > 5000,
-            '!isSoundIconInteraction': !this.isSoundIconInteraction,
-            'allVariablesThatMustBeTrueForSleepAnimation': this.allVariablesThatMustBeTrueForSleepAnimation(),
-            'isSleeping': this.isSleeping
-        }
-        console.log(conditionsToBeMetForSleepingState);
         return this.timePassedSinceKeyReleased > 5000
                 && this.wasRandomKeyOncePressed == true 
                 && !this.isSoundIconInteraction
                 && this.allVariablesThatMustBeTrueForSleepAnimation();
     }
-
-    // === Additional functions for better handling of the initialization of the sleeping animation - Start === 
-
-    testFunction(){
-        let neededVariablesForSleepAnimation = {
-            'timeCharacterExists': this.timeCharacterExists,
-            'timeDifferenceBetweenNowAndLastHitFromEndboss': this.timeDifferenceBetweenNowAndLastHitFromEndboss,
-            'timePassedSinceKeyReleased': this.timePassedSinceKeyReleased,
-            'wasRandomKeyOncePressed': this.wasRandomKeyOncePressed,
-            '!isSoundIconInteraction': !this.isSoundIconInteraction,
-            'allVariablesThatMustBeTrueForSleepAnimation': this.allVariablesThatMustBeTrueForSleepAnimation()
-        }
-        console.log(neededVariablesForSleepAnimation);
-    }
-
-    testBooleans(){
-        let variables = {
-            'isSleeping': this.isSleeping,
-            'returnConditionForSleepingState': this.returnConditionForSleepingState(),
-            'wasSomeKeyAlreadyPressed': this.wasSomeKeyAlreadyPressed(), 
-            'conditionsToBeMetForSleeping': this.conditionsToBeMetForSleeping(),
-            'characterExistsFiveSecondsButNoButtonPressed': this.characterExistsFiveSecondsButNoButtonPressed(),
-            'keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds': this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds()
-        }
-        console.log(variables);
-    }
-
-    // === Additional functions for better handling of the initialization of the sleeping animation - Ending === 
 
     /**
      * Validates all conditions that must be true for the character to enter the sleep animation.

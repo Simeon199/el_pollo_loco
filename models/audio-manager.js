@@ -70,16 +70,19 @@ class AudioManager {
 
     playSleepAudio() {
         if (this.soundIsntMutedAndKeyIsntPressed()) {
-            if (this.world.character.isSleeping) {
+            if (this.isCharacterSleeping()) {
                 if (this.isSoundMuted('snorring_sound')) {
                     this.muteSound(false, 'snorring_sound');
                 }
                 this.playSound('snorring_sound');
             } else {
-                // debugger;
                 this.muteSound(true, 'snorring_sound');
             }
         }
+    }
+
+    isCharacterSleeping(){
+        return this.world.character.isSleeping;
     }
 
     /**

@@ -10,9 +10,8 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     isJumping = false;
     isAttacked = false;
-    // isSleeping = false;
     speedY = 0;
-    acceleration = 2; // 2.5
+    acceleration = 2; 
     energy = 100;
     timePassedLimit = 1;
     timePassedVariable = 0;
@@ -291,16 +290,6 @@ class MovableObject extends DrawableObject {
             this.isJumping = true;
         }
     }
-
-    /**
-    * Sets the `isSleeping` property to `false` if it is currently `true`.
-    */
-
-    // setIsSleepingOnFalseIfSetTrue() {
-    //     if (this instanceof Character && this.isSleeping == true) {
-    //         this.isSleeping = false;
-    //     }
-    // }
 
     /**
    * Makes the character bounce by setting the vertical speed to 15.
