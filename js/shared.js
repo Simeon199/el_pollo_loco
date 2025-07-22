@@ -94,19 +94,33 @@ function redirectToWebPage(url){
     window.location.href = `${url}`;
 }
 
+// Überlege hier eventuell ein JSON-Objekt für alle relevanten Flags zu definieren und diese
+// dann anschließend zwecks Übersichtlichkeit an Character weiterzugeben!
+
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     if(isPlayIconNotPressedAndWorldExistent(event)){
-        world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
-        // debugger;
-        if (!world.character.isSoundIconInteraction) {
-            setKeyPressedVariablesRight(event);
-            someKeyWasPressedAgain = new Date().getTime();
-            world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
-            world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
-            world.character.isKeyPressed = isKeyPressed;
-            world.character.isSleeping = false;
+        setIsSoundIconInteractionInCharacterClass(event);
+        if(soundIconWasNotPressed()) {
+            setRemainingVariablesIfSoundIconWasNotPressed(event);
         }
     }
+}
+
+function setRemainingVariablesIfSoundIconWasNotPressed(event){
+    setKeyPressedVariablesRight(event);
+    someKeyWasPressedAgain = new Date().getTime();
+    world.character.wasRandomKeyOncePressed = wasRandomKeyOncePressed;
+    world.character.someKeyWasPressedAgain = someKeyWasPressedAgain;
+    world.character.isKeyPressed = isKeyPressed;
+    world.character.isSleeping = false;
+}
+
+function soundIconWasNotPressed(){
+    return !world.character.isSoundIconInteraction;
+}
+
+function setIsSoundIconInteractionInCharacterClass(event){
+    world.character.isSoundIconInteraction = isEventOfTypeTouchAndSoundIconTriggered(event);
 }
 
 function settingGlobalVariablesInKeyUpOrTouchEndEvent(event) {
@@ -128,9 +142,13 @@ function handleTouchStyleVersion(){
     hideContainerIfVisible('intro-image-touch');
     setContainerToFullscreenSize('canvas-container');
     setContainerToFullscreenSize('canvas');
-    if(typeof world !== undefined && world){
+    if(isWorldDefinedAndExistent()){
         showContainerIfHidden('screen-control-container');
     }
+}
+
+function isWorldDefinedAndExistent(){
+    return typeof world !== undefined && world;
 }
 
 function handleDesktopStyleDependingOnScreenSize(){
