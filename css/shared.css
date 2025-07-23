@@ -218,6 +218,11 @@ body {
     filter: drop-shadow(2px 4px 6px black);
 }
 
+.privacy-imprint-wrapper:hover {
+    cursor: pointer;
+    transform: scale(1.025);
+}
+
 .privacy-imprint-wrapper h2 {
     padding: 16px;
 }

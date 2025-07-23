@@ -2,6 +2,18 @@
     font-family: 'playpensans light';
 }
 
+#links-images-touch:hover {
+    transform: scale(1.025);
+}
+
+#privacy-and-imprint-pop-up:hover,
+#settings-container-touch:hover,
+#all-icons-button:hover,
+#exit-game-container:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 #intro-image-touch img:nth-child(2){
     position: absolute;
     bottom: 1%;

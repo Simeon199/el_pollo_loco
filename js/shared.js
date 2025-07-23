@@ -94,8 +94,6 @@ function redirectToWebPage(url){
     window.location.href = `${url}`;
 }
 
-// Überlege hier eventuell ein JSON-Objekt für alle relevanten Flags zu definieren und diese
-// dann anschließend zwecks Übersichtlichkeit an Character weiterzugeben!
 
 function settingGlobalVariablesInKeyDownOrTouchStartEvent(event) {
     if(isPlayIconNotPressedAndWorldExistent(event)){

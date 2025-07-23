@@ -59,7 +59,6 @@ function checkDeviceForMobileOrDesktopType(){
     }
 }
 
-
 function isMinHeightBelowThreshold(){
     let minHeightThreshold = 850;
     return window.innerHeight < minHeightThreshold;
@@ -95,10 +94,21 @@ function handleClickEventsOnIndexPage(event){
         redirectToWebPage('../privacy_policy/privacy_policy.html');
     } else if(isContainerTouchedOrClicked(target, '#playIcon')){
         startGameAndSetStyleForDesktopDevice();
+    } else if(isContainerTouchedOrClicked(target, '#exit-game-container')){
+        setStyleForExitGameContainerAndResetGame();
     } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
         redirectToWebPage('../index.html');
-    }  else if(isSoundIconClicked(event)){
+    } else if(isSoundIconClicked(event)){
         turnSoundOnOrOff();
+    } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
+        setDivBackgroundColor('privacy-and-imprint-pop-up', 'goldenrod');
+        showPrivacyAndImprintOverlay();
+    } else if(isContainerTouchedOrClicked(target, '#all-icons-button')){
+        setDivBackgroundColor('all-icons-button', 'goldenrod');
+        showAllIconSourcesPopUp();
+    } else if(isContainerTouchedOrClicked(target, '#settings-container-touch')){
+        setDivBackgroundColor('settings-container-touch', 'goldenrod');
+        showExplainGamePopUp();
     } 
 }
 
