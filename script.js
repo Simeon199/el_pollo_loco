@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleOrientationChange();
     handleKeyUpEvents();
     handleKeyDownEvents();
+    // setOverlayToFullViewport();
 });
 
 function handleOrientationChange(){
@@ -48,9 +49,16 @@ function handleAllChangeEvents(){
     });
 }
 
+function setOverlayToFullViewport(){
+    let overlay = document.querySelector('.explain-game-container');
+    if(overlay){
+        overlay.style.height = window.innerHeight + 'px';
+    }
+}
+
 function checkDeviceForMobileOrDesktopType(){
     if(isLocationWebPage('/index.html')){
-        if(isTouch() || (isHeightToWidthRatioBelowThreshold() && isMinHeightBelowThreshold())){ // 
+        if(isTouch() || (isHeightToWidthRatioBelowThreshold() && isMinHeightBelowThreshold())){
             showUiTouchStyle();
             handleLinksImagesTouchStyle();
         } else if(!isTouch()) {

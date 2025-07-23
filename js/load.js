@@ -21,25 +21,21 @@ async function showExplainGamePopUp(){
 }
 
 async function showLosingImageForDesktopDevice(){
-    // let divId = 'ui-desktop';
     let divId = 'losing-overlay';
     await loadComponent(losingOverlay, divId);
 }
 
 async function showLosingImageForTouchDevice(){
-    // let divId = 'ui-desktop';
     let divId = 'losing-overlay';
     await loadComponent(losingOverlay, divId);
 }
 
 async function showWinningImageForDesktopDevice(){
-    // let divId = 'ui-desktop';
     let divId = 'winning-overlay';
     await loadComponent(winningOverlay, divId);
 }
 
 async function showWinningImageForTouchDevice(){
-    // let divId = 'ui-desktop';
     let divId = 'winning-overlay'
     await loadComponent(winningOverlay, divId);
 }

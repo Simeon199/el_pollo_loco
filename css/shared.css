@@ -387,3 +387,41 @@ body {
         height: auto;
     }
 }
+
+@media(max-width: 768px){
+    .game-functions-container h2 {
+        padding: 8px;
+    }
+
+    .all-icons-container-overlay a {
+        font-size: 14px;
+    }
+
+    .closeBtn {
+        width: 40px;
+    }
+
+    .spacebar-styling p {
+        font-size: 20px;
+    }
+
+    .control-key-image-container img {
+        width: 48px;
+    }
+
+    .control-key-style h3 {
+        font-size: 16px;
+    }
+
+    .privacy-imprint-wrapper img {
+        width: 48px;
+    }
+
+    .privacy-imprint-wrapper h2 {
+        padding: 8px;
+    }
+
+    .privacy-imprint-content-wrapper {
+        gap: 56px;
+    }
+}
