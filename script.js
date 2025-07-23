@@ -90,12 +90,51 @@ function handleAllClickEvents(){
     });
 }
 
-function handleClickEventsOnIndexPage(event){
+let clickEventsHandle = [
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#settings'),
+        handler: () => showExplainGamePopUp()  
+    },
+    {
+        condition: (target) => isOneOfDesktopButtonContainersClicked(target),
+        handler: () => showAllIconSourcesPopUp()
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#imprint'),
+        handler: () => redirectToWebPage('../imprint/imprint.html')
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#privacy'),
+        handler: () => redirectToWebPage('../privacy_policy/privacy_policy.html')
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
+        handler: () => startGameAndSetStyleForDesktopDevice()
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#exit-game-container'),
+        handler: () => setStyleForExitGameContainerAndResetGame()
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#main-page-link'),
+        handler: () => redirectToWebPage('../index.html')
+    },
+    {
+        condition: (target) => isSoundIconClicked(target),
+        handler: () => turnSoundOnOrOff()
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up'),
+        handler: () => setDivBackgroundColor('privacy-and-imprint-pop-up', 'goldenrod')
+    }
+]
+
+async function handleClickEventsOnIndexPage(event){
     let target = event.target;
-    if(isContainerTouchedOrClicked(target, '#settings-container')){
-        showExplainGamePopUp();
-    } else if(isOneOfDesktopButtonContainersClicked(event)){  
-        showAllIconSourcesPopUp();
+    if(isSettingsButtonPressed(target)){
+        await loadComponent(showAllIconsPopUp, 'explain-game-container');
+    } else if(isAllIconsButtonPressed(target)){ 
+        await loadComponent(showAllIconsPopUp, 'all-icons-container-overlay');
     } else if(isContainerTouchedOrClicked(target, '#imprint')){
         redirectToWebPage('../imprint/imprint.html');
     } else if(isContainerTouchedOrClicked(target, '#privacy')){
@@ -106,21 +145,20 @@ function handleClickEventsOnIndexPage(event){
         setStyleForExitGameContainerAndResetGame();
     } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
         redirectToWebPage('../index.html');
-    } else if(isSoundIconClicked(event)){
+    } else if(isSoundIconClicked(target)){
         turnSoundOnOrOff();
     } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
-        setDivBackgroundColor('privacy-and-imprint-pop-up', 'goldenrod');
-        showPrivacyAndImprintOverlay();
-    } else if(isContainerTouchedOrClicked(target, '#all-icons-button')){
-        setDivBackgroundColor('all-icons-button', 'goldenrod');
-        showAllIconSourcesPopUp();
-    } else if(isContainerTouchedOrClicked(target, '#settings-container-touch')){
-        setDivBackgroundColor('settings-container-touch', 'goldenrod');
-        showExplainGamePopUp();
+        await loadComponent(privacyImprintOverlay, 'privacy-imprint-overlay');
     } 
 }
 
-// Abhängigkeiten von der URL müssen analog zu dem Click-EventHandling (auf welcher Seite befindet man sich) hinzugefügt werden (für touchstart respektive touchend)!
+function isAllIconsButtonPressed(target){
+    return isContainerTouchedOrClicked(target, '#all-icons-button') || isOneOfDesktopButtonContainersClicked(target);
+}
+
+function isSettingsButtonPressed(target){
+    return isContainerTouchedOrClicked(target, '#settings-container') || isContainerTouchedOrClicked(target, '#settings-container-touch');
+}
 
 function handleAllTouchStartEvents(){
     document.addEventListener('touchstart', (event) => {

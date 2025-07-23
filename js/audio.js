@@ -21,13 +21,13 @@ function stopAllSounds() {
     }
 }
 
-function isSoundIconClicked(event){
-    if(event.target.closest('#sound-on-icon')){
+function isSoundIconClicked(target){
+    if(target.closest('#sound-on-icon')){
         showTurningSoundOffIcon();
-    } else if(event.target.closest('#sound-off-icon')){
+    } else if(target.closest('#sound-off-icon')){
         showTurningSoundOnIcon()
     }
-    return event.target.closest('#sound-on-icon') || event.target.closest('#sound-off-icon');
+    return target.closest('#sound-on-icon') || target.closest('#sound-off-icon');
 }
 
 function unmuteGameSounds() {

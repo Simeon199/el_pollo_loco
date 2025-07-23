@@ -2,8 +2,8 @@ function wasSpacebarDivTouched(target){
     return target.closest('#jumpButton') || target.closest('#buttonUp') || target.closest('spacebar');
 }
 
-function isOneOfDesktopButtonContainersClicked(event){
-    return event.target.closest('#button-container') || event.target.closest('#icon-button-top');
+function isOneOfDesktopButtonContainersClicked(target){
+    return target.closest('#button-container') || target.closest('#icon-button-top');
 }
 
 function isContainerTouchedOrClicked(target, containerRef){

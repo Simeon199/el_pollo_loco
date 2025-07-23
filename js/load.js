@@ -10,6 +10,15 @@ async function loadComponent(component, divId){
     }
 }
 
+/* === ONE FUNCTIONS FITS IT ALL === START */
+
+// async function showLoadedPopUp(popUpOverlay, parentIdRef){
+//     await loadComponent(popUpOverlay, parentIdRef);
+// }
+
+/* === ONE FUNCTIONS FITS IT ALL === FINISH */
+
+
 async function showAllIconSourcesPopUp(){
     let divId = 'all-icons-container-overlay';
     await loadComponent(showAllIconsPopUp, divId);
