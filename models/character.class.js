@@ -64,8 +64,6 @@ class Character extends MovableObject {
 
     manageAllCharacterAnimations() {
         setInterval(() => {
-            // console.log('is sleeping: ', this.isSleeping);
-            // console.log('is attacked value: ', this.isAttacked);
             this.setRelevantGlobalVariablesForMovingCharacter();
             if(this.isHurt()) {
                 this.world.audioManager.playSleepAudio();
@@ -228,8 +226,7 @@ class Character extends MovableObject {
      */
 
     conditionsToBeMetForSleeping() {
-        return this.characterExistsFiveSecondsButNoButtonPressed() 
-        || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
+        return this.characterExistsFiveSecondsButNoButtonPressed() || this.keyWasntPressedAndCharacterNotAttackedForMoreThenFiveSeconds();
     }
 
     /**
@@ -265,9 +262,7 @@ class Character extends MovableObject {
         return Math.abs(new Date().getTime() - this.lastTimeKeyPressed);
     }
 
-    // Zu viele Bedingungen werden hier gleichzeitig abgefragt => Besser: Aufteilen
-
-    returnConditionForSleepingState(){ // this.timeDifferenceBetweenNowAndLastHitFromEndboss > 5000
+    returnConditionForSleepingState(){
         return this.timePassedSinceKeyReleased > 5000
                 && this.wasRandomKeyOncePressed == true 
                 && !this.isSoundIconInteraction

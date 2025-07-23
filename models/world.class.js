@@ -294,6 +294,7 @@ class World {
         }
         this.setVariablesAndKnockBackInterval(enemy);
         this.character.isAttacked = true;
+        this.character.setIsSleepingOnFalseIfSetTrue();
         this.momentCharacterAttacked = new Date().getTime();
     }
 
