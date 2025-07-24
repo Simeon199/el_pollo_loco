@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     handleOrientationChange();
     handleKeyUpEvents();
     handleKeyDownEvents();
-    // setOverlayToFullViewport();
 });
 
 function handleOrientationChange(){
@@ -78,79 +77,64 @@ function isHeightToWidthRatioBelowThreshold(){
 }
 
 function handleAllClickEvents(){
-    document.addEventListener('click', async (event) => {
-        let target = event.target;
-        if(isLocationWebPage('/index.html')){
-            handleClickEventsOnIndexPage(event);
-        } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
-            handleClickEventsOnLinksOnPrivacyPolicyPage(target);
-        } else if(isLocationWebPage('/imprint/imprint.html')){
-            handleClickEventsOnLinksOnImprintPage(target);
-        } 
-    });
-}
-
-let clickEventsHandle = [
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#settings'),
-        handler: () => showExplainGamePopUp()  
-    },
-    {
-        condition: (target) => isOneOfDesktopButtonContainersClicked(target),
-        handler: () => showAllIconSourcesPopUp()
-    },
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#imprint'),
-        handler: () => redirectToWebPage('../imprint/imprint.html')
-    },
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#privacy'),
-        handler: () => redirectToWebPage('../privacy_policy/privacy_policy.html')
-    },
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: () => startGameAndSetStyleForDesktopDevice()
-    },
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#exit-game-container'),
-        handler: () => setStyleForExitGameContainerAndResetGame()
-    },
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#main-page-link'),
-        handler: () => redirectToWebPage('../index.html')
-    },
-    {
-        condition: (target) => isSoundIconClicked(target),
-        handler: () => turnSoundOnOrOff()
-    },
-    {
-        condition: (target) => isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up'),
-        handler: () => setDivBackgroundColor('privacy-and-imprint-pop-up', 'goldenrod')
+    if(isLocationWebPage('/index.html')){
+        handleAccordingClickEvents(clickEventsHandleOnIndexPage); 
+    } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
+        handleAccordingClickEvents(clickEventsHandleOnPrivacyPage);
+    } else if(isLocationWebPage('/imprint/imprint.html')){
+        handleAccordingClickEvents(clickEventsHandleOnImprintPage);
     }
-]
-
-async function handleClickEventsOnIndexPage(event){
-    let target = event.target;
-    if(isSettingsButtonPressed(target)){
-        await loadComponent(showAllIconsPopUp, 'explain-game-container');
-    } else if(isAllIconsButtonPressed(target)){ 
-        await loadComponent(showAllIconsPopUp, 'all-icons-container-overlay');
-    } else if(isContainerTouchedOrClicked(target, '#imprint')){
-        redirectToWebPage('../imprint/imprint.html');
-    } else if(isContainerTouchedOrClicked(target, '#privacy')){
-        redirectToWebPage('../privacy_policy/privacy_policy.html');
-    } else if(isContainerTouchedOrClicked(target, '#playIcon')){
-        startGameAndSetStyleForDesktopDevice();
-    } else if(isContainerTouchedOrClicked(target, '#exit-game-container')){
-        setStyleForExitGameContainerAndResetGame();
-    } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
-        redirectToWebPage('../index.html');
-    } else if(isSoundIconClicked(target)){
-        turnSoundOnOrOff();
-    } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
-        await loadComponent(privacyImprintOverlay, 'privacy-imprint-overlay');
-    } 
 }
+
+async function handleAccordingClickEvents(eventHandler){
+    document.addEventListener('click', (event) => {
+        let target = event.target;
+        for(let {condition, handler} of eventHandler){
+            if(condition(target)){
+                handler();
+                break;
+            }
+        }
+    }, {passive: false});
+}
+
+
+// Ursprüngliche Versionen 
+
+// function handleAllClickEvents(){
+//     document.addEventListener('click', async (event) => {
+//         let target = event.target;
+//         if(isLocationWebPage('/index.html')){
+//             handleClickEventsOnIndexPage(target); // event
+//         } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
+//             handleClickEventsOnLinksOnPrivacyPolicyPage(target);
+//         } else if(isLocationWebPage('/imprint/imprint.html')){
+//             handleClickEventsOnLinksOnImprintPage(target);
+//         } 
+//     });
+// }
+
+// async function handleClickEventsOnIndexPage(event){
+//     if(isSettingsButtonPressed(target)){
+//         await loadComponent(explainGamePopUp, 'explain-game-container');
+//     } else if(isAllIconsButtonPressed(target)){ 
+//         await loadComponent(showAllIconsPopUp, 'all-icons-container-overlay');
+//     } else if(isContainerTouchedOrClicked(target, '#imprint')){
+//         redirectToWebPage('../imprint/imprint.html');
+//     } else if(isContainerTouchedOrClicked(target, '#privacy')){
+//         redirectToWebPage('../privacy_policy/privacy_policy.html');
+//     } else if(isContainerTouchedOrClicked(target, '#playIcon')){
+//         startGameAndSetStyleForDesktopDevice();
+//     } else if(isContainerTouchedOrClicked(target, '#exit-game-container')){
+//         setStyleForExitGameContainerAndResetGame();
+//     } else if(isContainerTouchedOrClicked(target, '#main-page-link')){
+//         redirectToWebPage('../index.html');
+//     } else if(isSoundIconClicked(target)){
+//         turnSoundOnOrOff();
+//     } else if(isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up')){
+//         await loadComponent(privacyImprintOverlay, 'privacy-imprint-overlay');
+//     } 
+// }
 
 function isAllIconsButtonPressed(target){
     return isContainerTouchedOrClicked(target, '#all-icons-button') || isOneOfDesktopButtonContainersClicked(target);
