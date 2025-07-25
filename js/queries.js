@@ -156,3 +156,110 @@ function isEventTypeTouchEnd(eventType){
 function isEventTypeClick(eventType){
     return eventType === 'click';
 }
+
+/**
+ * Checks if the device is a mobile type or of small size.
+ * @returns {boolean}
+ */
+
+function isDeviceMobileTypeOrOfSmallSize(){
+    return isTouch() || window.innerWidth < 1024; 
+}
+
+/**
+ * Checks if the device supports touch events.
+ * @returns {boolean}
+ */
+
+function isTouch(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Checks if the device is a big desktop and the game has started.
+ * @returns {boolean}
+ */
+
+function isBigDesktopSizeAndHasGameStarted(){
+    return window.innerWidth > 1024 && hasGameStarted
+}
+
+/**
+ * Checks if the device is a small desktop and the game has started.
+ * @returns {boolean}
+ */
+
+function isSmallDesktopSizeAndHasGameStarted(){
+    return window.innerWidth < 1025 && hasGameStarted;
+}
+
+/**
+ * Checks if 'links-images-touch' contains flexbox attributes.
+ * @returns {boolean}
+ */
+
+function doesLinksImagesTouchContainsFlexboxAttributes(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-flex') && linksImagesTouch.classList.contains('d-gap'); 
+}
+
+/**
+ * Checks if the world object is defined and exists.
+ * @returns {boolean}
+ */
+
+function isWorldDefinedAndExistent(){
+    return typeof world !== undefined && world;
+}
+
+/**
+ * Checks if the device is a desktop (not touch).
+ * @returns {boolean}
+ */
+
+function isDesktop(){
+    return !isTouch();
+}
+
+/**
+ * Checks if the 'links-images-touch' container is visible (has flex and gap classes, and not 'd-none').
+ * @returns {boolean}
+ */
+
+function isLinksImagesTouchVisible(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-flex') 
+    && linksImagesTouch.classList.contains('d-gap') 
+    && !linksImagesTouch.classList.contains('d-none');
+}
+
+/**
+ * Checks if the 'links-images-touch' container is hidden (has 'd-none' and not flex/gap classes).
+ * @returns {boolean}
+ */
+
+function isLinksImagesTouchHidden(){
+    let linksImagesTouch = document.getElementById('links-images-touch');
+    return linksImagesTouch.classList.contains('d-none') 
+    && !linksImagesTouch.classList.contains('d-flex') 
+    && !linksImagesTouch.classList.contains('d-gap');
+}
+
+/**
+ * Checks if the play icon is not pressed and the world object exists.
+ * @param {Event} event - The event object.
+ * @returns {boolean}
+ */
+
+function isPlayIconNotPressedAndWorldExistent(event){
+    return !event.target.closest('#playIcon') && typeof world !== 'undefined';
+}
+
+/**
+ * Checks if the sound icon was not pressed.
+ * @returns {boolean}
+ */
+
+function soundIconWasNotPressed(){
+    return !world.character.isSoundIconInteraction;
+}

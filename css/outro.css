@@ -16,7 +16,7 @@
 }
 
 #winning-image img {
-    width: 80dvw;
+    width: clamp(50dvw, 50%, 80dvw);
     height: auto;
 }
 
