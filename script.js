@@ -244,3 +244,23 @@ function setOverlayToFullViewport(){
         overlay.style.height = window.innerHeight + 'px';
     }
 }
+
+// === METHODS FOR BUNDLED FILES ===
+
+function loadBundledJS(jsPath){
+    return new Promise((resolve, reject) => {
+        let script = document.createElement('script');
+        script.scr = jsPath;
+        script.defer = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function loadBundledCSS(cssPath){
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssPath;
+    document.head.appendChild(link);
+}

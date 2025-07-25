@@ -2,6 +2,14 @@ const fs = require('fs');
 const UglifyJS = require('uglify-js');
 const CleanCSS = require('clean-css');
 
+let componentJS = [
+    "components/explain-game-container.js",
+    "components/show-all-icons-pop-up.js",
+    "components/winning-overlay.js",
+    "components/losing-overlay.js",
+    "components/privacy-imprint-overlay.js"
+]
+
 let gameJS = [ 
     "models/drawable-object.class.js",
     "models/movable-object.class.js",
@@ -29,34 +37,27 @@ let gameJS = [
     "js/game.js"
 ];
 
-let touchJS = [
-    "js/audio.js", 
-    "js/touch-device.js",
-    "shared/shared.js"
+let commonJS = [
+    "js/eventHandlers.js",
+    "js/queries.js",
+    "js/shared.js",
+    // "script.js",
+    "js/audio.js",
+    "js/desktop.js",
+    "js/touch.js"
 ];
 
-let desktopJS = [
-    "js/audio.js", 
-    "js/desktop-device.js",
-    "shared/shared.js"
-];
+let cssFiles = [
+    // "shared/fonts.css",
+    "css/shared.css",
+    "css/desktop.css",
+    "css/touch.css",
+    "css/canvas.css",
+    "css/portrait.css",
+    "css/outro.css"
+]
 
-let desktopCSS = [
-    "css/index-style-overlay.css", 
-    "css/index-style-canvas.css", 
-    "media_queries/desktop_version/normal-desktop-size-media-query.css", 
-    "media_queries/desktop_version/big-desktop-size-media-query.css"
-];
-
-let touchCSS = [
-    "css/loading-overlay.css",
-    "css/index-style-overlay-touch.css",
-    "css/index-style-canvas.css",  
-    "media_queries/touch_screen_version/touch-device-media-query.css", 
-    "media_queries/touch_screen_version/media-queries-portrait-and-height.css"
-]; 
-
-// === BUNDLE AND MINIFY GAME JS FILES  === //
+// === BUNDLE AND MINIFY JS FILES  === //
 
 gameJS.forEach(f => {
     if (!fs.existsSync(f)) {
@@ -70,42 +71,30 @@ if(gameJSMinified.error){
     console.error('UglifyJS error: ', gameJSMinified.error);
     process.exit(1);
 }
-// const gameJSMinified = UglifyJS.minify(gameJSBundle).code;
-fs.writeFileSync('dist/game.bundle.min.js', gameJSMinified.code);
-console.log('Game JS bundled and minified to dist/bundle.min.js');
+fs.writeFileSync('dist/game.bundle.min.js', gameJSMinified.code); // Hier Quelle anpassen
+// console.log('Game JS bundled and minified to dist/bundle.min.js');
 
-// === BUNDLE AND MINIFY TOUCH JS FILES  === //
-
-const touchJSBundle = touchJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n')
-const touchJSMinified = UglifyJS.minify(touchJSBundle);
-if (touchJSMinified.error) {
-    console.error('UglifyJS error (touchJS): ', touchJSMinified.error);
+const componentJSBundle = componentJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
+const componentJSMinified = UglifyJS.minify(componentJSBundle);
+if(componentJSMinified.error){
+    console.error('UglifyJS error: ', componentJSMinified.error);
     process.exit(1);
 }
-fs.writeFileSync('dist/touch.bundle.min.js', touchJSMinified.code);
-console.log('Touch JS bundled and minified to dist/bundle.min.js');
+fs.writeFileSync('dist/game.bundle.min.js', componentJSMinified.code); // Hier Quelle anpassen
+// console.log('Game JS bundled and minified to dist/bundle.min.js');
 
-// === BUNDLE AND MINIFY DESKTOP JS FILES  === //
-
-const desktopJSBundle = desktopJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const desktopJSMinified = UglifyJS.minify(desktopJSBundle);
-if (desktopJSMinified.error) {
-    console.error('UglifyJS error (desktopJS): ', desktopJSMinified.error);
+const commonJSBundle = commonJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
+const commonJSMinified = UglifyJS.minify(commonJSBundle);
+if(commonJSMinified.error){
+    console.error('UglifyJS error: ', commonJSMinified.error);
     process.exit(1);
 }
-fs.writeFileSync('dist/desktop.bundle.min.js', desktopJSMinified.code);
-console.log('Desktop JS bundled and minified to dist/bundle.min.js');
+fs.writeFileSync('dist/game.bundle.min.js', commonJSMinified.code); // Hier Quelle anpassen
+// console.log('Game JS bundled and minified to dist/bundle.min.js');
 
-// === BUNDLE AND MINIFY DESKTOP CSS FILES  === //
+// === BUNDLE AND MINIFY CSS FILES  === //
 
-const desktopCSSBundle = desktopCSS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const desktopCSSMinified = new CleanCSS().minify(desktopCSSBundle).styles;
-fs.writeFileSync('dist/desktop.bundle.min.css', desktopCSSMinified);
-console.log('Desktop CSS bundled and minified to dist/bundle.min.css');
-
-// === BUNDLE AND MINIFY DESKTOP CSS FILES  === //
-
-const touchCSSBundle = touchCSS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const touchCSSMinified = new CleanCSS().minify(touchCSSBundle).styles;
-fs.writeFileSync('dist/touch.bundle.min.css', touchCSSMinified);
-console.log('Touch CSS bundled and minified to dist/bundle.min.css');
+const cssFilesBundle = cssFiles.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
+const cssFilesMinified = new CleanCSS().minify(cssFilesBundle).styles;
+fs.writeFileSync('dist/touch.bundle.min.css', cssFilesMinified); // Hier Quelle anpassen
+// console.log('Touch CSS bundled and minified to dist/bundle.min.css');
