@@ -10,37 +10,37 @@ async function loadComponent(component, divId){
     }
 }
 
-async function showAllIconSourcesPopUp(){
-    let divId = 'all-icons-container-overlay';
-    await loadComponent(showAllIconsPopUp, divId);
-}
+// async function showAllIconSourcesPopUp(){
+//     let divId = 'all-icons-container-overlay';
+//     await loadComponent(showAllIconsPopUp, divId);
+// }
 
-async function showExplainGamePopUp(){
-    let divId = 'explain-game-container';
-    await loadComponent(explainGamePopUp, divId);
-}
+// async function showExplainGamePopUp(){
+//     let divId = 'explain-game-container';
+//     await loadComponent(explainGamePopUp, divId);
+// }
 
-async function showLosingImageForDesktopDevice(){
-    let divId = 'losing-overlay';
-    await loadComponent(losingOverlay, divId);
-}
+// async function showLosingImageForDesktopDevice(){
+//     let divId = 'losing-overlay';
+//     await loadComponent(losingOverlay, divId);
+// }
 
-async function showLosingImageForTouchDevice(){
-    let divId = 'losing-overlay';
-    await loadComponent(losingOverlay, divId);
-}
+// async function showLosingImageForTouchDevice(){
+//     let divId = 'losing-overlay';
+//     await loadComponent(losingOverlay, divId);
+// }
 
-async function showWinningImageForDesktopDevice(){
-    let divId = 'winning-overlay';
-    await loadComponent(winningOverlay, divId);
-}
+// async function showWinningImageForDesktopDevice(){
+//     let divId = 'winning-overlay';
+//     await loadComponent(winningOverlay, divId);
+// }
 
-async function showWinningImageForTouchDevice(){
-    let divId = 'winning-overlay'
-    await loadComponent(winningOverlay, divId);
-}
+// async function showWinningImageForTouchDevice(){
+//     let divId = 'winning-overlay'
+//     await loadComponent(winningOverlay, divId);
+// }
 
-async function showPrivacyAndImprintOverlay(){
-    let divId = 'privacy-imprint-overlay';
-    await loadComponent(privacyImprintOverlay, divId)
-}
+// async function showPrivacyAndImprintOverlay(){
+//     let divId = 'privacy-imprint-overlay';
+//     await loadComponent(privacyImprintOverlay, divId)
+// }

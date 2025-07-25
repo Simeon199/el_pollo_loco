@@ -1,8 +1,43 @@
+/**
+ * Media query for touch devices.
+ * @type {MediaQueryList}
+ */
+
 let mqTouch = window.matchMedia('(hover: none)');
+
+/**
+ * Media query for desktop devices.
+ * @type {MediaQueryList}
+ */
+
 let mqDesktop = window.matchMedia('(hover: hover)');
+
+/**
+ * Media query for medium-sized desktops in landscape orientation.
+ * @type {MediaQueryList}
+ */
+
 let mqMediumDesktop = window.matchMedia('(min-width: 1025px) and (orientation: landscape)');
+
+/**
+ * Media query for small desktops in landscape orientation.
+ * @type {MediaQueryList}
+ */
+
 let mqSmallDesktop = window.matchMedia('(max-width: 1024px) and (orientation: landscape)');
+
+/**
+ * Tracks if privacy or imprint touch overlay is activated.
+ * @type {boolean}
+ */
+
 let privacyOrImprintTouchActivated = false;
+
+/**
+ * Array of click event handlers for the index (main) page.
+ * Each object contains a condition function and a handler function.
+ * @type {{condition: function(EventTarget): boolean, handler: function(Event, EventTarget): void|Promise<void>}[]}
+ */
 
 let clickEventsHandleOnIndexPage = [
     {
@@ -39,9 +74,14 @@ let clickEventsHandleOnIndexPage = [
     }
 ]
 
+/**
+ * Array of click event handlers for the imprint page.
+ * @type {{condition: function(EventTarget): boolean, handler: function(Event, EventTarget): void}[]}
+ */
+
 let clickEventsHandleOnImprintPage = [
     {
-        condition: (target) => isContainerTouchedOrClicked(target, '#main-page-link'),
+        condition: (target) => isContainerTouchedOrClicked(target, '#back-to-game-page'),
         handler: (event, target) => redirectToWebPage('../index.html')
     },
     {
@@ -50,9 +90,14 @@ let clickEventsHandleOnImprintPage = [
     }
 ]
 
+/**
+ * Array of click event handlers for the privacy policy page.
+ * @type {{condition: function(EventTarget): boolean, handler: function(Event, EventTarget): void}[]}
+ */
+
 let clickEventsHandleOnPrivacyPage = [
     {
-        condition: (target) => isContainerTouchedOrClicked(target, '#main-page-link'),
+        condition: (target) => isContainerTouchedOrClicked(target, '#back-to-game-page'),
         handler: (event, target) => redirectToWebPage('../index.html')
     },
     {
@@ -60,6 +105,11 @@ let clickEventsHandleOnPrivacyPage = [
         handler: (event, target) => redirectToWebPage('../imprint/imprint.html')
     }
 ]
+
+/**
+ * Array of touchstart event handlers for various UI elements.
+ * @type {{condition: function(EventTarget): boolean, handler: function(Event, EventTarget): void}[]}
+ */
 
 let touchStartEvents = [
     {
@@ -99,6 +149,11 @@ let touchStartEvents = [
         handler: (event, target) => setDivBackgroundColor('privacy-touch', 'goldenrod')
     }
 ]
+
+/**
+ * Array of touchend event handlers for various UI elements.
+ * @type {{condition: function(EventTarget): boolean, handler: function(Event, EventTarget): void}[]}
+ */
 
 let touchEndEvents = [
     {
