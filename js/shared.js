@@ -1,4 +1,23 @@
 /**
+ * Loads an HTML component into a specified div and calls its setup function.
+ * @param {{html: string, setUp: function(Element): void}} component - The component object with an HTML URL and setup function.
+ * @param {string} divId - The ID of the div to load the component into.
+ * @returns {Promise<void>} Resolves when the component is loaded and set up.
+ */
+
+async function loadComponent(component, divId){
+    let divRef = document.getElementById(`${divId}`);
+    if(divRef){
+        let response = await fetch(component.html);
+        let html = await response.text();
+        divRef.innerHTML = html;
+        component.setUp(divRef);
+    } else {
+        console.log('Div ref is not accessible: ', divId, divRef);
+    }
+}
+
+/**
  * Hides a container if it is currently visible (does not have 'd-none' class).
  * @param {string} container - The id of the container to hide.
  */
@@ -274,9 +293,9 @@ function changeStyleWhenWinning() {
 async function showWinningImageDependingOnUsedDevice(){
     if(!isTouch()){ 
         hideContainerIfVisible('ui-desktop');
-        await showWinningImageForDesktopDevice();
+        await loadComponent(winningOverlay, 'winning-overlay');
     } else if(isTouch()){
-        await showWinningImageForTouchDevice();
+        await loadComponent(winningOverlay, 'winning-overlay');
     }
 }
 
@@ -286,9 +305,9 @@ async function showWinningImageDependingOnUsedDevice(){
 async function showLosingImageDependingOnUsedDevice(){
     if(!isTouch()){
         hideContainerIfVisible('ui-desktop');
-        await showLosingImageForDesktopDevice();
+        await loadComponent(losingOverlay, 'losing-overlay');
     } else if(isTouch()){
-        await showLosingImageForTouchDevice();
+        await loadComponent(losingOverlay, 'losing-overlay');
     }
 }
 
