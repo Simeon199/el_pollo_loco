@@ -1,3 +1,7 @@
+/**
+ * Controls which sound icon (on/off) is displayed based on mute state.
+ */
+
 function controlTurnOnTurnOffIcon() {
     if (soundIsMuted) {
         showTurningSoundOffIcon();
@@ -6,10 +10,18 @@ function controlTurnOnTurnOffIcon() {
     }
 }
 
+/**
+ * Mutes all game sounds.
+ */
+
 function muteGameSounds() {
     soundOn = false;
     soundIsMuted = true;
 }
+
+/**
+ * Stops all currently playing sounds in the game.
+ */
 
 function stopAllSounds() {
     world.audioManager.pauseBackgroundMusic();
@@ -21,6 +33,12 @@ function stopAllSounds() {
     }
 }
 
+/**
+ * Handles logic for when the sound icon is clicked and returns the matched icon element.
+ * @param {EventTarget} target - The event target.
+ * @returns {Element|null} The matched sound icon element or null.
+ */
+
 function isSoundIconClicked(target){
     if(target.closest('#sound-on-icon')){
         showTurningSoundOffIcon();
@@ -30,10 +48,18 @@ function isSoundIconClicked(target){
     return target.closest('#sound-on-icon') || target.closest('#sound-off-icon');
 }
 
+/**
+ * Unmutes all game sounds.
+ */
+
 function unmuteGameSounds() {
     soundOn = true;
     soundIsMuted = false;
 }
+
+/**
+ * Toggles the sound on or off and updates the icon and mute state.
+ */
 
 function turnSoundOnOrOff() {
     soundIsMuted = !soundIsMuted;
@@ -45,6 +71,10 @@ function turnSoundOnOrOff() {
     muteUnmuteSound(soundIsMuted);
 }
 
+/**
+ * Shows the sound off icon and hides the sound on icon.
+ */
+
 function showTurningSoundOffIcon() {
     soundOn = false;
     let soundOnIcon = document.getElementById('sound-on-icon');
@@ -55,6 +85,10 @@ function showTurningSoundOffIcon() {
     }
 }
 
+/**
+ * Shows the sound on icon and hides the sound off icon.
+ */
+
 function showTurningSoundOnIcon() {
     soundOn = true;
     let soundOnIcon = document.getElementById('sound-on-icon');
@@ -64,6 +98,11 @@ function showTurningSoundOnIcon() {
         soundOffIcon.classList.add('d-none');
     }
 }
+
+/**
+ * Sets the mute state for all world audio sounds.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
+ */
 
 function setAllWorldAudioSound(mute) {
     world.audioManager.setBackgroundMusicMuted(mute);
@@ -77,9 +116,19 @@ function setAllWorldAudioSound(mute) {
     }
 }
 
+/**
+ * Mutes or unmutes remaining sounds not covered by other handlers.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
+ */
+
 function muteRemainingSounds(mute) {
     world.audioManager.muteSound(mute, 'bottleLanding');
 }
+
+/**
+ * Mutes or unmutes the background music.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the background music.
+ */
 
 function manageBackgroundMusic(mute) {
     if (world.audioManager.sounds['backgroundMusic']) {
@@ -87,13 +136,28 @@ function manageBackgroundMusic(mute) {
     }
 }
 
+/**
+ * Mutes or unmutes the hitting sounds.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the hitting sounds.
+ */
+
 function manageAudioRelatedToHitting(mute) {
     world.audioManager.setHittingSoundsMuted(mute);
 }
 
+/**
+ * Mutes or unmutes the item collection sounds.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the item collection sounds.
+ */
+
 function manageAudioRelatedToCollectingItems(mute) {
     world.audioManager.setItemCollectionSoundsMuted(mute);
 }
+
+/**
+ * Sets the mute state for all character-related audio sounds.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
+ */
 
 function setAllCharacterAudioSound(mute) {
     if (world.audioManager.sounds['snorring_sound']) {
@@ -105,6 +169,11 @@ function setAllCharacterAudioSound(mute) {
     }
 }
 
+/**
+ * Sets the mute state for all enemy-related audio sounds.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
+ */
+
 function setEnemiesAudioSound(mute) {
     world.level.enemies.forEach(enemy => {
         if (enemy.world.audioManager.chickenSound) {
@@ -115,6 +184,11 @@ function setEnemiesAudioSound(mute) {
         }
     });
 }
+
+/**
+ * Mutes or unmutes all game sounds, including world, character, and enemies.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) all sounds.
+ */
 
 function muteUnmuteSound(mute) {
     if (doesWorldExist()) {
@@ -131,6 +205,11 @@ function muteUnmuteSound(mute) {
     }
 }
 
+/**
+ * Checks if the world object exists.
+ * @returns {boolean} True if world exists, false otherwise.
+ */
+
 function doesWorldExist() {
     if (world) {
         return true;
@@ -138,6 +217,11 @@ function doesWorldExist() {
         return false;
     }
 }
+
+/**
+ * Checks if the character exists in the world.
+ * @returns {boolean} True if character exists, false otherwise.
+ */
 
 function doesCharacterExistInWorld() {
     if (world.character) {
@@ -147,6 +231,11 @@ function doesCharacterExistInWorld() {
     }
 }
 
+/**
+ * Checks if enemies exist in the world.
+ * @returns {boolean} True if enemies exist, false otherwise.
+ */
+
 function doEnemiesExistInWorld() {
     if (doesWorldLevelsAndEnemiesObjectsExist()) {
         return true;
@@ -155,9 +244,18 @@ function doEnemiesExistInWorld() {
     }
 }
 
+/**
+ * Checks if the world, level, and enemies objects exist and enemies are present.
+ * @returns {boolean} True if world, level, and enemies exist and enemies array is not empty.
+ */
+
 function doesWorldLevelsAndEnemiesObjectsExist(){
     return world && world.level && world.level.enemies && world.level.enemies.length > 0; 
 }
+
+/**
+ * Controls mute logic depending on whether the game has started.
+ */
 
 function controlMuteCondition() {
     if (hasGameStarted) {
@@ -166,6 +264,12 @@ function controlMuteCondition() {
         manageSoundOnSoundOffWhenGameIsntPlaying();
     }
 }
+
+/**
+ * Checks if the sound on or off icon was triggered by the event.
+ * @param {Event} event - The event object.
+ * @returns {boolean} True if sound icon was triggered, false otherwise.
+ */
 
 function checkIfSoundIconWasTriggered(event) {
     let soundOnIcon = document.getElementById('sound-on-icon');
