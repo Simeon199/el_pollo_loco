@@ -1,3 +1,10 @@
+
+/**
+ * Bundler script for combining and minifying JavaScript and CSS files for production.
+ * Uses UglifyJS for JS minification and CleanCSS for CSS minification.
+ * Outputs bundled files to the dist/ directory.
+ */
+
 const fs = require('fs');
 const UglifyJS = require('uglify-js');
 const CleanCSS = require('clean-css');
@@ -41,14 +48,13 @@ let commonJS = [
     "js/eventHandlers.js",
     "js/queries.js",
     "js/shared.js",
-    // "script.js",
     "js/audio.js",
     "js/desktop.js",
     "js/touch.js"
 ];
 
 let cssFiles = [
-    // "shared/fonts.css",
+    "shared/fonts.css",
     "css/shared.css",
     "css/desktop.css",
     "css/touch.css",
@@ -57,44 +63,39 @@ let cssFiles = [
     "css/outro.css"
 ]
 
-// === BUNDLE AND MINIFY JS FILES  === //
 
-gameJS.forEach(f => {
-    if (!fs.existsSync(f)) {
-        console.error('File not found:', f);
+/**
+ * Bundles and minifies a list of JavaScript files into a single output file.
+ * @param {string[]} fileList - Array of JS file paths to bundle.
+ * @param {string} outputPath - Path to write the minified output file.
+ */
+
+function bundleAndMinifyJS(fileList, outputPath){
+    let bundle = fileList.map(file => fs.readFileSync(file, 'utf-8')).join('\n');
+    let minified = UglifyJS.minify(bundle);
+    if(minified.error){
+        console.error('UglifyJS error:', minified.error);
+        process.exit(1);
     }
-});
-
-const gameJSBundle = gameJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const gameJSMinified = UglifyJS.minify(gameJSBundle);
-if(gameJSMinified.error){
-    console.error('UglifyJS error: ', gameJSMinified.error);
-    process.exit(1);
+    fs.writeFileSync(outputPath, minified.code);
+    console.log(`JS bundled and minified to ${outputPath}`);
 }
-fs.writeFileSync('dist/game.bundle.min.js', gameJSMinified.code); // Hier Quelle anpassen
-// console.log('Game JS bundled and minified to dist/bundle.min.js');
 
-const componentJSBundle = componentJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const componentJSMinified = UglifyJS.minify(componentJSBundle);
-if(componentJSMinified.error){
-    console.error('UglifyJS error: ', componentJSMinified.error);
-    process.exit(1);
+
+/**
+ * Bundles and minifies a list of CSS files into a single output file.
+ * @param {string[]} fileList - Array of CSS file paths to bundle.
+ * @param {string} outputPath - Path to write the minified output file.
+ */
+
+function bundleAndMinifyCSS(fileList, outputPath){
+    let bundle = fileList.map(file => fs.readFileSync(file, 'utf-8')).join('\n');
+    const minified = new CleanCSS().minify(bundle).styles;
+    fs.writeFileSync(outputPath, minified);
+    console.log(`CSS bundled and minified to ${outputPath}`);
 }
-fs.writeFileSync('dist/game.bundle.min.js', componentJSMinified.code); // Hier Quelle anpassen
-// console.log('Game JS bundled and minified to dist/bundle.min.js');
 
-const commonJSBundle = commonJS.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const commonJSMinified = UglifyJS.minify(commonJSBundle);
-if(commonJSMinified.error){
-    console.error('UglifyJS error: ', commonJSMinified.error);
-    process.exit(1);
-}
-fs.writeFileSync('dist/game.bundle.min.js', commonJSMinified.code); // Hier Quelle anpassen
-// console.log('Game JS bundled and minified to dist/bundle.min.js');
-
-// === BUNDLE AND MINIFY CSS FILES  === //
-
-const cssFilesBundle = cssFiles.map(f => fs.readFileSync(f, 'utf-8')).join('\n');
-const cssFilesMinified = new CleanCSS().minify(cssFilesBundle).styles;
-fs.writeFileSync('dist/touch.bundle.min.css', cssFilesMinified); // Hier Quelle anpassen
-// console.log('Touch CSS bundled and minified to dist/bundle.min.css');
+bundleAndMinifyJS(gameJS, 'dist/game.bundle.min.js');
+bundleAndMinifyJS(componentJS, 'dist/components.bundle.min.js');
+bundleAndMinifyJS(commonJS, 'dist/common.bundle.min.js');
+bundleAndMinifyCSS(cssFiles, 'dist/styles.bundle.min.css');

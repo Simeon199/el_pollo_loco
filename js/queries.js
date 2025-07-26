@@ -40,16 +40,6 @@ function areTouchControlButtonsTouched(target){
 }
 
 /**
- * Checks if the current location matches the given URL ending.
- * @param {string} url - The URL ending to check.
- * @returns {boolean} True if the pathname ends with the URL.
- */
-
-function isLocationWebPage(url){
-    return window.location.pathname.endsWith(`${url}`);
-}
-
-/**
  * Checks if the sound icon (on or off) was pressed.
  * @param {EventTarget} target - The event target.
  * @returns {Element|null} The matched element or null.

@@ -2,7 +2,14 @@
  * Initializes the application after DOM content is loaded.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // Load minified JS and CSS bundles 
+
+    await manageBundledCode();
+
+    // Initialization code 
+
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
     handleAllTouchEventsIfUserOnIndexPage();
@@ -10,6 +17,90 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAllChangeEvents();
     handleOrientationChange();    
 });
+
+/**
+ * Loads the appropriate bundled JS and CSS files depending on the current page.
+ * @returns {Promise<void>} Resolves when all required bundles are loaded.
+ */
+
+async function manageBundledCode(){
+    if(isLocationWebPage('/index.html')){
+        await loadAllJavaScriptCode();
+    } else if(isLocationPrivacyOrImprint()){
+        await loadJavaScriptForPrivacyOrImprint();
+    }
+}
+
+/**
+ * Loads all main JS and CSS bundles for the index page.
+ * @returns {Promise<void>} Resolves when all JS bundles are loaded.
+ */
+
+async function loadAllJavaScriptCode(){
+    loadBundledCSS('dist/styles.bundle.min.css');
+    await Promise.all([
+        loadBundledJS('dist/components.bundle.min.js'),
+        loadBundledJS('dist/common.bundle.min.js'),
+        loadBundledJS('dist/game.bundle.min.js')
+    ]);
+}
+
+/**
+ * Loads only the common JS bundle for privacy or imprint pages.
+ * @returns {Promise<void>} Resolves when the common JS bundle is loaded.
+ */
+
+async function loadJavaScriptForPrivacyOrImprint(){
+    await Promise.all([loadBundledJS('../dist/common.bundle.min.js')]);
+}
+
+/**
+ * Checks if the current page is the privacy policy or imprint page.
+ * @returns {boolean} True if on privacy or imprint page, false otherwise.
+ */
+
+function isLocationPrivacyOrImprint(){
+    return isLocationWebPage('/privacy_policy/privacy_policy.html') || isLocationWebPage('/imprint/imprint.html');
+}
+
+/**
+ * Dynamically loads a bundled JavaScript file by adding a script tag to the document.
+ * @param {string} jsPath - The path to the JS bundle.
+ * @returns {Promise<void>} Resolves when the script is loaded.
+ */
+
+function loadBundledJS(jsPath){
+    return new Promise((resolve, reject) => {
+        let script = document.createElement('script');
+        script.src = jsPath;
+        script.defer = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+/**
+ * Dynamically loads a bundled CSS file by adding a link tag to the document.
+ * @param {string} cssPath - The path to the CSS bundle.
+ */
+
+function loadBundledCSS(cssPath){
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssPath;
+    document.head.appendChild(link);
+}
+
+/**
+ * Checks if the current location matches the given URL ending.
+ * @param {string} url - The URL ending to check.
+ * @returns {boolean} True if the pathname ends with the URL.
+ */
+
+function isLocationWebPage(url){
+    return window.location.pathname.endsWith(`${url}`);
+}
 
 /**
  * Checks the device type and applies the appropriate UI style for mobile or desktop.
@@ -243,24 +334,4 @@ function setOverlayToFullViewport(){
     if(overlay){
         overlay.style.height = window.innerHeight + 'px';
     }
-}
-
-// === METHODS FOR BUNDLED FILES ===
-
-function loadBundledJS(jsPath){
-    return new Promise((resolve, reject) => {
-        let script = document.createElement('script');
-        script.scr = jsPath;
-        script.defer = true;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-    });
-}
-
-function loadBundledCSS(cssPath){
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = cssPath;
-    document.head.appendChild(link);
 }
