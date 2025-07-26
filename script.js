@@ -37,7 +37,7 @@ async function manageBundledCode(){
  */
 
 async function loadAllJavaScriptCode(){
-    loadBundledCSS('dist/styles.bundle.min.css');
+    // loadBundledCSS('dist/styles.bundle.min.css');
     await Promise.all([
         loadBundledJS('dist/components.bundle.min.js'),
         loadBundledJS('dist/common.bundle.min.js'),
