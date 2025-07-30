@@ -3,10 +3,28 @@
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
+    let SPINNER_THRESHOLD = 50;
+    let spinnerTimeout;
+    let isGameLoading = true;
 
-    // Load minified JS and CSS bundles 
+
+    // Start timer to show spinner if loading takes to long
+    spinnerTimeout = setTimeout(() => {
+        if(isGameLoading){
+            document.getElementById('loading-spinner').style.display = 'flex';
+        }
+    }, SPINNER_THRESHOLD);
+
+
+    // Load bundles 
 
     await manageBundledCode();
+
+    // Loading done
+
+    isGameLoading = false;
+    clearTimeout(spinnerTimeout);
+    document.getElementById('loading-spinner').style.display = 'none';
 
     // Initialization code 
 
@@ -37,7 +55,6 @@ async function manageBundledCode(){
  */
 
 async function loadAllJavaScriptCode(){
-    // loadBundledCSS('dist/styles.bundle.min.css');
     await Promise.all([
         loadBundledJS('dist/components.bundle.min.js'),
         loadBundledJS('dist/common.bundle.min.js'),
