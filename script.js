@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     // Start timer to show spinner if loading takes to long
+
     spinnerTimeout = setTimeout(() => {
         if(isGameLoading){
             document.getElementById('loading-spinner').style.display = 'flex';
