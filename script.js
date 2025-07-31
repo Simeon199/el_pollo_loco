@@ -302,6 +302,7 @@ function handleClickEventsOnLinksOnImprintPage(target){
  */
 
 function startGameAndSetStyleForTouchDevice(){
+    console.log('I am in touch device statement of script.js');
     startGame();
     settingStyleForTouchDevice();
 }

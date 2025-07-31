@@ -253,3 +253,23 @@ function isPlayIconNotPressedAndWorldExistent(event){
 function soundIconWasNotPressed(){
     return !world.character.isSoundIconInteraction;
 }
+
+
+/**
+ * Checks if the computed style's display property is set to 'none'.
+ * @param {CSSStyleDeclaration} computedStyle - The computed style object of an element.
+ * @returns {boolean} True if display is 'none', false otherwise.
+ */
+function computedStyleIsOfDisplayNone(computedStyle){
+    return computedStyle.display === 'none';
+}
+
+
+/**
+ * Checks if the computed style's display property is set to 'flex' or 'block'.
+ * @param {CSSStyleDeclaration} computedStyle - The computed style object of an element.
+ * @returns {boolean} True if display is 'flex' or 'block', false otherwise.
+ */
+function computedStyleIsEitherDisplayFlexOrBlock(computedStyle){
+    return computedStyle.display === 'flex' || computedStyle.display === 'block';
+}

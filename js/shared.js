@@ -43,6 +43,24 @@ function showContainerIfHidden(container){
     }
 }
 
+
+/**
+ * Toggles the visibility of a container by changing its inline display style.
+ * If the container is currently hidden (display: 'none'), it sets display to 'flex'.
+ * If the container is currently displayed as 'flex' or 'block', it sets display to 'none'.
+ * @param {string} divRef - The id of the div to toggle visibility for.
+ */
+
+function toggleContainerVisibilityThroughInlineStyling(divRef){
+    let div = document.getElementById(`${divRef}`);
+    let computedStyle = window.getComputedStyle(div);
+    if(computedStyleIsOfDisplayNone(computedStyle)){
+        div.style.display = 'flex';
+    } else if(computedStyleIsEitherDisplayFlexOrBlock(computedStyle)){
+        div.style.display = 'none';
+    }
+}
+
 /**
  * Hides the exit game container by setting its display to 'none'.
  */
@@ -340,6 +358,7 @@ function hideIntroImageDesktopIfItExists(){
  */
 
 function handleDifferentDesktopSizeVersions(){
+    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen');
     if(isBigDesktopSizeAndHasGameStarted()){
         handleBigDesktopDeviceVersion();
     } else if(isSmallDesktopSizeAndHasGameStarted()){
@@ -352,7 +371,7 @@ function handleDifferentDesktopSizeVersions(){
  */
 
 function handleBigDesktopDeviceVersion(){
-    hideExitGameDivIfVisible();
+    // hideExitGameDivIfVisible();
     setCanvasContainerPropertiesForBigDesktop();
     setCanvasPropertiesForBigDesktop();
     styleBigDesktopVersionProperly();
@@ -363,7 +382,7 @@ function handleBigDesktopDeviceVersion(){
  */
 
 function handleSmallDesktopDeviceVersion(){
-    showExitGameDivIfHidden();
+    // showExitGameDivIfHidden();
     setContainerToFullscreenSize('canvas-container');
     setContainerToFullscreenSize('canvas');
 }

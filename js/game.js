@@ -264,7 +264,6 @@ function isGamerWinning(){
     return wasGameWon === true;
 }
 
-
 /**
  * Resets the game by reloading the page.
  */

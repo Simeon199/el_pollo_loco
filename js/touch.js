@@ -45,11 +45,13 @@ function checkIfSoundIconWasTriggered(event) {
  */
 
 function settingStyleForTouchDevice(){
+    console.log('settingStyleForTouchDevice() is triggered');
     document.getElementById('canvas-container').classList.remove('d-none');
     if(document.getElementById('canvas-container').classList.contains('d-flex')){
         document.getElementById('canvas-container').classList.remove('d-flex');
     }
     document.getElementById('screen-control-container').classList.remove('d-none');
+    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen');
 }
 
 /**
@@ -68,7 +70,6 @@ function showUiTouchStyle(){
  */
 
 function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
-    console.log(event, target);
     event.preventDefault();
     handleSwitchCasesForTouchStartControlButtons(target);
 }
@@ -80,7 +81,6 @@ function preventDefaultAndHandleAllSwitchCasesForTouchStart(event, target){
  */
 
 function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
-    console.log(event, target);
     event.preventDefault();
     handleSwitchCasesForTouchEndControlButtons(target);
 }
