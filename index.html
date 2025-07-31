@@ -60,6 +60,10 @@
 
     <div id="canvas-container" class="canvas-container d-none">
         <canvas id="canvas" width="720" height="480"></canvas>
+        <div id="enter-exit-fullscreen" class="enter-exit-fullscreen">
+            <img src="/assets/maximize.png" alt="maximize">
+            <img src="/assets/minimize.png" alt="minimize" style="display: none;">
+        </div>
         <div class="sound-and-exit-container">
             <div class="sound-container">
                 <img src="assets/sound_off.png" alt="sound_off" id="sound-off-icon" class="d-none">
@@ -101,9 +105,6 @@
     <!-- Displays the loading spinner if loading takes to long-->
 
     <div id="loading-spinner" style="display: none;">
-        <div class="spinner-message">
-            <h2>GAME IS LOADING...</h2>
-        </div>
         <div class="spinner"></div>
     </div>
 

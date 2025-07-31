@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let spinnerTimeout;
     let isGameLoading = true;
 
-
     // Start timer to show spinner if loading takes to long
 
     spinnerTimeout = setTimeout(() => {
@@ -15,8 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('loading-spinner').style.display = 'flex';
         }
     }, SPINNER_THRESHOLD);
-
-
+    
     // Load bundles 
 
     await manageBundledCode();
@@ -27,15 +25,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     clearTimeout(spinnerTimeout);
     document.getElementById('loading-spinner').style.display = 'none';
 
-    // Initialization code 
+    // All eventlisteners that are relevant for the game are retrieved 
 
+    retrieveAllEventListenersAfterDOMLoaded();
+});
+
+
+/**
+ * Initializes and attaches all event listeners required after the DOM has fully loaded.
+ * This includes device type checks, click, touch, key, media query, and orientation change events.
+ */
+
+function retrieveAllEventListenersAfterDOMLoaded(){
     checkDeviceForMobileOrDesktopType();
     handleAllClickEvents();
     handleAllTouchEventsIfUserOnIndexPage();
     handleKeyEventsIfUserOnIndexPage();
     handleAllChangeEvents();
-    handleOrientationChange();    
-});
+    handleOrientationChange();
+}
 
 /**
  * Loads the appropriate bundled JS and CSS files depending on the current page.

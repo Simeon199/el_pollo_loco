@@ -87,6 +87,21 @@
     cursor: pointer;
 }
 
+#enter-exit-fullscreen {
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+    border: 3px solid #000;
+    border-radius: 6px;
+    background: wheat;
+    cursor: pointer;
+}
+
+#enter-exit-fullscreen img {
+    width: 48px;
+    height: auto;
+}
+
 @media(min-width: 1025px) and (orientation: landscape){
 
     .touch-control img {
