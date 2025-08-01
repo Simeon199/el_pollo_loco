@@ -45,13 +45,12 @@ function checkIfSoundIconWasTriggered(event) {
  */
 
 function settingStyleForTouchDevice(){
-    console.log('settingStyleForTouchDevice() is triggered');
     document.getElementById('canvas-container').classList.remove('d-none');
     if(document.getElementById('canvas-container').classList.contains('d-flex')){
         document.getElementById('canvas-container').classList.remove('d-flex');
     }
     document.getElementById('screen-control-container').classList.remove('d-none');
-    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen');
+    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen', 'none');
 }
 
 /**

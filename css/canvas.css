@@ -95,6 +95,7 @@
     border-radius: 6px;
     background: wheat;
     cursor: pointer;
+    display: flex;
 }
 
 #enter-exit-fullscreen img {

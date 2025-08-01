@@ -43,22 +43,15 @@ function showContainerIfHidden(container){
     }
 }
 
-
 /**
- * Toggles the visibility of a container by changing its inline display style.
- * If the container is currently hidden (display: 'none'), it sets display to 'flex'.
- * If the container is currently displayed as 'flex' or 'block', it sets display to 'none'.
- * @param {string} divRef - The id of the div to toggle visibility for.
+ * Sets the inline display style of a container element.
+ * @param {string} divRef - The id of the div to update.
+ * @param {string} displayStyle - The display style to set (e.g., 'flex', 'none', 'block').
  */
 
-function toggleContainerVisibilityThroughInlineStyling(divRef){
+function toggleContainerVisibilityThroughInlineStyling(divRef, displayStyle){
     let div = document.getElementById(`${divRef}`);
-    let computedStyle = window.getComputedStyle(div);
-    if(computedStyleIsOfDisplayNone(computedStyle)){
-        div.style.display = 'flex';
-    } else if(computedStyleIsEitherDisplayFlexOrBlock(computedStyle)){
-        div.style.display = 'none';
-    }
+    div.style.display = `${displayStyle}`;
 }
 
 /**
@@ -358,7 +351,8 @@ function hideIntroImageDesktopIfItExists(){
  */
 
 function handleDifferentDesktopSizeVersions(){
-    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen');
+    console.log('desktop version gets retrieved');
+    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen', 'flex');
     if(isBigDesktopSizeAndHasGameStarted()){
         handleBigDesktopDeviceVersion();
     } else if(isSmallDesktopSizeAndHasGameStarted()){
