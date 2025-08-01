@@ -71,6 +71,14 @@ let clickEventsHandleOnIndexPage = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#privacy-and-imprint-pop-up'),
         handler: async (event, target) => await loadComponent(privacyImprintOverlay, 'privacy-imprint-overlay')
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#enterFullscreen'),
+        handler: (event, target) => enterFullscreen()
+    },
+    {
+        condition: (target) => isContainerTouchedOrClicked(target, '#exitFullscreen'),
+        handler: (event, target) => exitFullscreen()
     }
 ]
 
