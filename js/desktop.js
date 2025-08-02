@@ -2,17 +2,30 @@ let isSoundIconInteraction = false;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let momentKeySpaceWasReleased = 0;
 
+/**
+ * Enters fullscreen mode by setting the canvas and its container to 100dvw/100dvh and toggling the fullscreen icon.
+ */
+
 function enterFullscreen(){
     setCanvasContainerPropertyStyling('100dvw', '100dvh');
     setCanvasProperties('100dvw', '100dvh');
     toggleEnterExitFullscreenIcon('enter');
 }
 
+/**
+ * Exits fullscreen mode by restoring the canvas and its container to their desktop sizes and toggling the fullscreen icon.
+ */
+
 function exitFullscreen(){
     setCanvasContainerPropertiesForBigDesktop();
     setCanvasPropertiesForBigDesktop();
     toggleEnterExitFullscreenIcon('exit');
 }
+
+/**
+ * Toggles the visibility of the enter/exit fullscreen icons based on the action string.
+ * @param {string} enterExitString - Either 'enter' or 'exit' to indicate which icon to show/hide.
+ */
 
 function toggleEnterExitFullscreenIcon(enterExitString){
     if(wasEnterIconClicked(enterExitString)){
@@ -24,10 +37,21 @@ function toggleEnterExitFullscreenIcon(enterExitString){
     }
 }
 
+/**
+ * Checks if the enter fullscreen icon was clicked.
+ * @param {string} enterExitString - The action string.
+ * @returns {boolean} True if 'enter', false otherwise.
+ */
+
 function wasEnterIconClicked(enterExitString){
     return enterExitString === 'enter';
 }
 
+/**
+ * Checks if the exit fullscreen icon was clicked.
+ * @param {string} enterExitString - The action string.
+ * @returns {boolean} True if 'exit', false otherwise.
+ */
 function wasExitIconClicked(enterExitString){
     return enterExitString === 'exit';
 }

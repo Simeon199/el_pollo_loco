@@ -2,19 +2,17 @@
  * Initializes the application after DOM content is loaded.
  */
 
-
-// Hier muss noch eine Abfrage rein, die die Seiten-URL abprüft!
-
 document.addEventListener('DOMContentLoaded', async () => {
     let SPINNER_THRESHOLD = 50;
     let spinnerTimeout;
     let isGameLoading = true;
+    let loadingSpinner = document.getElementById('loading-spinner');
 
     // Start timer to show spinner if loading takes to long
 
     spinnerTimeout = setTimeout(() => {
         if(isGameLoading){
-            document.getElementById('loading-spinner').style.display = 'flex';
+            loadingSpinner.style.display = 'flex';
         }
     }, SPINNER_THRESHOLD);
     
@@ -26,7 +24,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     isGameLoading = false;
     clearTimeout(spinnerTimeout);
-    document.getElementById('loading-spinner').style.display = 'none';
+    if(loadingSpinner){
+        loadingSpinner.style.display = 'none';
+    }
 
     // All eventlisteners that are relevant for the game are retrieved 
 

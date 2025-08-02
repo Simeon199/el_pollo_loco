@@ -365,7 +365,6 @@ function handleDifferentDesktopSizeVersions(){
  */
 
 function handleBigDesktopDeviceVersion(){
-    // hideExitGameDivIfVisible();
     setCanvasContainerPropertiesForBigDesktop();
     setCanvasPropertiesForBigDesktop();
     styleBigDesktopVersionProperly();
@@ -376,7 +375,6 @@ function handleBigDesktopDeviceVersion(){
  */
 
 function handleSmallDesktopDeviceVersion(){
-    // showExitGameDivIfHidden();
     setContainerToFullscreenSize('canvas-container');
     setContainerToFullscreenSize('canvas');
 }
@@ -410,6 +408,12 @@ function setStylingOfInitializedGame(){
     setEnterExitFullscreenIcons();
     hideAllNeededStylingsWhenGameInitialized();
 }
+
+
+/**
+ * Sets the fullscreen icon state by hiding the exit fullscreen icon and showing the enter fullscreen icon.
+ * This ensures only the appropriate fullscreen control is visible after game initialization.
+ */
 
 function setEnterExitFullscreenIcons(){
     hideContainerIfVisible('exitFullscreen');
