@@ -2,6 +2,9 @@
  * Initializes the application after DOM content is loaded.
  */
 
+
+// Hier muss noch eine Abfrage rein, die die Seiten-URL abprüft!
+
 document.addEventListener('DOMContentLoaded', async () => {
     let SPINNER_THRESHOLD = 50;
     let spinnerTimeout;

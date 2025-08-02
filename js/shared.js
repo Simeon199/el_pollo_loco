@@ -407,7 +407,13 @@ function setUiDesktopPaddingSizes(size){
 
 function setStylingOfInitializedGame(){
     showCanvasWhenGameStarts();
+    setEnterExitFullscreenIcons();
     hideAllNeededStylingsWhenGameInitialized();
+}
+
+function setEnterExitFullscreenIcons(){
+    hideContainerIfVisible('exitFullscreen');
+    showContainerIfHidden('enterFullscreen');
 }
 
 /**
