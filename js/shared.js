@@ -351,10 +351,9 @@ function hideIntroImageDesktopIfItExists(){
  */
 
 function handleDifferentDesktopSizeVersions(){
-    console.log('desktop version gets retrieved');
-    toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen', 'flex');
     if(isBigDesktopSizeAndHasGameStarted()){
         handleBigDesktopDeviceVersion();
+        toggleContainerVisibilityThroughInlineStyling('enter-exit-fullscreen', 'flex');
     } else if(isSmallDesktopSizeAndHasGameStarted()){
         handleSmallDesktopDeviceVersion();
     }
@@ -409,7 +408,6 @@ function setStylingOfInitializedGame(){
     hideAllNeededStylingsWhenGameInitialized();
 }
 
-
 /**
  * Sets the fullscreen icon state by hiding the exit fullscreen icon and showing the enter fullscreen icon.
  * This ensures only the appropriate fullscreen control is visible after game initialization.
@@ -418,6 +416,10 @@ function setStylingOfInitializedGame(){
 function setEnterExitFullscreenIcons(){
     hideContainerIfVisible('exitFullscreen');
     showContainerIfHidden('enterFullscreen');
+    // if(window.innerWidth < 1025){
+    //     let enterExitFullscreenDiv = document.getElementById('enter-exit-fullscreen');
+    //     enterExitFullscreenDiv.style.display = 'none';
+    // }
 }
 
 /**

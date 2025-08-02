@@ -148,6 +148,10 @@
 
 @media(max-width: 1024px) and (orientation: landscape){
 
+    #enter-exit-fullscreen {
+        display: none;
+    }
+
     .touch-control img {
         width: 48px;
         padding: 4px;
