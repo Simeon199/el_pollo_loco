@@ -2,6 +2,36 @@ let isSoundIconInteraction = false;
 let timeDifferenceBetweenKeyDPressedReleased = 0;
 let momentKeySpaceWasReleased = 0;
 
+function enterFullscreen(){
+    setCanvasContainerPropertyStyling('100dvw', '100dvh');
+    setCanvasProperties('100dvw', '100dvh');
+    toggleEnterExitFullscreenIcon('enter');
+}
+
+function exitFullscreen(){
+    setCanvasContainerPropertiesForBigDesktop();
+    setCanvasPropertiesForBigDesktop();
+    toggleEnterExitFullscreenIcon('exit');
+}
+
+function toggleEnterExitFullscreenIcon(enterExitString){
+    if(wasEnterIconClicked(enterExitString)){
+        hideContainerIfVisible('enterFullscreen');
+        showContainerIfHidden('exitFullscreen');
+    } else if(wasExitIconClicked(enterExitString)){
+        hideContainerIfVisible('exitFullscreen');
+        showContainerIfHidden('enterFullscreen');
+    }
+}
+
+function wasEnterIconClicked(enterExitString){
+    return enterExitString === 'enter';
+}
+
+function wasExitIconClicked(enterExitString){
+    return enterExitString === 'exit';
+}
+
 /**
  * Sets the canvas container properties for big desktop devices based on screen size.
  */
@@ -45,6 +75,7 @@ function setCanvasContainerPropertyStyling(width, height){
     canvasContainer.style.position = 'absolute';
     canvasContainer.style.right = `calc((100dvw - ${width})/2)`;
     canvasContainer.style.bottom = `calc((100dvh - ${height})/2)`;
+    canvasContainer.style.overflow = 'hidden';
 }
 
 /**
