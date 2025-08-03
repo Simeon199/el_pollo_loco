@@ -47,7 +47,7 @@
 
 #spacebar {
     border: none;
-    font-family: 'playpensans light', Arial, Helvetica, sans-serif;
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
@@ -103,7 +103,43 @@
     height: auto;
 }
 
-@media(min-width: 1025px) and (orientation: landscape){
+@media(min-width: 1920px) and (orientation: landscape){
+    .sound-and-exit-container {
+        width: 20%;
+        right: 5%;
+    }
+
+    #sound-off-icon, 
+    #sound-on-icon {
+        width: 96px;
+    }
+
+    .exit-game-container img {
+        width: 120px;
+    }
+
+    .exit-game-container p {
+        font-size: 48px;
+    }
+
+    .touch-control img {
+        width: 120px;
+        padding: 8px;
+    }
+
+    #spacebar {
+        font-size: 48px;
+    }
+
+    .control-button-image-container {
+        font-size: larger;
+        display: flex;
+        padding: 8px;
+        border: 2px solid black;
+    }
+}
+
+@media(min-width: 1025px) and (max-width: 1920px) and (orientation: landscape){
 
     .touch-control img {
         width: clamp(64px, 80px, 96px);
@@ -198,5 +234,37 @@
 
     .exit-game-container p {
         font-size: 18px;
+    }
+}
+
+@media(max-width: 600px) and (orientation: landscape){
+    .exit-game-container img {
+        width: 40px;
+    }
+
+    .exit-game-container p {
+        font-size: 16px;
+    }
+
+    .sound-and-exit-container {
+        width: clamp(100px, 35%, 200px);
+    }
+
+    .touch-control img {
+        width: 40px;
+        padding: 4px;
+    }
+
+    .control-panel-styling {
+        width: 25%;
+    }
+
+    #control-panel-throw-jump {
+        width: 30%;
+    }
+
+    #sound-off-icon, 
+    #sound-on-icon {
+        width: 40px;
     }
 }
