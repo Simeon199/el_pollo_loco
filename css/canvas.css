@@ -137,6 +137,11 @@
         padding: 8px;
         border: 2px solid black;
     }
+
+    #enter-exit-fullscreen img {
+        width: 56px;
+        height: auto;
+    }
 }
 
 @media(min-width: 1025px) and (max-width: 1920px) and (orientation: landscape){
