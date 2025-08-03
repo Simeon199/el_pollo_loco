@@ -1,5 +1,5 @@
 .text-styling {
-    font-family: 'playpensans light';
+    font-family: 'playpensans light', Arial, Helvetica, sans-serif;
 }
 
 #links-images-touch:hover {
@@ -21,7 +21,7 @@
 }
 
 .play-again-button-style {
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     font-weight: bolder;
     cursor: pointer;
     background: gold;
@@ -102,7 +102,7 @@
     .button-style {
         font-size: 14px;
         font-weight: bolder;
-        font-family: 'playpensans light';
+        font-family: 'playpensans light', Arial, Helvetica, sans-serif;
     }
 
     #intro-image-touch {

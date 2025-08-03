@@ -6,7 +6,7 @@
     height: 100dvh;
     background-color: #000000dd;
     color: rgb(62, 124, 62);
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     font-size: 24px;
     display: none;
     align-items: center;

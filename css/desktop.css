@@ -18,7 +18,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        font-family: 'playpensans light';
+        font-family: 'playpensans light', Arial, Helvetica, sans-serif;
         font-size: 18px;
         padding-top: 16px;
     }
@@ -29,14 +29,14 @@
 
     #icon-button {
         font-size: 16px;
-        font-family: 'playpensans';
+        font-family: 'playpensans', Arial, Helvetica, sans-serif;
         cursor: pointer;
     }
 
     .button-style {
         cursor: pointer;
         font-size: 14px;
-        font-family: 'playpensans light';
+        font-family: 'playpensans light', Arial, Helvetica, sans-serif;;
     }
 
     #title {
@@ -144,7 +144,7 @@
     }
 
     #icon-button-top {
-        font-family: 'playpensans';
+        font-family: 'playpensans light', Arial, Helvetica, sans-serif;
         font-size: 24px;
         border: 2px solid black;
         border-radius: 16px;
@@ -168,7 +168,7 @@
         font-size: 14px;
         font-weight: bolder;
         cursor: pointer;
-        font-family: 'playpensans light';
+        font-family: 'playpensans light', Arial, Helvetica, sans-serif;
         background: gold;
     }
 

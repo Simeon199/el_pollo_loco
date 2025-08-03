@@ -416,10 +416,6 @@ function setStylingOfInitializedGame(){
 function setEnterExitFullscreenIcons(){
     hideContainerIfVisible('exitFullscreen');
     showContainerIfHidden('enterFullscreen');
-    // if(window.innerWidth < 1025){
-    //     let enterExitFullscreenDiv = document.getElementById('enter-exit-fullscreen');
-    //     enterExitFullscreenDiv.style.display = 'none';
-    // }
 }
 
 /**

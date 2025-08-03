@@ -29,7 +29,7 @@ body {
 .all-icons-container-overlay a {
     text-decoration: none;
     color: black;
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
 
@@ -44,7 +44,7 @@ body {
     right: 0;
     bottom: 0;
     background-color: rgba(110, 110, 110, 0.5);
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     z-index: 9999;
 }
 
@@ -69,7 +69,7 @@ body {
 }
 
 .game-functions-container h2 {
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     text-align: center;
     padding: 24px;
     font-weight: bold;
@@ -81,7 +81,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 24px;
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     font-size: 18px;
 }
 
@@ -169,7 +169,7 @@ body {
 
 .text-styling {
     text-align: center;
-    font-family: 'playpensans light';
+    font-family: 'playpensans light', Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
 
@@ -194,7 +194,7 @@ body {
     bottom: 0;
     z-index: 1000;
     background-color: #557738db;
-    font-family: 'playpensans';
+    font-family: 'playpensans', Arial, Helvetica, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -239,7 +239,7 @@ body {
 }
 
 #title {
-    font-family: 'damion';
+    font-family: 'damion', 'Brush Script MT', cursive;
 }
 
 #loading-spinner {
@@ -313,7 +313,7 @@ body {
 
     .spacebar-styling p {
         font-size: 32px;
-        font-family: 'playpensans';
+        font-family: 'playpensans', Arial, Helvetica, sans-serif;
         font-weight: bold;
         text-decoration: underline;
     }
@@ -452,5 +452,41 @@ body {
 
     .privacy-imprint-content-wrapper {
         gap: 56px;
+    }
+}
+
+@media(max-height: 320px) and (orientation: landscape){
+
+    .game-functions-container h2 {
+        font-size: 28px;
+    }
+
+    .game-functions-container img:nth-child(2){
+        width: 28px;
+    }
+
+    .spacebar-styling {
+        padding: 4px;
+    }
+
+    .spacebar-styling p {
+        font-size: 18px;
+    }
+
+    .control-key-image-container img {
+        padding: 4px;
+        width: 40px;
+    }
+
+    .control-key-style h3 {
+        font-size: 15px;
+    }
+
+    .all-icons-container-overlay a {
+        font-size: 12px;
+    }
+
+    .closeBtn {
+        width: 28px;
     }
 }
