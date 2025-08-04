@@ -28,31 +28,6 @@ let stopGameInterval;
  */
 
 async function startGame() {
-    // let loadingSpinner = document.getElementById('loading-spinner');
-    // let isGameLoading = true;
-    // let SPINNER_THRESHOLD = 50;
-    // let spinnerTimeout;
-
-    // Show spinner if loading takes too long
-    // spinnerTimeout = setTimeout(() => {
-    //     if (isGameLoading && loadingSpinner) {
-    //         loadingSpinner.style.display = 'flex';
-    //     }
-    // }, SPINNER_THRESHOLD);
-
-    // Load bundles (wait for all JS/CSS to be ready)
-    await Promise.all([
-        loadBundledJS('dist/game.bundle.min.js')
-    ]);
-
-    // Loading done
-    // isGameLoading = false;
-    // clearTimeout(spinnerTimeout);
-    // if (loadingSpinner) {
-    //     loadingSpinner.style.display = 'none';
-    // }
-
-    // Now initialize the game
     isGamePlaying = true;
     init();
 }
@@ -67,6 +42,27 @@ function init() {
     muteUnmuteSound(soundIsMuted);
     controlTurnOnTurnOffIcon();
     initializeTimePointWhenGameStarted();
+    handleAllEventsNecessaryForPlayableGame();
+}
+
+function handleAllEventsNecessaryForPlayableGame(){
+    handleAllClickEventsForPlayableGame();
+    handleAllTouchEventsForPlayableGame();
+}
+
+function handleAllClickEventsForPlayableGame(){
+    if(isLocationWebPage('/index.html')){
+        handleAccordingEvents(clickEventsHandleOnIndexPageGame, 'click');  
+    } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
+        handleAccordingEvents(clickEventsHandleOnPrivacyPageGame, 'click');
+    } else if(isLocationWebPage('/imprint/imprint.html')){
+        handleAccordingEvents(clickEventsHandleOnImprintPageGame, 'click');
+    }
+}
+
+function handleAllTouchEventsForPlayableGame(){
+    handleAccordingEvents(touchStartEventsGame, 'touchstart');
+    handleAccordingEvents(touchEndEventsGame, 'touchend');
 }
 
 /**

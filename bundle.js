@@ -41,11 +41,13 @@ let gameJS = [
     "models/bottle.class.js",
     "models/coin.class.js",
     "levels/level1.js",
-    "js/game.js"
+    "js/game.js",
+    "js/eventHandlers.game.js"
 ];
 
 let commonJS = [
-    "js/eventHandlers.js",
+    // "js/eventHandlers.js",
+    "js/eventHandlers.common.js",
     "js/queries.js",
     "js/shared.js",
     "js/audio.js",

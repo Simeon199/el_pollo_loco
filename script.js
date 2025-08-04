@@ -152,11 +152,11 @@ function checkDeviceForMobileOrDesktopType(){
 
 function handleAllClickEvents(){
     if(isLocationWebPage('/index.html')){
-        handleAccordingEvents(clickEventsHandleOnIndexPage, 'click'); 
+        handleAccordingEvents(clickEventsHandleOnIndexPageCommon, 'click');
     } else if(isLocationWebPage('/privacy_policy/privacy_policy.html')){
-        handleAccordingEvents(clickEventsHandleOnPrivacyPage, 'click');
+        handleAccordingEvents(clickEventsHandleOnPrivacyPageCommon, 'click');
     } else if(isLocationWebPage('/imprint/imprint.html')){
-        handleAccordingEvents(clickEventsHandleOnImprintPage, 'click');
+        handleAccordingEvents(clickEventsHandleOnImprintPageCommon, 'click');
     }
 }
 
@@ -166,8 +166,8 @@ function handleAllClickEvents(){
 
 function handleAllTouchEventsIfUserOnIndexPage(){
     if(isLocationWebPage('/index.html')){
-        handleAccordingEvents(touchStartEvents, 'touchstart');
-        handleAccordingEvents(touchEndEvents, 'touchend');
+        handleAccordingEvents(touchStartEventsCommon, 'touchstart');
+        handleAccordingEvents(touchEndEventsCommon, 'touchend');
     }
 }
 
