@@ -42,7 +42,6 @@ function init() {
     muteUnmuteSound(soundIsMuted);
     controlTurnOnTurnOffIcon();
     initializeTimePointWhenGameStarted();
-    handleAllEventsNecessaryForPlayableGame();
 }
 
 function handleAllEventsNecessaryForPlayableGame(){

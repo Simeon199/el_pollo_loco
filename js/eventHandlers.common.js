@@ -63,24 +63,9 @@ let clickEventsHandleOnIndexPageCommon = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {
-            let loadingSpinner = document.getElementById('loading-spinner');
-            let isGameLoading = true;
-            let SPINNER_THRESHOLD = 50;
-            let spinnerTimeout;
-
-            spinnerTimeout = setTimeout(() => {
-                if(isGameLoading && loadingSpinner){
-                    loadingSpinner.style.display = 'flex';
-                }
-            }, SPINNER_THRESHOLD);
             await loadBundledJS('dist/game.bundle.min.js');
-
-            isGameLoading = false;
-            clearTimeout(spinnerTimeout);
-            if(loadingSpinner){
-                loadingSpinner.style.display = 'none'
-            }
-            await startGameAndSetStyleForDesktopDevice()
+            handleAllClickEventsForPlayableGame();
+            await startGameAndSetStyleForDesktopDevice();
         }
     }
 ]
@@ -178,24 +163,39 @@ let touchEndEventsCommon = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {
-            let loadingSpinner = document.getElementById('loading-spinner');
-            let isGameLoading = true;
-            let SPINNER_THRESHOLD = 50;
-            let spinnerTimeout;
-
-            spinnerTimeout = setTimeout(() => {
-                if(isGameLoading && loadingSpinner){
-                    loadingSpinner.style.display = 'flex';
-                }
-            }, SPINNER_THRESHOLD);
-            await loadBundledJS('dist/game.bundle.min.js');
-
-            isGameLoading = false;
-            clearTimeout(spinnerTimeout);
-            if(loadingSpinner){
-                loadingSpinner.style.display = 'none'
-            }
-            await startGameAndSetStyleForTouchDevice()
+            await withLoadingSpinner(async () => {
+                await loadBundledJS('dist/game.bundle.min.js');
+                handleAllEventsNecessaryForPlayableGame();
+                await startGameAndSetStyleForTouchDevice();
+            });
         }
     }
 ]
+
+/**
+ * Shows the loading spinner while running an async operation.
+ * @param {Function} asyncCallback - The async function to run while showing the spinner.
+ */
+
+async function withLoadingSpinner(asyncCallback){
+    let loadingSpinner = document.getElementById('loading-spinner');
+    let isGameLoading = true;
+    let SPINNER_THRESHOLD = 50;
+    let spinnerTimeout;
+
+    spinnerTimeout = setTimeout(() => {
+        if(isGameLoading && loadingSpinner){
+            loadingSpinner.style.display = 'flex';
+        }
+    }, SPINNER_THRESHOLD);
+
+    try {
+        await asyncCallback();
+    } finally {
+        isGameLoading = false;
+        clearTimeout(spinnerTimeout);
+        if(loadingSpinner){
+            loadingSpinner.style.display = 'none';
+        }
+    }
+}

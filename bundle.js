@@ -46,7 +46,6 @@ let gameJS = [
 ];
 
 let commonJS = [
-    // "js/eventHandlers.js",
     "js/eventHandlers.common.js",
     "js/queries.js",
     "js/shared.js",
