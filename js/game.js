@@ -21,11 +21,38 @@ let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
 
+
 /**
- * Starts the game and initializes all necessary variables and objects.
+ * Starts the game: shows the loading spinner, loads all bundles, then initializes all necessary variables and objects.
+ * This function is now async to allow awaiting bundle loading before game logic starts.
  */
 
-function startGame() {
+async function startGame() {
+    // let loadingSpinner = document.getElementById('loading-spinner');
+    // let isGameLoading = true;
+    // let SPINNER_THRESHOLD = 50;
+    // let spinnerTimeout;
+
+    // Show spinner if loading takes too long
+    // spinnerTimeout = setTimeout(() => {
+    //     if (isGameLoading && loadingSpinner) {
+    //         loadingSpinner.style.display = 'flex';
+    //     }
+    // }, SPINNER_THRESHOLD);
+
+    // Load bundles (wait for all JS/CSS to be ready)
+    await Promise.all([
+        loadBundledJS('dist/game.bundle.min.js')
+    ]);
+
+    // Loading done
+    // isGameLoading = false;
+    // clearTimeout(spinnerTimeout);
+    // if (loadingSpinner) {
+    //     loadingSpinner.style.display = 'none';
+    // }
+
+    // Now initialize the game
     isGamePlaying = true;
     init();
 }

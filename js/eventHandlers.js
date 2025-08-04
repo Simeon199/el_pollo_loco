@@ -58,7 +58,7 @@ let clickEventsHandleOnIndexPage = [
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: (event, target) => startGameAndSetStyleForDesktopDevice()
+        handler: async (event, target) => await startGameAndSetStyleForDesktopDevice()
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#exit-game-container'),
@@ -174,7 +174,7 @@ let touchEndEvents = [
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: (event, target) =>  startGameAndSetStyleForTouchDevice()
+        handler: async (event, target) => await startGameAndSetStyleForTouchDevice()
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#main-page-link'),

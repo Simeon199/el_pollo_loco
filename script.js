@@ -70,7 +70,7 @@ async function loadAllJavaScriptCode(){
     await Promise.all([
         loadBundledJS('dist/components.bundle.min.js'),
         loadBundledJS('dist/common.bundle.min.js'),
-        loadBundledJS('dist/game.bundle.min.js')
+        // loadBundledJS('dist/game.bundle.min.js')
     ]);
 }
 
@@ -304,9 +304,12 @@ function handleClickEventsOnLinksOnImprintPage(target){
  * Starts the game and applies the style for touch devices.
  */
 
-function startGameAndSetStyleForTouchDevice(){
-    console.log('I am in touch device statement of script.js');
-    startGame();
+
+/**
+ * Starts the game asynchronously and applies the style for touch devices.
+ */
+async function startGameAndSetStyleForTouchDevice(){
+    await startGame();
     settingStyleForTouchDevice();
 }
 
@@ -314,8 +317,12 @@ function startGameAndSetStyleForTouchDevice(){
  * Starts the game and applies the style for desktop devices.
  */
 
-function startGameAndSetStyleForDesktopDevice(){
-    startGame();
+
+/**
+ * Starts the game asynchronously and applies the style for desktop devices.
+ */
+async function startGameAndSetStyleForDesktopDevice(){
+    await startGame();
     setStyleForDesktopDevice();
 }
 
