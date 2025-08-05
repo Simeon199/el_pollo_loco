@@ -60,6 +60,10 @@ let touchEndEventsGame = [
         handler: (event, target) => setStyleForExitGameContainerAndResetGame()
     },
     {
+        condition: (target) => isSoundIconClicked(target),
+        handler: (event, target) => turnSoundOnOrOff()
+    },
+    {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => await startGameAndSetStyleForTouchDevice()
     },

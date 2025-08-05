@@ -43,7 +43,7 @@ function isSoundIconClicked(target){
     if(target.closest('#sound-on-icon')){
         showTurningSoundOffIcon();
     } else if(target.closest('#sound-off-icon')){
-        showTurningSoundOnIcon()
+        showTurningSoundOnIcon();
     }
     return target.closest('#sound-on-icon') || target.closest('#sound-off-icon');
 }

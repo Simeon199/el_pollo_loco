@@ -46,7 +46,7 @@ let clickEventsHandleOnIndexPageCommon = [
     },
     {
         condition: (target) => isAllIconsButtonPressed(target),
-        handler: async (event, target) =>  await loadComponent(showAllIconsPopUp, 'all-icons-container-overlay')
+        handler: async (event, target) => await loadComponent(showAllIconsPopUp, 'all-icons-container-overlay')
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#imprint'),

@@ -21,7 +21,6 @@ let wasGameWon = null;
 let soundOn = true;
 let stopGameInterval;
 
-
 /**
  * Starts the game: shows the loading spinner, loads all bundles, then initializes all necessary variables and objects.
  * This function is now async to allow awaiting bundle loading before game logic starts.
