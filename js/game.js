@@ -262,9 +262,7 @@ function manageStyleDependingOnWinndingOrLosing() {
         changeStyleWhenLosing();
     } else if (isGamerWinning()) {
         changeStyleWhenWinning();
-    } else {
-        resetGame();
-    }
+    } 
 }
 
 /**
@@ -290,5 +288,7 @@ function isGamerWinning(){
  */
 
 function resetGame() {
+    deleteWorldInstance();
+    world = null;
     window.location.reload();
 }

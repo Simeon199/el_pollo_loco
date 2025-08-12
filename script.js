@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Load bundles 
 
-    await manageBundledCode();
+    await manageBundledCode(); // Diese Stelle auskommentieren und die entsprechenden Dateien sofort im Head-Bereich laden!
 
     // Loading done
 
