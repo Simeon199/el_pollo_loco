@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     retrieveAllEventListenersAfterDOMLoaded();
 });
 
-
 /**
  * Initializes and attaches all event listeners required after the DOM has fully loaded.
  * This includes device type checks, click, touch, key, media query, and orientation change events.
@@ -19,32 +18,6 @@ function retrieveAllEventListenersAfterDOMLoaded(){
     handleKeyEventsIfUserOnIndexPage();
     handleAllChangeEvents();
     handleOrientationChange();
-}
-
-/**
- * Checks if the current page is the privacy policy or imprint page.
- * @returns {boolean} True if on privacy or imprint page, false otherwise.
- */
-
-function isLocationPrivacyOrImprint(){
-    return isLocationWebPage('/privacy_policy/privacy_policy.html') || isLocationWebPage('/imprint/imprint.html');
-}
-
-/**
- * Dynamically loads a bundled JavaScript file by adding a script tag to the document.
- * @param {string} jsPath - The path to the JS bundle.
- * @returns {Promise<void>} Resolves when the script is loaded.
- */
-
-function loadBundledJS(jsPath){
-    return new Promise((resolve, reject) => {
-        let script = document.createElement('script');
-        script.src = jsPath;
-        script.defer = true;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-    });
 }
 
 /**
@@ -227,20 +200,20 @@ function handleClickEventsOnLinksOnImprintPage(target){
 }
 
 /**
- * Starts the game asynchronously and applies the style for touch devices.
+ * Starts the game and applies the style for touch devices.
  */
 
-async function startGameAndSetStyleForTouchDevice(){
-    await startGame();
+function startGameAndSetStyleForTouchDevice(){
+    startGame();
     settingStyleForTouchDevice();
 }
 
 /**
- * Starts the game asynchronously and applies the style for desktop devices.
+ * Starts the game and applies the style for desktop devices.
  */
 
-async function startGameAndSetStyleForDesktopDevice(){
-    await startGame();
+function startGameAndSetStyleForDesktopDevice(){
+    startGame();
     setStyleForDesktopDevice();
 }
 

@@ -1,7 +1,7 @@
 let clickEventsHandleOnIndexPageGame = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: async (event, target) => await startGameAndSetStyleForDesktopDevice()
+        handler: (event, target) => startGameAndSetStyleForDesktopDevice()
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#exit-game-container'),

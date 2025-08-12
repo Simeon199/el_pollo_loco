@@ -63,9 +63,8 @@ let clickEventsHandleOnIndexPageCommon = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {
-            await loadBundledJS('dist/game.bundle.min.js');
             handleAllClickEventsForPlayableGame();
-            await startGameAndSetStyleForDesktopDevice();
+            startGameAndSetStyleForDesktopDevice();
         }
     }
 ]
@@ -164,10 +163,9 @@ let touchEndEventsCommon = [
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {
             event.preventDefault();
-            await withLoadingSpinner(async () => {
-                await loadBundledJS('dist/game.bundle.min.js');
+            withLoadingSpinner(async () => {
                 handleAllEventsNecessaryForPlayableGame();
-                await startGameAndSetStyleForTouchDevice();
+                startGameAndSetStyleForTouchDevice();
             });
         }
     }
