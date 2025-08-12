@@ -3,33 +3,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
-    let SPINNER_THRESHOLD = 50;
-    let spinnerTimeout;
-    let isGameLoading = true;
-    let loadingSpinner = document.getElementById('loading-spinner');
-
-    // Start timer to show spinner if loading takes to long
-
-    spinnerTimeout = setTimeout(() => {
-        if(isGameLoading){
-            loadingSpinner.style.display = 'flex';
-        }
-    }, SPINNER_THRESHOLD);
-    
-    // Load bundles 
-
-    // await manageBundledCode();
-
-    // Loading done
-
-    isGameLoading = false;
-    clearTimeout(spinnerTimeout);
-    if(loadingSpinner){
-        loadingSpinner.style.display = 'none';
-    }
-
-    // All eventlisteners that are relevant for the game are retrieved 
-
     retrieveAllEventListenersAfterDOMLoaded();
 });
 
@@ -47,40 +20,6 @@ function retrieveAllEventListenersAfterDOMLoaded(){
     handleAllChangeEvents();
     handleOrientationChange();
 }
-
-/**
- * Loads the appropriate bundled JS and CSS files depending on the current page.
- * @returns {Promise<void>} Resolves when all required bundles are loaded.
- */
-
-// async function manageBundledCode(){
-//     if(isLocationWebPage('/index.html')){
-//         await loadAllJavaScriptCode();
-//     } else if(isLocationPrivacyOrImprint()){
-//         await loadJavaScriptForPrivacyOrImprint();
-//     }
-// }
-
-/**
- * Loads all main JS and CSS bundles for the index page.
- * @returns {Promise<void>} Resolves when all JS bundles are loaded.
- */
-
-// async function loadAllJavaScriptCode(){
-//     await Promise.all([
-//         loadBundledJS('dist/components.bundle.min.js'),
-//         loadBundledJS('dist/common.bundle.min.js'),
-//     ]);
-// }
-
-/**
- * Loads only the common JS bundle for privacy or imprint pages.
- * @returns {Promise<void>} Resolves when the common JS bundle is loaded.
- */
-
-// async function loadJavaScriptForPrivacyOrImprint(){
-//     await Promise.all([loadBundledJS('../dist/common.bundle.min.js')]);
-// }
 
 /**
  * Checks if the current page is the privacy policy or imprint page.
@@ -107,18 +46,6 @@ function loadBundledJS(jsPath){
         document.head.appendChild(script);
     });
 }
-
-/**
- * Dynamically loads a bundled CSS file by adding a link tag to the document.
- * @param {string} cssPath - The path to the CSS bundle.
- */
-
-// function loadBundledCSS(cssPath){
-//     let link = document.createElement('link');
-//     link.rel = 'stylesheet';
-//     link.href = cssPath;
-//     document.head.appendChild(link);
-// }
 
 /**
  * Checks if the current location matches the given URL ending.
