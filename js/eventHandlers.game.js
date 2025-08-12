@@ -61,7 +61,10 @@ let touchEndEventsGame = [
     },
     {
         condition: (target) => isSoundIconClicked(target),
-        handler: (event, target) => turnSoundOnOrOff()
+        handler: (event, target) => {
+            event.preventDefault();
+            turnSoundOnOrOff();
+        }
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),

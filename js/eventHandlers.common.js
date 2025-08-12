@@ -163,6 +163,7 @@ let touchEndEventsCommon = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {
+            event.preventDefault();
             await withLoadingSpinner(async () => {
                 await loadBundledJS('dist/game.bundle.min.js');
                 handleAllEventsNecessaryForPlayableGame();
