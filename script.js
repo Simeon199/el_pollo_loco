@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Load bundles 
 
-    await manageBundledCode(); // Diese Stelle auskommentieren und die entsprechenden Dateien sofort im Head-Bereich laden!
+    // await manageBundledCode();
 
     // Loading done
 
@@ -53,35 +53,34 @@ function retrieveAllEventListenersAfterDOMLoaded(){
  * @returns {Promise<void>} Resolves when all required bundles are loaded.
  */
 
-async function manageBundledCode(){
-    if(isLocationWebPage('/index.html')){
-        await loadAllJavaScriptCode();
-    } else if(isLocationPrivacyOrImprint()){
-        await loadJavaScriptForPrivacyOrImprint();
-    }
-}
+// async function manageBundledCode(){
+//     if(isLocationWebPage('/index.html')){
+//         await loadAllJavaScriptCode();
+//     } else if(isLocationPrivacyOrImprint()){
+//         await loadJavaScriptForPrivacyOrImprint();
+//     }
+// }
 
 /**
  * Loads all main JS and CSS bundles for the index page.
  * @returns {Promise<void>} Resolves when all JS bundles are loaded.
  */
 
-async function loadAllJavaScriptCode(){
-    await Promise.all([
-        loadBundledJS('dist/components.bundle.min.js'),
-        loadBundledJS('dist/common.bundle.min.js'),
-        // loadBundledJS('dist/game.bundle.min.js')
-    ]);
-}
+// async function loadAllJavaScriptCode(){
+//     await Promise.all([
+//         loadBundledJS('dist/components.bundle.min.js'),
+//         loadBundledJS('dist/common.bundle.min.js'),
+//     ]);
+// }
 
 /**
  * Loads only the common JS bundle for privacy or imprint pages.
  * @returns {Promise<void>} Resolves when the common JS bundle is loaded.
  */
 
-async function loadJavaScriptForPrivacyOrImprint(){
-    await Promise.all([loadBundledJS('../dist/common.bundle.min.js')]);
-}
+// async function loadJavaScriptForPrivacyOrImprint(){
+//     await Promise.all([loadBundledJS('../dist/common.bundle.min.js')]);
+// }
 
 /**
  * Checks if the current page is the privacy policy or imprint page.
@@ -114,12 +113,12 @@ function loadBundledJS(jsPath){
  * @param {string} cssPath - The path to the CSS bundle.
  */
 
-function loadBundledCSS(cssPath){
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = cssPath;
-    document.head.appendChild(link);
-}
+// function loadBundledCSS(cssPath){
+//     let link = document.createElement('link');
+//     link.rel = 'stylesheet';
+//     link.href = cssPath;
+//     document.head.appendChild(link);
+// }
 
 /**
  * Checks if the current location matches the given URL ending.
@@ -301,26 +300,18 @@ function handleClickEventsOnLinksOnImprintPage(target){
 }
 
 /**
- * Starts the game and applies the style for touch devices.
- */
-
-
-/**
  * Starts the game asynchronously and applies the style for touch devices.
  */
+
 async function startGameAndSetStyleForTouchDevice(){
     await startGame();
     settingStyleForTouchDevice();
 }
 
 /**
- * Starts the game and applies the style for desktop devices.
- */
-
-
-/**
  * Starts the game asynchronously and applies the style for desktop devices.
  */
+
 async function startGameAndSetStyleForDesktopDevice(){
     await startGame();
     setStyleForDesktopDevice();

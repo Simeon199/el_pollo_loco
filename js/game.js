@@ -43,10 +43,20 @@ function init() {
     initializeTimePointWhenGameStarted();
 }
 
+/**
+ * Attaches all event listeners necessary for the playable game.
+ * This includes click and touch event handlers for gameplay controls.
+ */
+
 function handleAllEventsNecessaryForPlayableGame(){
     handleAllClickEventsForPlayableGame();
     handleAllTouchEventsForPlayableGame();
 }
+
+/**
+ * Sets up click event handlers for the playable game.
+ * Attaches the appropriate click event handlers depending on the current page.
+ */
 
 function handleAllClickEventsForPlayableGame(){
     if(isLocationWebPage('/index.html')){
@@ -57,6 +67,11 @@ function handleAllClickEventsForPlayableGame(){
         handleAccordingEvents(clickEventsHandleOnImprintPageGame, 'click');
     }
 }
+
+/**
+ * Sets up touch event handlers for the playable game.
+ * Attaches touchstart and touchend event handlers for gameplay controls.
+ */
 
 function handleAllTouchEventsForPlayableGame(){
     handleAccordingEvents(touchStartEventsGame, 'touchstart');
