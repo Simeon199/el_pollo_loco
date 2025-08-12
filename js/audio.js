@@ -100,32 +100,6 @@ function showTurningSoundOnIcon() {
 }
 
 /**
- * Sets the mute state for all world audio sounds.
- * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
- */
-
-function setAllWorldAudioSound(mute) {
-    world.audioManager.setBackgroundMusicMuted(mute);
-    world.audioManager.setHittingSoundsMuted(mute);
-    world.audioManager.setItemCollectionSoundsMuted(mute);
-    world.audioManager.setEndbossSoundsMuted(mute);
-    setAllCharacterAudioSound(mute);
-    muteRemainingSounds(mute);
-    if (!mute && world.audioManager.isBackgroundMusicPaused) {
-        world.audioManager.playBackgroundMusic();
-    }
-}
-
-/**
- * Mutes or unmutes remaining sounds not covered by other handlers.
- * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
- */
-
-function muteRemainingSounds(mute) {
-    world.audioManager.muteSound(mute, 'bottleLanding');
-}
-
-/**
  * Mutes or unmutes the background music.
  * @param {boolean} mute - Whether to mute (true) or unmute (false) the background music.
  */
@@ -203,6 +177,32 @@ function muteUnmuteSound(mute) {
             world.audioManager.playBackgroundMusic();
         }
     }
+}
+
+/**
+ * Sets the mute state for all world audio sounds.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
+ */
+
+function setAllWorldAudioSound(mute) {
+    world.audioManager.setBackgroundMusicMuted(mute);
+    world.audioManager.setHittingSoundsMuted(mute);
+    world.audioManager.setItemCollectionSoundsMuted(mute);
+    world.audioManager.setEndbossSoundsMuted(mute);
+    // setAllCharacterAudioSound(mute);
+    muteRemainingSounds(mute);
+    // if (!mute && world.audioManager.isBackgroundMusicPaused) {
+    //     world.audioManager.playBackgroundMusic();
+    // }
+}
+
+/**
+ * Mutes or unmutes remaining sounds not covered by other handlers.
+ * @param {boolean} mute - Whether to mute (true) or unmute (false) the sounds.
+ */
+
+function muteRemainingSounds(mute) {
+    world.audioManager.muteSound(mute, 'bottleLanding');
 }
 
 /**
