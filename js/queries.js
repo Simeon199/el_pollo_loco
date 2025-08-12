@@ -5,7 +5,7 @@
  */
 
 function wasSpacebarDivTouched(target){
-    return target.closest('#jumpButton') || target.closest('#buttonUp') || target.closest('spacebar');
+    return target.closest('#jumpButton');
 }
 
 /**

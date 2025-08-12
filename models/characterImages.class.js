@@ -65,12 +65,3 @@ class CharacterImages {
 }
 
 window.CharacterImages = CharacterImages;
-
-
-
-
-
-
-
-
-

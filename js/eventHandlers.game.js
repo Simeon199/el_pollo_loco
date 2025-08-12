@@ -67,10 +67,6 @@ let touchEndEventsGame = [
         }
     },
     {
-        condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: async (event, target) => await startGameAndSetStyleForTouchDevice()
-    },
-    {
         condition: (target) => isContainerTouchedOrClicked(target, '#play-again-after-losing'),
         handler: (event, target) => changeBackgroundOfPlayAgainButtonPressed('play-again-after-losing', 'gold')
     },

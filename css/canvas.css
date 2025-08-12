@@ -39,18 +39,6 @@
     background-color: wheat;
 }
 
-#buttonUp {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#spacebar {
-    border: none;
-    font-family: 'playpensans', Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}
-
 .exit-game-container {
     display: flex;
     flex-direction: column;
@@ -127,10 +115,6 @@
         padding: 8px;
     }
 
-    #spacebar {
-        font-size: 48px;
-    }
-
     .control-button-image-container {
         font-size: larger;
         display: flex;
@@ -172,10 +156,6 @@
         width: 48px;
     }
 
-    #spacebar {
-        font-size: 20px;
-    }
-
     .exit-game-container img {
         width: 64px;
     }
@@ -200,17 +180,6 @@
 
     #control-panel-throw-jump {
         width: 22%;
-    }
-
-    #buttonUp {
-        width: 64px; 
-        height: 48px;
-        border: 2px solid black;
-        border-radius: 12px;
-    }
-
-    #spacebar {
-        font-size: 16px;
     }
 
     .sound-and-exit-container {
