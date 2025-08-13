@@ -62,10 +62,13 @@ let clickEventsHandleOnIndexPageCommon = [
     }, 
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: async (event, target) => {
-            DrawableObject.onAllImagesLoaded = hideSpinner;
-            handleAllClickEventsForPlayableGame();
-            startGameAndSetStyleForDesktopDevice();
+        handler: (event, target) => {
+            console.log('playIcon clicked');
+            withLoadingSpinner(() => {
+                DrawableObject.onAllImagesLoaded = hideSpinner;
+                handleAllClickEventsForPlayableGame();
+                startGameAndSetStyleForDesktopDevice();
+            });
         }
     }
 ]
@@ -164,7 +167,7 @@ let touchEndEventsCommon = [
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {            
             event.preventDefault();
-            await withLoadingSpinner(async () => {
+            withLoadingSpinner(() => {
                 DrawableObject.onAllImagesLoaded = hideSpinner;
                 handleAllEventsNecessaryForPlayableGame();
                 startGameAndSetStyleForTouchDevice();
@@ -178,27 +181,15 @@ let touchEndEventsCommon = [
  * @param {Function} asyncCallback - The async function to run while showing the spinner.
  */
 
-async function withLoadingSpinner(asyncCallback){
+function withLoadingSpinner(asyncCallback) {
     let loadingSpinner = document.getElementById('loading-spinner');
-    let isGameLoading = true;
-    let SPINNER_THRESHOLD = 50;
-    let spinnerTimeout;
-
-    spinnerTimeout = setTimeout(() => {
-        if(isGameLoading && loadingSpinner){
-            loadingSpinner.style.display = 'flex';
-        }
-    }, SPINNER_THRESHOLD);
-
+    if (loadingSpinner) {
+        loadingSpinner.style.display = 'flex';
+    }
     try {
-        await asyncCallback();
+        asyncCallback();
     } finally {
-        isGameLoading = false;
-        clearTimeout(spinnerTimeout);
         hideSpinner();
-        // if(loadingSpinner){
-        //     loadingSpinner.style.display = 'none';
-        // }
     }
 }
 
