@@ -181,15 +181,17 @@ let touchEndEventsCommon = [
  * @param {Function} asyncCallback - The async function to run while showing the spinner.
  */
 
-function withLoadingSpinner(asyncCallback) {
+function withLoadingSpinner(asyncCallback){
     let loadingSpinner = document.getElementById('loading-spinner');
     if (loadingSpinner) {
         loadingSpinner.style.display = 'flex';
+        console.log('loading spinner style: ', loadingSpinner.style.display);
     }
     try {
         asyncCallback();
     } finally {
         hideSpinner();
+        console.log('loading spinner style: ', loadingSpinner.style.display);
     }
 }
 
