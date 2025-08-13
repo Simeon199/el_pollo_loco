@@ -63,6 +63,7 @@ let clickEventsHandleOnIndexPageCommon = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {
+            DrawableObject.onAllImagesLoaded = hideSpinner;
             handleAllClickEventsForPlayableGame();
             startGameAndSetStyleForDesktopDevice();
         }
@@ -161,9 +162,10 @@ let touchEndEventsCommon = [
     },
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
-        handler: async (event, target) => {
+        handler: async (event, target) => {            
             event.preventDefault();
-            withLoadingSpinner(async () => {
+            await withLoadingSpinner(async () => {
+                DrawableObject.onAllImagesLoaded = hideSpinner;
                 handleAllEventsNecessaryForPlayableGame();
                 startGameAndSetStyleForTouchDevice();
             });
@@ -193,8 +195,20 @@ async function withLoadingSpinner(asyncCallback){
     } finally {
         isGameLoading = false;
         clearTimeout(spinnerTimeout);
-        if(loadingSpinner){
-            loadingSpinner.style.display = 'none';
-        }
+        hideSpinner();
+        // if(loadingSpinner){
+        //     loadingSpinner.style.display = 'none';
+        // }
+    }
+}
+
+/**
+ * Hides the loading spinner element if it exists.
+ */
+
+function hideSpinner(){
+    let loadingSpinner = document.getElementById('loading-spinner');
+    if(loadingSpinner){
+        loadingSpinner.style.display = 'none';
     }
 }
