@@ -90,6 +90,9 @@ function preventDefaultAndHandleAllSwitchCasesForTouchEnd(event, target){
  */
 
 function handleSwitchCasesForTouchStartControlButtons(target){
+    if(!world.character.isKeyPressed){
+        world.character.isKeyPressed = true;
+    }
     if(target.closest('#buttonLeft')){
         setCaseForTouchStartButtonLeft(target.closest('#buttonLeft'));
     } else if(target.closest('#buttonRight')){
@@ -107,6 +110,9 @@ function handleSwitchCasesForTouchStartControlButtons(target){
  */
 
 function handleSwitchCasesForTouchEndControlButtons(target){
+    if(world.character.isKeyPressed){
+        world.character.isKeyPressed = false;
+    }
     if(target.closest('#buttonLeft')){
         setCaseForTouchEndButtonLeft(target.closest('#buttonLeft'));
     } else if(target.closest('#buttonRight')){

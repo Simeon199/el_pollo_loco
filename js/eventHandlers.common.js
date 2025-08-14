@@ -65,10 +65,6 @@ let clickEventsHandleOnIndexPageCommon = [
         handler: (event, target) => {
             handleAllClickEventsForPlayableGame();
             startGameAndSetStyleForDesktopDevice();
-            // withLoadingSpinner(() => {
-            //     handleAllClickEventsForPlayableGame();
-            //     startGameAndSetStyleForDesktopDevice();
-            // });
         }
     }
 ]
@@ -169,10 +165,6 @@ let touchEndEventsCommon = [
             event.preventDefault();
             handleAllEventsNecessaryForPlayableGame();
             startGameAndSetStyleForTouchDevice();
-            // withLoadingSpinner(() => {
-            //     handleAllEventsNecessaryForPlayableGame();
-            //     startGameAndSetStyleForTouchDevice();
-            // });
         }
     }
 ]
