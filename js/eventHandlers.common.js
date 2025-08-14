@@ -63,12 +63,12 @@ let clickEventsHandleOnIndexPageCommon = [
     {
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: (event, target) => {
-            console.log('playIcon clicked');
-            withLoadingSpinner(() => {
-                DrawableObject.onAllImagesLoaded = hideSpinner;
-                handleAllClickEventsForPlayableGame();
-                startGameAndSetStyleForDesktopDevice();
-            });
+            handleAllClickEventsForPlayableGame();
+            startGameAndSetStyleForDesktopDevice();
+            // withLoadingSpinner(() => {
+            //     handleAllClickEventsForPlayableGame();
+            //     startGameAndSetStyleForDesktopDevice();
+            // });
         }
     }
 ]
@@ -167,11 +167,12 @@ let touchEndEventsCommon = [
         condition: (target) => isContainerTouchedOrClicked(target, '#playIcon'),
         handler: async (event, target) => {            
             event.preventDefault();
-            withLoadingSpinner(() => {
-                DrawableObject.onAllImagesLoaded = hideSpinner;
-                handleAllEventsNecessaryForPlayableGame();
-                startGameAndSetStyleForTouchDevice();
-            });
+            handleAllEventsNecessaryForPlayableGame();
+            startGameAndSetStyleForTouchDevice();
+            // withLoadingSpinner(() => {
+            //     handleAllEventsNecessaryForPlayableGame();
+            //     startGameAndSetStyleForTouchDevice();
+            // });
         }
     }
 ]
@@ -185,13 +186,11 @@ function withLoadingSpinner(asyncCallback){
     let loadingSpinner = document.getElementById('loading-spinner');
     if (loadingSpinner) {
         loadingSpinner.style.display = 'flex';
-        console.log('loading spinner style: ', loadingSpinner.style.display);
     }
     try {
         asyncCallback();
     } finally {
         hideSpinner();
-        console.log('loading spinner style: ', loadingSpinner.style.display);
     }
 }
 

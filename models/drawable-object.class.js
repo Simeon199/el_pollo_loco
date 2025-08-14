@@ -11,40 +11,15 @@ class DrawableObject {
     imageCache = {}; 
     currentImage = 0;
 
-    // Shared image loading counter logic
-
-    static imagesToLoad = 0;
-    static imagesLoaded = 0;
-    static onAllImagesLoaded = null;
-
-    static registerImageToLoad(){
-        DrawableObject.imagesToLoad++;
-    }
-
-    static notifyImageLoaded(){
-        DrawableObject.imagesLoaded++;
-        if(DrawableObject.imagesLoaded === DrawableObject.imagesToLoad 
-            && typeof DrawableObject.onAllImagesLoaded === 'function'){
-            DrawableObject.onAllImagesLoaded();
-        }
-    }
-
     /**
      * Loads an image from a given path.
      * 
      * @param {string} path - The path to the image file.
      */
 
-    // loadImage(path) {
-    //     this.img = new Image();
-    //     this.img.src = path;
-    // }
-
     loadImage(path) {
-        DrawableObject.registerImageToLoad();
         this.img = new Image();
         this.img.src = path;
-        DrawableObject.notifyImageLoaded();
     }
 
     /**
@@ -53,21 +28,11 @@ class DrawableObject {
      * @param {Array<string>} arr - An array of image paths.
      */
 
-    // loadImages(arr) {
-    //     arr.forEach((path) => {
-    //         let img = new Image();
-    //         img.src = path;
-    //         this.imageCache[path] = img;
-    //     });
-    // }
-
     loadImages(arr) {
         arr.forEach((path) => {
-            DrawableObject.registerImageToLoad();
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
-            DrawableObject.notifyImageLoaded();
         });
     }
 
@@ -82,8 +47,8 @@ class DrawableObject {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch (e) {
             console.warn('Error loading image:', e);
-            console.log("relevant imageCache:", DrawableObject.imageCache);
-            console.log('relevant currentImage that cant be loaded (index):', DrawableObject.currentImage);
+            console.log("relevant imageCache:", this.imageCache);
+            console.log('relevant currentImage that cant be loaded (index):', this.currentImage);
         }
     }
 
